@@ -6,8 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		19AAC9322ED5C04F00B83D7B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 19AAC9312ED5C04700B83D7B /* README.md */; };
+		19D981382ED5BEC7000E7E31 /* git.ignore in Resources */ = {isa = PBXBuildFile; fileRef = 19D981372ED5BEBB000E7E31 /* git.ignore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		190B1DF02ED1B5FF0014994E /* PCOS_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PCOS_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		19AAC9312ED5C04700B83D7B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		19D981372ED5BEBB000E7E31 /* git.ignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = git.ignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -47,6 +54,8 @@
 			children = (
 				190B1DF22ED1B5FF0014994E /* PCOS_App */,
 				190B1DF12ED1B5FF0014994E /* Products */,
+				19D981372ED5BEBB000E7E31 /* git.ignore */,
+				19AAC9312ED5C04700B83D7B /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,6 +131,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19AAC9322ED5C04F00B83D7B /* README.md in Resources */,
+				19D981382ED5BEC7000E7E31 /* git.ignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

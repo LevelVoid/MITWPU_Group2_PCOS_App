@@ -56,32 +56,6 @@
             </objects>
             <point key="canvasLocation" x="2220.6106870229005" y="1614.7887323943662"/>
         </scene>
-        <!--Add Workout View Controller-->
-        <scene sceneID="xh1-wF-U8B">
-            <objects>
-                <viewController id="v3U-S5-bTH" customClass="AddWorkoutViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="KkT-kd-DXu">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="NFn-Xv-xw3">
-                                <rect key="frame" x="0.0" y="303" width="393" height="36"/>
-                            </datePicker>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="8Uf-yg-S13"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="NFn-Xv-xw3" firstAttribute="top" secondItem="8Uf-yg-S13" secondAttribute="top" constant="185" id="KVg-dl-xPK"/>
-                            <constraint firstItem="NFn-Xv-xw3" firstAttribute="leading" secondItem="8Uf-yg-S13" secondAttribute="leading" id="PUX-HJ-QGW"/>
-                            <constraint firstItem="8Uf-yg-S13" firstAttribute="bottom" secondItem="NFn-Xv-xw3" secondAttribute="bottom" constant="445" id="sAH-8Y-Tci"/>
-                            <constraint firstItem="NFn-Xv-xw3" firstAttribute="trailing" secondItem="8Uf-yg-S13" secondAttribute="trailing" id="u0v-28-mEv"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4iO-3b-tDu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3423.6641221374043" y="1542.9577464788733"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="MIm-b8-aEF">
             <objects>
