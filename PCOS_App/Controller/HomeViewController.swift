@@ -15,9 +15,13 @@ class HomeViewController: UIViewController {
         title = "Home"
         navigationController?.navigationBar.prefersLargeTitles = true
         
+        let profile = UIBarButtonItem(image: UIImage(systemName: "person.circle"), style: .plain, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = profile
     }
     
-
+    @objc func addTapped() {
+        
+    }
    
 
 }
