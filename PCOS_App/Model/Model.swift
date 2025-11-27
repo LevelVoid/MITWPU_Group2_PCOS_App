@@ -22,6 +22,18 @@ enum Equipment: String, Codable, CaseIterable {
             case .plate: return "Plate"
             }
         }
+    var displayImage: String {
+            switch self {
+            case .allEquipment: return "All Equipment"
+            case .none: return "No Equipment"
+            case .barbell: return "Barbell"
+            case .dumbbell: return "Dumbbell"
+            case .kettlebell: return "Kettlebell"
+            case .machine: return "Machine"
+            case .resistanceBand: return "Resistance Band"
+            case .plate: return "Plate"
+            }
+        }
 }
 
 enum MuscleGroup: String, Codable, CaseIterable {
