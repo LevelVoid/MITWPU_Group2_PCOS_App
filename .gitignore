@@ -1,0 +1,68 @@
+### Xcode ###
+build/
+DerivedData/
+*.ipa
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+
+# Logs
+*.log
+
+# User-specific settings
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+### Swift ###
+*.swiftsourceinfo
+
+### iOS Specific ###
+Pods/
+Carthage/Build/
+Carthage/Checkouts/
+.build/
+*.dSYM.zip
+*.dSYM
+
+### Swift Package Manager ###
+.swiftpm
+/.build/
+Package.resolved (optional – keep only if you want reproducible builds)
+
+### CocoaPods ###
+Pods/
+podfile.lock (optional if library only; recommended to commit for apps)
+
+### Fastlane ###
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+### MacOS ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear
+*.swp
+*.lock
+*.tmp
+
+### Simulator ###
+Library/Developer/CoreSimulator
+
+### Archive ###
+*.xcarchive
+
+### Environment ###
+.env
+
