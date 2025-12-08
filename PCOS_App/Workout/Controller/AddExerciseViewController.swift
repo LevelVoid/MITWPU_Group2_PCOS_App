@@ -108,9 +108,26 @@ class AddExerciseViewController: UIViewController {
             }
         }
         //updating filtered exercises and reload table
-        filteredExercises=result
+        filteredExercises = result
         tableView.reloadData()
+        restoreSelectionState()
         updateButtonAppearance()
+    }
+    
+    // NEW METHOD: Restore checkmarks for selected exercises
+    private func restoreSelectionState() {
+        for (index, exercise) in filteredExercises.enumerated() {
+            if selectedExerciseIDs.contains(exercise.id) {
+                let indexPath = IndexPath(row: index, section: 0)
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                
+                // Also update the cell's accessory if it's visible
+                if let cell = tableView.cellForRow(at: indexPath) {
+                    cell.accessoryType = .checkmark
+                    cell.selectionStyle = .none
+                }
+            }
+        }
     }
     
     private func updateButtonAppearance(){
@@ -236,7 +253,7 @@ class AddExerciseViewController: UIViewController {
     // MARK: - Add this method to handle saving selected exercises
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         // Get selected exercises based on selectedExerciseIDs
-        let selectedExercises = filteredExercises.filter { exercise in
+        let selectedExercises = exercises.filter { exercise in
             selectedExerciseIDs.contains(exercise.id)
         }
         
@@ -282,11 +299,15 @@ extension AddExerciseViewController: UITableViewDataSource {
         }
 
         // Reflect selection state (if you track it)
+        
+       
         if selectedExerciseIDs.contains(exercise.id) {
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-        } else {
-            tableView.deselectRow(at: indexPath, animated: false)
-        }
+                    cell.accessoryType = .checkmark
+                    cell.selectionStyle = .none
+                } else {
+                    cell.accessoryType = .none
+                    cell.selectionStyle = .default
+                }
 
         return cell
     }

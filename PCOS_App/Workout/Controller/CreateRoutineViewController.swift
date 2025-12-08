@@ -40,7 +40,11 @@ class CreateRoutineViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            updateUI()
+        }
+        
     private func setupUI() {
             containerView.bringSubviewToFront(exerciseTableView)
             
@@ -77,29 +81,34 @@ class CreateRoutineViewController: UIViewController {
         }
     
     private func updateStats() {
-    // Exercise count
-    exerciseCountLabel.text = "\(routineExercises.count)"
+
+        // Exercise count
+                exerciseCountLabel.text = "\(routineExercises.count)"
+                
+                // Total sets (only for non-cardio exercises)
+                let totalSets = routineExercises.reduce(0) { total, ex in
+                    total + (ex.exercise.isCardio ? 0 : ex.numberOfSets)
+                }
+                setCountLabel.text = "\(totalSets)"
+                
+                // FIXED: Estimated duration calculation
+                let totalDuration = routineExercises.reduce(0) { total, ex in
+                    if ex.exercise.isCardio {
+                        // For cardio: use durationSeconds (default or user-inputted)
+                        return total + (ex.durationSeconds ?? 0)
+                    } else {
+                        // For strength exercises:
+                        // Estimate 4 seconds per rep + rest time, multiplied by number of sets
+                        let secondsPerRep = 4
+                        let activeTimePerSet = ex.reps * secondsPerRep
+                        let restTimePerSet = ex.restTimerSeconds ?? 0
+                        let totalTimePerSet = activeTimePerSet + restTimePerSet
+                        return total + (totalTimePerSet * ex.numberOfSets)
+                    }
+                }
+                
+                estimatedDurationLabel.text = formatDuration(totalDuration)
             
-            
-            //OLD CODE WITH PLANNED SETS STRUCT(now deleted)
-    //            // Total sets
-    //            let totalSets = routineExercises.reduce(0) { $0 + $1.totalSets }
-    //            setCountLabel.text = "\(totalSets)"
-    //
-    //            // Estimated duration
-    //            let totalDuration = routineExercises.reduce(0) { $0 + $1.estimatedDuration }
-    //            estimatedDurationLabel.text = formatDuration(totalDuration)
-            
-    let totalDuration = routineExercises.reduce(0) { total, ex in
-            if ex.exercise.isCardio {
-                return total + (ex.durationSeconds ?? 0)
-            } else {
-                let active = ex.reps * 4
-                let rest = ex.restTimerSeconds ?? 0
-                return total + (active + rest) * ex.numberOfSets
-            }
-        }
-        estimatedDurationLabel.text = formatDuration(totalDuration)
     }
 
     
@@ -149,16 +158,47 @@ class CreateRoutineViewController: UIViewController {
        //                )
        //            }
                
-               let newRoutineExercises = exercises.map { exercise in
-                   RoutineExercise(exercise: exercise)
+//               let newRoutineExercises = exercises.map { exercise in
+//                   RoutineExercise(exercise: exercise)
+//               }
+//                   
+//                   // Add to existing exercises
+//                   routineExercises.append(contentsOf: newRoutineExercises)
+//                   
+//                   // Update UI
+//                   updateUI()
+        
+        let newRoutineExercises = exercises.map { exercise in
+                    // Set appropriate defaults based on exercise type
+                    if exercise.isCardio {
+                        return RoutineExercise(
+                            exercise: exercise,
+                            numberOfSets: 1,  // Cardio doesn't use sets
+                            reps: 0,          // Cardio doesn't use reps
+                            weightKg: 0,      // Cardio doesn't use weight
+                            restTimerSeconds: nil,
+                            durationSeconds: 600,  // Default 10 minutes
+                            notes: nil
+                        )
+                    } else {
+                        return RoutineExercise(
+                            exercise: exercise,
+                            numberOfSets: 3,
+                            reps: 10,
+                            weightKg: 0,
+                            restTimerSeconds: 60,  // Default 60 seconds rest
+                            durationSeconds: nil,
+                            notes: nil
+                        )
+                    }
+                }
+                
+                routineExercises.append(contentsOf: newRoutineExercises)
+                updateUI()
                }
-                   
-                   // Add to existing exercises
-                   routineExercises.append(contentsOf: newRoutineExercises)
-                   
-                   // Update UI
-                   updateUI()
-               }
+    func exerciseDidUpdate() {
+            updateStats()
+        }
            }
 
 // MARK: - UITableViewDataSource
@@ -178,8 +218,22 @@ extension CreateRoutineViewController: UITableViewDataSource {
         
         let routineExercise = routineExercises[indexPath.row]
         
-        // Configure cell using the configure method
+        // IMPORTANT: Pass a reference so cell can notify when values change
         cell.configure(with: routineExercise)
+        
+        // CRITICAL: Callback to update stats AND the model when cell values change
+        cell.onValueChanged = { [weak self] in
+            guard let self = self else { return }
+            
+            // Get the updated exercise from the cell (if it has changes)
+            // Since cells store a copy, we need to update our array
+            if let updatedCell = tableView.cellForRow(at: indexPath) as? RoutineExerciseTableViewCell,
+               let updatedExercise = updatedCell.getRoutineExercise() {
+                self.routineExercises[indexPath.row] = updatedExercise
+            }
+            
+            self.updateStats()
+        }
         
         return cell
     }

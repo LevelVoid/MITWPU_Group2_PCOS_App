@@ -113,8 +113,8 @@ struct RoutineExercise: Codable, Identifiable {
     var notes: String?
     init(id: UUID = UUID(),
              exercise: Exercise,
-             numberOfSets: Int = 3,
-             reps: Int = 10,
+             numberOfSets: Int? = nil,
+             reps: Int? = nil,
              weightKg: Int = 0,
              restTimerSeconds: Int? = nil,
              durationSeconds: Int? = nil,
@@ -122,12 +122,21 @@ struct RoutineExercise: Codable, Identifiable {
             
             self.id = id
             self.exercise = exercise
-            self.numberOfSets = numberOfSets
-            self.reps = reps
             self.weightKg = weightKg
-            self.restTimerSeconds = restTimerSeconds
-            self.durationSeconds = durationSeconds
             self.notes = notes
+            
+            // Set smart defaults based on exercise type
+            if exercise.isCardio {
+                self.numberOfSets = 1
+                self.reps = 0
+                self.restTimerSeconds = nil
+                self.durationSeconds = durationSeconds ?? 600  // 10 minutes default
+            } else {
+                self.numberOfSets = numberOfSets ?? 3
+                self.reps = reps ?? 10
+                self.restTimerSeconds = restTimerSeconds ?? 60  // 60 seconds rest
+                self.durationSeconds = nil
+            }
         }
         
     func generateWorkoutExercise() -> WorkoutExercise {
@@ -221,6 +230,8 @@ struct Routine: Identifiable, Codable {
         return "\(minutes)m"
     }
 }
+
+
 //struct PlannedSet: Codable {
 //    var setNumber: Int
 //    var restTimerSeconds: Int?
