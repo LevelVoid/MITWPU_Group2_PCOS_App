@@ -75,7 +75,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="foodTableView" destination="AjL-Gf-jk9" id="Lcb-Zu-m9o"/>
+                        <outlet property="foodTableView" destination="AjL-Gf-jk9" id="mCf-xw-qsM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wxe-2p-PG8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -9,8 +9,12 @@ import Foundation
 
 struct FoodLogDataSource {
     
+    static func addFoodBarCode(_ barCode: Food) {
+        sampleFoods.append(barCode)
+    }
     
-    static let sampleFoods: [Food] = [
+    
+    static var sampleFoods: [Food] = [
         // TODAY - Morning
         Food(
             id: UUID(),

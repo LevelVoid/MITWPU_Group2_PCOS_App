@@ -1,9 +1,14 @@
 import UIKit
 
-class AddMealViewController: UIViewController {
+protocol AddMealDelegate: AnyObject {
+    func didAddMeal(_ food: Food)
+}
+
+class AddMealViewController: UIViewController{
     
     @IBOutlet weak var foodTableView: UITableView!
     
+    weak var delegate: AddMealDelegate?
     private var foodItems: [FoodItem] = []
     private var filteredFoodItems: [FoodItem] = []
     private var selectedQuantities: [String: Int] = [:]
@@ -227,6 +232,7 @@ class AddMealViewController: UIViewController {
         describeMealButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
     }
     
+    
     // MARK: - Helper Methods
     private static func createOptionButton(imageName: String, title: String) -> UIButton {
         let button = UIButton(type: .system)
@@ -278,10 +284,13 @@ class AddMealViewController: UIViewController {
         case 1:
             print("Scan Barcode tapped")
             let vc = BarcodeScannerViewController()
-            vc.modalPresentationStyle = .fullScreen
+            vc.delegate = self
             present(vc, animated: true)
         case 2:
             print("Scan with AI tapped")
+            for i in FoodLogDataSource.sampleFoods.indices {
+                print(FoodLogDataSource.sampleFoods[i].name)
+            }
             // Implement AI scanning
         case 3:
             print("Describe Meal tapped")
@@ -512,5 +521,52 @@ extension AddMealViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension AddMealViewController: BarcodeScannerDelegate {
+    
+    func didScanBarcode(_ code: String) {
+        print("Scanned in AddMealVC:", code)
+        fetchFood(byBarcode: code)
+    }
+    
+    func fetchFood(byBarcode barcode: String) {
+        let urlString = "https://world.openfoodfacts.org/api/v0/product/\(barcode).json"
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("❌ Network error:", error)
+                return
+            }
+            
+            guard let data = data else {
+                print("❌ No data received.")
+                return
+            }
+            
+            do {
+                let decoded = try JSONDecoder().decode(OFFResponse.self, from: data)
+                
+                guard decoded.status == 1, let product = decoded.product else {
+                    print("❌ Product not found in API")
+                    return
+                }
+                
+                let food = product.toFood()
+                
+                DispatchQueue.main.async {
+                    FoodLogDataSource.addFoodBarCode(food)
+                    self.delegate?.didAddMeal(food)
+                    self.dismiss(animated: true)
+                }
+                
+            } catch {
+                print("❌ JSON decode error:", error)
+                print(String(data: data, encoding: .utf8) ?? "No readable data")
+            }
+            
+        }.resume()
     }
 }
