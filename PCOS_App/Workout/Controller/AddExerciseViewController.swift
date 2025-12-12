@@ -34,6 +34,8 @@ class AddExerciseViewController: UIViewController {
         super.viewDidLoad()
 
         title = "Add Exercise"
+        navigationController?.navigationBar.prefersLargeTitles = false
+        
         saveButton.isEnabled = false
         
         setupUI()

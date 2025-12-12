@@ -9,6 +9,7 @@ import UIKit
 
 class StartRoutineExerciseTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var cardView: UIView!
     @IBOutlet weak var exerciseImageView: UIImageView!
     @IBOutlet weak var exerciseNameLabel: UILabel!
     @IBOutlet weak var muscleLabel: UILabel!
@@ -22,7 +23,7 @@ class StartRoutineExerciseTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        setupCardStyle()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -31,6 +32,11 @@ class StartRoutineExerciseTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     var onDoneTapped: ((Bool) -> Void)?
+    var onInfoTapped: (() -> Void)?
+
+    @IBAction func infoButtonTapped(_ sender: UIButton) {
+        onInfoTapped?()
+    }
 
 
     func configure(with exercise: WorkoutExercise) {
@@ -70,5 +76,18 @@ class StartRoutineExerciseTableViewCell: UITableViewCell {
             onDoneTapped?(sender.isSelected)   // 0 because you're only showing 1 set per exercise for now
         
     }
+    func setupCardStyle() {
+        cardView.layer.cornerRadius = 16
+        cardView.layer.masksToBounds = false
 
+        // Shadow
+        cardView.layer.shadowColor = UIColor.black.cgColor
+        cardView.layer.shadowOpacity = 0.08   // very soft
+        cardView.layer.shadowRadius = 10
+        cardView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        
+        // Improve performance
+        cardView.layer.shouldRasterize = true
+        cardView.layer.rasterizationScale = UIScreen.main.scale
+    }
 }

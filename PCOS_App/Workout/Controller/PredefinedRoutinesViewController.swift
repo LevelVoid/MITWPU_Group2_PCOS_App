@@ -16,8 +16,10 @@ class PredefinedRoutinesViewController: UIViewController,UITableViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        routineNameLabel.text = routine.name
+        
+//        routineNameLabel.text = routine.name
+        title = routine.name
+        navigationController?.navigationBar.prefersLargeTitles = false
         descriptionLabel.text = routine.routineDescription
         exercisesTableView.delegate = self
         exercisesTableView.dataSource = self

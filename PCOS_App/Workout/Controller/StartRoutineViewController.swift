@@ -21,9 +21,9 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
                 return UITableViewCell()
             }
 
-            let exercise = activeWorkout.exercises[indexPath.row]
+            let WokorkoutExercise = activeWorkout.exercises[indexPath.row]
 
-            cell.configure(with: exercise)
+            cell.configure(with: WokorkoutExercise)
             
         
         
@@ -32,6 +32,14 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
                 exerciseIndex: indexPath.row,
                 isCompleted: isCompleted
             )
+        }
+//        cell.onInfoTapped = { [weak self] in
+//            self?.performSegue(withIdentifier: "InfoModal", sender: nil)
+//        }
+        let exercise = activeWorkout.exercises[indexPath.row].exercise
+        cell.onInfoTapped = { [weak self] in
+            guard let self = self else { return }
+            self.performSegue(withIdentifier: "InfoModal", sender: exercise)
         }
 
             return cell
@@ -149,7 +157,7 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
             print("📋 Exercises count: \(session.exercises.count)")
 
             // 2️⃣ Set UI
-            routineNameLabel.text = session.routine.name
+            title = session.routine.name
 
             // 3️⃣ Setup Table
             startRoutineTableView.delegate = self
@@ -296,6 +304,26 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
         summaryVC.completedWorkout = completedWorkout
 
         navigationController?.pushViewController(summaryVC, animated: true)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+
+        if segue.identifier == "InfoModal" {
+            // If you embedded InfoModal inside a UINavigationController, handle that:
+            if let nav = segue.destination as? UINavigationController,
+               let infoVC = nav.topViewController as? InfoModalViewController {
+                if let exercise = sender as? Exercise {
+                    infoVC.exercise = exercise
+                }
+            } else if let infoVC = segue.destination as? InfoModalViewController {
+                if let exercise = sender as? Exercise {
+                    infoVC.exercise = exercise
+                }
+            } else {
+                // Optional: Debugging fallback
+                print("Warning: destination VC is not InfoModalViewController")
+            }
+        }
     }
 
 

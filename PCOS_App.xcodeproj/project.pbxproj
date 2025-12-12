@@ -56,6 +56,7 @@
 				190B1DF12ED1B5FF0014994E /* Products */,
 				19AAC9312ED5C04700B83D7B /* README.md */,
 				19AAC9332ED5C1B000B83D7B /* .gitignore */,
+				194230C82EEBFF3500BD748F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,6 +66,13 @@
 				190B1DF02ED1B5FF0014994E /* PCOS_App.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		194230C82EEBFF3500BD748F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

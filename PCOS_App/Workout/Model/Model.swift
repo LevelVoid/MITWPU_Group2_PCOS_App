@@ -75,32 +75,52 @@ enum MuscleGroup: String, Codable, CaseIterable {
 struct Exercise: Identifiable, Codable {
     var id: UUID
     let name: String
-    let muscleGroup: MuscleGroup
+    let muscleGroup: MuscleGroup          // this IS your primary muscle
     let equipment: Equipment
     let image: String?
     let instructions: String?
-    let videoUrl: String?
     
-    init(id: UUID = UUID(),
-             name: String,
-             muscleGroup: MuscleGroup,
-             equipment: Equipment,
-             image: String? = nil,
-             instructions: String? = nil,
-             videoUrl: String? = nil) {
-            self.id = id
-            self.name = name
-            self.muscleGroup = muscleGroup
-            self.equipment = equipment
-            self.image = image
-            self.instructions = instructions
-            self.videoUrl = videoUrl
-        }
-    // Helper property
-        var isCardio: Bool {
-            return muscleGroup.isCardio
-        }
+    let gifUrl: String?                   // remote GIF (or local path if you want)
+    
+    let level: String                     // Beginner, Intermediate, Advanced
+    let tempo: String                     // e.g. "2–3s up/down"
+    let form: [String]                    // bullet points
+    let variations: [String]              // list of variations
+    let commonMistakes: [String]          // list of mistakes
+    
+    init(
+        id: UUID = UUID(),
+        name: String,
+        muscleGroup: MuscleGroup,
+        equipment: Equipment,
+        image: String? = nil,
+        instructions: String? = nil,
+        gifUrl: String? = nil,
+        level: String,
+        tempo: String,
+        form: [String],
+        variations: [String],
+        commonMistakes: [String]
+    ) {
+        self.id = id
+        self.name = name
+        self.muscleGroup = muscleGroup
+        self.equipment = equipment
+        self.image = image
+        self.instructions = instructions
+        self.gifUrl = gifUrl
+        self.level = level
+        self.tempo = tempo
+        self.form = form
+        self.variations = variations
+        self.commonMistakes = commonMistakes
+    }
+    
+    var isCardio: Bool {
+        muscleGroup.isCardio
+    }
 }
+
 struct RoutineExercise: Codable, Identifiable {
     var id: UUID
     var exercise: Exercise

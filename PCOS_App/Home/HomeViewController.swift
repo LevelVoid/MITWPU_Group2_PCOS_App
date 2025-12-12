@@ -6,14 +6,18 @@
 //
 
 import UIKit
+import WebKit
 
 class HomeViewController: UIViewController {
 
+    @IBOutlet weak var gifContainer: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Home"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+
         
     }
     

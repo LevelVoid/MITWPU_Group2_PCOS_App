@@ -32,6 +32,8 @@ class CreateRoutineViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Create New Routine"
+        navigationController?.navigationBar.prefersLargeTitles = false
         saveRoutineButton.isEnabled = false
         
         setupUI()

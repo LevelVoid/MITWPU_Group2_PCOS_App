@@ -144,7 +144,10 @@ class WorkoutViewController: UIViewController, UICollectionViewDelegate, UIColle
         let caloriesBurnt = 520.0
         let caloriesGoal = 600.0
         caloriesProgressView.progress = caloriesBurnt / caloriesGoal
-        caloriesProgressView.progressColor = UIColor.systemOrange
+        caloriesProgressView.progressColor = UIColor(red: 0xFE/255,
+                                                  green: 0x7A/255,
+                                                  blue: 0x96/255,
+                                                     alpha: 0.8)
         caloriesProgressView.trackColor = UIColor.systemGray5
         caloriesProgressView.lineWidth = 6
 
@@ -152,7 +155,10 @@ class WorkoutViewController: UIViewController, UICollectionViewDelegate, UIColle
         let steps = 5422.0
         let stepsGoal = 10000.0
         stepsProgressView.progress = steps / stepsGoal
-        stepsProgressView.progressColor = UIColor.systemGreen
+        stepsProgressView.progressColor = UIColor(red: 0xFE/255,
+                                                  green: 0x7A/255,
+                                                  blue: 0x96/255,
+                                                  alpha: 0.8)
         stepsProgressView.trackColor = UIColor.systemGray5
         stepsProgressView.lineWidth = 6
 
@@ -160,7 +166,10 @@ class WorkoutViewController: UIViewController, UICollectionViewDelegate, UIColle
         let durationMinutes = 80.0   // 1h 20min
         let durationGoal = 120.0     // 2h
         durationProgressView.progress = durationMinutes / durationGoal
-        durationProgressView.progressColor = UIColor.systemPurple
+        durationProgressView.progressColor = UIColor(red: 0xFE/255,
+                                                  green: 0x7A/255,
+                                                  blue: 0x96/255,
+                                                  alpha: 0.8)
         durationProgressView.trackColor = UIColor.systemGray5
         durationProgressView.lineWidth = 6
     }
