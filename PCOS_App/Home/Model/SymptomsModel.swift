@@ -10,7 +10,7 @@ import Foundation
 // Symptom Item
 struct SymptomItem {
     let name: String
-    let icon: String? 
+    let icon: String
     var isSelected: Bool = false
 }
 
@@ -18,7 +18,7 @@ struct SymptomItem {
 struct LoggedSymptoms {
     let date: Date
     let name: String
-    let icon: String?
+    let icon: String
 }
 
 //Symptom Category

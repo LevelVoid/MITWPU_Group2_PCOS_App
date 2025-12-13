@@ -4,6 +4,7 @@
 //
 //  Created by SDC-USER on 13/12/25.
 //
+import Foundation
 
 struct SymptomCategory {
     let title: String
@@ -17,7 +18,7 @@ struct SymptomCategory {
         ]),
         SymptomCategory(title: "Discharge", items: [
             SymptomItem(name: "Dry", icon: "RedSpottingIcon"),
-            SymptomItem(name: "Sticky", icon: "circle.fill"),
+            SymptomItem(name: "Sticky", icon: "RedSpottingIcon"),
             SymptomItem(name: "Creamy", icon: "RedSpottingIcon"),
             SymptomItem(name: "Watery", icon: "RedSpottingIcon"),
             SymptomItem(name: "Egg White", icon: "RedSpottingIcon"),
@@ -29,26 +30,26 @@ struct SymptomCategory {
             SymptomItem(name: "Abdominal Cramp", icon: "RedSpottingIcon"),
             SymptomItem(name: "Tender Breasts", icon: "BrownSpottingIcon"),
             SymptomItem(name: "Low Back Pain", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Headache", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Vulvar Pain", icon: "BrownSpottingIcon")
+            SymptomItem(name: "Headache", icon: "HeadacheIcon"),
+            SymptomItem(name: "Vulvar Pain", icon: "VulvarPainIcon")
         ]),
         SymptomCategory(title: "Skin and Hair", items: [
-            SymptomItem(name: "Acne", icon: "RedSpottingIcon"),
-            SymptomItem(name: "Hair Loss", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Skin Darkening", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Hirutism", icon: "BrownSpottingIcon")
+            SymptomItem(name: "Acne", icon: "AcneIcon"),
+            SymptomItem(name: "Hair Loss", icon: "HairLossIcon"),
+            SymptomItem(name: "Skin Darkening", icon: "SkinDarkeningIcon"),
+            SymptomItem(name: "Hirutism", icon: "HirutismIcon")
         ]),
         SymptomCategory(title: "Lifestyle", items: [
             SymptomItem(name: "Fatigue", icon: "RedSpottingIcon"),
-            SymptomItem(name: "Insomnia", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Depressed", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Anxiety", icon: "BrownSpottingIcon")
+            SymptomItem(name: "Insomnia", icon: "InsomniaIcon"),
+            SymptomItem(name: "Depressed", icon: "DepressedIcon"),
+            SymptomItem(name: "Anxiety", icon: "AnxietyIcon")
         ]),
         SymptomCategory(title: "Gut Health", items: [
-            SymptomItem(name: "Bloating", icon: "RedSpottingIcon"),
-            SymptomItem(name: "Constipation", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Diarrhea", icon: "BrownSpottingIcon"),
-            SymptomItem(name: "Gas", icon: "BrownSpottingIcon")
+            SymptomItem(name: "Bloating", icon: "BloatingIcon"),
+            SymptomItem(name: "Constipation", icon: "ConstipationIcon"),
+            SymptomItem(name: "Diarrhea", icon: "DiarrheaIcon"),
+            SymptomItem(name: "Gas", icon: "GasIcon")
         ]),
         SymptomCategory(title: "Breast Self Exam", items: [
             SymptomItem(name: "Everything is fine", icon: "RedSpottingIcon"),
@@ -64,5 +65,3 @@ struct SymptomCategory {
     ]
 }
 
-// Usage in your ViewController:
-let categories = SymptomCategory.allCategories
