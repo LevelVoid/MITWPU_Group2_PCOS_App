@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="338" height="143"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nO4-yo-olq">
-                                <rect key="frame" x="25" y="101" width="288" height="35"/>
+                                <rect key="frame" x="25" y="92" width="288" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="eUR-mT-4bg"/>
                                 </constraints>
@@ -33,13 +33,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Routine Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V75-om-OLM">
-                                <rect key="frame" x="8" y="8" width="111.33333333333333" height="21"/>
+                                <rect key="frame" x="14.999999999999993" y="15" width="111.33333333333331" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DuQ-Ib-MLA">
-                                <rect key="frame" x="281" y="2" width="48" height="35"/>
+                                <rect key="frame" x="280" y="10" width="48" height="34.333333333333336"/>
                                 <color key="tintColor" systemColor="secondaryLabelColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="ellipsis" catalog="system"/>
@@ -47,13 +47,13 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="nO4-yo-olq" secondAttribute="bottom" constant="7" id="11M-kT-j0J"/>
-                            <constraint firstAttribute="trailing" secondItem="DuQ-Ib-MLA" secondAttribute="trailing" constant="9" id="9Va-97-bZI"/>
+                            <constraint firstAttribute="trailing" secondItem="DuQ-Ib-MLA" secondAttribute="trailing" constant="10" id="9Va-97-bZI"/>
                             <constraint firstItem="nO4-yo-olq" firstAttribute="leading" secondItem="oOp-lA-weA" secondAttribute="leading" constant="25" id="CFN-1A-9Fo"/>
-                            <constraint firstItem="V75-om-OLM" firstAttribute="top" secondItem="oOp-lA-weA" secondAttribute="top" constant="8" id="I9m-w0-AaO"/>
-                            <constraint firstItem="V75-om-OLM" firstAttribute="leading" secondItem="oOp-lA-weA" secondAttribute="leading" constant="8" id="bex-bL-dlE"/>
-                            <constraint firstItem="DuQ-Ib-MLA" firstAttribute="top" secondItem="oOp-lA-weA" secondAttribute="top" constant="2" id="duO-J1-9XC"/>
+                            <constraint firstItem="V75-om-OLM" firstAttribute="top" secondItem="oOp-lA-weA" secondAttribute="top" constant="15" id="I9m-w0-AaO"/>
+                            <constraint firstItem="V75-om-OLM" firstAttribute="leading" secondItem="oOp-lA-weA" secondAttribute="leading" constant="15" id="bex-bL-dlE"/>
+                            <constraint firstItem="DuQ-Ib-MLA" firstAttribute="top" secondItem="oOp-lA-weA" secondAttribute="top" constant="10" id="duO-J1-9XC"/>
                             <constraint firstAttribute="trailing" secondItem="nO4-yo-olq" secondAttribute="trailing" constant="25" id="qzs-6i-t3f"/>
+                            <constraint firstAttribute="bottom" secondItem="nO4-yo-olq" secondAttribute="bottom" constant="16" id="uJh-il-qFf"/>
                         </constraints>
                     </view>
                 </subviews>

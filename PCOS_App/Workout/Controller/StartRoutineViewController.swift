@@ -282,29 +282,54 @@ class StartRoutineViewController: UIViewController, UITableViewDelegate, UITable
         present(alert, animated: true)
     }
 
+//    func handleSaveWorkout() {
+//        globalTimer?.invalidate()
+//        activeWorkout.finish()
+//
+//        let completedWorkout = CompletedWorkout(
+//            routineName: activeWorkout.routine.name,
+//            date: Date(),
+//            durationSeconds: activeWorkout.durationSeconds,
+//            exercises: activeWorkout.exercises
+//        )
+//
+//        WorkoutSessionManager.shared.completedWorkouts.append(completedWorkout)
+//
+//        print("💾 Workout saved: \(completedWorkout.durationSeconds)s")
+//
+//        // 👉 Go to SUMMARY SCREEN
+//        let summaryVC = UIStoryboard(name: "Main", bundle: nil)
+//            .instantiateViewController(withIdentifier: "SummaryViewController") as! SummaryViewController
+//
+//        summaryVC.completedWorkout = completedWorkout
+//
+//        navigationController?.pushViewController(summaryVC, animated: true)
+//    }
     func handleSaveWorkout() {
         globalTimer?.invalidate()
+
+        // ✅ Authoritative duration calculation
+        let elapsed = Int(Date().timeIntervalSince(activeWorkout.startTime))
+        activeWorkout.durationSeconds = elapsed
+
         activeWorkout.finish()
 
         let completedWorkout = CompletedWorkout(
             routineName: activeWorkout.routine.name,
             date: Date(),
-            durationSeconds: activeWorkout.durationSeconds,
+            durationSeconds: elapsed,   // ✅ guaranteed correct
             exercises: activeWorkout.exercises
         )
 
         WorkoutSessionManager.shared.completedWorkouts.append(completedWorkout)
 
-        print("💾 Workout saved: \(completedWorkout.durationSeconds)s")
-
-        // 👉 Go to SUMMARY SCREEN
         let summaryVC = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(withIdentifier: "SummaryViewController") as! SummaryViewController
 
         summaryVC.completedWorkout = completedWorkout
-
         navigationController?.pushViewController(summaryVC, animated: true)
     }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
 

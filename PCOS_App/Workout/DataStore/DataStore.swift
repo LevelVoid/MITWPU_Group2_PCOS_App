@@ -5,6 +5,13 @@
 //  Created by SDC-USER on 24/11/25.
 //
 
+//
+//  DataStore.swift
+//  PCOS_App
+//
+//  Created by SDC-USER on 24/11/25.
+//
+
 import Foundation
 
 class ExerciseDataStore {
@@ -648,6 +655,32 @@ class ExerciseDataStore {
             ]
         )
 ,
+        Exercise(
+            name: "Step-Up on Chair",
+            muscleGroup: .legs,
+            equipment: .none,
+            image: "step_up_chair",
+            instructions: "Step onto a sturdy chair with one foot, press through the heel to stand up, then step back down with control.",
+            gifUrl: "step_up_chair.gif",
+            level: "Beginner",
+            tempo: "1s up, 2s down",
+            form: [
+                "Keep chest upright and core engaged",
+                "Drive through the heel of the working leg",
+                "Fully extend the hip at the top"
+            ],
+            variations: [
+                "Dumbbell step-up",
+                "High step-up",
+                "Alternating step-up"
+            ],
+            commonMistakes: [
+                "Pushing off the back leg too much",
+                "Letting knee cave inward",
+                "Dropping down too fast"
+            ]
+        )
+,
         
         // ARM EXERCISES
         Exercise(
@@ -1033,6 +1066,32 @@ class ExerciseDataStore {
         )
 ,
         Exercise(
+            name: "Elliptical Trainer",
+            muscleGroup: .cardio,
+            equipment: .machine,
+            image: "elliptical",
+            instructions: "Move arms and legs in a smooth, continuous motion while maintaining an upright posture.",
+            gifUrl: "elliptical.gif",
+            level: "Beginner",
+            tempo: "Steady continuous pace",
+            form: [
+                "Keep torso upright",
+                "Push and pull handles evenly",
+                "Maintain smooth, controlled motion"
+            ],
+            variations: [
+                "Reverse pedaling",
+                "Increased resistance intervals"
+            ],
+            commonMistakes: [
+                "Leaning heavily on handles",
+                "Locking knees",
+                "Moving too fast without control"
+            ]
+        )
+        ,
+
+        Exercise(
             name: "Jump Rope",
             muscleGroup: .cardio,
             equipment: .none,
@@ -1334,131 +1393,6 @@ class ExerciseDataStore {
 
     ]
     
-    // MARK: - Sample Routines
-//    let sampleRoutines: [Routine] = [
-//        Routine(
-//            name: "Upper Body Strength",
-//            routineExercises: [
-//                RoutineExercise(
-//                    exercise: Exercise(name: "Bench Press", muscleGroup: .chest, equipment: .barbell),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, reps: 8, weightKg: 60, restTimerSeconds: 120),
-//                        PlannedSet(setNumber: 2, reps: 8, weightKg: 65, restTimerSeconds: 120),
-//                        PlannedSet(setNumber: 3, reps: 6, weightKg: 70, restTimerSeconds: 120)
-//                    ]
-//                ),
-//                RoutineExercise(
-//                    exercise: Exercise(name: "Bent Over Barbell Row", muscleGroup: .back, equipment: .barbell),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, reps: 10, weightKg: 50, restTimerSeconds: 90),
-//                        PlannedSet(setNumber: 2, reps: 10, weightKg: 55, restTimerSeconds: 90),
-//                        PlannedSet(setNumber: 3, reps: 8, weightKg: 60, restTimerSeconds: 90)
-//                    ]
-//                ),
-//                RoutineExercise(
-//                    exercise: Exercise(name: "Overhead Press", muscleGroup: .shoulders, equipment: .barbell),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, reps: 10, weightKg: 40, restTimerSeconds: 90),
-//                        PlannedSet(setNumber: 2, reps: 8, weightKg: 45, restTimerSeconds: 90)
-//                    ]
-//                )
-//            ]
-//        ),
-//
-//        Routine(
-//            name: "Lower Body Power",
-//            routineExercises: [
-//                RoutineExercise(
-//                    exercise: Exercise(name: "Barbell Squat", muscleGroup: .legs, equipment: .barbell),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, reps: 12, weightKg: 80, restTimerSeconds: 180),
-//                        PlannedSet(setNumber: 2, reps: 10, weightKg: 90, restTimerSeconds: 180),
-//                        PlannedSet(setNumber: 3, reps: 8, weightKg: 100, restTimerSeconds: 180)
-//                    ]
-//                ),
-//                RoutineExercise(
-//                    exercise: Exercise(name: "Dumbbell Romanian Deadlift", muscleGroup: .glutes, equipment: .dumbbell),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, reps: 12, weightKg: 20, restTimerSeconds: 90),
-//                        PlannedSet(setNumber: 2, reps: 12, weightKg: 25, restTimerSeconds: 90),
-//                        PlannedSet(setNumber: 3, reps: 10, weightKg: 30, restTimerSeconds: 90)
-//                    ]
-//                ),
-//                RoutineExercise(
-//                    exercise: Exercise(name: "Leg Press", muscleGroup: .legs, equipment: .machine),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, reps: 15, weightKg: 100, restTimerSeconds: 60),
-//                        PlannedSet(setNumber: 2, reps: 15, weightKg: 120, restTimerSeconds: 60)
-//                    ]
-//                )
-//            ]
-//        ),
-//
-//        Routine(
-//            name: "HIIT Cardio Blast",
-//            routineExercises: [
-//                RoutineExercise(
-//                    exercise: Exercise(name: "Jumping Jacks", muscleGroup: .cardio, equipment: .none),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, weightKg: 0, restTimerSeconds: 30, timeInSecsForCardio: 60)
-//                    ]
-//                ),
-//                RoutineExercise(
-//                    exercise: Exercise(name: "Burpees", muscleGroup: .cardio, equipment: .none),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, weightKg: 0, restTimerSeconds: 45, timeInSecsForCardio: 45)
-//                    ]
-//                ),
-//                RoutineExercise(
-//                    exercise: Exercise(name: "Mountain Climbers", muscleGroup: .cardio, equipment: .none),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, weightKg: 0, restTimerSeconds: 30, timeInSecsForCardio: 60)
-//                    ]
-//                ),
-//                RoutineExercise(
-//                    exercise: Exercise(name: "High Knees", muscleGroup: .cardio, equipment: .none),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, weightKg: 0, restTimerSeconds: 30, timeInSecsForCardio: 45)
-//                    ]
-//                )
-//            ]
-//        ),
-//
-//        Routine(
-//            name: "Full Body Beginner",
-//            routineExercises: [
-//                RoutineExercise(
-//                    exercise: Exercise(name: "Goblet Squat", muscleGroup: .legs, equipment: .dumbbell),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, reps: 12, weightKg: 12, restTimerSeconds: 60),
-//                        PlannedSet(setNumber: 2, reps: 12, weightKg: 12, restTimerSeconds: 60)/
-//                    ]
-//                ),
-//                RoutineExercise(
-//                    exercise: Exercise(name: "Push-ups", muscleGroup: .chest, equipment: .none),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, reps: 10, weightKg: 0, restTimerSeconds: 60),
-//                        PlannedSet(setNumber: 2, reps: 10, weightKg: 0, restTimerSeconds: 60)
-//                    ]
-//                ),
-//                RoutineExercise(
-//                    exercise: Exercise(name: "Dumbbell Row", muscleGroup: .back, equipment: .dumbbell),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, reps: 10, weightKg: 15, restTimerSeconds: 60),
-//                        PlannedSet(setNumber: 2, reps: 10, weightKg: 15, restTimerSeconds: 60)
-//                    ]
-//                ),
-//                RoutineExercise(
-//                    exercise: Exercise(name: "Plank", muscleGroup: .core, equipment: .none),
-//                    sets: [
-//                        PlannedSet(setNumber: 1, weightKg: 0, restTimerSeconds: 60, timeInSecsForCardio: 30),
-//                        PlannedSet(setNumber: 2, weightKg: 0, restTimerSeconds: 60, timeInSecsForCardio: 30)
-//                    ]
-//                )
-//            ]
-//        )
-//    ]
-    
     // MARK: - Helper Methods
     func getExercises(for muscleGroup: MuscleGroup) -> [Exercise] {
         if muscleGroup == .allMuscles {
@@ -1491,3 +1425,4 @@ class ExerciseDataStore {
         }
     }
 }
+

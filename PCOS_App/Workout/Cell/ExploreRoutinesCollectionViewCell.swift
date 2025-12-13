@@ -8,9 +8,6 @@
 import UIKit
 
 class ExploreRoutinesCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var plusButton: UIButton!
-
-    var onCreateRoutineTapped: (() -> Void)?
     
     
     @IBOutlet weak var exploreRoutineImage: UIImageView!
@@ -19,48 +16,25 @@ class ExploreRoutinesCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        cellBackgroundView.layer.cornerRadius = 20
-        cellBackgroundView.layer.masksToBounds = true
-        exploreRoutineTitle.numberOfLines = 2
-                exploreRoutineTitle.textAlignment = .center
-                exploreRoutineTitle.font = .systemFont(ofSize: 14, weight: .medium)
+        
     }
-//    func configure(title:String,image:UIImage){
-//        exploreRoutineTitle.text=title
-//        exploreRoutineImage.image=image
-//    }
-    
-    @IBAction func plusButtonTapped(_ sender: UIButton) {
-        onCreateRoutineTapped?()   // call the callback
-    }
+   
 
-    
-    
-    func configureCreateRoutine() {
-        plusButton.isHidden = false        // SHOW PLUS BUTTON
-        exploreRoutineImage.isHidden = true  // hide the static image if needed
-        exploreRoutineTitle.text = "Create your own\ncustom routine"
-        exploreRoutineTitle.textColor = .systemGray3
-        exploreRoutineImage.image = UIImage(systemName: "plus.circle.fill")
-        exploreRoutineImage.tintColor = .systemGray3
-        cellBackgroundView.backgroundColor = .systemGray6
-    }
-
-    func configureRoutine(_ routine: Routine) {
-        plusButton.isHidden = true         // HIDE PLUS BUTTON
-        exploreRoutineImage.isHidden = false
+    func configureCell(_ routine: Routine) {
         
         exploreRoutineTitle.text = routine.name
 
         if let imageName = routine.thumbnailImageName {
             exploreRoutineImage.image = UIImage(named: imageName)
         } else {
-            exploreRoutineImage.image = UIImage(named: "routine_placeholder")
+            exploreRoutineImage.image = UIImage(systemName: "dumbbell.fill")
         }
 
         exploreRoutineTitle.textColor = .label
-        exploreRoutineImage.contentMode = .scaleAspectFit
+//        exploreRoutineImage.contentMode = .scaleAspectFill
+        exploreRoutineImage.clipsToBounds = true
         cellBackgroundView.backgroundColor = .systemGray6
+        cellBackgroundView.layer.cornerRadius = 10
     }
 
 

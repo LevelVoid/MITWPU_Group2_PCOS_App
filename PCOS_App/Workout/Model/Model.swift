@@ -201,6 +201,11 @@ struct RoutineExercise: Codable, Identifiable {
     
 }
 
+struct Card {
+    let name: String
+    let image: String
+}
+
 
 struct ExerciseSet: Codable, Identifiable {
     var id = UUID()

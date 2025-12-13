@@ -24,7 +24,7 @@ class MyRoutinesCollectionViewCell: UICollectionViewCell {
                 containerView.layer.borderWidth = 1
                 containerView.layer.borderColor = UIColor.systemGray5.cgColor
     }
-    func configure(with routine: Routine) {
+    func configureCell(with routine: Routine) {
             routineNameOutlet.text = routine.name
         startRoutineButtonOutlet.tintColor = UIColor(red: 254/255, green: 122/255, blue: 150/255, alpha: 0.8)
 

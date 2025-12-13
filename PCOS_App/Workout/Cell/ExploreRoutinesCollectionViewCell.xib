@@ -19,28 +19,26 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D0T-6p-bKF">
                         <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cdD-Bm-Ncg">
-                                <rect key="frame" x="0.0" y="37" width="160" height="123"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cdD-Bm-Ncg">
+                                <rect key="frame" x="15" y="46" width="130" height="99"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvL-zH-Pkk">
-                                <rect key="frame" x="0.0" y="8" width="160" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvL-zH-Pkk">
+                                <rect key="frame" x="0.0" y="10" width="160" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zeo-MQ-c9C">
-                                <rect key="frame" x="58" y="81" width="47" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
-                                <connections>
-                                    <action selector="plusButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="SKg-oJ-Ych"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <constraints>
+                            <constraint firstItem="cdD-Bm-Ncg" firstAttribute="leading" secondItem="D0T-6p-bKF" secondAttribute="leading" constant="15" id="2cx-gh-LKV"/>
+                            <constraint firstItem="cdD-Bm-Ncg" firstAttribute="top" secondItem="yvL-zH-Pkk" secondAttribute="bottom" constant="15" id="Gc4-jf-lWq"/>
+                            <constraint firstAttribute="trailing" secondItem="cdD-Bm-Ncg" secondAttribute="trailing" constant="15" id="c51-GR-VJN"/>
+                            <constraint firstAttribute="bottom" secondItem="cdD-Bm-Ncg" secondAttribute="bottom" constant="15" id="d2t-pS-hky"/>
+                            <constraint firstItem="yvL-zH-Pkk" firstAttribute="top" secondItem="D0T-6p-bKF" secondAttribute="top" constant="10" id="e0f-BZ-yhh"/>
+                            <constraint firstAttribute="trailing" secondItem="yvL-zH-Pkk" secondAttribute="trailing" id="m9F-xS-vvC"/>
+                            <constraint firstItem="yvL-zH-Pkk" firstAttribute="leading" secondItem="D0T-6p-bKF" secondAttribute="leading" id="wQ5-sB-vea"/>
+                        </constraints>
                     </view>
                 </subviews>
             </view>
@@ -56,13 +54,11 @@
                 <outlet property="cellBackgroundView" destination="D0T-6p-bKF" id="bwP-dh-GTz"/>
                 <outlet property="exploreRoutineImage" destination="cdD-Bm-Ncg" id="jcW-zd-cEr"/>
                 <outlet property="exploreRoutineTitle" destination="yvL-zH-Pkk" id="K7L-kW-rct"/>
-                <outlet property="plusButton" destination="Zeo-MQ-c9C" id="SBF-rp-IrC"/>
             </connections>
             <point key="canvasLocation" x="253.43511450381678" y="221.83098591549296"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemGray6Color">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
