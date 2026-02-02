@@ -200,27 +200,35 @@ class HomeViewController: UIViewController {
     }
     func createRecommendationSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(100)
+            widthDimension: .absolute(285), // Fixed width for each card
+            heightDimension: .absolute(196) // Adjusted height
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        // Option A: per-item padding
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(100)
+            widthDimension: .absolute(285),
+            heightDimension: .absolute(196)
         )
-        // One item per group
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
         
         let section = NSCollectionLayoutSection(group: group)
-        // spacing between groups (each group contains one item)
-        section.interGroupSpacing = 10
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        section.interGroupSpacing = 16 // Space between cards
+        section.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 16,
+            bottom: 20,
+            trailing: 16
+        )
+        section.orthogonalScrollingBehavior = .continuous // Enable horizontal scrolling
+        
         addHeader(to: section)
         return section
     }
+    
     func addHeader(to section: NSCollectionLayoutSection) {
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(40))
         let headerItem = NSCollectionLayoutBoundarySupplementaryItem(
@@ -292,7 +300,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         if indexPath.section == 1 {
             headerView.configureHeader(with:"Symptoms")
         } else if indexPath.section == 3{
-            headerView.configureHeader(with:"Health Insights")
+            headerView.configureHeader(with:"What May Happen Next")
         }else {
             headerView.configureHeader(with:"Explore Routines")
         }
