@@ -11,20 +11,20 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="home_header" id="gTV-IL-0wX" customClass="HomeHeaderCollectionViewCell" customModule="PCOS_App" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="487" height="524"/>
+            <rect key="frame" x="0.0" y="0.0" width="487" height="400"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="487" height="524"/>
+                <rect key="frame" x="0.0" y="0.0" width="487" height="400"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Uk-73-W3E">
-                        <rect key="frame" x="0.0" y="0.0" width="487" height="524"/>
+                        <rect key="frame" x="0.0" y="0.0" width="487" height="400"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiV-Pd-smO">
-                        <rect key="frame" x="0.0" y="0.0" width="487" height="524"/>
+                        <rect key="frame" x="0.0" y="0.0" width="487" height="400"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZbB-xp-tyV">
-                                <rect key="frame" x="20" y="190" width="447" height="61"/>
+                                <rect key="frame" x="20" y="218" width="447" height="61"/>
                                 <string key="text">“Living with PCOS means listening to your body, not fighting it.”
 </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -32,13 +32,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Getting Started" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyA-zA-4dJ">
-                                <rect key="frame" x="0.0" y="286" width="487" height="33.666666666666686"/>
+                                <rect key="frame" x="151.33333333333337" y="109" width="184.66666666666663" height="33.666666666666657"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjf-z9-c6r">
-                                <rect key="frame" x="181" y="362.66666666666669" width="125" height="50"/>
+                                <rect key="frame" x="181" y="287.66666666666669" width="125" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="XuK-qi-O3S"/>
                                     <constraint firstAttribute="width" constant="125" id="lbC-aZ-el1"/>
@@ -46,17 +46,25 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Log Period"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menstrual Phase" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLF-lI-kK0">
+                                <rect key="frame" x="176.66666666666666" y="159" width="133.99999999999997" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="xjf-z9-c6r" firstAttribute="top" secondItem="lyA-zA-4dJ" secondAttribute="bottom" constant="43" id="0xc-fS-AmS"/>
-                            <constraint firstItem="ZbB-xp-tyV" firstAttribute="top" secondItem="aiV-Pd-smO" secondAttribute="top" constant="190" id="59I-Np-c6L"/>
-                            <constraint firstAttribute="trailing" secondItem="lyA-zA-4dJ" secondAttribute="trailing" id="Ivc-gO-OED"/>
-                            <constraint firstItem="lyA-zA-4dJ" firstAttribute="top" secondItem="ZbB-xp-tyV" secondAttribute="bottom" constant="35" id="UNS-NB-ghP"/>
-                            <constraint firstAttribute="trailing" secondItem="ZbB-xp-tyV" secondAttribute="trailing" constant="20" id="V7F-R2-62P"/>
-                            <constraint firstItem="ZbB-xp-tyV" firstAttribute="leading" secondItem="aiV-Pd-smO" secondAttribute="leading" constant="20" id="WnH-4F-rq5"/>
-                            <constraint firstItem="lyA-zA-4dJ" firstAttribute="leading" secondItem="aiV-Pd-smO" secondAttribute="leading" id="lDq-m6-wEy"/>
-                            <constraint firstItem="xjf-z9-c6r" firstAttribute="centerX" secondItem="aiV-Pd-smO" secondAttribute="centerX" id="ySL-k0-qSs"/>
+                            <constraint firstItem="ZbB-xp-tyV" firstAttribute="top" secondItem="JLF-lI-kK0" secondAttribute="bottom" constant="37" id="1nj-Cz-zAL"/>
+                            <constraint firstItem="ZbB-xp-tyV" firstAttribute="leading" secondItem="aiV-Pd-smO" secondAttribute="leading" constant="20" id="5Bm-sU-HVh"/>
+                            <constraint firstItem="ZbB-xp-tyV" firstAttribute="centerX" secondItem="aiV-Pd-smO" secondAttribute="centerX" id="5l9-Z1-LEp"/>
+                            <constraint firstItem="lyA-zA-4dJ" firstAttribute="centerX" secondItem="aiV-Pd-smO" secondAttribute="centerX" id="RYT-Y0-glj"/>
+                            <constraint firstAttribute="bottom" secondItem="xjf-z9-c6r" secondAttribute="bottom" constant="62.333333333333258" id="Ye5-JI-bhn"/>
+                            <constraint firstItem="JLF-lI-kK0" firstAttribute="centerX" secondItem="aiV-Pd-smO" secondAttribute="centerX" id="ayL-eO-eKr"/>
+                            <constraint firstItem="xjf-z9-c6r" firstAttribute="centerX" secondItem="aiV-Pd-smO" secondAttribute="centerX" id="hOg-Yy-uhN"/>
+                            <constraint firstItem="xjf-z9-c6r" firstAttribute="top" secondItem="ZbB-xp-tyV" secondAttribute="bottom" constant="8.6666666666667425" id="kUn-PB-qja"/>
+                            <constraint firstItem="JLF-lI-kK0" firstAttribute="top" secondItem="lyA-zA-4dJ" secondAttribute="bottom" constant="16.333333333333314" id="qo2-Fl-oF1"/>
+                            <constraint firstAttribute="trailing" secondItem="ZbB-xp-tyV" secondAttribute="trailing" constant="20" id="xaA-UM-SeC"/>
                         </constraints>
                     </view>
                 </subviews>
