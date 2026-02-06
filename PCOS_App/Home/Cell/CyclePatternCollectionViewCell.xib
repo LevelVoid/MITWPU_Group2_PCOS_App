@@ -11,10 +11,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cycle_pattern_cell" id="gTV-IL-0wX" customClass="CyclePatternCollectionViewCell" customModule="PCOS_App" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="360" height="547"/>
+            <rect key="frame" x="0.0" y="0.0" width="360" height="470"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="360" height="547"/>
+                <rect key="frame" x="0.0" y="0.0" width="360" height="470"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0V3-jX-dA5">
@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X5s-1U-az3">
-                                <rect key="frame" x="0.0" y="0.0" width="361" height="595"/>
+                                <rect key="frame" x="0.0" y="0.0" width="361" height="470"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQW-3E-lN6">
                                         <rect key="frame" x="16" y="20" width="160" height="80"/>
@@ -69,15 +69,9 @@
                                             <constraint firstAttribute="height" constant="80" id="ise-Xc-LKU"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zGd-lZ-sOR" customClass="PeriodCycleChartView" customModule="PCOS_App" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="105" width="330" height="280"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="280" id="B7G-DW-Dhh"/>
-                                        </constraints>
-                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your cycle appears fairly consistent over the last 5 months. For many people with PCOS, this is considered relatively stable." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fg0-GZ-MrN">
-                                        <rect key="frame" x="20" y="405" width="326" height="51.666666666666686"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <rect key="frame" x="16" y="112.99999999999999" width="330" height="39.333333333333329"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -98,14 +92,14 @@
                                                     <constraint firstAttribute="width" constant="20" id="iFM-Ud-62v"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iw-ZA-Wdn">
-                                                <rect key="frame" x="16.000000000000004" y="36" width="39.333333333333343" height="38.333333333333343"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iw-ZA-Wdn">
+                                                <rect key="frame" x="15.999999999999998" y="36" width="19.333333333333329" height="38.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yMe-yo-gnn">
-                                                <rect key="frame" x="59.333333333333343" y="48" width="35.666666666666657" height="20.333333333333329"/>
+                                                <rect key="frame" x="39.333333333333343" y="48" width="35.666666666666657" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -126,20 +120,26 @@
                                             <constraint firstItem="2iw-ZA-Wdn" firstAttribute="top" secondItem="Xq1-RV-BNh" secondAttribute="bottom" constant="8" id="oQB-IV-gux"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zGd-lZ-sOR" customClass="PeriodCycleChartView" customModule="PCOS_App" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="210" width="330" height="218"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="280" id="B7G-DW-Dhh"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="djp-pr-CP1" firstAttribute="top" secondItem="X5s-1U-az3" secondAttribute="top" constant="20" id="1jx-R5-9u3"/>
                                     <constraint firstItem="CQW-3E-lN6" firstAttribute="leading" secondItem="X5s-1U-az3" secondAttribute="leading" constant="16" id="BFc-L4-squ"/>
+                                    <constraint firstItem="fg0-GZ-MrN" firstAttribute="top" secondItem="CQW-3E-lN6" secondAttribute="bottom" constant="13" id="HF9-kQ-4YH"/>
                                     <constraint firstItem="CQW-3E-lN6" firstAttribute="top" secondItem="X5s-1U-az3" secondAttribute="top" constant="20" id="Hef-nv-v0b"/>
                                     <constraint firstItem="zGd-lZ-sOR" firstAttribute="leading" secondItem="X5s-1U-az3" secondAttribute="leading" constant="16" id="ItU-8r-Wfs"/>
-                                    <constraint firstItem="fg0-GZ-MrN" firstAttribute="top" secondItem="zGd-lZ-sOR" secondAttribute="bottom" constant="20" id="MZ1-s5-Dva"/>
-                                    <constraint firstItem="zGd-lZ-sOR" firstAttribute="top" secondItem="CQW-3E-lN6" secondAttribute="bottom" constant="5" id="P6f-lz-sxj"/>
-                                    <constraint firstAttribute="trailing" secondItem="fg0-GZ-MrN" secondAttribute="trailing" constant="16" id="ZGJ-4d-0MU"/>
+                                    <constraint firstItem="zGd-lZ-sOR" firstAttribute="top" secondItem="fg0-GZ-MrN" secondAttribute="bottom" constant="5" id="QPM-S3-RHw"/>
                                     <constraint firstAttribute="trailing" secondItem="djp-pr-CP1" secondAttribute="trailing" constant="17" id="an5-bN-Pdh"/>
-                                    <constraint firstAttribute="bottom" secondItem="fg0-GZ-MrN" secondAttribute="bottom" constant="20" id="ceM-cq-l6y"/>
-                                    <constraint firstItem="fg0-GZ-MrN" firstAttribute="leading" secondItem="X5s-1U-az3" secondAttribute="leading" constant="20" id="fS1-x8-yRf"/>
+                                    <constraint firstAttribute="trailing" secondItem="fg0-GZ-MrN" secondAttribute="trailing" constant="16" id="cUK-TZ-BwT"/>
+                                    <constraint firstItem="fg0-GZ-MrN" firstAttribute="leading" secondItem="X5s-1U-az3" secondAttribute="leading" constant="16" id="dAS-2r-c70"/>
                                     <constraint firstAttribute="trailing" secondItem="zGd-lZ-sOR" secondAttribute="trailing" constant="16" id="hf7-jz-uGn"/>
+                                    <constraint firstAttribute="bottom" secondItem="zGd-lZ-sOR" secondAttribute="bottom" constant="16" id="iIG-kS-5WQ"/>
                                     <constraint firstItem="djp-pr-CP1" firstAttribute="leading" secondItem="CQW-3E-lN6" secondAttribute="trailing" constant="9" id="xlM-wP-GJP"/>
                                 </constraints>
                             </view>
@@ -149,12 +149,15 @@
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="476" height="147"/>
+            <size key="customSize" width="476" height="70"/>
             <connections>
-                <outlet property="cyclePatternView" destination="0V3-jX-dA5" id="SFn-KM-wvf"/>
+                <outlet property="avgCycleLength" destination="CQW-3E-lN6" id="7dY-N7-dOg"/>
+                <outlet property="avgPeriodLength" destination="djp-pr-CP1" id="4JM-hZ-wZZ"/>
+                <outlet property="cyclePatternView" destination="0V3-jX-dA5" id="22l-EZ-vqn"/>
                 <outlet property="periodCycleChartView" destination="zGd-lZ-sOR" id="HEy-Qn-SGC"/>
+                <outlet property="viewTooTiredToRemove" destination="X5s-1U-az3" id="vMI-Uy-vCU"/>
             </connections>
-            <point key="canvasLocation" x="-340.45801526717554" y="126.40845070422536"/>
+            <point key="canvasLocation" x="-340.45801526717554" y="99.295774647887328"/>
         </collectionViewCell>
     </objects>
     <resources>

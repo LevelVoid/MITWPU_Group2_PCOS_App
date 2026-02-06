@@ -56,8 +56,8 @@ class PeriodCycleChartView: UIView {
     }
     private func setupView() {
         // 1. Add subviews to the hierarchy
-        addSubview(legendStackView)
         addSubview(scrollView)
+        addSubview(legendStackView)
         
         // Setup ScrollView internals
         scrollView.addSubview(contentView)
@@ -81,17 +81,16 @@ class PeriodCycleChartView: UIView {
         
         // 5. Set Layout Constraints
         NSLayoutConstraint.activate([
-            // Center the legend horizontally and pin to top
-            legendStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            //legendStackView.centerXAnchor.constraint(equalTo: centerXAnchor), // Changed to center for better spacing
-            legendStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            legendStackView.heightAnchor.constraint(equalToConstant: 20),
-            
-            // Constrain ScrollView to start BELOW the legend
-            scrollView.topAnchor.constraint(equalTo: legendStackView.bottomAnchor, constant: 12),
+            // ScrollView pinned to top, leading, trailing, and bottom to legendStackView top
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: legendStackView.topAnchor, constant: -12),
+            
+            // Legend pinned to leading and bottom
+            legendStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            legendStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+            legendStackView.heightAnchor.constraint(equalToConstant: 20),
             
             // Content View inside ScrollView
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),

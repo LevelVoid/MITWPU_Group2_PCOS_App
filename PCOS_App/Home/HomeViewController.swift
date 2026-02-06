@@ -177,8 +177,8 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         
         //SKS: NEED TO MAKE HERE TO SIZE COLLECTION VIEW
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(140),
-            heightDimension: .absolute(160)
+            widthDimension: .estimated(105),
+            heightDimension: .absolute(120)
         )
         
         let group = NSCollectionLayoutGroup.horizontal(
