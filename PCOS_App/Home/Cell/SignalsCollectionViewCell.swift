@@ -21,23 +21,18 @@ class SignalsCollectionViewCell: UICollectionViewCell {
         SignalsCardView.layer.cornerRadius = 20
     }
     
-    func configure(with signalInfo: SignalInfo) {
-        SignalsLabel.text = signalInfo.title
-        
-        // Try to load the image, use default if not found
-        if let image = UIImage(named: signalInfo.imageName) {
-            SignalsImage.image = image
-        } else {
-            // Use a default system image or placeholder
-            SignalsImage.image = UIImage(named: acnePCOSSignal.signalIllustration)
-            SignalsImage.tintColor = .systemPink
-        }
+    func configure(with signal: PCOSSignal) {
+        SignalsLabel.text = signal.signalTitle
+        SignalsImage.image = UIImage(named: signal.signalIllustration)
+        SignalsImage.tintColor = .clear
     }
+
     
-    func configureDefault() {
-        SignalsLabel.text = "Track your PCOS signals"
-        SignalsImage.image = UIImage(systemName: "chart.line.uptrend.xyaxis")
-        SignalsImage.tintColor = .systemBlue
+    func configurePhase(with phase: PhaseSignal) {
+        SignalsLabel.text = phase.title
+        SignalsImage.image = UIImage(named: phase.illustration)
+        SignalsImage.tintColor = .clear
     }
+
 
 }

@@ -15,17 +15,17 @@ final class PCOSSignalViewModel {
     }
 
     var infoText: String {
-        signal.scientificReasons.randomElement() ?? ""
+        signal.scientificReasons.first ?? ""
     }
 
     var appearanceText: String {
-        signal.appearanceDescriptions.randomElement() ?? ""
+        signal.appearanceDescriptions.first ?? ""
     }
 
     func supportAction(for category: SupportCategory) -> SupportAction? {
-        signal.supportActions
-            .filter { $0.category == category }
-            .randomElement()
+        return SupportRotationStore.shared
+            .nextSupportAction(for: signal, category: category)
     }
+
 }
 

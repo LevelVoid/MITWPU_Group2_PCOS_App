@@ -8,7 +8,7 @@ import Foundation
 
 let acnePCOSSignal = PCOSSignal(
     symptomName: "Acne",
-    signalTitle:"Managing PCOS Skin Concerns",
+    signalTitle:"Coping with Acne",
     signalIllustration: "Acne",
 
     // Screen 1
@@ -63,5 +63,32 @@ let acnePCOSSignal = PCOSSignal(
             category: .miscellaneous,
             text: "Avoid touching or picking acne, and remove makeup thoroughly at the end of the day."
         )
+    ]
+)
+
+let hairLossPCOSSignal = PCOSSignal(
+    symptomName: "Hair Loss",
+    signalTitle: "Understanding PCOS Hair Loss",
+    signalIllustration: "HairLoss",
+
+    infoHeading: "PCOS and Hair Loss",
+    scientificReasons: [
+        "Elevated androgen levels can shrink hair follicles.",
+        "This may lead to thinning hair or hair loss over time."
+    ],
+
+    appearanceHeading: "What does it look like?",
+    appearanceDescriptions: [
+        "Gradual thinning at the crown",
+        "Widening part line",
+        "Overall reduced hair density"
+    ],
+
+    doctorDisclaimer: "Consult a healthcare provider if hair loss is sudden or severe.",
+
+    supportHeading: "Support your hair health",
+    supportActions: [
+        SupportAction(category: .dietNutrition, text: "Include protein-rich foods in your diet."),
+        SupportAction(category: .miscellaneous, text: "Manage stress to reduce hormonal impact.")
     ]
 )

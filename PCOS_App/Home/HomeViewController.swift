@@ -13,7 +13,6 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     // Storing selected symptoms
     private var selectedSymptoms: [SymptomItem] = []
     private var recommendationCards : [Recommendation] = recommendations
-    private var currentSignalInfo: SignalInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,13 +70,6 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
                 }
                 
                 selectedSymptoms = todaysSymptoms
-                
-                // Get signal info from the first selected symptom
-                if let firstSymptom = todaysSymptoms.first {
-                    currentSignalInfo = getSignalInfo(for: firstSymptom.name) ?? defaultSignalInfo
-                } else {
-                    currentSignalInfo = nil
-                }
                 
                 // Update UserDefaults with filtered symptoms
                 if let encoded = try? JSONEncoder().encode(todaysSymptoms) {
@@ -292,13 +284,6 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         func passData(symptoms: [SymptomItem]) -> [SymptomItem] {
             self.selectedSymptoms = symptoms
             
-            // Update signal info based on first symptom
-            if let firstSymptom = symptoms.first {
-                currentSignalInfo = getSignalInfo(for: firstSymptom.name) ?? defaultSignalInfo
-            } else {
-                currentSignalInfo = nil
-            }
-            
             let todaysKey = self.getTodaysKey()
             if let encoded = try? JSONEncoder().encode(symptoms) {
                 UserDefaults.standard.set(encoded, forKey: todaysKey)
@@ -357,13 +342,6 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
                     
                     self.selectedSymptoms = symptoms
                     
-                    // Update signal info
-                    if let firstSymptom = symptoms.first {
-                        self.currentSignalInfo = getSignalInfo(for: firstSymptom.name) ?? defaultSignalInfo
-                    } else {
-                        self.currentSignalInfo = nil
-                    }
-                    
                     let todaysKey = self.getTodaysKey()
                     if let encoded = try? JSONEncoder().encode(symptoms) {
                         UserDefaults.standard.set(encoded, forKey: todaysKey)
@@ -374,6 +352,13 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
                     }
                 }
             }
+            if segue.identifier == "showSignal01",
+               let destination = segue.destination as? Signal01ViewController,
+               let signal = sender as? PCOSSignal {
+
+                destination.signal = signal
+            }
+
         }
     }
 
@@ -416,13 +401,14 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
                 
                 let symptomIndex = indexPath.item - 1
                 if symptomIndex < selectedSymptoms.count {
+
                     let symptom = selectedSymptoms[symptomIndex]
-                    if let signalInfo = getSignalInfo(for: symptom.name) {
-                        cell.configure(with: signalInfo)
-                    } else {
-                        cell.configure(with: defaultSignalInfo)
+
+                    if let signal = PCOSSignalStore.signal(for: symptom.name) {
+                        cell.configure(with: signal)
                     }
                 }
+
                 
                 return cell
             }
@@ -482,13 +468,15 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
                     // Tapped on Add Symptom button
                     performSegue(withIdentifier: "showSymptomLogger", sender: self)
                 } else {
-                    // Tapped on a signal card - maybe show details
-//                    let symptomIndex = indexPath.item - 1
-//                    if symptomIndex < selectedSymptoms.count {
-//                        // You can add logic here to show more details about the signal
-//                        print("Tapped on signal: \(selectedSymptoms[symptomIndex].name)")
-//                    }
-                    performSegue(withIdentifier: "showSignal01", sender: nil)
+                    let symptomIndex = indexPath.item - 1
+                        if symptomIndex < selectedSymptoms.count {
+
+                            let symptom = selectedSymptoms[symptomIndex]
+
+                            if let signal = PCOSSignalStore.signal(for: symptom.name) {
+                                performSegue(withIdentifier: "showSignal01", sender: signal)
+                            }
+                        }
                 }
             }
             

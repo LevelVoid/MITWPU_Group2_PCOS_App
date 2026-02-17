@@ -19,11 +19,6 @@ final class CycleDataStore {
 }
 
 extension CycleDataStore {
-
-    /// Returns the latest N cycles (mock for now)
-//    func loadRecentCycles(count: Int = 3) -> [CycleData] {
-//        return generateMockCycles(count: count)
-//    }
     private func generateMockCycles(count: Int) -> [CycleData] {
         let seeds = mockCycleSeeds(count: count)
 
