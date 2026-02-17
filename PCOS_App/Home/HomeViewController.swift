@@ -474,18 +474,21 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         }
         
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            
+//            if indexPath.section == 0 {
+//                performSegue(withIdentifier: "showSignal01", sender: nil)
+//            }
             if indexPath.section == 1 {
                 if indexPath.item == 0 {
                     // Tapped on Add Symptom button
                     performSegue(withIdentifier: "showSymptomLogger", sender: self)
                 } else {
                     // Tapped on a signal card - maybe show details
-                    let symptomIndex = indexPath.item - 1
-                    if symptomIndex < selectedSymptoms.count {
-                        // You can add logic here to show more details about the signal
-                        print("Tapped on signal: \(selectedSymptoms[symptomIndex].name)")
-                    }
+//                    let symptomIndex = indexPath.item - 1
+//                    if symptomIndex < selectedSymptoms.count {
+//                        // You can add logic here to show more details about the signal
+//                        print("Tapped on signal: \(selectedSymptoms[symptomIndex].name)")
+//                    }
+                    performSegue(withIdentifier: "showSignal01", sender: nil)
                 }
             }
             

@@ -29,7 +29,7 @@ class SignalsCollectionViewCell: UICollectionViewCell {
             SignalsImage.image = image
         } else {
             // Use a default system image or placeholder
-            SignalsImage.image = UIImage(systemName: "heart.text.square.fill")
+            SignalsImage.image = UIImage(named: acnePCOSSignal.signalIllustration)
             SignalsImage.tintColor = .systemPink
         }
     }

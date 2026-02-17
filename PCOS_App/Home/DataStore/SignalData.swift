@@ -5,6 +5,8 @@
 //  Created by SDC-USER on 05/02/26.
 //
 
+
+//NEED TO REMOVE THIS ->redundant
 import UIKit
 
 struct SignalInfo {
