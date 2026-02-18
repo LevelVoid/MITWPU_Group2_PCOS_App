@@ -9,14 +9,15 @@ import UIKit
 
 final class Signal01ViewController: UIViewController {
 
-   // @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var infoHeadingLabel: UILabel!
-    @IBOutlet weak var infoCardLabel1: UILabel!
-    @IBOutlet weak var infoCardLabel2: UILabel!
+    @IBOutlet weak var headingLabel: UILabel!
+    @IBOutlet weak var paragraph1Label: UILabel!
+    @IBOutlet weak var paragraph2Label: UILabel!
     @IBOutlet weak var illustrationImageView: UIImageView!
     var signal: PCOSSignal!
 
-
+    @IBOutlet weak var card1View: UIView!
+    @IBOutlet weak var card2View: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,17 +26,16 @@ final class Signal01ViewController: UIViewController {
     }
 
     private func configureUI() {
-        title = signal.signalTitle
-        infoCardLabel1.numberOfLines = 0
-        infoCardLabel2.numberOfLines = 0
+        card1View.layer.cornerRadius = 16
+        card2View.layer.cornerRadius = 16
         illustrationImageView.contentMode = .scaleAspectFit
     }
 
     private func bindData() {
-
-        infoHeadingLabel.text = signal.infoHeading
-        infoCardLabel1.text = signal.scientificReasons.first
-        infoCardLabel2.text = signal.scientificReasons.dropFirst().first
+        title = signal.signalTitle
+        headingLabel.text = signal.infoHeading
+        paragraph1Label.text = signal.scientificReasons.first
+        paragraph2Label.text = signal.scientificReasons.dropFirst().first
         illustrationImageView.image = UIImage(named: signal.signalIllustration)
     }
 
