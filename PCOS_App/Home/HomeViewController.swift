@@ -16,7 +16,10 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Today"
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
+        tabBarItem.title = "Today"
+        navigationItem.title = ""
         
         let bgColor = UIColor(hex: "#FCEEED")
         collectionView.backgroundColor = bgColor
