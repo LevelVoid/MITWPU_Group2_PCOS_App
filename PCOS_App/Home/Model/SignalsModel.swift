@@ -42,11 +42,11 @@ struct SupportCategoryAssets {
 }
 
 //NOTE:CHANGES TO BE MADE IN MODEL->need to add for multiple values for support your body today->less repetition of data
-struct PhaseSignal {
-    let phaseName: String
-    let title: String
-    let illustration: String
-}
+//struct PhaseSignal {
+//    let phaseName: String
+//    let title: String
+//    let illustration: String
+//}
 
 //struct PhaseSignalStore {
 //
@@ -67,5 +67,6 @@ struct PhaseSignal {
 
 enum DisplaySignal {
     case symptom(PCOSSignal)
-    case phase(PhaseSignal)
+    case phase(PhaseSignal, PhaseCardType)
 }
+

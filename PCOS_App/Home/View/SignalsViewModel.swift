@@ -28,4 +28,29 @@ final class PCOSSignalViewModel {
     }
 
 }
+//NEED TO DELETE THIS -> have to map out things a bit->temporary 
+extension PhaseSignal {
+
+    func cardTitle(for type: PhaseCardType) -> String {
+        switch type {
+        case .understanding:
+            return understanding.heading   // "Periods in PCOS"
+        case .symptoms:
+            return symptoms.heading        // "Symptoms to Expect"
+        case .support:
+            return support.heading         // "Menstrual Relief"
+        }
+    }
+
+    func cardImage(for type: PhaseCardType) -> String {
+        switch type {
+        case .understanding:
+            return illustration
+        case .symptoms:
+            return "menstrual_symptoms_illustration"
+        case .support:
+            return "menstrual_support_illustration"
+        }
+    }
+}
 

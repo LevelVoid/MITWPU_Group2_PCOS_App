@@ -28,11 +28,15 @@ class SignalsCollectionViewCell: UICollectionViewCell {
     }
 
     
-    func configurePhase(with phase: PhaseSignal) {
-        SignalsLabel.text = phase.title
-        SignalsImage.image = UIImage(named: phase.illustration)
+    func configurePhase(
+        phase: PhaseSignal,
+        cardType: PhaseCardType
+    ) {
+        SignalsLabel.text = phase.cardTitle(for: cardType)
+        SignalsImage.image = UIImage(
+            named: phase.cardImage(for: cardType)
+        )
         SignalsImage.tintColor = .clear
     }
-
 
 }

@@ -12,8 +12,10 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     @IBOutlet weak var collectionView: UICollectionView!
     // Storing selected symptoms
     private var selectedSymptoms: [SymptomItem] = []
+    private var displaySignals: [DisplaySignal] = []
     private var recommendationCards : [Recommendation] = recommendations
-    
+    private var allSymptoms: [SymptomItem] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = false
@@ -47,17 +49,18 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         collectionView.delegate = self
         
         collectionView.collectionViewLayout = createCompositionalLayout()
-        
+        allSymptoms = SymptomDataStore.loadAllSymptomsLastNDays(30)
         loadTodaysSymptoms()
+        buildDisplaySignals()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("\nThis is HomeVC:",selectedSymptoms)
         loadTodaysSymptoms()
+        buildDisplaySignals()
         collectionView.reloadData()
     }
-    
+
     private func loadTodaysSymptoms() {
         if let data = UserDefaults.standard.data(forKey: "todaysSymptoms"),
            let symptoms = try? JSONDecoder().decode([SymptomItem].self, from: data) {
@@ -84,7 +87,24 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             }
         }
     }
-    
+    private func buildDisplaySignals() {
+        displaySignals.removeAll()
+
+        // 1. Always add current phase first
+        let currentPhase = getCurrentPhase() // we’ll define this next
+
+        let phaseSignals = PhaseSignalDataStore.shared.signals(for: currentPhase)
+        displaySignals.append(contentsOf: phaseSignals)
+
+
+        // 2. Add symptom signals ONLY if symptoms are logged
+        for symptom in selectedSymptoms {
+            if let signal = PCOSSignalStore.signal(for: symptom.name) {
+                displaySignals.append(.symptom(signal))
+            }
+        }
+    }
+
     func registerCells() {
         collectionView.register(
             UINib(nibName: "HomeHeaderCollectionViewCell", bundle: nil),
@@ -120,7 +140,14 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             UINib(nibName: "SleepCardCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: "sleep_card_cell"
         )
-        
+        collectionView.register(
+            UINib(nibName: "SymptomPatternsCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: "symptom_patterns_cell"
+        )
+        collectionView.register(
+            UINib(nibName: "AboutPCOSCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: "about_pcos_cell"
+        )
         collectionView.register(
             UINib(nibName: "HeaderCollectionReusableView", bundle: nil),
             forSupplementaryViewOfKind: "header",
@@ -150,6 +177,8 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             case 3: return self.createRecommendationSection()
             case 4: return self.createSleepCardSection()
             case 5: return self.createCycleSection()
+            case 6: return self.createSymptomPatternsSection()
+            case 7: return self.createAboutPCOSSection()
             default:
                 return nil
             }
@@ -273,6 +302,66 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         addHeader(to: section)
         return section
     }
+    func createSymptomPatternsSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .absolute(340),
+            heightDimension: .absolute(320)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .absolute(340),
+            heightDimension: .absolute(320)
+        )
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 16
+        section.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 16,
+            bottom: 20,
+            trailing: 16
+        )
+        section.orthogonalScrollingBehavior = .continuous
+        
+        addHeader(to: section)
+        return section
+    }
+    func createAboutPCOSSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .absolute(340),
+            heightDimension: .absolute(320)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .absolute(340),
+            heightDimension: .absolute(320)
+        )
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 16
+        section.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 16,
+            bottom: 20,
+            trailing: 16
+        )
+        section.orthogonalScrollingBehavior = .continuous
+        
+        addHeader(to: section)
+        return section
+    }
     
     func addHeader(to section: NSCollectionLayoutSection) {
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(40))
@@ -372,7 +461,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return 1  // Header
         case 1:
             // Always show Add button + signal cards for selected symptoms
-            return 1 + selectedSymptoms.count  // +1 for Add button
+            return 1 + displaySignals.count  // +1 for Add button
         case 2:
             return 1  // Quick Actions
         case 3:
@@ -381,6 +470,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return 1  // Sleep Card
         case 5:
             return 1  // Cycle Pattern
+        case 6:
+            return  allSymptoms.count
+//        case 7:
+//            return  aboutPCOSArticles.count
         default:
             return 0
         }
@@ -393,26 +486,36 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return cell
         }
         else if indexPath.section == 1 {
-            // First item is always the Add button
+
+            // Add Symptom button
             if indexPath.item == 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddSymptomCollectionViewCell", for: indexPath) as! AddSymptomCollectionViewCell
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: "AddSymptomCollectionViewCell",
+                    for: indexPath
+                ) as! AddSymptomCollectionViewCell
                 return cell
             }
-            
-            // Remaining items are signal cards for each symptom
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "signals_cell", for: indexPath) as! SignalsCollectionViewCell
-            
-            let symptomIndex = indexPath.item - 1
-            if symptomIndex < selectedSymptoms.count {
-                
-                let symptom = selectedSymptoms[symptomIndex]
-                
-                if let signal = PCOSSignalStore.signal(for: symptom.name) {
-                    cell.configure(with: signal)
-                }
+
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "signals_cell",
+                for: indexPath
+            ) as! SignalsCollectionViewCell
+
+            let signalIndex = indexPath.item - 1
+            let displaySignal = displaySignals[signalIndex]
+
+            switch displaySignal {
+            case .phase(let phaseSignal, let cardType):
+                cell.configurePhase(
+                    phase: phaseSignal,
+                    cardType: cardType
+                )
+
+            case .symptom(let symptomSignal):
+                cell.configure(with: symptomSignal)
             }
-            
-            
+
+
             return cell
         }
         else if indexPath.section == 2 {
@@ -434,12 +537,27 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cycle_pattern_cell", for: indexPath) as! CyclePatternCollectionViewCell
             return cell
         }
+        else if indexPath.section == 6 {
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "symptom_patterns_cell",
+                for: indexPath
+            ) as! SymptomPatternsCollectionViewCell
+
+            let symptom = allSymptoms[indexPath.item]
+            let cycles = CycleDataStore.shared.loadRecentCycles()
+
+            cell.configure(cycles: cycles, symptom: symptom)
+            return cell
+        }else if indexPath.section == 7 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "about_pcos_cell", for: indexPath) as! AboutPCOSCollectionViewCell
+            return cell
+        }
         
         return UICollectionViewCell()
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 6
+        return 8
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -456,7 +574,13 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             headerView.configureHeader(with: "Sleep Patterns")
         } else if indexPath.section == 5 {
             headerView.configureHeader(with: "Cycle Trends")
-        } else {
+        }
+        else if indexPath.section == 6 {
+            headerView.configureHeader(with: "Symptom Patterns")
+        }
+        else if indexPath.section == 7 {
+            headerView.configureHeader(with: "About PCOS")
+        }else {
             headerView.configureHeader(with: "")
         }
         return headerView
@@ -464,44 +588,48 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {
+
             if indexPath.item == 0 {
-                // Tapped on Add Symptom button
                 performSegue(withIdentifier: "showSymptomLogger", sender: self)
-            } else {
-                let symptomIndex = indexPath.item - 1
-                if symptomIndex < selectedSymptoms.count {
-                    
-                    let symptom = selectedSymptoms[symptomIndex]
-                    
-                    if let signal = PCOSSignalStore.signal(for: symptom.name) {
-                        
-                        let storyboard = UIStoryboard(name: "Home", bundle: nil)
-                        
-//                        let storyVC = storyboard.instantiateViewController(
-//                            withIdentifier: "SymptomStoryPageViewController"
-//                        ) as! SymptomStoryPageViewController
-//                        
-//                        storyVC.signal = signal
-//                        storyVC.modalPresentationStyle = .fullScreen
-//                        
-//                        present(storyVC, animated: true)
-                        
-                        let navController = storyboard.instantiateViewController(
-                            withIdentifier: "SymptomStoryNavigationController"
-                        ) as! UINavigationController
+                return
+            }
 
-                        let storyVC = navController.viewControllers.first as! SymptomStoryPageViewController
+            let signalIndex = indexPath.item - 1
+            let displaySignal = displaySignals[signalIndex]
 
-                        storyVC.signal = signal
+            let storyboard = UIStoryboard(name: "Home", bundle: nil)
 
-                        navController.modalPresentationStyle = .fullScreen
+            switch displaySignal {
 
-                        present(navController, animated: true)
+            case .symptom(let signal):
+                let navController = storyboard.instantiateViewController(
+                    withIdentifier: "SymptomStoryNavigationController"
+                ) as! UINavigationController
 
-                    }
-                }
+                let storyVC = navController.viewControllers.first
+                    as! SymptomStoryPageViewController
+
+                storyVC.signal = signal
+                navController.modalPresentationStyle = .fullScreen
+                present(navController, animated: true)
+
+            case .phase(let phaseSignal, let cardType):
+                let navController = storyboard.instantiateViewController(
+                    withIdentifier: "PhaseStoryNavigationController"
+                ) as! UINavigationController
+
+                let storyVC = navController.viewControllers.first
+                    as! PhaseStoryPageViewController
+
+                storyVC.phaseSignal = phaseSignal
+                storyVC.startIndex = phaseSignal.cards.firstIndex(of: cardType) ?? 0
+
+                navController.modalPresentationStyle = .fullScreen
+                present(navController, animated: true)
+
             }
         }
+
         
         if indexPath.section == 2 {
             // Handle quickactions tap if needed
@@ -518,11 +646,19 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         if indexPath.section == 4 {
-            // Handle sleep card tap if needed
+            // Handle sleep card tap
         }
         
         if indexPath.section == 5 {
             performSegue(withIdentifier: "showCycleReport", sender: nil)
         }
+        
     }
 }
+//DELETE LATER :TEMPORARY
+private func getCurrentPhase() -> Phase {
+    // TEMP: Replace with real cycle logic later
+    return .menstrual
+}
+
+
