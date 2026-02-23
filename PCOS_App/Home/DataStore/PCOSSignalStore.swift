@@ -11,6 +11,8 @@ struct PCOSSignalStore {
 
     static let allSignals: [PCOSSignal] = [
         acnePCOSSignal,
+        hirsutismPCOSSignal,
+        crampsPCOSSignal,
         hairLossPCOSSignal
     ]
 
