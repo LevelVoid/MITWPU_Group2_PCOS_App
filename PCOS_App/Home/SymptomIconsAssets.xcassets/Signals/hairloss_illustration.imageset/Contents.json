@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "Download_Female_alopecia_character_loses_hair_with_a_comb__for_free-removebg-preview.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

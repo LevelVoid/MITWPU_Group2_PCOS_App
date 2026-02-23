@@ -47,7 +47,7 @@ extension PhaseSignal {
         case .understanding:
             return illustration
         case .symptoms:
-            return "menstrual_symptoms_illustration"
+            return "cycle"
         case .support:
             return "menstrual_support_illustration"
         }
