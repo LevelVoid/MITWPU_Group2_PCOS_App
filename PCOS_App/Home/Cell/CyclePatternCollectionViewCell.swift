@@ -32,6 +32,10 @@ class CyclePatternCollectionViewCell: UICollectionViewCell {
 //        periodCycleChartView.configure(with: cycles)
   //  }
         super.awakeFromNib()
+                cyclePatternView.layer.cornerRadius = 20
+                viewTooTiredToRemove.layer.cornerRadius = 20
+                avgCycleLength.layer.cornerRadius = 10
+                avgPeriodLength.layer.cornerRadius = 10
         // Initialization code
         
         setupPeriodCycleChart()

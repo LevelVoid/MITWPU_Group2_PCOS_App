@@ -36,6 +36,7 @@ class CycleReportViewController: UIViewController {
         //        ovulationWarningCard.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 0/255, alpha: 0.1)
         
         CycleOverview.layer.cornerRadius = 20
+        CycleOverview.clipsToBounds = true
         cycleLengthCard.layer.cornerRadius = 20
         periodLengthCard.layer.cornerRadius = 20
         

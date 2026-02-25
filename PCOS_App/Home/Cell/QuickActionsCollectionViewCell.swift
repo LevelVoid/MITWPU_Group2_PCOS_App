@@ -1,11 +1,9 @@
-//
-//  QuickActionsCollectionViewCell.swift
-//  PCOS_App
-//
-//  Created by SDC-USER on 04/02/26.
-//
-
 import UIKit
+
+protocol QuickActionsDelegate: AnyObject {
+    func quickActionsDidTapAddMeal()
+    func quickActionsDidTapStartWorkout()
+}
 
 class QuickActionsCollectionViewCell: UICollectionViewCell {
 
@@ -27,27 +25,32 @@ class QuickActionsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var dietRecView: UIView!
     @IBOutlet weak var workoutRecView: UIView!
     
+    weak var delegate: QuickActionsDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
-        dietActionCard.layer.cornerRadius=20
-        workoutActionCard.layer.cornerRadius=20
-        
-        dietRecView.layer.cornerRadius=10
-        workoutRecView.layer.cornerRadius=10
+        dietActionCard.layer.cornerRadius = 20
+        workoutActionCard.layer.cornerRadius = 20
+        dietRecView.layer.cornerRadius = 10
+        workoutRecView.layer.cornerRadius = 10
     }
     
-    func configure(){
+    func configure() {
         let totals = FoodLogDataSource.todaysMeal.reduce(into: (0.0, 0.0, 0.0)) { result, food in
             result.0 += food.proteinContent
             result.1 += food.carbsContent
             result.2 += food.fatsContent
         }
-        proteinCompleted.text="\(Int(totals.0))"
-        carbsCompleted.text="\(Int(totals.1))"
-        fatsCompleted.text="\(Int(totals.2))"
+        proteinCompleted.text = "\(Int(totals.0))"
+        carbsCompleted.text = "\(Int(totals.1))"
+        fatsCompleted.text = "\(Int(totals.2))"
     }
 
+    @IBAction func addMeal(_ sender: Any) {
+        delegate?.quickActionsDidTapAddMeal()
+    }
+    
+    @IBAction func startWorkout(_ sender: Any) {
+        delegate?.quickActionsDidTapStartWorkout()
+    }
 }
