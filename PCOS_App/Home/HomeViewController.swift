@@ -161,8 +161,8 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             case 3: return self.createRecommendationSection()
             case 4: return self.createSleepCardSection()
             case 5: return self.createCycleSection()
-            case 6: return self.createSymptomPatternsSection()
-            case 7: return self.createAboutPCOSSection()
+//            case 6: return self.createSymptomPatternsSection()
+            case 6: return self.createAboutPCOSSection()
             default: return nil
             }
         }
@@ -305,7 +305,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         section.contentInsets = NSDirectionalEdgeInsets(
             top: 4, leading: 16, bottom: 16, trailing: 16
         )
-        section.orthogonalScrollingBehavior = .continuous
+        section.orthogonalScrollingBehavior = .paging
         addHeader(to: section)
         return section
     }
@@ -454,7 +454,7 @@ extension HomeViewController: AddDescribedMealDelegate {
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 8
+        return 7
     }
     
     func collectionView(
@@ -468,8 +468,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         case 3: return recommendationCards.count
         case 4: return 1
         case 5: return 1
-        case 6: return allSymptoms.count
-        case 7: return aboutPCOSArticles.count
+       // case 6: return allSymptoms.count
+        case 6: return aboutPCOSArticles.count
         default: return 0
         }
     }
@@ -543,17 +543,17 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             ) as! CyclePatternCollectionViewCell
             return cell
             
+//        case 6:
+//            let cell = collectionView.dequeueReusableCell(
+//                withReuseIdentifier: "symptom_patterns_cell",
+//                for: indexPath
+//            ) as! SymptomPatternsCollectionViewCell
+//            let symptom = allSymptoms[indexPath.item]
+//            let cycles = CycleDataStore.shared.loadRecentCycles()
+//            cell.configure(cycles: cycles, symptom: symptom)
+//            return cell
+//            
         case 6:
-            let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "symptom_patterns_cell",
-                for: indexPath
-            ) as! SymptomPatternsCollectionViewCell
-            let symptom = allSymptoms[indexPath.item]
-            let cycles = CycleDataStore.shared.loadRecentCycles()
-            cell.configure(cycles: cycles, symptom: symptom)
-            return cell
-            
-        case 7:
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "about_pcos_cell",
                 for: indexPath
@@ -584,8 +584,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         case 3: headerView.configureHeader(with: "What May Happen Next")
         case 4: headerView.configureHeader(with: "Sleep Patterns")
         case 5: headerView.configureHeader(with: "Cycle Trends")
-        case 6: headerView.configureHeader(with: "Symptom Patterns")
-        case 7: headerView.configureHeader(with: "About PCOS")
+        //case 6: headerView.configureHeader(with: "Symptom Patterns")
+        case 6: headerView.configureHeader(with: "About PCOS")
         default: headerView.configureHeader(with: "")
         }
         return headerView
@@ -639,7 +639,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         case 5:
             performSegue(withIdentifier: "showCycleReport", sender: nil)
             
-        case 7:
+        case 6:
             let article = aboutPCOSArticles[indexPath.item]
             let vc = storyboard?.instantiateViewController(
                 withIdentifier: "AboutPCOSViewController"
