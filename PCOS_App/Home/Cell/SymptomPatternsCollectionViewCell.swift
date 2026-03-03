@@ -12,14 +12,17 @@ class SymptomPatternsCollectionViewCell:
     
     UICollectionViewDelegate {
 
-
+        
     @IBOutlet weak var collectionView: UICollectionView!
     //private var days: [CycleDay] = []
     @IBOutlet weak var  NameLabel: UILabel!
 @IBOutlet weak var  SymptomImage: UIImageView!
         @IBOutlet  var  StartDateLabels: [UILabel]!
         @IBOutlet  var  LengthLabels: [UILabel]!
-    
+        @IBOutlet var ovulationView:UIView!
+        @IBOutlet var follicularView:UIView!
+        @IBOutlet var leutalView:UIView!
+        @IBOutlet var menstrualView:UIView!
     private var symptom: SymptomItem?
 
     private var cycles: [CycleData] = []
@@ -27,11 +30,25 @@ class SymptomPatternsCollectionViewCell:
 
         
         
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        setupCollectionView()
-    }
+        override func awakeFromNib() {
+            super.awakeFromNib()
+
+            contentView.layer.cornerRadius = 20
+            contentView.backgroundColor = UIColor.systemGray6
+            contentView.layer.masksToBounds = true
+
+            // Legend colors
+            menstrualView.backgroundColor = Phase.menstrual.backgroundColor
+            follicularView.backgroundColor = Phase.follicular.backgroundColor
+            ovulationView.backgroundColor = Phase.ovulation.backgroundColor
+            leutalView.backgroundColor = Phase.luteal.backgroundColor
+
+            [menstrualView, follicularView, ovulationView, leutalView].forEach {
+                $0?.layer.cornerRadius = ($0?.bounds.width ?? 0) / 2
+            }
+            
+            setupCollectionView()
+        }
 
     private func setupCollectionView() {
         collectionView.collectionViewLayout = makeLayout()
@@ -44,35 +61,27 @@ class SymptomPatternsCollectionViewCell:
             )
         collectionView.alwaysBounceVertical = false
         collectionView.alwaysBounceHorizontal = true
-        
-
+        collectionView.isDirectionalLockEnabled = true
+       
     }
 
-//        func configure(cycles: [CycleData], symptom: SymptomItem) {
-//            self.cycles = cycles
-//            self.symptom = symptom
-//            
-////            print("SymptomPatterns cycles:", cycles.count)
-//            NameLabel.text = symptom.name
-//            SymptomImage.image = UIImage(named: symptom.icon)
-//            collectionView.reloadData()
-//        }
-        func configure(cycles: [CycleData], symptom: SymptomItem) {
-            self.cycles = cycles
-            self.symptom = symptom
 
+        func configure(cycles: [CycleData], symptom: SymptomItem) {
+            self.symptom = symptom
+            
+            // Always keep last 3 cycles only
+            self.cycles = Array(cycles.suffix(3))
+            
             NameLabel.text = symptom.name
             SymptomImage.image = UIImage(named: symptom.icon)
 
-            // Fill left-side cycle info (max 3)
             for i in 0..<StartDateLabels.count {
-                if i < cycles.count {
-                    let cycle = cycles[i]
-//                    StartDateLabels[i].text = cycle.startDateFormatted
+                if i < self.cycles.count {
+                    let cycle = self.cycles[i]
+
                     let formatter = DateFormatter()
                     formatter.dateFormat = "MMM d"
                     StartDateLabels[i].text = formatter.string(from: cycle.startDate)
-
                     LengthLabels[i].text = "\(cycle.days.count) days"
                 } else {
                     StartDateLabels[i].text = ""
@@ -87,7 +96,6 @@ class SymptomPatternsCollectionViewCell:
 
 
 
-
         private func makeLayout() -> UICollectionViewLayout {
             UICollectionViewCompositionalLayout { [weak self] _, _ in
                 guard let self = self else { return nil }
@@ -97,9 +105,10 @@ class SymptomPatternsCollectionViewCell:
 
                 // One day cell
                 let itemSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(48),
-                    heightDimension: .absolute(64)
+                    widthDimension: .absolute(44),
+                    heightDimension: .absolute(45)
                 )
+                
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
                 // One ROW = days laid out horizontally
@@ -112,16 +121,17 @@ class SymptomPatternsCollectionViewCell:
                     subitem: item,
                     count: columns
                 )
-                rowGroup.interItemSpacing = .fixed(20)
+                rowGroup.interItemSpacing = .fixed(2)
 
                 // Stack rows vertically
                 let gridGroupSize = NSCollectionLayoutSize(
                     widthDimension: .estimated(CGFloat(columns) * 68),
-                    heightDimension: .absolute(CGFloat(rows) * 64)
+                    heightDimension: .absolute(CGFloat(rows) * 45)
                 )
                 let gridGroup = NSCollectionLayoutGroup.vertical(
                     layoutSize: gridGroupSize,
-                    subitems: [rowGroup]
+                    subitem: rowGroup,
+                    count: rows
                 )
 
                 let section = NSCollectionLayoutSection(group: gridGroup)
@@ -134,21 +144,7 @@ class SymptomPatternsCollectionViewCell:
 
 extension SymptomPatternsCollectionViewCell: UICollectionViewDataSource {
 
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        1 + cycles.count
-//    }
-//
-//    func collectionView(
-//        _ collectionView: UICollectionView,
-//        numberOfItemsInSection section: Int
-//    ) -> Int {
-//
-//        if section == 0 {
-//            return maxDayCount()
-//        } else {
-//            return cycles[section - 1].days.count
-//        }
-//    }
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         1
         //cycles.count+1//+1 for day number

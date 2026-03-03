@@ -39,19 +39,23 @@ extension CycleData {
 extension Phase {
 
     var backgroundColor: UIColor {
-        switch self {
-        case .menstrual:
-            return UIColor.systemPink.withAlphaComponent(0.35)
-        case .ovulation:
-            return UIColor.systemYellow.withAlphaComponent(0.45)
-        case .luteal:
-            return UIColor.systemGray5
-        case .unknown:
-            return UIColor.systemGray4
-        default:
-            return .clear
+            switch self {
+            case .menstrual:
+                return UIColor(red: 0.90, green: 0.45, blue: 0.50, alpha: 1) // Rose red
+                
+            case .follicular:
+                return UIColor(red: 0.45, green: 0.75, blue: 0.80, alpha: 1) // Soft teal
+                
+            case .ovulation:
+                return UIColor(red: 0.98, green: 0.80, blue: 0.30, alpha: 1) // Golden
+                
+            case .luteal:
+                return UIColor(red: 0.75, green: 0.65, blue: 0.85, alpha: 1) // Lavender
+                
+            case .unknown:
+                return UIColor.systemGray4
+            }
         }
-    }
 
     var icon: UIImage? {
         switch self {

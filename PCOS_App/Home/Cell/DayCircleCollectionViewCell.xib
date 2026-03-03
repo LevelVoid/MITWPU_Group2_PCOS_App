@@ -17,31 +17,31 @@
                 <rect key="frame" x="0.0" y="0.0" width="27" height="50"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Cyz-fQ-MeX">
-                        <rect key="frame" x="0.0" y="3" width="20" height="43.333333333333336"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Cyz-fQ-MeX">
+                        <rect key="frame" x="0.0" y="0.0" width="30" height="50.333333333333336"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sA-q8-UHq">
-                                <rect key="frame" x="0.0" y="0.0" width="20" height="20.333333333333332"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="37" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sA-q8-UHq">
+                                <rect key="frame" x="0.0" y="0.0" width="30" height="20.333333333333332"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7rb-gl-zVE">
-                                <rect key="frame" x="0.0" y="23.333333333333329" width="20" height="20"/>
+                                <rect key="frame" x="0.0" y="20.333333333333329" width="30" height="30"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z4r-gy-YX3">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="0JB-yA-pRf"/>
-                                            <constraint firstAttribute="height" constant="20" id="1Lp-M7-JvC"/>
+                                            <constraint firstAttribute="width" constant="30" id="0JB-yA-pRf"/>
+                                            <constraint firstAttribute="height" constant="30" id="1Lp-M7-JvC"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="Z4r-gy-YX3" firstAttribute="centerX" secondItem="7rb-gl-zVE" secondAttribute="centerX" id="0Pc-1h-aHP"/>
-                                    <constraint firstAttribute="height" constant="20" id="3EO-O5-NMh"/>
-                                    <constraint firstAttribute="width" constant="20" id="O0V-Rc-xFm"/>
+                                    <constraint firstAttribute="height" constant="30" id="3EO-O5-NMh"/>
+                                    <constraint firstAttribute="width" constant="30" id="O0V-Rc-xFm"/>
                                     <constraint firstItem="Z4r-gy-YX3" firstAttribute="centerY" secondItem="7rb-gl-zVE" secondAttribute="centerY" id="Ydb-hd-lxm"/>
                                 </constraints>
                             </view>
@@ -51,7 +51,7 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="Cyz-fQ-MeX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="3" id="4ET-lh-0pE"/>
+                <constraint firstItem="Cyz-fQ-MeX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="4ET-lh-0pE"/>
                 <constraint firstItem="Cyz-fQ-MeX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="k04-d9-nud"/>
                 <constraint firstItem="Cyz-fQ-MeX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="mTv-dQ-D3s"/>
             </constraints>
