@@ -50,7 +50,7 @@
                                     <constraint firstAttribute="height" constant="25" id="pq8-Ud-Qj4"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gjh-Bq-N2k">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gjh-Bq-N2k">
                                 <rect key="frame" x="16" y="179.33333333333334" width="148" height="58"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Afternoon Snack" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rwf-Cc-tbC">
@@ -209,7 +209,7 @@ greens</string>
                                     <constraint firstAttribute="height" constant="25" id="BL7-s9-ySy"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="niN-Bj-Uqe">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="niN-Bj-Uqe">
                                 <rect key="frame" x="16" y="179.33333333333334" width="148" height="57.666666666666657"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Low Impact Strength" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Oj-4M-cDV">
@@ -235,11 +235,11 @@ greens</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98C-iJ-TCX">
-                                <rect key="frame" x="10" y="249" width="160" height="35"/>
+                                <rect key="frame" x="8" y="249" width="164" height="35"/>
                                 <color key="backgroundColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Start Workout">
+                                <buttonConfiguration key="configuration" style="filled" title="Low Impact ">
                                     <fontDescription key="titleFontDescription" style="UICTFontTextStyleHeadline"/>
                                     <color key="baseBackgroundColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
@@ -276,14 +276,14 @@ greens</string>
                             <constraint firstItem="SNm-3i-f06" firstAttribute="top" secondItem="Irb-4y-UuQ" secondAttribute="top" constant="20" id="Bpa-1i-4pS"/>
                             <constraint firstItem="Gfh-H1-XSh" firstAttribute="trailing" secondItem="FXQ-2f-Agg" secondAttribute="trailing" id="CnH-7X-pOv"/>
                             <constraint firstItem="g1U-zr-LgJ" firstAttribute="leading" secondItem="FXQ-2f-Agg" secondAttribute="trailing" constant="12" id="DNf-LP-kOg"/>
-                            <constraint firstItem="98C-iJ-TCX" firstAttribute="leading" secondItem="Irb-4y-UuQ" secondAttribute="leading" constant="10" id="E0i-UI-3rA"/>
+                            <constraint firstItem="98C-iJ-TCX" firstAttribute="leading" secondItem="Irb-4y-UuQ" secondAttribute="leading" constant="8" id="E0i-UI-3rA"/>
                             <constraint firstItem="Jlm-7I-kBd" firstAttribute="leading" secondItem="aCh-oj-1ZY" secondAttribute="trailing" constant="12" id="G1f-4k-Lam"/>
                             <constraint firstAttribute="bottom" secondItem="98C-iJ-TCX" secondAttribute="bottom" constant="16" id="Hza-gz-BnL"/>
                             <constraint firstItem="aCh-oj-1ZY" firstAttribute="leading" secondItem="FXQ-2f-Agg" secondAttribute="leading" id="KWo-DY-LCi"/>
                             <constraint firstItem="kEw-ht-cYw" firstAttribute="centerY" secondItem="Gfh-H1-XSh" secondAttribute="centerY" id="LsG-yE-0B5"/>
                             <constraint firstItem="Gfh-H1-XSh" firstAttribute="leading" secondItem="FXQ-2f-Agg" secondAttribute="leading" id="NQQ-sA-knJ"/>
                             <constraint firstItem="Jlm-7I-kBd" firstAttribute="centerY" secondItem="aCh-oj-1ZY" secondAttribute="centerY" id="Nze-hG-qLp"/>
-                            <constraint firstAttribute="trailing" secondItem="98C-iJ-TCX" secondAttribute="trailing" constant="10" id="P8o-dO-yXs"/>
+                            <constraint firstAttribute="trailing" secondItem="98C-iJ-TCX" secondAttribute="trailing" constant="8" id="P8o-dO-yXs"/>
                             <constraint firstAttribute="height" constant="300" id="Xnp-2l-vM9"/>
                             <constraint firstItem="SNm-3i-f06" firstAttribute="leading" secondItem="Irb-4y-UuQ" secondAttribute="leading" constant="20" id="YNT-BV-dpD"/>
                             <constraint firstItem="qIF-B4-b5X" firstAttribute="centerY" secondItem="aCh-oj-1ZY" secondAttribute="centerY" id="YPe-8L-mDk"/>

@@ -42,14 +42,55 @@ extension PhaseSignal {
         }
     }
 
+
     func cardImage(for type: PhaseCardType) -> String {
-        switch type {
-        case .understanding:
-            return illustration
-        case .symptoms:
+        switch (phase, type) {
+
+        // MARK: Menstrual Phase
+        case (.menstrual, .understanding):
+            return "menstrual_phase_illustration"
+
+        case (.menstrual, .symptoms):
             return "cycle"
-        case .support:
+
+        case (.menstrual, .support):
             return "menstrual_support_illustration"
+
+
+        // MARK: Ovulation Phase
+        case (.ovulation, .understanding):
+            return "ovulation_phase_illustration"
+
+        case (.ovulation, .symptoms):
+            return "cycle"
+
+        case (.ovulation, .support):
+            return "ovulation_support_illustration"
+            
+            // MARK: Luteal Phase
+            case (.luteal, .understanding):
+                return "luteal_phase_illustration"
+
+            case (.luteal, .symptoms):
+                return "cycle"
+
+            case (.luteal, .support):
+                return "luteal_support_illustration"
+            
+            
+            // MARK: Follicular Phase
+            case (.follicular, .understanding):
+                return "follicular_phase_illustration"
+
+            case (.follicular, .symptoms):
+                return "cycle"
+
+            case (.follicular, .support):
+                return "follicular_support_illustration"
+
+
+        default:
+            return illustration
         }
     }
 }

@@ -27,7 +27,8 @@ class AboutPCOSCollectionViewCell: UICollectionViewCell {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         titleLabel.numberOfLines = 2
 
-        descriptionLabel.font = UIFont.systemFont(ofSize: 15)
+        //descriptionLabel.font = UIFont.systemFont(ofSize: 15)
+        descriptionLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         descriptionLabel.numberOfLines = 3
         descriptionLabel.textColor = .darkGray
 

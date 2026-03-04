@@ -9,9 +9,8 @@ import UIKit
 
 class Phase02ViewController: UIViewController {
     @IBOutlet weak var TableView: UITableView!
-//    @IBOutlet weak var ExpectedSymptomName: UILabel!
     @IBOutlet weak var Description: UILabel!
-//    @IBOutlet weak var ExpectedSymptomImage: UIImageView!
+
     @IBOutlet weak var headingLabel:UILabel!
     @IBOutlet weak var card1View:UIView!
     @IBOutlet weak var card2View:UIView!
