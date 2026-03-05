@@ -45,7 +45,6 @@ class LogPeriodCalendarViewController: UIViewController {
         doneButton.tintColor = UIColor(red: 0.996, green: 0.478, blue: 0.588, alpha: 1.0)
         navigationItem.rightBarButtonItem = doneButton
         
-        // Add Cancel button for modal presentation
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonTapped))
         cancelButton.tintColor = UIColor(red: 0.996, green: 0.478, blue: 0.588, alpha: 1.0)
         navigationItem.leftBarButtonItem = cancelButton
@@ -54,8 +53,8 @@ class LogPeriodCalendarViewController: UIViewController {
     // MARK: - Setup
     private func setupDisplayedMonths() {
         let today = Date()
-        // Show previous 2 months, current month, and next month
-        for i in -2...1 {
+        // Show previous 6 months, current month, and next month
+        for i in -6...1 {
             if let month = calendar.date(byAdding: .month, value: i, to: today) {
                 displayedMonths.append(month)
             }
@@ -67,9 +66,9 @@ class LogPeriodCalendarViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         // Only scroll once when the view is first laid out
-        if !hasScrolledToCurrentMonth && displayedMonths.count > 2 {
+        if !hasScrolledToCurrentMonth && displayedMonths.count > 6 {
             DispatchQueue.main.async { [weak self] in
-                self?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 2), at: .top, animated: false)
+                self?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 6), at: .top, animated: false)
                 self?.hasScrolledToCurrentMonth = true
             }
         }
@@ -172,9 +171,9 @@ class LogPeriodCalendarViewController: UIViewController {
     private func loadSavedDates() {
         let cal = Calendar.current
 
-        // 1. Load any previously saved dates from UserDefaults
+        // 1. Load any previously saved dates from UserDefaults (normalize to startOfDay)
         if let timestamps = UserDefaults.standard.array(forKey: "SavedPeriodDates") as? [TimeInterval] {
-            selectedDates = Set(timestamps.map { Date(timeIntervalSince1970: $0) })
+            selectedDates = Set(timestamps.map { cal.startOfDay(for: Date(timeIntervalSince1970: $0)) })
         }
 
         // 2. Also pull period dates from existing cycle data (includes mock cycles)
@@ -185,6 +184,12 @@ class LogPeriodCalendarViewController: UIViewController {
                     selectedDates.insert(cal.startOfDay(for: date))
                 }
             }
+        }
+
+        // If no dates loaded, auto-select today + 4 more days
+        if selectedDates.isEmpty {
+            let today = cal.startOfDay(for: Date())
+            selectDateRange(from: today, days: 5)
         }
 
         collectionView.reloadData()
@@ -236,6 +241,43 @@ class LogPeriodCalendarViewController: UIViewController {
     
     private func isSelected(_ date: Date) -> Bool {
         selectedDates.contains(calendar.startOfDay(for: date))
+    }
+    
+    // MARK: - Contiguous Block Helpers
+    
+    /// Returns the sorted contiguous block of selected dates that contains the given date.
+    private func contiguousBlock(containing date: Date) -> [Date] {
+        var block = Set<Date>([date])
+        
+        // Expand backwards
+        var current = date
+        while let prev = calendar.date(byAdding: .day, value: -1, to: current) {
+            let normalized = calendar.startOfDay(for: prev)
+            guard selectedDates.contains(normalized) else { break }
+            block.insert(normalized)
+            current = normalized
+        }
+        
+        // Expand forwards
+        current = date
+        while let next = calendar.date(byAdding: .day, value: 1, to: current) {
+            let normalized = calendar.startOfDay(for: next)
+            guard selectedDates.contains(normalized) else { break }
+            block.insert(normalized)
+            current = normalized
+        }
+        
+        return block.sorted()
+    }
+    
+    /// Checks if the given date is exactly one day after the last date of any contiguous block.
+    private func isNextDayAfterAnyBlock(_ date: Date) -> Bool {
+        guard let previousDay = calendar.date(byAdding: .day, value: -1, to: date) else { return false }
+        let normalizedPrev = calendar.startOfDay(for: previousDay)
+        guard selectedDates.contains(normalizedPrev) else { return false }
+        // Verify that the previous day is the last date of its block
+        let block = contiguousBlock(containing: normalizedPrev)
+        return block.last == normalizedPrev
     }
 }
 
@@ -291,18 +333,18 @@ extension LogPeriodCalendarViewController: UICollectionViewDelegate {
         let today = calendar.startOfDay(for: Date())
         
         if selectedDates.contains(normalizedDate) {
-            // Always allow deselecting, even future dates
-            selectedDates.remove(normalizedDate)
-        } else if selectedDates.isEmpty {
-            // First period day must be today or earlier
+            // Deselecting: remove this date and all dates after it in the same contiguous block
+            let block = contiguousBlock(containing: normalizedDate)
+            for date in block where date >= normalizedDate {
+                selectedDates.remove(date)
+            }
+        } else if isNextDayAfterAnyBlock(normalizedDate) {
+            // Extending an existing block by exactly one day
+            selectedDates.insert(normalizedDate)
+        } else {
+            // Starting a new 5-day block (only for today or past dates)
             guard normalizedDate <= today else { return }
             selectDateRange(from: normalizedDate, days: 5)
-        } else {
-            // Adding extra days manually — allow future only if a period is already started
-            // (i.e. at least one selected date is today or earlier)
-            let hasValidStart = selectedDates.contains { $0 <= today }
-            guard hasValidStart else { return }
-            selectedDates.insert(normalizedDate)
         }
         
         collectionView.reloadData()
@@ -318,7 +360,7 @@ extension LogPeriodCalendarViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        // Same height for all sections since all show weekdays now
+        
         return CGSize(width: collectionView.bounds.width, height: 90)
     }
 }
@@ -338,6 +380,8 @@ class CalendarDayCell: UICollectionViewCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.borderWidth = 2
+        view.layer.cornerRadius = 22
+        view.clipsToBounds = true
         return view
     }()
     
@@ -350,6 +394,8 @@ class CalendarDayCell: UICollectionViewCell {
         imageView.isHidden = true
         return imageView
     }()
+    
+    private var needsDashedBorder = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -383,7 +429,13 @@ class CalendarDayCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        selectionView.layer.cornerRadius = selectionView.bounds.width / 2
+        // Always ensure circular shape — use fixed 22 (half of 44pt constraint)
+        // This avoids bounds being .zero on the first layout pass overriding cornerRadius set in configure
+        let radius = selectionView.bounds.width > 0 ? selectionView.bounds.width / 2 : 22
+        selectionView.layer.cornerRadius = radius
+        if needsDashedBorder {
+            drawDashedBorder()
+        }
     }
     
     func configure(with date: Date?, isToday: Bool, isSelected: Bool) {
@@ -403,16 +455,14 @@ class CalendarDayCell: UICollectionViewCell {
         
         if isSelected {
             if isToday {
-                // FIXED: Solid pink CIRCLE with white checkmark for today when selected
                 selectionView.backgroundColor = UIColor(red: 254.0/255.0, green: 122.0/255.0, blue: 150.0/255.0, alpha: 1.0)
                 selectionView.layer.borderColor = UIColor.clear.cgColor
                 selectionView.layer.borderWidth = 0
-                selectionView.layer.cornerRadius = 22 // Ensure it's circular
+                selectionView.layer.cornerRadius = 22
                 dayLabel.isHidden = true
                 checkmarkImageView.isHidden = false
                 checkmarkImageView.tintColor = .white
             } else {
-                // Dashed pink circle border with pink checkmark for other selected days
                 selectionView.backgroundColor = .clear
                 selectionView.layer.borderColor = UIColor(red: 254.0/255.0, green: 122.0/255.0, blue: 150.0/255.0, alpha: 1.0).cgColor
                 selectionView.layer.borderWidth = 2
@@ -427,12 +477,10 @@ class CalendarDayCell: UICollectionViewCell {
             checkmarkImageView.isHidden = true
             
             if isToday {
-                // Pink text for today when not selected
                 selectionView.isHidden = true
                 dayLabel.textColor = UIColor(red: 254.0/255.0, green: 122.0/255.0, blue: 150.0/255.0, alpha: 1.0)
                 dayLabel.font = .systemFont(ofSize: 16, weight: .semibold)
             } else {
-                // No circle for other days
                 selectionView.isHidden = true
                 dayLabel.textColor = .black
                 dayLabel.font = .systemFont(ofSize: 16)
@@ -441,7 +489,14 @@ class CalendarDayCell: UICollectionViewCell {
     }
     
     private func addDashedBorder() {
+        needsDashedBorder = true
+        selectionView.layer.borderWidth = 0
+        setNeedsLayout()
+    }
+    
+    private func drawDashedBorder() {
         selectionView.layer.sublayers?.removeAll(where: { $0.name == "DashedBorder" })
+        guard selectionView.bounds.width > 0 else { return }
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.name = "DashedBorder"
@@ -452,10 +507,10 @@ class CalendarDayCell: UICollectionViewCell {
         shapeLayer.path = UIBezierPath(ovalIn: selectionView.bounds).cgPath
         
         selectionView.layer.addSublayer(shapeLayer)
-        selectionView.layer.borderWidth = 0
     }
     
     private func removeDashedBorder() {
+        needsDashedBorder = false
         selectionView.layer.sublayers?.removeAll(where: { $0.name == "DashedBorder" })
     }
 }
@@ -502,7 +557,6 @@ class CalendarMonthHeader: UICollectionReusableView {
             weekdayStackView.heightAnchor.constraint(equalToConstant: 30)
         ])
         
-        // Setup weekday labels
         let weekdays = ["S", "M", "T", "W", "T", "F", "S"]
         for weekday in weekdays {
             let label = UILabel()
@@ -519,7 +573,6 @@ class CalendarMonthHeader: UICollectionReusableView {
         formatter.dateFormat = "MMMM yyyy"
         monthLabel.text = formatter.string(from: date)
         
-        // Show/hide weekday row
         weekdayStackView.isHidden = !showWeekdays
     }
 }

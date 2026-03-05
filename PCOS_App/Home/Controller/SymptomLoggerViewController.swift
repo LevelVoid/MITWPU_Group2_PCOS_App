@@ -79,7 +79,7 @@ class SymptomLoggerViewController: UIViewController {
         
         // Pass data through delegate
         if let delegate = self.delegate {
-            let returned = delegate.passData(symptoms: symptoms)
+            _ = delegate.passData(symptoms: symptoms)
         } else {
             print("No delegate found")
         }
