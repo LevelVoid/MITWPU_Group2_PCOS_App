@@ -98,7 +98,7 @@ final class AboutPCOSViewController: UIViewController {
                 stackView.addArrangedSubview(makeLabel(
                     text: body,
                     font: .systemFont(ofSize: 17),
-                    color: .secondaryLabel
+                    color: .label
                 ))
             }
 
