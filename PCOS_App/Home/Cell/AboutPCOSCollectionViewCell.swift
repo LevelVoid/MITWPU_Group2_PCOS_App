@@ -24,7 +24,7 @@ class AboutPCOSCollectionViewCell: UICollectionViewCell {
         containerView.clipsToBounds = true
         containerView.backgroundColor = .white
 
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
         titleLabel.numberOfLines = 2
 
         //descriptionLabel.font = UIFont.systemFont(ofSize: 15)

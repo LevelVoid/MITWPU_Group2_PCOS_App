@@ -115,6 +115,7 @@ class WeightPickerViewController: UIViewController {
             UserDefaults.standard.set(isMetric, forKey: "weightIsMetric")
             
             print("Weight saved: \(currentValue) \(isMetric ? "kg" : "lbs")")
+            //performSegue(withIdentifier: "toNextScreen", sender: nil)
         }
         
         private func updateValueDisplay() {

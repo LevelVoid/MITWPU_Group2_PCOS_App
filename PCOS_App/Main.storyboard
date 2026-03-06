@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TabBarRoot">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VqI-b3-zXB">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
@@ -583,7 +583,7 @@ Learn, track and heal at your own pace</string>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(little structured movement)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b7D-Sz-wD7">
-                                        <rect key="frame" x="16" y="127.66666666666661" width="143" height="31.333333333333357"/>
+                                        <rect key="frame" x="16" y="127.66666666666661" width="143" height="31.3333333333333"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -980,32 +980,23 @@ Learn, track and heal at your own pace</string>
                                 <buttonConfiguration key="configuration" style="filled" title="Continue"/>
                                 <connections>
                                     <action selector="NextButtonTapped:" destination="s3f-yw-vgZ" eventType="touchUpInside" id="pTp-3j-QgW"/>
-                                    <segue destination="sbe-d5-Qtv" kind="show" id="Qmp-SG-2GB"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What would you like to be called?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXL-c0-3wt">
-                                <rect key="frame" x="36.666666666666657" y="192" width="319.66666666666674" height="71.666666666666686"/>
+                                <rect key="frame" x="36.666666666666657" y="272" width="319.66666666666674" height="71.666666666666686"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="y2S-rC-9TW">
-                                <rect key="frame" x="40" y="303.66666666666669" width="313" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="y2S-rC-9TW">
+                                <rect key="frame" x="40" y="383.66666666666669" width="313" height="40"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="eXt-AG-Dg1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your date of birth" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rBD-zX-lWp">
-                                <rect key="frame" x="20" y="407.66666666666669" width="353" height="30"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="qvx-x1-0Zv">
-                                <rect key="frame" x="23" y="457.66666666666674" width="340" height="216"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="340" id="ppc-Sj-gGT"/>
-                                </constraints>
-                            </datePicker>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="P4j-ZO-qcj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1013,32 +1004,102 @@ Learn, track and heal at your own pace</string>
                             <constraint firstItem="y2S-rC-9TW" firstAttribute="leading" secondItem="P4j-ZO-qcj" secondAttribute="leading" constant="40" id="BtH-on-GQ2"/>
                             <constraint firstItem="P4j-ZO-qcj" firstAttribute="trailing" secondItem="y2S-rC-9TW" secondAttribute="trailing" constant="40" id="ClV-jn-bES"/>
                             <constraint firstItem="P4j-ZO-qcj" firstAttribute="trailing" secondItem="ErP-Tb-0NU" secondAttribute="trailing" constant="16" id="Csd-Pj-1GK"/>
-                            <constraint firstItem="MXL-c0-3wt" firstAttribute="top" secondItem="P4j-ZO-qcj" secondAttribute="top" constant="20" id="ITk-RW-xa5"/>
+                            <constraint firstItem="MXL-c0-3wt" firstAttribute="top" secondItem="P4j-ZO-qcj" secondAttribute="top" constant="100" id="ITk-RW-xa5"/>
                             <constraint firstItem="y2S-rC-9TW" firstAttribute="top" secondItem="MXL-c0-3wt" secondAttribute="bottom" constant="40" id="Jgm-zt-HXJ"/>
                             <constraint firstItem="y2S-rC-9TW" firstAttribute="centerX" secondItem="8rj-fM-xfS" secondAttribute="centerX" id="Nx3-IF-LCm"/>
                             <constraint firstItem="MXL-c0-3wt" firstAttribute="centerX" secondItem="8rj-fM-xfS" secondAttribute="centerX" id="RBC-iu-3hb"/>
-                            <constraint firstItem="rBD-zX-lWp" firstAttribute="centerX" secondItem="8rj-fM-xfS" secondAttribute="centerX" id="RC0-OH-HYX"/>
-                            <constraint firstItem="qvx-x1-0Zv" firstAttribute="top" secondItem="rBD-zX-lWp" secondAttribute="bottom" constant="20" id="TUL-sN-Q7A"/>
-                            <constraint firstItem="qvx-x1-0Zv" firstAttribute="centerX" secondItem="8rj-fM-xfS" secondAttribute="centerX" constant="-3.5" id="c0q-vc-IC8"/>
                             <constraint firstItem="P4j-ZO-qcj" firstAttribute="bottom" secondItem="ErP-Tb-0NU" secondAttribute="bottom" constant="30" id="hpi-pP-jAf"/>
-                            <constraint firstItem="rBD-zX-lWp" firstAttribute="top" secondItem="y2S-rC-9TW" secondAttribute="bottom" constant="70" id="kf8-5r-dGJ"/>
                             <constraint firstItem="MXL-c0-3wt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8rj-fM-xfS" secondAttribute="leading" constant="20" id="m9X-1T-aVb"/>
                             <constraint firstItem="ErP-Tb-0NU" firstAttribute="leading" secondItem="P4j-ZO-qcj" secondAttribute="leading" constant="16" id="rBR-bI-Zm7"/>
-                            <constraint firstItem="P4j-ZO-qcj" firstAttribute="trailing" secondItem="rBD-zX-lWp" secondAttribute="trailing" constant="20" id="rgO-Uz-fi6"/>
-                            <constraint firstItem="rBD-zX-lWp" firstAttribute="leading" secondItem="P4j-ZO-qcj" secondAttribute="leading" constant="20" id="szU-3n-FeV"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MXL-c0-3wt" secondAttribute="trailing" constant="20" id="ybu-cA-SiY"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="k2n-ah-zIK"/>
                     <connections>
-                        <outlet property="datePicker" destination="qvx-x1-0Zv" id="sPY-KV-jSW"/>
                         <outlet property="nameField" destination="y2S-rC-9TW" id="tL6-Ie-821"/>
                         <outlet property="nextButton" destination="ErP-Tb-0NU" id="ZnQ-4F-xeP"/>
+                        <segue destination="oDQ-fw-V8a" kind="show" identifier="showDOB" id="bhe-yh-reA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bn1-or-CVi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3346" y="386"/>
+            <point key="canvasLocation" x="2989" y="403"/>
+        </scene>
+        <!--Onboarding Period Log View Controller-->
+        <scene sceneID="Jq1-jK-Z5G">
+            <objects>
+                <viewController id="AAJ-WH-4GH" customClass="OnboardingPeriodLogViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EU2-KZ-frf">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="g6D-ZV-qZ2"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="eQT-54-sZ4"/>
+                    <connections>
+                        <segue destination="sbe-d5-Qtv" kind="show" identifier="showHeight" id="02E-TA-eXP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tXP-sS-PSz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4610" y="1148"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Ts6-m5-fgV">
+            <objects>
+                <viewController storyboardIdentifier="DOBViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="oDQ-fw-V8a" customClass="DOBViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gN8-QP-QNF">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4pH-iW-R67">
+                                <rect key="frame" x="16" y="694" width="361" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="xyq-Bl-7hA"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Continue"/>
+                                <connections>
+                                    <action selector="nextButtonTapped:" destination="oDQ-fw-V8a" eventType="touchUpInside" id="mzk-Et-n13"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your date of birth" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="swk-HA-oob">
+                                <rect key="frame" x="40" y="192" width="313" height="71.666666666666686"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="ZzN-3f-IgG">
+                                <rect key="frame" x="23" y="318" width="340" height="216"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="340" id="eVP-rS-Vbm"/>
+                                </constraints>
+                            </datePicker>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Qj0-hV-KwQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ZzN-3f-IgG" firstAttribute="centerY" secondItem="gN8-QP-QNF" secondAttribute="centerY" id="9gz-cn-er1"/>
+                            <constraint firstItem="4pH-iW-R67" firstAttribute="leading" secondItem="Qj0-hV-KwQ" secondAttribute="leading" constant="16" id="EP9-AG-lCt"/>
+                            <constraint firstItem="ZzN-3f-IgG" firstAttribute="centerX" secondItem="gN8-QP-QNF" secondAttribute="centerX" constant="-3.5" id="Ejr-IT-SDk"/>
+                            <constraint firstItem="swk-HA-oob" firstAttribute="centerX" secondItem="gN8-QP-QNF" secondAttribute="centerX" id="Ogs-4V-fFM"/>
+                            <constraint firstItem="Qj0-hV-KwQ" firstAttribute="bottom" secondItem="4pH-iW-R67" secondAttribute="bottom" constant="30" id="TRG-hh-BqO"/>
+                            <constraint firstItem="swk-HA-oob" firstAttribute="top" secondItem="Qj0-hV-KwQ" secondAttribute="top" constant="20" id="VdG-bh-ofT"/>
+                            <constraint firstItem="Qj0-hV-KwQ" firstAttribute="trailing" secondItem="4pH-iW-R67" secondAttribute="trailing" constant="16" id="hLg-Jb-78N"/>
+                            <constraint firstItem="Qj0-hV-KwQ" firstAttribute="trailing" secondItem="swk-HA-oob" secondAttribute="trailing" constant="40" id="n5g-cO-CL9"/>
+                            <constraint firstItem="swk-HA-oob" firstAttribute="leading" secondItem="Qj0-hV-KwQ" secondAttribute="leading" constant="40" id="xuK-OZ-UcT"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="GI6-u9-naj"/>
+                    <connections>
+                        <outlet property="datePicker" destination="ZzN-3f-IgG" id="Yml-ey-iYe"/>
+                        <outlet property="nextButton" destination="4pH-iW-R67" id="dfI-2x-wdS"/>
+                        <segue destination="AAJ-WH-4GH" kind="show" identifier="showPeriodLog" id="96Z-Hj-sRV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wxd-R8-dB4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3512" y="1077"/>
         </scene>
     </scenes>
     <resources>
@@ -1062,6 +1123,9 @@ Learn, track and heal at your own pace</string>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

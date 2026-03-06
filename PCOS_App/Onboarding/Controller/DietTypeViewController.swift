@@ -90,8 +90,8 @@ class DietTypeViewController: UIViewController {
                     // Save to UserDefaults
                     UserDefaults.standard.set(dietType, forKey: "userDietType")
                     
-                    // Navigate to next screen or show alert
-                    // performSegue(withIdentifier: "toNextScreen", sender: nil)
+                    // Navigate to next screen
+                    //performSegue(withIdentifier: "toNextScreen", sender: nil)
                 } else {
                     print("No diet type selected")
                     

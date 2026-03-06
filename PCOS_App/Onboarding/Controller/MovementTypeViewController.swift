@@ -86,8 +86,8 @@ class MovementTypeViewController: UIViewController {
         // Save to UserDefaults
         UserDefaults.standard.set(movementType, forKey: "userWorkoutType")
         
-        // Navigate to next screen or show alert
-        // performSegue(withIdentifier: "toNextScreen", sender: nil)
+        // Navigate to next screen
+        //performSegue(withIdentifier: "toNextScreen", sender: nil)
     } else {
         print("No movement type selected")
         

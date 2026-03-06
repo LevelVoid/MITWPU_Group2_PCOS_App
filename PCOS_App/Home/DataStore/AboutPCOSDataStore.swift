@@ -15,8 +15,8 @@ final class AboutPCOSDataStore {
     func fetchSections() -> [AboutPCOSSection] {
 
         let dietSection = AboutPCOSSection(
-            title: "PCOS and Diet",
-            description: "Simple food choices that reduce inflammation and support insulin balance.",
+            title: "PCOS Diet Basics",
+            description: "Learn how balanced nutrition can reduce inflammation and help stabilize insulin levels",
             imageName: "pcos_diet",
             contentBlocks: [
 
@@ -63,7 +63,7 @@ You don’t need to overhaul your entire pantry overnight. Small daily choices a
 
         let psychologicalSection = AboutPCOSSection(
             title: "Psychosocial Aspects of PCOS",
-            description: "Learn about coping with stigma, societal misconceptions, and its impact on mental health.",
+            description: "Learn about coping with stigma, societal misconceptions, and its impact on mental health",
             imageName: "pcos_psychology",
             contentBlocks: [
 
