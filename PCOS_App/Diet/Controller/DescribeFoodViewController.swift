@@ -205,7 +205,7 @@ class DescribeFoodViewController: UIViewController {
             print("DEBUG: Built FoodItem - Name: '\(mealName)', Calories: \(totalCalories), P: \(totalProtein), C: \(totalCarbs), F: \(totalFat)")
             
             return FoodItem(
-                id: UUID(),
+                id: 0,
                 name: mealName,  // Use user's input as the meal name
                 calories: totalCalories,
                 image: "dietPlaceholder",

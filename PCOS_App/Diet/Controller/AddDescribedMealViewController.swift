@@ -202,7 +202,7 @@ class AddDescribedMealViewController: UIViewController {
         print("DEBUG: Calculated macros - P: \(totalProtein), C: \(totalCarbs), F: \(totalFat)")
         
         let tempFoodItem = FoodItem(
-            id: foodItem?.id ?? UUID(),
+            id: foodItem?.id ?? 0,
             name: foodItem?.name ?? food?.name ?? "Described Meal",
             calories: Int((totalProtein * 4) + (totalCarbs * 4) + (totalFat * 9)),
             image: (foodItem?.image ?? food?.image) ?? "dietPlaceholder",

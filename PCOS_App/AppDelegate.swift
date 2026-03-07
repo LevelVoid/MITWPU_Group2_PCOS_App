@@ -7,10 +7,67 @@
 
 import UIKit
 import HealthKit
+import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    // MARK: - Core Data Stack
+        
+        /// The persistent container holds:
+        /// - The managed object model (.xcdatamodeld schema)
+        /// - The persistent store coordinator (SQLite file on disk)
+        /// - The managed object context (in-memory scratchpad you read/write through)
+        ///
+        /// `lazy` because we only create it once, on first access.
+        /// The name "PCOS_App" must match your .xcdatamodeld file name exactly.
+        lazy var persistentContainer: NSPersistentContainer = {
+            let container = NSPersistentContainer(name: "PCOS_App")
+            
+            container.loadPersistentStores { storeDescription, error in
+                if let error = error as NSError? {
+                    // In production, handle this gracefully (migration failure, disk full, etc.)
+                    // For development, crash so you notice immediately
+                    fatalError("Core Data store failed to load: \(error), \(error.userInfo)")
+                }
+            }
+            
+            // When background context saves conflict with viewContext,
+            // the in-memory version (viewContext) automatically merges changes.
+            // Without this, background saves (e.g., HealthKit sync) would silently
+            // fail to appear in UI until next app launch.
+            container.viewContext.automaticallyMergesChangesFromParent = true
+            
+            return container
+        }()
+        
+        /// Shortcut — this is the main-thread context you'll use in view controllers.
+        /// Every Core Data read/write on the UI thread goes through this.
+        var viewContext: NSManagedObjectContext {
+            return persistentContainer.viewContext
+        }
+        
+        /// Call this whenever you've made changes that need to persist.
+        /// If the context has no changes, this is a no-op (cheap to call).
+        func saveContext() {
+            let context = viewContext
+            if context.hasChanges {
+                do {
+                    try context.save()
+                } catch {
+                    let nsError = error as NSError
+                    // In production, log this and show an alert — don't crash
+                    print("Core Data save error: \(nsError), \(nsError.userInfo)")
+                }
+            }
+        }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+            // Save any pending changes when the app is about to be killed.
+            // This catches the edge case where the user force-quits
+            // right after making changes.
+            saveContext()
+        }
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
