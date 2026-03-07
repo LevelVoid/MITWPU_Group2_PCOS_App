@@ -110,10 +110,12 @@ class OnboardingPeriodLogViewController: UIViewController {
         continueButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         continueButton.setTitleColor(.white, for: .normal)
         continueButton.backgroundColor = UIColor(hex: "#FE7A96")
-        continueButton.layer.cornerRadius = 28
+        continueButton.layer.cornerRadius = 15
         continueButton.translatesAutoresizingMaskIntoConstraints = false
         continueButton.addTarget(self, action: #selector(continueTapped), for: .touchUpInside)
         view.addSubview(continueButton)
+        
+        // radius =28,left,right=32,height=56
     }
 
     private func setupConstraints() {
@@ -132,9 +134,9 @@ class OnboardingPeriodLogViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: continueButton.topAnchor, constant: -16),
 
             continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
-            continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-            continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-            continueButton.heightAnchor.constraint(equalToConstant: 56)
+            continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            continueButton.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
 

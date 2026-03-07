@@ -10,70 +10,56 @@ final class CycleDataStore {
 
     static let shared = CycleDataStore()
     private let calendar = Calendar.current
+    private let predictionEngine = PeriodPredictionEngine()
 
     private(set) var cycles: [CycleData] = []
 
     private init() {
+        migrateIfNeeded()
         loadCycles()
     }
-}
 
-extension CycleDataStore {
-    private func generateMockCycles(count: Int) -> [CycleData] {
-        let seeds = mockCycleSeeds(count: count)
+    /// One-time migration to clear stale SavedCycles from old app versions.
+    private func migrateIfNeeded() {
+        let migrationKey = "CycleDataStore_v2_migrated"
+        guard !UserDefaults.standard.bool(forKey: migrationKey) else { return }
 
-        return seeds.map { seed in
-            CycleData(
-                id: UUID(),
-                month: monthString(from: seed.startDate),
-                startDate: seed.startDate,
-                days: generateCycleDays(from: seed)
-            )
-        }
+        // Clear old pre-built cycles — we'll rebuild from SavedPeriodDates
+        UserDefaults.standard.removeObject(forKey: "SavedCycles")
+        UserDefaults.standard.set(true, forKey: migrationKey)
     }
-
 }
+
+// MARK: - Internal seed used only during cycle building
+
 private struct CycleSeed {
     let startDate: Date
     let cycleLength: Int
     let periodLength: Int
 }
 
-private extension CycleDataStore {
+// MARK: - Predictions
 
-    func mockCycleSeeds(count: Int) -> [CycleSeed] {
-
-        let today = calendar.startOfDay(for: Date())
-
-        return [
-            CycleSeed(
-                startDate: calendar.date(byAdding: .day, value: -30, to: today)!,
-                cycleLength: 29,
-                periodLength: 4
-            ),
-            CycleSeed(
-                startDate: calendar.date(byAdding: .day, value: -60, to: today)!,
-                cycleLength: 27,
-                periodLength: 5
-            ),
-            CycleSeed(
-                startDate: calendar.date(byAdding: .day, value: -100, to: today)!,
-                cycleLength: 31,
-                periodLength: 4
-            )
-        ].prefix(count).map { $0 }
+extension CycleDataStore {
+    var nextPeriodPrediction: PeriodPrediction {
+        predictionEngine.predict(from: cycles)
     }
-    
 }
+
+// MARK: - Storage & Queries
+
 extension CycleDataStore {
 
     func loadCycles() {
-        if let data = UserDefaults.standard.data(forKey: "SavedCycles"),
-           let decoded = try? JSONDecoder().decode([CycleData].self, from: data) {
-            cycles = decoded
-        } else {
-            cycles = generateMockCycles(count: 3)
+        // Single source of truth: rebuild from user-selected period dates
+        if let timestamps = UserDefaults.standard.array(forKey: "SavedPeriodDates") as? [TimeInterval] {
+            let dates = timestamps.map { calendar.startOfDay(for: Date(timeIntervalSince1970: $0)) }
+            if !dates.isEmpty {
+                rebuildCycles(from: dates)
+                return
+            }
         }
+        cycles = []
     }
 
     func saveCycles() {
@@ -86,10 +72,15 @@ extension CycleDataStore {
         Array(cycles.prefix(count))
     }
 
+    /// True when we have at least 2 cycles total — enough to show trends.
+    var hasTwoCycles: Bool {
+        cycles.count >= 2
+    }
+
     // MARK: - Current & Previous Cycle Helpers
 
-    /// The most-recent (ongoing) cycle — the one whose startDate is closest to today
-    /// and whose startDate is not in the future.
+    /// The most-recent (ongoing) cycle — the one whose startDate is closest to
+    /// today and whose startDate is not in the future.
     var currentCycle: CycleData? {
         let today = calendar.startOfDay(for: Date())
         return cycles
@@ -109,50 +100,89 @@ extension CycleDataStore {
             .sorted { $0.startDate > $1.startDate }
         return Array(prev.prefix(count))
     }
+
+    /// Average cycle length from completed cycles (for estimating the ongoing cycle).
+    /// Falls back to 35 (PCOS-friendly default) when there are no completed cycles.
+    var averageCompletedCycleLength: Int {
+        let completed = cycles.filter { $0.isComplete }
+        let lengths = completed.map { $0.cycleLength }.filter { $0 > 0 }
+        guard !lengths.isEmpty else { return 35 }
+        return lengths.reduce(0, +) / lengths.count
+    }
 }
+
+// MARK: - PCOS-Aware Phase Logic
 
 extension CycleDataStore {
 
+    /// Determine the phase for a given day within a cycle.
+    ///
+    /// Key PCOS improvements over the textbook `cycleLength − 14` rule:
+    /// - Uses a **dynamic luteal length** (average of user's completed cycles,
+    ///   clamped 10-16, default 13) instead of a fixed 14.
+    /// - Ovulation is a **3-day window**, not a single day.
+    /// - For very long cycles (> 45 days) without confirmed ovulation, mid-cycle
+    ///   days are marked `.unknown` (likely anovulatory).
+    /// - When `isOvulationConfirmed` is true (future BBT support), ovulation
+    ///   placement is trusted even for long cycles.
     func phaseForDay(
         day: Int,
         cycleLength: Int,
-        periodLength: Int
+        periodLength: Int,
+        isOvulationConfirmed: Bool = false
     ) -> Phase {
 
+        guard cycleLength > 0, day >= 1 else { return .unknown }
+
+        // ── Menstrual ──
         if day <= periodLength {
             return .menstrual
         }
 
-        let ovulationDay = max(cycleLength - 14, periodLength + 1)
-        let fertileStart = max(ovulationDay - 4, periodLength + 1)
-        let fertileEnd = ovulationDay + 1
-
-        if day == ovulationDay {
-            return .ovulation
+        // ── For very long unconfirmed cycles (likely anovulatory in PCOS),
+        //    we don't pretend to know where ovulation fell. ──
+        if cycleLength > 45 && !isOvulationConfirmed {
+            if day <= periodLength { return .menstrual }       // already covered above
+            if day <= periodLength + 5 { return .follicular }  // short early follicular
+            return .unknown                                    // rest is uncertain
         }
 
-        if day >= fertileStart && day <= fertileEnd {
+        // ── Luteal length estimate ──
+        let estimatedLutealLength = averageLutealLength()      // 10-16, default 13
+
+        // Ovulation day = cycleLength − lutealLength
+        let ovulationCenter = max(cycleLength - estimatedLutealLength, periodLength + 1)
+
+        // 3-day ovulation window
+        let ovulationStart = max(ovulationCenter - 1, periodLength + 1)
+        let ovulationEnd   = min(ovulationCenter + 1, cycleLength)
+
+        // Follicular: from end of period to start of ovulation window
+        let follicularStart = periodLength + 1
+        let follicularEnd   = ovulationStart - 1
+
+        if day >= follicularStart && day <= follicularEnd {
             return .follicular
         }
-
-        if day > ovulationDay {
+        if day >= ovulationStart && day <= ovulationEnd {
+            return .ovulation
+        }
+        if day > ovulationEnd {
             return .luteal
         }
 
-        // Post-period but before fertile window → early follicular
         return .follicular
     }
 
+    /// Current cycle day and phase for the home header.
     func currentPhaseInfo() -> (cycleDay: Int, phase: Phase) {
-        let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
 
-        // Always use the cycle with the most-recent startDate that is ≤ today
         guard let latestCycle = cycles
             .filter({ calendar.startOfDay(for: $0.startDate) <= today })
             .sorted(by: { $0.startDate > $1.startDate })
             .first else {
-            return (1, .luteal)
+            return (0, .unknown)       // No cycles logged yet
         }
 
         let startOfCycle = calendar.startOfDay(for: latestCycle.startDate)
@@ -160,46 +190,65 @@ extension CycleDataStore {
         let cycleDay = daysDiff + 1
 
         if cycleDay < 1 {
-            return (1, .luteal)
+            return (1, .unknown)
         }
 
-        // If past the expected cycle length, still show the real day count
-        // but treat as late luteal (waiting for next period)
+        // Past the expected cycle length → period may be late / anovulatory
         if cycleDay > latestCycle.cycleLength {
-            return (cycleDay, .luteal)
+            return (cycleDay, latestCycle.isOvulationConfirmed ? .luteal : .unknown)
         }
 
         let phase = phaseForDay(
             day: cycleDay,
             cycleLength: latestCycle.cycleLength,
-            periodLength: latestCycle.periodLength
+            periodLength: latestCycle.periodLength,
+            isOvulationConfirmed: latestCycle.isOvulationConfirmed
         )
         return (cycleDay, phase)
     }
+
+    // MARK: - Luteal Length Estimation
+
+    /// Estimates the user's average luteal phase length from completed cycles.
+    /// Clamped to 10-16 (biological range). Defaults to 13 for PCOS.
+    private func averageLutealLength() -> Int {
+        let completed = cycles.filter { $0.isComplete && $0.cycleLength > 0 && $0.periodLength > 0 }
+        guard completed.count >= 2 else { return 13 }   // PCOS default (not textbook 14)
+
+        // luteal ≈ cycleLength − (estimated ovulation day)
+        // estimated ovulation ≈ cycleLength − 14 as a starting point, then refine
+        // But without BBT we approximate: luteal = cycleLength − periodLength − follicularEstimate
+        // Simplest reliable approach: cycleLength − (cycleLength × 0.6) ≈ 0.4 × cycleLength
+        // Better: use the last N cycles' (cycleLength - periodLength) / 2 as a rough split
+
+        let lutealEstimates = completed.suffix(4).map { cycle -> Int in
+            // Post-period days split roughly 60/40 follicular/luteal is textbook.
+            // We do: cycleLength − ovulationEstimate, where ovulation ≈ cycle * 0.58
+            let ovEst = max(Int(Double(cycle.cycleLength) * 0.58), cycle.periodLength + 1)
+            return cycle.cycleLength - ovEst
+        }
+
+        let avg = lutealEstimates.reduce(0, +) / max(lutealEstimates.count, 1)
+        return min(max(avg, 10), 16)    // clamp to biological range
+    }
 }
+
+// MARK: - Cycle Day & Month Builders (Private)
+
 private extension CycleDataStore {
 
-    func symptomsForDay(
-        dayIndex: Int,
-        cycleStartDate: Date
-    ) -> [SymptomItem] {
-
+    func symptomsForDay(dayIndex: Int, cycleStartDate: Date) -> [SymptomItem] {
         guard let date = calendar.date(
             byAdding: .day,
             value: dayIndex - 1,
             to: cycleStartDate
-        ) else {
-            return []
-        }
-
+        ) else { return [] }
         return SymptomDataStore.loadSymptoms(for: date)
     }
-}
-private extension CycleDataStore {
 
     func generateCycleDays(from seed: CycleSeed) -> [CycleDay] {
-
-        (1...seed.cycleLength).map { day in
+        guard seed.cycleLength > 0 else { return [] }
+        return (1...seed.cycleLength).map { day in
             CycleDay(
                 dayIndex: day,
                 phase: phaseForDay(
@@ -210,12 +259,11 @@ private extension CycleDataStore {
                 symptoms: symptomsForDay(
                     dayIndex: day,
                     cycleStartDate: seed.startDate
-                )
+                ),
+                basalBodyTemperature: nil
             )
         }
     }
-}
-private extension CycleDataStore {
 
     func monthString(from date: Date) -> String {
         let formatter = DateFormatter()
@@ -223,6 +271,9 @@ private extension CycleDataStore {
         return formatter.string(from: date)
     }
 }
+
+// MARK: - Rebuild Cycles from Period Dates
+
 extension CycleDataStore {
 
     /// Rebuilds ALL cycles from the selected period dates.
@@ -233,14 +284,14 @@ extension CycleDataStore {
 
         let sorted = allDates.map { calendar.startOfDay(for: $0) }.sorted()
 
-        // If no dates remain, clear saved data and fall back to mock cycles
+        // If no dates remain, clear everything
         guard !sorted.isEmpty else {
-            cycles = generateMockCycles(count: 3)
+            cycles = []
             UserDefaults.standard.removeObject(forKey: "SavedCycles")
             return
         }
 
-        // ── 1. Group into contiguous period runs (gap > 1 = new period) ──
+        // ── 1. Group into contiguous period runs (gap > 1 day = new period) ──
         var periodGroups: [[Date]] = [[sorted[0]]]
         for i in 1..<sorted.count {
             let gap = calendar.dateComponents(
@@ -254,50 +305,62 @@ extension CycleDataStore {
         }
         periodGroups.sort { ($0.first ?? .distantPast) < ($1.first ?? .distantPast) }
 
-        // ── 2. Build a cycle for each period group ──
-        var newCycles: [CycleData] = []
-        for group in periodGroups {
-            let startDate = group.first!
-            let periodLength = group.count
-            let seed = CycleSeed(
-                startDate: startDate,
-                cycleLength: 28, // placeholder, recalculated below
-                periodLength: periodLength
-            )
-            newCycles.append(CycleData(
-                id: UUID(),
-                month: monthString(from: startDate),
-                startDate: startDate,
-                days: generateCycleDays(from: seed)
-            ))
+        // ── 2. First pass: calculate cycle lengths from gaps between starts ──
+        //    Completed cycles: length = gap to next period start, endDate = day before next start.
+        //    Last (ongoing) cycle: use average of completed cycles (PCOS-friendly default 35).
+        var completedLengths: [Int] = []
+        for idx in 0..<periodGroups.count - 1 {
+            let thisStart = calendar.startOfDay(for: periodGroups[idx].first!)
+            let nextStart = calendar.startOfDay(for: periodGroups[idx + 1].first!)
+            let gap = calendar.dateComponents([.day], from: thisStart, to: nextStart).day ?? 28
+            completedLengths.append(max(gap, periodGroups[idx].count))
         }
 
-        // ── 3. Recalculate cycle lengths from gaps between starts ──
-        var finalCycles: [CycleData] = []
-        for (idx, cycle) in newCycles.enumerated() {
-            let periodLength = cycle.periodLength
-            let cycleLength: Int
+        // Average completed length for estimating the ongoing cycle
+        let avgCompleted: Int
+        if completedLengths.isEmpty {
+            avgCompleted = 35                          // PCOS-friendly default
+        } else {
+            avgCompleted = completedLengths.reduce(0, +) / completedLengths.count
+        }
 
-            if idx < newCycles.count - 1 {
-                let thisStart = calendar.startOfDay(for: cycle.startDate)
-                let nextStart = calendar.startOfDay(for: newCycles[idx + 1].startDate)
-                cycleLength = max(
-                    calendar.dateComponents([.day], from: thisStart, to: nextStart).day ?? 28,
-                    periodLength
-                )
+        // ── 3. Build final CycleData objects ──
+        var finalCycles: [CycleData] = []
+
+        for (idx, group) in periodGroups.enumerated() {
+            let startDate = group.first!
+            let periodLength = group.count
+            let isLast = idx == periodGroups.count - 1
+
+            let cycleLength: Int
+            let endDate: Date?
+
+            if !isLast {
+                // Completed cycle
+                cycleLength = completedLengths[idx]
+                let nextStart = calendar.startOfDay(for: periodGroups[idx + 1].first!)
+                endDate = calendar.date(byAdding: .day, value: -1, to: nextStart)
             } else {
-                cycleLength = 28
+                // Ongoing cycle — estimate using average or PCOS default
+                let today = calendar.startOfDay(for: Date())
+                let daysSoFar = calendar.dateComponents([.day], from: calendar.startOfDay(for: startDate), to: today).day ?? 0
+                // Use the larger of: average completed length, or days elapsed + buffer
+                cycleLength = max(avgCompleted, daysSoFar + 7)
+                endDate = nil
             }
 
             let seed = CycleSeed(
-                startDate: cycle.startDate,
+                startDate: startDate,
                 cycleLength: cycleLength,
                 periodLength: periodLength
             )
+
             finalCycles.append(CycleData(
-                id: cycle.id,
-                month: monthString(from: cycle.startDate),
-                startDate: cycle.startDate,
+                id: UUID(),
+                month: monthString(from: startDate),
+                startDate: startDate,
+                endDate: endDate,
+                isOvulationConfirmed: false,
                 days: generateCycleDays(from: seed)
             ))
         }

@@ -13,6 +13,11 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        #if DEBUG
+        CycleLogicTests.runAll()   // ← DELETE before shipping
+        #endif
+
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.largeTitleDisplayMode = .never
         tabBarItem.title = "Today"
@@ -182,8 +187,8 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             case 2: return self.createQuickActionsSection()
             case 3: return self.createRecommendationSection()
             case 4: return self.createSleepCardSection()
-            case 5: return self.createCycleSection()
-            case 6: return self.createSymptomPatternsSection()
+            case 5: return CycleDataStore.shared.hasTwoCycles ? self.createCycleSection() : nil
+            case 6: return CycleDataStore.shared.hasTwoCycles ? self.createSymptomPatternsSection() : nil
             case 7: return self.createAboutPCOSSection()
             default: return nil
             }
@@ -249,7 +254,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     func createCycleSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(500)
+            heightDimension: .absolute(470)     //with text 500
         )
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: itemSize,
@@ -401,13 +406,12 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     // MARK: - LogPeriodCalendarDelegate
     
     func didSavePeriodDates(_ dates: [Date], cycleDay: Int) {
-        // Reload cycles so currentPhaseInfo picks up the new data
         CycleDataStore.shared.loadCycles()
         buildDisplaySignals()
-        DispatchQueue.main.async { [weak self] in
-            // Reload header (0), signals (1), cycle trends (5), symptom patterns (6)
-            self?.collectionView.reloadSections(IndexSet([0, 1, 5, 6]))
-        }
+        allSymptoms = SymptomDataStore.loadAllSymptomsLastNDays(30)
+        // Recreate layout so sections 5 & 6 appear/disappear based on hasTwoCycles
+        collectionView.collectionViewLayout = createCompositionalLayout()
+        collectionView.reloadData()
     }
     
     private func getTodaysKey() -> String {
@@ -487,8 +491,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         case 2: return 1
         case 3: return recommendationCards.count
         case 4: return 1
-        case 5: return 1
-        case 6: return allSymptoms.count
+        case 5: return CycleDataStore.shared.hasTwoCycles ? 1 : 0
+        case 6: return CycleDataStore.shared.hasTwoCycles ? allSymptoms.count : 0
         case 7: return aboutPCOSArticles.count
         default: return 0
         }
@@ -508,7 +512,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             ) as! HomeHeaderCollectionViewCell
             cell.delegate = self
             let info = CycleDataStore.shared.currentPhaseInfo()
-            cell.configure(cycleDay: info.cycleDay, phase: info.phase)
+            let prediction = PeriodPredictionEngine().predict(from: CycleDataStore.shared.cycles)
+            cell.configure(cycleDay: info.cycleDay, phase: info.phase, prediction: prediction)
             return cell
             
         case 1:

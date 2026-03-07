@@ -50,7 +50,7 @@ Length</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Uo-Td-2gA">
-                                                <rect key="frame" x="88.333333333333329" y="66.666666666666671" width="35.666666666666671" height="20.333333333333329"/>
+                                                <rect key="frame" x="88.333333333333329" y="71.666666666666671" width="35.666666666666671" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -58,7 +58,6 @@ Length</string>
                                         </subviews>
                                         <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="1Uo-Td-2gA" firstAttribute="centerY" secondItem="v4V-vb-9Pt" secondAttribute="centerY" id="0l2-LX-vij"/>
                                             <constraint firstItem="Dna-hY-ziY" firstAttribute="top" secondItem="CQW-3E-lN6" secondAttribute="top" constant="16" id="1TB-nH-NTc"/>
                                             <constraint firstItem="cn6-PA-AlN" firstAttribute="top" secondItem="CQW-3E-lN6" secondAttribute="top" constant="16" id="2ig-ZL-rXa"/>
                                             <constraint firstAttribute="bottom" secondItem="v4V-vb-9Pt" secondAttribute="bottom" constant="10" id="3gT-SS-jpu"/>
@@ -68,10 +67,11 @@ Length</string>
                                             <constraint firstAttribute="trailing" secondItem="Dna-hY-ziY" secondAttribute="trailing" constant="8" id="QBb-Y3-W5x"/>
                                             <constraint firstItem="1Uo-Td-2gA" firstAttribute="leading" secondItem="v4V-vb-9Pt" secondAttribute="trailing" constant="3.9999999999999432" id="Su1-JC-gK0"/>
                                             <constraint firstItem="Dna-hY-ziY" firstAttribute="leading" secondItem="cn6-PA-AlN" secondAttribute="trailing" constant="8" id="gbz-U2-SMD"/>
+                                            <constraint firstAttribute="bottom" secondItem="1Uo-Td-2gA" secondAttribute="bottom" constant="14" id="nto-qS-lzp"/>
                                             <constraint firstItem="v4V-vb-9Pt" firstAttribute="leading" secondItem="Dna-hY-ziY" secondAttribute="leading" id="qgp-9h-TZ3"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your cycle appears fairly consistent over the last 5 months. For many people with PCOS, this is considered relatively stable." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fg0-GZ-MrN">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your cycle appears fairly consistent over the last 5 months. For many people with PCOS, this is considered relatively stable." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fg0-GZ-MrN">
                                         <rect key="frame" x="16" y="139" width="330" height="39.333333333333343"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                         <nil key="textColor"/>
@@ -103,7 +103,7 @@ Length</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yMe-yo-gnn">
-                                                <rect key="frame" x="68.333333333333343" y="66.666666666666671" width="35.666666666666657" height="20.333333333333329"/>
+                                                <rect key="frame" x="68.333333333333343" y="71.666666666666671" width="35.666666666666657" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -115,17 +115,18 @@ Length</string>
                                             <constraint firstAttribute="bottom" secondItem="2iw-ZA-Wdn" secondAttribute="bottom" constant="10" id="6H1-1X-V4c"/>
                                             <constraint firstItem="Yex-N6-kob" firstAttribute="leading" secondItem="djp-pr-CP1" secondAttribute="leading" constant="12" id="6fA-kU-77p"/>
                                             <constraint firstItem="Xq1-RV-BNh" firstAttribute="top" secondItem="djp-pr-CP1" secondAttribute="top" constant="16" id="ASF-V0-Lim"/>
-                                            <constraint firstItem="yMe-yo-gnn" firstAttribute="centerY" secondItem="2iw-ZA-Wdn" secondAttribute="centerY" id="MfZ-jp-kzu"/>
                                             <constraint firstAttribute="width" constant="160" id="S7K-RQ-eV5"/>
                                             <constraint firstItem="Xq1-RV-BNh" firstAttribute="leading" secondItem="Yex-N6-kob" secondAttribute="trailing" constant="8" id="To9-Y9-0D3"/>
                                             <constraint firstItem="yMe-yo-gnn" firstAttribute="leading" secondItem="2iw-ZA-Wdn" secondAttribute="trailing" constant="3.9999999999999432" id="gUs-tx-AcD"/>
                                             <constraint firstAttribute="trailing" secondItem="Xq1-RV-BNh" secondAttribute="trailing" constant="8" id="le0-QM-0Wc"/>
                                             <constraint firstItem="2iw-ZA-Wdn" firstAttribute="top" secondItem="Xq1-RV-BNh" secondAttribute="bottom" constant="8" id="oQB-IV-gux"/>
                                             <constraint firstItem="2iw-ZA-Wdn" firstAttribute="leading" secondItem="Xq1-RV-BNh" secondAttribute="leading" id="osW-kg-din"/>
+                                            <constraint firstAttribute="bottom" secondItem="yMe-yo-gnn" secondAttribute="bottom" constant="14" id="xzW-ZJ-bEa"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zGd-lZ-sOR" customClass="PeriodCycleChartView" customModule="PCOS_App" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="183.33333333333337" width="330" height="280"/>
+                                        <rect key="frame" x="16" y="156" width="330" height="280"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="280" id="B7G-DW-Dhh"/>
                                         </constraints>
@@ -138,12 +139,11 @@ Length</string>
                                     <constraint firstItem="fg0-GZ-MrN" firstAttribute="top" secondItem="CQW-3E-lN6" secondAttribute="bottom" constant="13" id="HF9-kQ-4YH"/>
                                     <constraint firstItem="CQW-3E-lN6" firstAttribute="top" secondItem="X5s-1U-az3" secondAttribute="top" constant="20" id="Hef-nv-v0b"/>
                                     <constraint firstItem="zGd-lZ-sOR" firstAttribute="leading" secondItem="X5s-1U-az3" secondAttribute="leading" constant="16" id="ItU-8r-Wfs"/>
-                                    <constraint firstItem="zGd-lZ-sOR" firstAttribute="top" secondItem="fg0-GZ-MrN" secondAttribute="bottom" constant="5" id="QPM-S3-RHw"/>
                                     <constraint firstAttribute="trailing" secondItem="djp-pr-CP1" secondAttribute="trailing" constant="17" id="an5-bN-Pdh"/>
                                     <constraint firstAttribute="trailing" secondItem="fg0-GZ-MrN" secondAttribute="trailing" constant="16" id="cUK-TZ-BwT"/>
                                     <constraint firstItem="fg0-GZ-MrN" firstAttribute="leading" secondItem="X5s-1U-az3" secondAttribute="leading" constant="16" id="dAS-2r-c70"/>
                                     <constraint firstAttribute="trailing" secondItem="zGd-lZ-sOR" secondAttribute="trailing" constant="16" id="hf7-jz-uGn"/>
-                                    <constraint firstAttribute="bottom" secondItem="zGd-lZ-sOR" secondAttribute="bottom" constant="16" id="iIG-kS-5WQ"/>
+                                    <constraint firstItem="zGd-lZ-sOR" firstAttribute="top" secondItem="CQW-3E-lN6" secondAttribute="bottom" constant="30" id="xbL-dO-v5g"/>
                                     <constraint firstItem="djp-pr-CP1" firstAttribute="leading" secondItem="CQW-3E-lN6" secondAttribute="trailing" constant="9" id="xlM-wP-GJP"/>
                                 </constraints>
                             </view>
@@ -155,8 +155,10 @@ Length</string>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="476" height="70"/>
             <connections>
-                <outlet property="avgCycleLength" destination="CQW-3E-lN6" id="7dY-N7-dOg"/>
-                <outlet property="avgPeriodLength" destination="djp-pr-CP1" id="4JM-hZ-wZZ"/>
+                <outlet property="CycleLengthView" destination="CQW-3E-lN6" id="623-gP-bPD"/>
+                <outlet property="PeriodLengthView" destination="djp-pr-CP1" id="kH9-VT-wmt"/>
+                <outlet property="avgCycleLengthLabel" destination="v4V-vb-9Pt" id="khl-j9-MVW"/>
+                <outlet property="avgPeriodLengthLabel" destination="2iw-ZA-Wdn" id="CaQ-Gn-CFL"/>
                 <outlet property="cyclePatternView" destination="0V3-jX-dA5" id="22l-EZ-vqn"/>
                 <outlet property="periodCycleChartView" destination="zGd-lZ-sOR" id="HEy-Qn-SGC"/>
                 <outlet property="viewTooTiredToRemove" destination="X5s-1U-az3" id="vMI-Uy-vCU"/>

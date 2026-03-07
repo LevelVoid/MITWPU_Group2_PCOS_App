@@ -1,5 +1,5 @@
 //
-//  CyclePatternCollectionViewCell.swift
+// CyclePatternCollectionViewCell.swift
 //  PCOS_App
 //
 //  Created by SDC-USER on 10/01/26.
@@ -10,57 +10,43 @@ import UIKit
 class CyclePatternCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var cyclePatternView: UIView!
-    
-    @IBOutlet weak var avgCycleLength: UIView!
-    
-    @IBOutlet weak var avgPeriodLength: UIView!
+    @IBOutlet weak var CycleLengthView: UIView!
+    @IBOutlet weak var PeriodLengthView: UIView!
     @IBOutlet weak var viewTooTiredToRemove: UIView!
     @IBOutlet weak var periodCycleChartView: PeriodCycleChartView!
-    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//        cyclePatternView.layer.cornerRadius = 20
-//        viewTooTiredToRemove.layer.cornerRadius = 20
-//        avgCycleLength.layer.cornerRadius = 10
-//        avgPeriodLength.layer.cornerRadius = 10
-//        
-//        setupPeriodCycleChart()
-//    }
-//    
-//    private func setupPeriodCycleChart() {
-//        let cycles = CycleDataStore.shared.loadRecentCycles(count: 6)
-//        periodCycleChartView.configure(with: cycles)
-  //  }
-        super.awakeFromNib()
-                cyclePatternView.layer.cornerRadius = 20
-                viewTooTiredToRemove.layer.cornerRadius = 20
-                avgCycleLength.layer.cornerRadius = 10
-                avgPeriodLength.layer.cornerRadius = 10
-        // Initialization code
-        
-        setupPeriodCycleChart()
-    }
     
-//    private func setupPeriodCycleChart() {
-//    let sampleData: [CycleData] = [
-//        CycleData(month: "Jan\n18", cycleLength: 28, periodLength: 5),
-//        CycleData(month: "Dec\n16", cycleLength: 29, periodLength: 5),
-//        CycleData(month: "Nov\n14", cycleLength: 24, periodLength: 5),
-//        CycleData(month: "Oct\n7", cycleLength: 26, periodLength: 5),
-//        CycleData(month: "Sept\n3", cycleLength: 30, periodLength: 5),
-//        CycleData(month: "Aug\n2", cycleLength: 30, periodLength: 5)
-//    ]
-//
-//    periodCycleChartView.configure(with: sampleData)
-//    }
-    private func setupPeriodCycleChart() {
-        // Show only completed cycles (exclude the current ongoing one)
-        let cycles = CycleDataStore.shared.previousCycles(count: 6)
-        periodCycleChartView.configure(with: cycles)
+    // Labels to display the calculated averages
+    @IBOutlet weak var avgCycleLengthLabel: UILabel!
+    @IBOutlet weak var avgPeriodLengthLabel: UILabel!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        cyclePatternView.layer.cornerRadius = 20
+        viewTooTiredToRemove.layer.cornerRadius = 20
+        CycleLengthView.layer.cornerRadius = 10
+        PeriodLengthView.layer.cornerRadius = 10
     }
 
     /// Call from cellForItemAt to refresh chart data on every display
     func refreshChart() {
-        setupPeriodCycleChart()
+        let cycles = CycleDataStore.shared.previousCycles(count: 6)
+        let prediction = CycleDataStore.shared.nextPeriodPrediction
+        
+        // Update chart
+        periodCycleChartView.configure(with: cycles)
+        
+        // Use pre-calculated averages from prediction engine
+        if let avgCycle = prediction.averageCycleLength {
+            avgCycleLengthLabel?.text = "\(avgCycle)"
+        } else {
+            avgCycleLengthLabel?.text = "—"
+        }
+        
+        if let avgPeriod = prediction.averagePeriodLength {
+            avgPeriodLengthLabel?.text = "\(avgPeriod)"
+        } else {
+            avgPeriodLengthLabel?.text = "—"
+        }
     }
 }

@@ -7,29 +7,60 @@
 
 import Foundation
 import UIKit
-struct CycleData: Codable  {
+
+struct CycleData: Codable {
     let id: UUID
     let month: String
     let startDate: Date
-    let days: [CycleDay]
+
+    /// Nil means this cycle is currently ongoing.
+    var endDate: Date?
+
+    /// Becomes true if BBT detects a temperature spike (HealthKit future-proofing).
+    var isOvulationConfirmed: Bool = false
+
+    var days: [CycleDay]
 }
 
-struct CycleDay : Codable {
+struct CycleDay: Codable {
     let dayIndex: Int
-    let phase: Phase
+
+    /// `var` so we can update retroactively when ovulation is confirmed later.
+    var phase: Phase
+
     let symptoms: [SymptomItem]
+
+    /// Ready for HealthKit: stores the BBT reading for this specific day.
+    var basalBodyTemperature: Double?
 }
-enum Phase : Codable {
+
+enum Phase: Codable {
     case menstrual
     case follicular
     case ovulation
     case luteal
     case unknown
 }
+
+// MARK: - CycleData Computed Properties
+
 extension CycleData {
 
+    /// Whether this cycle has ended (another period started after it).
+    var isComplete: Bool {
+        endDate != nil
+    }
+
+    /// For completed cycles: gap between start and end.
+    /// For ongoing cycles: returns days.count (the estimated length used when building).
     var cycleLength: Int {
-        days.count
+        if let end = endDate {
+            return max(
+                Calendar.current.dateComponents([.day], from: startDate, to: end).day ?? days.count,
+                days.count
+            )
+        }
+        return days.count
     }
 
     var periodLength: Int {
@@ -90,14 +121,16 @@ extension Phase {
         case .menstrual:
             return "Your body may be asking for rest and gentler movement today"
         case .follicular:
-            return "Energy is building — a great time to try something new"
+            return "Energy is building a great time to try something new"
         case .ovulation:
             return "You may feel more confident and energetic today"
         case .luteal:
-            return "Be gentle with yourself — your body is preparing for the next cycle"
+            return "Be gentle with yourself your body is preparing for the next cycle"
         case .unknown:
             return "Track your cycle to get personalised insights"
         }
     }
 }
+
+
 

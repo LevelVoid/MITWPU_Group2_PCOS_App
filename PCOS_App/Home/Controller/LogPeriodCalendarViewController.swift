@@ -171,25 +171,9 @@ class LogPeriodCalendarViewController: UIViewController {
     private func loadSavedDates() {
         let cal = Calendar.current
 
-        // 1. Load any previously saved dates from UserDefaults (normalize to startOfDay)
+        // Load only from the single source of truth: user-selected period dates
         if let timestamps = UserDefaults.standard.array(forKey: "SavedPeriodDates") as? [TimeInterval] {
             selectedDates = Set(timestamps.map { cal.startOfDay(for: Date(timeIntervalSince1970: $0)) })
-        }
-
-        // 2. Also pull period dates from existing cycle data (includes mock cycles)
-        for cycle in CycleDataStore.shared.cycles {
-            let periodDays = cycle.days.filter { $0.phase == .menstrual }
-            for day in periodDays {
-                if let date = cal.date(byAdding: .day, value: day.dayIndex - 1, to: cycle.startDate) {
-                    selectedDates.insert(cal.startOfDay(for: date))
-                }
-            }
-        }
-
-        // If no dates loaded, auto-select today + 4 more days
-        if selectedDates.isEmpty {
-            let today = cal.startOfDay(for: Date())
-            selectDateRange(from: today, days: 5)
         }
 
         collectionView.reloadData()

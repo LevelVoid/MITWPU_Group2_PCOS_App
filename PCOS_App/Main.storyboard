@@ -36,12 +36,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QSg-JB-Tdy">
-                                <rect key="frame" x="20" y="694" width="353" height="60"/>
+                                <rect key="frame" x="16" y="694" width="361" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="fCh-8I-ixA"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Let's get started "/>
+                                <buttonConfiguration key="configuration" style="filled" title="Let's get started ">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <segue destination="s3f-yw-vgZ" kind="show" id="FtV-Hd-YU5"/>
                                 </connections>
@@ -66,9 +68,9 @@ Learn, track and heal at your own pace</string>
                         <constraints>
                             <constraint firstItem="YA0-ZR-PYv" firstAttribute="trailing" secondItem="kXH-ow-yMR" secondAttribute="trailing" constant="20" id="1mT-Vu-UFr"/>
                             <constraint firstItem="CuX-tt-PK2" firstAttribute="leading" secondItem="YA0-ZR-PYv" secondAttribute="leading" id="8TN-fu-6Ly"/>
-                            <constraint firstItem="QSg-JB-Tdy" firstAttribute="leading" secondItem="YA0-ZR-PYv" secondAttribute="leading" constant="20" id="R47-8C-B72"/>
+                            <constraint firstItem="QSg-JB-Tdy" firstAttribute="leading" secondItem="YA0-ZR-PYv" secondAttribute="leading" constant="16" id="R47-8C-B72"/>
                             <constraint firstItem="YA0-ZR-PYv" firstAttribute="trailing" secondItem="CuX-tt-PK2" secondAttribute="trailing" id="S6x-rx-EiX"/>
-                            <constraint firstItem="YA0-ZR-PYv" firstAttribute="trailing" secondItem="QSg-JB-Tdy" secondAttribute="trailing" constant="20" id="aCA-EI-pKj"/>
+                            <constraint firstItem="YA0-ZR-PYv" firstAttribute="trailing" secondItem="QSg-JB-Tdy" secondAttribute="trailing" constant="16" id="aCA-EI-pKj"/>
                             <constraint firstItem="CuX-tt-PK2" firstAttribute="top" secondItem="YA0-ZR-PYv" secondAttribute="top" constant="20" id="kR7-uW-GMJ"/>
                             <constraint firstItem="kXH-ow-yMR" firstAttribute="leading" secondItem="YA0-ZR-PYv" secondAttribute="leading" constant="20" id="nUa-cQ-lcc"/>
                             <constraint firstItem="YA0-ZR-PYv" firstAttribute="bottom" secondItem="QSg-JB-Tdy" secondAttribute="bottom" constant="30" id="sgG-y8-e5O"/>
@@ -239,7 +241,9 @@ Learn, track and heal at your own pace</string>
                                 </constraints>
                                 <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Continue"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Continue">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="nextTapped:" destination="sbe-d5-Qtv" eventType="touchUpInside" id="yBb-i3-x7t"/>
                                     <segue destination="ACd-wb-pOC" kind="show" id="alr-eg-LBo"/>
@@ -333,7 +337,9 @@ Learn, track and heal at your own pace</string>
                                 </constraints>
                                 <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Continue"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Continue">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="nextTapped:" destination="ACd-wb-pOC" eventType="touchUpInside" id="wuf-Wd-2Tq"/>
                                     <segue destination="csZ-Ax-PWf" kind="show" id="g87-dE-CX9"/>
@@ -516,7 +522,9 @@ Learn, track and heal at your own pace</string>
                                 </constraints>
                                 <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Continue"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Continue">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="nextButtonTapped:" destination="csZ-Ax-PWf" eventType="touchUpInside" id="tc0-HN-eJj"/>
                                     <action selector="nextTapped:" destination="ACd-wb-pOC" eventType="touchUpInside" id="gJc-rs-2ha"/>
@@ -583,7 +591,7 @@ Learn, track and heal at your own pace</string>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(little structured movement)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b7D-Sz-wD7">
-                                        <rect key="frame" x="16" y="127.66666666666661" width="143" height="31.3333333333333"/>
+                                        <rect key="frame" x="16" y="127.66666666666661" width="143" height="31.333333333333357"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -739,7 +747,9 @@ Learn, track and heal at your own pace</string>
                                 </constraints>
                                 <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Continue"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Continue">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <segue destination="m0s-n0-ckJ" kind="show" id="U8T-wM-jrX"/>
                                 </connections>
@@ -923,7 +933,9 @@ Learn, track and heal at your own pace</string>
                                 </constraints>
                                 <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Continue"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Continue">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="nextButtonTapped:" destination="m0s-n0-ckJ" eventType="touchUpInside" id="jNK-g7-ZMs"/>
                                     <action selector="nextTapped:" destination="ACd-wb-pOC" eventType="touchUpInside" id="7Lh-0U-Izx"/>
@@ -977,7 +989,9 @@ Learn, track and heal at your own pace</string>
                                     <constraint firstAttribute="height" constant="60" id="O1p-AG-sPB"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Continue"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Continue">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="NextButtonTapped:" destination="s3f-yw-vgZ" eventType="touchUpInside" id="pTp-3j-QgW"/>
                                 </connections>
@@ -989,10 +1003,10 @@ Learn, track and heal at your own pace</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="y2S-rC-9TW">
-                                <rect key="frame" x="40" y="383.66666666666669" width="313" height="40"/>
+                                <rect key="frame" x="40" y="383.66666666666669" width="313" height="45"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="eXt-AG-Dg1"/>
+                                    <constraint firstAttribute="height" constant="45" id="eXt-AG-Dg1"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -1058,7 +1072,9 @@ Learn, track and heal at your own pace</string>
                                     <constraint firstAttribute="height" constant="60" id="xyq-Bl-7hA"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Continue"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Continue">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="nextButtonTapped:" destination="oDQ-fw-V8a" eventType="touchUpInside" id="mzk-Et-n13"/>
                                 </connections>

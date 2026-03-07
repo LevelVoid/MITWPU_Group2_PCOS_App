@@ -19,6 +19,7 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var cycleDayLabel: UILabel!
     @IBOutlet weak var phaseLabel: UILabel!
     @IBOutlet weak var quoteLabel: UILabel!
+    @IBOutlet weak var predictionLabel: UILabel!
     @IBOutlet weak var logPeriodButton: UIButton!
     
     weak var delegate: HomeHeaderCollectionViewCellDelegate?
@@ -66,9 +67,16 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public Configuration
 
-    func configure(cycleDay: Int, phase: Phase) {
-        cycleDayLabel.text = "Cycle Day \(cycleDay)"
+    func configure(cycleDay: Int, phase: Phase, prediction: PeriodPrediction) {
+        cycleDayLabel.text = cycleDay > 0 ? "Cycle Day \(cycleDay)" : "No Cycle Logged"
         phaseLabel.text = phase.displayName
         quoteLabel.text = phase.quote
+
+        if prediction.confidence == .none {
+            predictionLabel.isHidden = true
+        } else {
+            predictionLabel.isHidden = false
+            predictionLabel.text = "\(prediction.summaryText)"
+        }
     }
 }
