@@ -135,15 +135,17 @@ class UserGoalViewController: UIViewController {
         // Clear temporary onboarding data
         //clearOnboardingData()
         
-        if let tabBarVC = storyboard?.instantiateViewController(withIdentifier: "MainTabBarController") {
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let window = windowScene.windows.first {
-                window.rootViewController = tabBarVC
-                window.makeKeyAndVisible()
-                
-                UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil)
-            }
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let tabBarVC = mainStoryboard.instantiateViewController(withIdentifier: "MainTabBarController")
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController = tabBarVC
+            window.makeKeyAndVisible()
+            
+            UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil)
         }
+
         
 //        func clearOnboardingData() {
 //            UserDefaults.standard.removeObject(forKey: "userName")

@@ -13,9 +13,9 @@ public class CDUser: NSManagedObject {
     
     /// BMI computed dynamically — never stored, always accurate
     var calculatedBMI: Double {
-        let heightInMeters = height_cm / 100
+        let heightInMeters = heightCm / 100
         guard heightInMeters > 0 else { return 0 }
-        return weight_kg / (heightInMeters * heightInMeters)
+        return weightKg / (heightInMeters * heightInMeters)
     }
     
     /// BMI category derived from BMI value
@@ -30,7 +30,7 @@ public class CDUser: NSManagedObject {
     
     /// Age computed from date_of_birth — always current
     var age: Int {
-        guard let dob = dob else { return 0 }
+        guard let dob = dateOfBirth else { return 0 }
         return Calendar.current.dateComponents([.year], from: dob, to: Date()).year ?? 0
     }
 }

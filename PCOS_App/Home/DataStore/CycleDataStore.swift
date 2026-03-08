@@ -5,12 +5,19 @@
 //  Created by Abhinaya Rajarajan on 17/02/26.
 //
 import Foundation
+import CoreData
+import UIKit
 
 final class CycleDataStore {
 
     static let shared = CycleDataStore()
     private let calendar = Calendar.current
     private let predictionEngine = PeriodPredictionEngine()
+    private var context: NSManagedObjectContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.viewContext
+    }
+
 
     private(set) var cycles: [CycleData] = []
 
@@ -51,7 +58,22 @@ extension CycleDataStore {
 extension CycleDataStore {
 
     func loadCycles() {
-        // Single source of truth: rebuild from user-selected period dates
+        // Try loading from Core Data first
+        let request: NSFetchRequest<CDCycleData> = CDCycleData.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: false)]
+        
+        do {
+            let cdCycles = try context.fetch(request)
+            if !cdCycles.isEmpty {
+                // Convert CDCycleData → CycleData for backward compatibility
+                cycles = cdCycles.map { $0.toCycleData(using: self) }
+                return
+            }
+        } catch {
+            print("❌ Failed to fetch CDCycleData: \(error)")
+        }
+        
+        // Fallback: rebuild from legacy UserDefaults (first launch after migration)
         if let timestamps = UserDefaults.standard.array(forKey: "SavedPeriodDates") as? [TimeInterval] {
             let dates = timestamps.map { calendar.startOfDay(for: Date(timeIntervalSince1970: $0)) }
             if !dates.isEmpty {
@@ -60,12 +82,6 @@ extension CycleDataStore {
             }
         }
         cycles = []
-    }
-
-    func saveCycles() {
-        if let data = try? JSONEncoder().encode(cycles) {
-            UserDefaults.standard.set(data, forKey: "SavedCycles")
-        }
     }
 
     func loadRecentCycles(count: Int = 6) -> [CycleData] {
@@ -284,12 +300,16 @@ extension CycleDataStore {
 
         let sorted = allDates.map { calendar.startOfDay(for: $0) }.sorted()
 
-        // If no dates remain, clear everything
         guard !sorted.isEmpty else {
             cycles = []
-            UserDefaults.standard.removeObject(forKey: "SavedCycles")
+            // Delete all CDCycleData
+            let deleteRequest: NSFetchRequest<NSFetchRequestResult> = CDCycleData.fetchRequest()
+            let batchDelete = NSBatchDeleteRequest(fetchRequest: deleteRequest)
+            try? context.execute(batchDelete)
+            try? context.save()
             return
         }
+
 
         // ── 1. Group into contiguous period runs (gap > 1 day = new period) ──
         var periodGroups: [[Date]] = [[sorted[0]]]
@@ -367,6 +387,45 @@ extension CycleDataStore {
 
         // ── 4. Store newest-first ──
         cycles = finalCycles.sorted { $0.startDate > $1.startDate }
-        saveCycles()
+        
+        // ── 5. Persist to Core Data ──
+        saveToCoreData(from: cycles)
+        
+        // ── 6. Clean up legacy UserDefaults ──
+        UserDefaults.standard.removeObject(forKey: "SavedCycles")
     }
+    
+    private func saveToCoreData(from cycleDataArray: [CycleData]) {
+        // Delete all existing CDCycleData (we rebuild from scratch each time)
+        let deleteRequest: NSFetchRequest<NSFetchRequestResult> = CDCycleData.fetchRequest()
+        let batchDelete = NSBatchDeleteRequest(fetchRequest: deleteRequest)
+        
+        do {
+            try context.execute(batchDelete)
+        } catch {
+            print("❌ Failed to delete old CDCycleData: \(error)")
+        }
+        
+        // Insert fresh CDCycleData objects
+        for cycle in cycleDataArray {
+            let cdCycle = CDCycleData(context: context)
+            cdCycle.id = cycle.id
+            cdCycle.startDate = cycle.startDate
+            cdCycle.endDate = cycle.endDate
+            cdCycle.periodLength = Int16(cycle.periodLength)
+            cdCycle.cycleLength = cycle.isComplete ? Int16(cycle.cycleLength) : 0
+            cdCycle.isOvulationConfirmed = cycle.isOvulationConfirmed
+        }
+        
+        // Save
+        if context.hasChanges {
+            do {
+                try context.save()
+                print("✅ \(cycleDataArray.count) cycles saved to Core Data")
+            } catch {
+                print("❌ Core Data save error: \(error)")
+            }
+        }
+    }
+
 }

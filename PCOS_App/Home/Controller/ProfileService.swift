@@ -57,9 +57,9 @@ class ProfileService {
         }
         
         user.name = name
-        user.dob = dob
-        user.height_cm = heightCm
-        user.weight_kg = weightKg
+        user.dateOfBirth = dob
+        user.heightCm = heightCm
+        user.weightKg = weightKg
         user.dietPattern = dietPattern
         user.activityLevel = activityLevel
         user.primaryFocus = primaryFocus

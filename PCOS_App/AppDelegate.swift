@@ -21,25 +21,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ///
         /// `lazy` because we only create it once, on first access.
         /// The name "PCOS_App" must match your .xcdatamodeld file name exactly.
-        lazy var persistentContainer: NSPersistentContainer = {
-            let container = NSPersistentContainer(name: "PCOS_App")
-            
-            container.loadPersistentStores { storeDescription, error in
-                if let error = error as NSError? {
-                    // In production, handle this gracefully (migration failure, disk full, etc.)
-                    // For development, crash so you notice immediately
-                    fatalError("Core Data store failed to load: \(error), \(error.userInfo)")
-                }
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "PCOS_App")
+        
+        let description = NSPersistentStoreDescription()
+        description.url = NSPersistentContainer.defaultDirectoryURL()
+            .appendingPathComponent("PCOS_App.sqlite")
+        description.shouldInferMappingModelAutomatically = true
+        description.shouldMigrateStoreAutomatically = true
+        container.persistentStoreDescriptions = [description]
+        
+        container.loadPersistentStores { storeDescription, error in
+            if let error = error as NSError? {
+                fatalError("Core Data store failed to load: \(error), \(error.userInfo)")
             }
-            
-            // When background context saves conflict with viewContext,
-            // the in-memory version (viewContext) automatically merges changes.
-            // Without this, background saves (e.g., HealthKit sync) would silently
-            // fail to appear in UI until next app launch.
-            container.viewContext.automaticallyMergesChangesFromParent = true
-            
-            return container
-        }()
+        }
+        
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        
+        return container
+    }()
+
         
         /// Shortcut — this is the main-thread context you'll use in view controllers.
         /// Every Core Data read/write on the UI thread goes through this.
@@ -73,6 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Request HealthKit authorization up-front so the permission sheet
         // appears at launch rather than mid-workout.
+        
         HealthKitManager.shared.requestAuthorization { granted, error in
             if let error = error {
                 print("HealthKit auth error: \(error.localizedDescription)")
@@ -80,6 +83,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("HealthKit authorization granted: \(granted)")
             }
         }
+        print("📂 Core Data path: \(NSPersistentContainer.defaultDirectoryURL())")
+
         return true
     }
 

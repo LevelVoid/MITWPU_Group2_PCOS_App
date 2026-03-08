@@ -57,6 +57,9 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        #if DEBUG
+        DebugInspector.printAll()
+        #endif
         loadTodaysSymptoms()
         buildDisplaySignals()
         collectionView.reloadData()

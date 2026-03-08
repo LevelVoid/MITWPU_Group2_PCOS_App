@@ -32,9 +32,9 @@ class HealthDetailsTableViewController: UITableViewController, UITextFieldDelega
             if let user = ProfileService.shared.getProfile() {
                 return ProfileModel(
                     name: user.name ?? "",
-                    dob: user.dob ?? Date(),
-                    height: Int(user.height_cm),
-                    weight: Int(user.weight_kg),
+                    dob: user.dateOfBirth ?? Date(),
+                    height: Int(user.heightCm),
+                    weight: Int(user.weightKg),
                     dietType: user.dietPattern ?? "Not sure yet",
                     workoutType: user.activityLevel ?? "Mostly sedentary",
                     goalType: user.primaryFocus ?? "Improve cycle regularity"
