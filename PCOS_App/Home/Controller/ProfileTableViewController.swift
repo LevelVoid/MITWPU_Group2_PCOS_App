@@ -102,8 +102,9 @@ class ProfileTableViewController: UITableViewController {
     
     // UPDATED: Fetch name from ProfileService instead of UserDefaults
     private func updateProfileName() {
-        if let profile = ProfileService.shared.getProfile(), !profile.name.isEmpty {
-            nameLabel.text = profile.name
+        if let user = ProfileService.shared.getProfile(),
+           let name = user.name, !name.isEmpty {
+            nameLabel.text = name
         } else {
             nameLabel.text = "Add Your Name"
         }

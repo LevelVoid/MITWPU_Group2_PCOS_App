@@ -28,7 +28,19 @@ class HealthDetailsTableViewController: UITableViewController, UITextFieldDelega
     // FIXED: Make profileData a computed property that always loads from ProfileService
     var profileData: ProfileModel {
         get {
-            return ProfileService.shared.getProfile() ?? ProfileModel(
+            // Read from Core Data via ProfileService, convert to ProfileModel for UI
+            if let user = ProfileService.shared.getProfile() {
+                return ProfileModel(
+                    name: user.name ?? "",
+                    dob: user.dob ?? Date(),
+                    height: Int(user.height_cm),
+                    weight: Int(user.weight_kg),
+                    dietType: user.dietPattern ?? "Not sure yet",
+                    workoutType: user.activityLevel ?? "Mostly sedentary",
+                    goalType: user.primaryFocus ?? "Improve cycle regularity"
+                )
+            }
+            return ProfileModel(
                 name: "",
                 dob: Date(),
                 height: 0,
@@ -42,6 +54,7 @@ class HealthDetailsTableViewController: UITableViewController, UITextFieldDelega
             ProfileService.shared.setProfile(to: newValue)
         }
     }
+
         
     override func viewDidLoad() {
         super.viewDidLoad()

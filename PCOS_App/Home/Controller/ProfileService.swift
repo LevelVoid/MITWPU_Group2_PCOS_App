@@ -1,47 +1,130 @@
-
 //
 //  ProfileService.swift
 //  PCOS_App
 //
-//  Created by SDC-USER on 21/01/26.
+//  Migrated from UserDefaults to Core Data
 //
 
 import Foundation
+import CoreData
+import UIKit
 
 class ProfileService {
-    // Singleton instance - only one ProfileService exists in the app
     static let shared = ProfileService()
     
-    // Private init to prevent creating multiple instances
-    private init() {}
+    // Old key — only used for one-time migration
+    private let legacyProfileKey = "savedUserProfile"
     
-    // Key for UserDefaults storage
-    private let profileKey = "savedUserProfile"
+    private var context: NSManagedObjectContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.viewContext
+    }
     
-    // Get saved profile from storage
-    func getProfile() -> ProfileModel? {
-        guard let data = UserDefaults.standard.data(forKey: profileKey) else {
+    private init() {
+        migrateLegacyDataIfNeeded()
+    }
+    
+    // MARK: - Read
+    
+    /// Fetches the singleton CDUser. Returns nil if no profile exists yet.
+    func getProfile() -> CDUser? {
+        let request: NSFetchRequest<CDUser> = CDUser.fetchRequest()
+        request.fetchLimit = 1
+        
+        do {
+            return try context.fetch(request).first
+        } catch {
+            print("❌ Failed to fetch CDUser: \(error)")
             return nil
         }
-        
-        let decoder = JSONDecoder()
-        return try? decoder.decode(ProfileModel.self, from: data)
     }
     
-    // Save profile to storage
+    // MARK: - Write
+    
+    /// Creates or updates the singleton CDUser.
+    /// Called from HealthDetailsTableViewController (edit mode)
+    /// and from UserGoalViewController (end of onboarding).
+    func setProfile(name: String, dob: Date, heightCm: Double, weightKg: Double,
+                    dietPattern: String, activityLevel: String, primaryFocus: String?) {
+        
+        // Fetch existing or create new
+        let user = getProfile() ?? CDUser(context: context)
+        
+        // Only set id + created_at on first creation
+        if user.id == nil {
+            user.id = UUID()
+            user.createdAt = Date()
+        }
+        
+        user.name = name
+        user.dob = dob
+        user.height_cm = heightCm
+        user.weight_kg = weightKg
+        user.dietPattern = dietPattern
+        user.activityLevel = activityLevel
+        user.primaryFocus = primaryFocus
+        
+        saveContext()
+    }
+    
+    /// Convenience overload that accepts the old ProfileModel
+    /// so HealthDetailsTableViewController doesn't break immediately.
+    /// We'll remove this once HealthDetailsVC is fully migrated.
     func setProfile(to profile: ProfileModel) {
-        let encoder = JSONEncoder()
-        if let encoded = try? encoder.encode(profile) {
-            UserDefaults.standard.set(encoded, forKey: profileKey)
-            print("✅ Profile saved successfully!")
-        } else {
-            print("❌ Failed to save profile")
+        setProfile(
+            name: profile.name,
+            dob: profile.dob,
+            heightCm: Double(profile.height),
+            weightKg: Double(profile.weight),
+            dietPattern: profile.dietType,
+            activityLevel: profile.workoutType,
+            primaryFocus: profile.goalType
+        )
+    }
+    
+    // MARK: - Delete
+    
+    func deleteProfile() {
+        if let user = getProfile() {
+            context.delete(user)
+            saveContext()
+            print("🗑️ CDUser deleted")
         }
     }
     
-    // Delete profile from storage (optional - if you need this feature)
-    func deleteProfile() {
-        UserDefaults.standard.removeObject(forKey: profileKey)
-        print("🗑️ Profile deleted")
+    // MARK: - Save Helper
+    
+    private func saveContext() {
+        guard context.hasChanges else { return }
+        do {
+            try context.save()
+            print("✅ CDUser saved successfully")
+        } catch {
+            print("❌ CoreData save error: \(error)")
+        }
+    }
+    
+    // MARK: - One-Time Migration
+    
+    /// If the old UserDefaults profile exists and no CDUser exists yet,
+    /// migrate the data to Core Data and delete the old key.
+    private func migrateLegacyDataIfNeeded() {
+        guard let legacyData = UserDefaults.standard.data(forKey: legacyProfileKey),
+              getProfile() == nil else {
+            return
+        }
+        
+        print("🔄 Migrating profile from UserDefaults → Core Data...")
+        
+        guard let oldProfile = try? JSONDecoder().decode(ProfileModel.self, from: legacyData) else {
+            print("⚠️ Failed to decode legacy ProfileModel")
+            return
+        }
+        
+        setProfile(to: oldProfile)
+        
+        // Remove old data so we never migrate again
+        UserDefaults.standard.removeObject(forKey: legacyProfileKey)
+        print("✅ Profile migration complete")
     }
 }

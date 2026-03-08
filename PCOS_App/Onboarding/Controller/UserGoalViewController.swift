@@ -95,28 +95,41 @@ class UserGoalViewController: UIViewController {
         UserDefaults.standard.set(goalType, forKey: "userGoalType")
         
         // Now gather ALL onboarding data from UserDefaults
+        // Gather ALL onboarding data from UserDefaults
         let name = UserDefaults.standard.string(forKey: "userName") ?? ""
-        let height = UserDefaults.standard.integer(forKey: "userHeight")
-        let weight = UserDefaults.standard.integer(forKey: "userWeight")
         let dob = UserDefaults.standard.object(forKey: "userDOB") as? Date ?? Date()
         let dietType = UserDefaults.standard.string(forKey: "userDietType") ?? "Not sure yet"
         let workoutType = UserDefaults.standard.string(forKey: "userWorkoutType") ?? "Mostly sedentary"
-        // Get the goal we just saved
         let finalGoalType = UserDefaults.standard.string(forKey: "userGoalType") ?? "Improve cycle regularity"
         
+        // --- Height: convert to cm if stored in inches ---
+        let rawHeight = UserDefaults.standard.integer(forKey: "userHeight")
+        let heightIsMetric = UserDefaults.standard.bool(forKey: "heightIsMetric")
+        let heightInCm: Double = heightIsMetric ? Double(rawHeight) : Double(rawHeight) * 2.54
+        
+        // --- Weight: convert to kg if stored in lbs ---
+        let rawWeight = UserDefaults.standard.integer(forKey: "userWeight")
+        let weightIsMetric = UserDefaults.standard.bool(forKey: "weightIsMetric")
+        let weightInKg: Double = weightIsMetric ? Double(rawWeight) : Double(rawWeight) / 2.205
+
+        // Create complete profile with all onboarding data
         // Create complete profile with all onboarding data
         let profile = ProfileModel(
             name: name,
             dob: dob,
-            height: height,
-            weight: weight,
+            height: Int(heightInCm),
+            weight: Int(weightInKg),
             dietType: dietType,
             workoutType: workoutType,
             goalType: finalGoalType
         )
         
-        // Save to ProfileService
+        // Save to ProfileService (which now writes to Core Data)
         ProfileService.shared.setProfile(to: profile)
+        // Mark onboarding as complete — this flag is checked by SceneDelegate on every launch
+        UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding")
+
+        print("Complete profile saved! Height: \(heightInCm)cm, Weight: \(weightInKg)kg")
         print("Complete profile saved!")
         
         // Clear temporary onboarding data
