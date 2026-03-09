@@ -18,10 +18,11 @@ class DayCircleCollectionViewCell: UICollectionViewCell {
     }
     override func prepareForReuse() {
         super.prepareForReuse()
-
         dayLabel.isHidden = true
         circleView.isHidden = false
+        circleView.backgroundColor = .clear
         iconImageView.isHidden = true
+        iconImageView.image = nil
     }
 
     override func layoutSubviews() {
@@ -41,12 +42,14 @@ class DayCircleCollectionViewCell: UICollectionViewCell {
         circleView.isHidden = false
         circleView.backgroundColor = day.phase.backgroundColor
 
-        if symptom != nil {
-            iconImageView.image = UIImage(named: focusedSymptom?.icon ?? "")
-            iconImageView.tintColor = .label
+        if symptom != nil, let iconName = focusedSymptom?.icon {
+            // Use the original image (full-color) to display the symptom exactly as designed
+            let image = UIImage(named: iconName)?.withRenderingMode(.alwaysOriginal)
+            iconImageView.image = image
             iconImageView.isHidden = false
         } else {
             iconImageView.isHidden = true
+            iconImageView.image = nil
         }
 
         dayLabel.isHidden = true

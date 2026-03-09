@@ -50,6 +50,9 @@ class SymptomPatternsCollectionViewCell:
             setupCollectionView()
         }
 
+    // Height constraint outlet wired up programmatically – updated in configure()
+    private var collectionViewHeightConstraint: NSLayoutConstraint?
+
     private func setupCollectionView() {
         collectionView.collectionViewLayout = makeLayout()
         collectionView.dataSource = self
@@ -89,6 +92,19 @@ class SymptomPatternsCollectionViewCell:
                 }
             }
 
+            // Dynamically resize collection view so legend is always visible
+            let rows = self.cycles.count + 1   // header row + one row per cycle
+            let gridHeight = CGFloat(rows) * 44
+            if let existing = collectionViewHeightConstraint {
+                existing.constant = gridHeight
+            } else {
+                // Find and cache the XIB-defined height constraint, then update it
+                if let constraint = collectionView.constraints.first(where: { $0.firstAttribute == .height }) {
+                    constraint.constant = gridHeight
+                    collectionViewHeightConstraint = constraint
+                }
+            }
+
             collectionView.collectionViewLayout.invalidateLayout()
             collectionView.reloadData()
         }
@@ -117,26 +133,26 @@ class SymptomPatternsCollectionViewCell:
 //                    heightDimension: .absolute(64)
                 //)
                 let itemSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(34),
-                    heightDimension: .absolute(34)
+                    widthDimension: .absolute(26),
+                    heightDimension: .absolute(26)
                 )
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 let rowGroupSize = NSCollectionLayoutSize(
-                    widthDimension: .estimated(CGFloat(columns) * 40),
-                    heightDimension: .absolute(38)
+                    widthDimension: .estimated(CGFloat(columns) * 30),
+                    heightDimension: .absolute(30)
                 )
-                
+
                 let rowGroup = NSCollectionLayoutGroup.horizontal(
                     layoutSize: rowGroupSize,
                     subitem: item,
                     count: columns
                 )
-                rowGroup.interItemSpacing = .fixed(2)
+                rowGroup.interItemSpacing = .fixed(4)
 
                 // Stack rows vertically
                 let gridGroupSize = NSCollectionLayoutSize(
-                    widthDimension: .estimated(CGFloat(columns) * 68),
-                    heightDimension: .absolute(CGFloat(rows) * 45)
+                    widthDimension: .estimated(CGFloat(columns) * 30),
+                    heightDimension: .absolute(CGFloat(rows) * 42)
                 )
                 let gridGroup = NSCollectionLayoutGroup.vertical(
                     layoutSize: gridGroupSize,
@@ -185,15 +201,12 @@ extension SymptomPatternsCollectionViewCell {
             for: indexPath
         ) as! DayCircleCollectionViewCell
 
-        
         let totalColumns = maxDayCount()
         let row = indexPath.item / totalColumns
         let column = indexPath.item % totalColumns
 
-        
-
         if row == 0 {
-            // Day numbers row
+            // Day numbers header row
             cell.configureAsDayNumber(day: column + 1)
         } else {
             let cycleIndex = row - 1
@@ -201,7 +214,18 @@ extension SymptomPatternsCollectionViewCell {
 
             if column < cycle.days.count {
                 let day = cycle.days[column]
-                let matchedSymptom = day.symptoms.first { $0.name == symptom?.name }
+
+                // Compute the actual calendar date for this cycle day
+                // and look up symptoms LIVE so changes logged after the
+                // cycle was built are picked up immediately.
+                let actualDate = Calendar.current.date(
+                    byAdding: .day,
+                    value: column,
+                    to: cycle.startDate
+                ) ?? cycle.startDate
+
+                let liveSymptoms = SymptomDataStore.loadSymptoms(for: actualDate)
+                let matchedSymptom = liveSymptoms.first { $0.name == symptom?.name }
 
                 cell.configure(
                     day: day,
@@ -209,13 +233,12 @@ extension SymptomPatternsCollectionViewCell {
                     focusedSymptom: symptom
                 )
             } else {
-                // Empty placeholder for days beyond cycle length
+                // Beyond this cycle's length — render nothing (invisible spacer)
                 cell.prepareForReuse()
-                cell.circleView.backgroundColor = .systemGray4
+                cell.circleView.isHidden = true
+                cell.circleView.backgroundColor = .clear
             }
         }
-
-
 
         return cell
     }

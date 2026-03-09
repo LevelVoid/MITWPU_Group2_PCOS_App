@@ -21,1374 +21,751 @@ class ExerciseDataStore {
     
     // MARK: - Hardcoded Exercises
     let allExercises: [Exercise] = [
-        // CORE EXERCISES
-        Exercise(
-            name: "Plank",
-            muscleGroup: .core,
-            equipment: .none,
-            image: "burpees",
-            instructions: "Maintain a straight spine while holding the plank position.",
-            gifUrl: "Plankgif.gif",
-            level: "Beginner",
-            tempo: "Hold steady",
-            form: [
-                "Keep body in a straight line",
-                "Engage core and glutes",
-                "Keep neck neutral"
-            ],
-            variations: [
-                "Side Plank",
-                "Plank with leg lift"
-            ],
-            commonMistakes: [
-                "Letting hips sag",
-                "Raising hips too high",
-                "Looking upward and straining neck"
-            ]
-        )
-,
-        Exercise(
-            name: "Russian Twists",
-            muscleGroup: .core,
-            equipment: .none,
-            image: "goblet_squat",
-            instructions: "Twist torso side to side while keeping core braced.",
-            gifUrl: "lat_pulldownsgif.gif",
-            level: "Beginner",
-            tempo: "1s per twist",
-            form: [
-                "Lean back slightly to engage core",
-                "Rotate torso, not just arms",
-                "Keep heels lightly touching floor"
-            ],
-            variations: [
-                "Weighted Russian twists",
-                "Feet elevated twists"
-            ],
-            commonMistakes: [
-                "Moving only arms instead of torso",
-                "Rounding the lower back",
-                "Rushing the movement"
-            ]
-        )
-,
-        Exercise(
-            name: "Cable Crunches",
-            muscleGroup: .core,
-            equipment: .machine,
-            image: "lat_pulldown",
-            instructions: "Crunch downward using abdominal muscles while holding cable rope.",
-            gifUrl: "cable_rowgif.gif",
-            level: "Intermediate",
-            tempo: "2s down, 2s up",
-            form: [
-                "Keep hips fixed in place",
-                "Crunch by contracting abs",
-                "Keep elbows tucked in"
-            ],
-            variations: [
-                "Standing cable crunch",
-                "Single-arm cable crunch"
-            ],
-            commonMistakes: [
-                "Pulling with arms instead of core",
-                "Using excessive weight",
-                "Letting lower back arch excessively"
-            ]
-        )
-,
-        Exercise(
-            name: "Bicycle Crunches",
-            muscleGroup: .core,
-            equipment: .none,
-            image: "deadlift",
-            instructions: "Alternate elbow-to-knee while keeping core tight.",
-            gifUrl: "treadmillgif.gif",
-            level: "Beginner",
-            tempo: "1–2s per rotation",
-            form: [
-                "Extend legs fully",
-                "Keep lower back pressed into floor",
-                "Rotate shoulders, not just elbows"
-            ],
-            variations: [
-                "Slow-tempo bicycles",
-                "Weighted bicycles"
-            ],
-            commonMistakes: [
-                "Pulling neck with hands",
-                "Using momentum",
-                "Lifting lower back off floor"
-            ]
-        )
-,
-        
-        // CHEST EXERCISES
-        Exercise(
-            name: "Bench Press",
-            muscleGroup: .chest,
-            equipment: .barbell,
-            image: "dumbbell_curl",
-            instructions: "Lower bar to mid-chest and press upward while maintaining shoulder stability.",
-            gifUrl: "lat_pulldownsgif.gif",
-            level: "Intermediate",
-            tempo: "2s down, 1s up",
-            form: [
-                "Keep feet planted firmly",
-                "Lower bar to mid-chest",
-                "Keep wrists straight"
-            ],
-            variations: [
-                "Incline bench press",
-                "Close-grip bench press"
-            ],
-            commonMistakes: [
-                "Flaring elbows excessively",
-                "Bouncing bar off chest",
-                "Arching back too much"
-            ]
-        )
-,
-        Exercise(
-            name: "Dumbbell Chest Press",
-            muscleGroup: .chest,
-            equipment: .dumbbell,
-            image: "dumbbell_bench_press",
-            instructions: "Press dumbbells upward while maintaining shoulder stability.",
-            gifUrl: "squatsgif.gif",
-            level: "Beginner",
-            tempo: "2s down, 1s up",
-            form: [
-                "Press dumbbells evenly",
-                "Keep elbows at ~45° angle",
-                "Control the descent"
-            ],
-            variations: [
-                "Incline dumbbell press",
-                "Neutral-grip press"
-            ],
-            commonMistakes: [
-                "Uneven pressing",
-                "Letting shoulders roll forward",
-                "Using momentum"
-            ]
-        )
-,
-        Exercise(
-            name: "Push-ups",
-            muscleGroup: .chest,
-            equipment: .none,
-            image: "pullups",
-            instructions: "Lower chest to the floor and push back up while keeping body straight.",
-            gifUrl: "cable_rowgif.gif",
-            level: "Beginner",
-            tempo: "2s down, 1s up",
-            form: [
-                "Keep core tight",
-                "Maintain straight body line",
-                "Hands slightly wider than shoulders"
-            ],
-            variations: [
-                "Knee push-ups",
-                "Decline push-ups"
-            ],
-            commonMistakes: [
-                "Sagging hips",
-                "Flaring elbows too much",
-                "Half reps"
-            ]
-        )
-,
-        Exercise(
-            name: "Chest Fly",
-            muscleGroup: .chest,
-            equipment: .dumbbell,
-            image: "goblet_squat",
-            instructions: "Open arms wide and bring them together in a hugging motion.",
-            gifUrl: "ellipticalgif.gif",
-            level: "Beginner",
-            tempo: "2s stretch, 1s close",
-            form: [
-                "Keep slight elbow bend",
-                "Open arms without dropping too low",
-                "Squeeze chest at top"
-            ],
-            variations: [
-                "Incline chest fly",
-                "Cable fly"
-            ],
-            commonMistakes: [
-                "Using too much weight",
-                "Bending elbows excessively",
-                "Dropping arms too low"
-            ]
-        )
-,
-        
-        // BACK EXERCISES
-        Exercise(
-            name: "Deadlift",
-            muscleGroup: .back,
-            equipment: .barbell,
-            image: "deadlift",
-            instructions: "Lift barbell from ground by extending hips and knees while keeping spine neutral.",
-            gifUrl: "hammer_curlgif.gif",
-            level: "Advanced",
-            tempo: "2s up, 2s down",
-            form: [
-                "Keep bar close to body",
-                "Push floor away with legs",
-                "Neutral spine throughout"
-            ],
-            variations: [
-                "Romanian deadlift",
-                "Sumo deadlift"
-            ],
-            commonMistakes: [
-                "Rounding the lower back",
-                "Hyperextending at lockout",
-                "Letting bar drift forward"
-            ]
-        )
 
-,
-        Exercise(
-            name: "Lat Pulldown",
-            muscleGroup: .back,
-            equipment: .machine,
-            image: "lat_pulldown",
-            instructions: "Pull bar to upper chest while squeezing lats.",
-            gifUrl: "lat_pulldownsgif.gif",
-            level: "Beginner",
-            tempo: "2s pull, 2s return",
-            form: [
-                "Lean back slightly",
-                "Drive elbows down",
-                "Avoid shrugging shoulders"
-            ],
-            variations: [
-                "Close-grip pulldown",
-                "Reverse-grip pulldown"
-            ],
-            commonMistakes: [
-                "Using momentum",
-                "Pulling behind head",
-                "Shrugging traps"
-            ]
-        )
-,
-        Exercise(
-            name: "Bent Over Barbell Row",
-            muscleGroup: .back,
-            equipment: .barbell,
-            image: "barbell_row",
-            instructions: "Pull barbell toward torso while maintaining hip hinge.",
-            gifUrl: "hammer_curlgif.gif",
-            level: "Intermediate",
-            tempo: "2s pull, 1s squeeze",
-            form: [
-                "Keep torso stable",
-                "Lead with elbows",
-                "Maintain neutral spine"
-            ],
-            variations: [
-                "Underhand row",
-                "Pendlay row"
-            ],
-            commonMistakes: [
-                "Rounding back",
-                "Jerking weight",
-                "Standing too upright"
-            ]
-        )
-,
-        Exercise(
-            name: "Dumbbell Row",
-            muscleGroup: .back,
-            equipment: .dumbbell,
-            image: "dumbbell_row",
-            instructions: "Row dumbbell toward hip while keeping back flat.",
-            gifUrl: "lat_pulldownsgif.gif",
-            level: "Beginner",
-            tempo: "1s pull, 2s lower",
-            form: [
-                "Square hips and shoulders",
-                "Pull toward hip, not chest",
-                "Keep elbow close"
-            ],
-            variations: [
-                "Chest-supported row",
-                "Kroc row"
-            ],
-            commonMistakes: [
-                "Rotating torso",
-                "Shrugging shoulder",
-                "Pulling with biceps instead of back"
-            ]
-        )
-,
-        Exercise(
-            name: "Pull-ups",
-            muscleGroup: .back,
-            equipment: .none,
-            image: "pullups",
-            instructions: "Pull body upward until chin passes bar.",
-            gifUrl: "treadmillgif.gif",
-            level: "Advanced",
-            tempo: "2s pull, 2s lower",
-            form: [
-                "Grip bar slightly wider than shoulder",
-                "Engage scapula",
-                "Drive elbows down"
-            ],
-            variations: [
-                "Chin-ups",
-                "Assisted pull-ups"
-            ],
-            commonMistakes: [
-                "Kipping unintentionally",
-                "Half reps",
-                "Shrugging traps excessively"
-            ]
-        )
-,
-        Exercise(
-            name: "Seated Cable Row",
-            muscleGroup: .back,
-            equipment: .machine,
-            image: "cable_row",
-            instructions: "Pull cable handle to torso while keeping chest lifted.",
-            gifUrl: "cable_rowgif.gif",
-            level: "Beginner",
-            tempo: "1s pull, 2s release",
-            form: [
-                "Keep shoulders back",
-                "Squeeze shoulder blades",
-                "Maintain upright torso"
-            ],
-            variations: [
-                "Wide-grip row",
-                "Single-arm row"
-            ],
-            commonMistakes: [
-                "Leaning too far back",
-                "Rounding shoulders",
-                "Jerking weight"
-            ]
-        )
-,
-        
-        // LEG EXERCISES
-        Exercise(
-            name: "Barbell Squat",
-            muscleGroup: .legs,
-            equipment: .barbell,
-            image: "barbell_squat",
-            instructions: "Lower hips back and down while maintaining upright torso.",
-            gifUrl: "squatsgif.gif",
-            level: "Intermediate",
-            tempo: "3s down, 1s up",
-            form: [
-                "Keep knees aligned with toes",
-                "Brace core before descending",
-                "Drive through heels"
-            ],
-            variations: [
-                "Front squat",
-                "Box squat"
-            ],
-            commonMistakes: [
-                "Letting knees cave inward",
-                "Rounding lower back",
-                "Lifting heels off floor"
-            ]
-        )
-,
-        Exercise(
-            name: "Leg Press",
-            muscleGroup: .legs,
-            equipment: .machine,
-            image: "leg_press",
-            instructions: "Press platform upward by extending knees and hips.",
-            gifUrl: "leg_pressgif.gif",
-            level: "Beginner",
-            tempo: "2s press, 2s return",
-            form: [
-                "Keep knees aligned",
-                "Control depth",
-                "Avoid locking knees"
-            ],
-            variations: [
-                "Single-leg press",
-                "High or low foot placement"
-            ],
-            commonMistakes: [
-                "Locking knees aggressively",
-                "Using too much weight",
-                "Shallow range of motion"
-            ]
-        )
-,
-        Exercise(
-            name: "Lunges",
-            muscleGroup: .legs,
-            equipment: .none,
-            image: "bulgarian_split",
-            instructions: "Step forward and lower knee toward floor.",
-            gifUrl: "leg_pressgif.gif",
-            level: "Beginner",
-            tempo: "1s down, 1s up",
-            form: [
-                "Keep torso upright",
-                "Step long enough for 90° angles",
-                "Push through front heel"
-            ],
-            variations: [
-                "Reverse lunge",
-                "Walking lunges"
-            ],
-            commonMistakes: [
-                "Knee caving inward",
-                "Short steps",
-                "Leaning too far forward"
-            ]
-        )
-,
-        Exercise(
-            name: "Dumbbell Lunges",
-            muscleGroup: .legs,
-            equipment: .dumbbell,
-            image: "bulgarian_split",
-            instructions: "Perform lunges while holding dumbbells at sides.",
-            gifUrl: "lat_pulldownsgif.gif",
-            level: "Intermediate",
-            tempo: "1s down, 1s up",
-            form: [
-                "Control each step",
-                "Keep chest lifted",
-                "Drive through heel"
-            ],
-            variations: [
-                "Curtsey lunges",
-                "Split squats"
-            ],
-            commonMistakes: [
-                "Using too heavy weights",
-                "Leaning forward",
-                "Letting weight swing"
-            ]
-        )
-,
-        Exercise(
-            name: "Leg Extension",
-            muscleGroup: .legs,
-            equipment: .machine,
-            image: "leg_extension",
-            instructions: "Extend knees fully against machine resistance.",
-            gifUrl: "squatsgif.gif",
-            level: "Beginner",
-            tempo: "1s lift, 2s lower",
-            form: [
-                "Point toes slightly upward",
-                "Squeeze quads at top",
-                "Move slowly"
-            ],
-            variations: [
-                "Single-leg extension",
-                "Drop sets"
-            ],
-            commonMistakes: [
-                "Kicking weight up",
-                "Using excessive load",
-                "Not controlling descent"
-            ]
-        )
-,
-        Exercise(
-            name: "Leg Curl",
-            muscleGroup: .legs,
-            equipment: .machine,
-            image: "bulgarian_split",
-            instructions: "Curl heels toward glutes on machine.",
-            gifUrl: "cable_rowgif.gif",
-            level: "Beginner",
-            tempo: "1s curl, 2s lower",
-            form: [
-                "Keep hips pressed down",
-                "Squeeze hamstrings",
-                "Move smoothly"
-            ],
-            variations: [
-                "Seated leg curl",
-                "Single-leg curl"
-            ],
-            commonMistakes: [
-                "Swinging weight",
-                "Lifting hips",
-                "Half reps"
-            ]
-        )
-,Exercise(
-    name: "Goblet Squat",
-    muscleGroup: .legs,
+    Exercise(
+    name: "Plank",
+    muscleGroup: .core,
+    equipment: .none,
+    image: "plank",
+    instructions: "Hold your body in a straight line supported by forearms and toes.",
+    gifUrl: "Plankgif.gif",
+    level: "Beginner",
+    tempo: "Hold 20–60s",
+    form: [
+    "Keep body straight from head to heels",
+    "Engage core and glutes",
+    "Keep neck neutral"
+    ],
+    variations: [
+    "Side plank",
+    "Plank with leg lift"
+    ],
+    commonMistakes: [
+    "Hips sagging",
+    "Raising hips too high",
+    "Looking forward and straining neck"
+    ]
+    ),
+
+    Exercise(
+    name: "Bent Over Row",
+    muscleGroup: .back,
+    equipment: .barbell,
+    image: "bent_row",
+    instructions: "Hinge at hips and pull the bar toward your torso while keeping the back neutral.",
+    gifUrl: "bent_rowgif.gif",
+    level: "Intermediate",
+    tempo: "2s pull, 2s lower",
+    form: [
+    "Hinge from hips",
+    "Keep bar close to body",
+    "Lead pull with elbows"
+    ],
+    variations: [
+    "Underhand row",
+    "Single-arm dumbbell row"
+    ],
+    commonMistakes: [
+    "Rounding the back",
+    "Standing too upright",
+    "Using momentum"
+    ]
+    ),
+
+    Exercise(
+    name: "Bhujangasana",
+    muscleGroup: .mobility,
+    equipment: .none,
+    image: "bhujangasana",
+    instructions: "Press chest upward while keeping hips grounded.",
+    gifUrl: "bhujangasanagif.gif",
+    level: "Beginner",
+    tempo: "Hold 15–30s",
+    form: [
+    "Press palms into mat",
+    "Lift chest gently",
+    "Keep shoulders relaxed"
+    ],
+    variations: [
+    "Baby cobra",
+    "Upward dog"
+    ],
+    commonMistakes: [
+    "Overarching lower back",
+    "Locking elbows",
+    "Lifting hips off mat"
+    ]
+    ),
+
+    Exercise(
+    name: "Bicycle Crunch",
+    muscleGroup: .core,
+    equipment: .none,
+    image: "bicycle",
+    instructions: "Alternate elbow to opposite knee while extending the other leg.",
+    gifUrl: "bicyclegif.gif",
+    level: "Beginner",
+    tempo: "1–2s per rep",
+    form: [
+    "Keep lower back pressed down",
+    "Rotate torso not just elbows",
+    "Control movement"
+    ],
+    variations: [
+    "Slow bicycle crunch",
+    "Weighted bicycle crunch"
+    ],
+    commonMistakes: [
+    "Pulling neck",
+    "Moving too fast",
+    "Arching lower back"
+    ]
+    ),
+
+    Exercise(
+    name: "Bird Dog",
+    muscleGroup: .core,
+    equipment: .none,
+    image: "bird_dog",
+    instructions: "Extend opposite arm and leg while stabilizing your core.",
+    gifUrl: "bird_doggif.gif",
+    level: "Beginner",
+    tempo: "2s extend, 2s hold",
+    form: [
+    "Keep hips square",
+    "Maintain neutral spine",
+    "Extend fully"
+    ],
+    variations: [
+    "Bird dog hold",
+    "Weighted bird dog"
+    ],
+    commonMistakes: [
+    "Rotating hips",
+    "Arching back",
+    "Moving too quickly"
+    ]
+    ),
+
+    Exercise(
+    name: "Bow Pose",
+    muscleGroup: .mobility,
+    equipment: .none,
+    image: "bow_pose",
+    instructions: "Grab ankles and lift chest and thighs off the floor.",
+    gifUrl: "bow_posegif.gif",
+    level: "Intermediate",
+    tempo: "Hold 15–30s",
+    form: [
+    "Press feet into hands",
+    "Lift chest upward",
+    "Keep breathing steady"
+    ],
+    variations: [
+    "Half bow",
+    "Rocking bow"
+    ],
+    commonMistakes: [
+    "Holding breath",
+    "Overarching neck",
+    "Forcing the stretch"
+    ]
+    ),
+
+    Exercise(
+    name: "Butterfly Stretch",
+    muscleGroup: .mobility,
+    equipment: .none,
+    image: "butterfly",
+    instructions: "Sit with feet together and gently press knees toward the floor.",
+    gifUrl: "butterflygif.gif",
+    level: "Beginner",
+    tempo: "Hold 20–40s",
+    form: [
+    "Keep spine upright",
+    "Relax hips",
+    "Press knees gently"
+    ],
+    variations: [
+    "Forward fold butterfly",
+    "Dynamic butterfly"
+    ],
+    commonMistakes: [
+    "Rounding back",
+    "Forcing knees down",
+    "Bouncing knees aggressively"
+    ]
+    ),
+
+    Exercise(
+    name: "Cable Row",
+    muscleGroup: .back,
+    equipment: .machine,
+    image: "cable_row",
+    instructions: "Pull cable handle toward torso while keeping chest lifted.",
+    gifUrl: "cable_rowgif.gif",
+    level: "Beginner",
+    tempo: "2s pull, 2s return",
+    form: [
+    "Keep chest tall",
+    "Squeeze shoulder blades",
+    "Pull elbows back"
+    ],
+    variations: [
+    "Wide grip row",
+    "Single arm cable row"
+    ],
+    commonMistakes: [
+    "Leaning too far back",
+    "Rounding shoulders",
+    "Jerking weight"
+    ]
+    ),
+
+    Exercise(
+    name: "Cat Cow",
+    muscleGroup: .mobility,
+    equipment: .none,
+    image: "cat_cow",
+    instructions: "Alternate between arching and rounding the spine.",
+    gifUrl: "cat_cowgif.gif",
+    level: "Beginner",
+    tempo: "Slow breathing rhythm",
+    form: [
+    "Inhale arch spine",
+    "Exhale round spine",
+    "Move slowly"
+    ],
+    variations: [
+    "Thread the needle",
+    "Cat cow hold"
+    ],
+    commonMistakes: [
+    "Rushing movement",
+    "Overextending neck"
+    ]
+    ),
+
+    Exercise(
+    name: "Child Pose",
+    muscleGroup: .mobility,
+    equipment: .none,
+    image: "child_pose",
+    instructions: "Sit back on heels and stretch arms forward.",
+    gifUrl: "child_posegif.gif",
+    level: "Beginner",
+    tempo: "Hold 20–40s",
+    form: [
+    "Relax hips",
+    "Stretch arms forward",
+    "Forehead to mat"
+    ],
+    variations: [
+    "Side child pose",
+    "Wide knee child pose"
+    ],
+    commonMistakes: [
+    "Lifting hips",
+    "Rounding shoulders"
+    ]
+    ),
+    Exercise(
+    name: "Deadlift",
+    muscleGroup: .back,
+    equipment: .barbell,
+    image: "deadlift",
+    instructions: "Lift the bar from the floor by extending hips and knees while keeping your spine neutral.",
+    gifUrl: "deadliftgif.gif",
+    level: "Intermediate",
+    tempo: "2s lift, 2s lower",
+    form: [
+    "Keep bar close to legs",
+    "Drive through heels",
+    "Maintain neutral spine"
+    ],
+    variations: [
+    "Romanian deadlift",
+    "Sumo deadlift"
+    ],
+    commonMistakes: [
+    "Rounding lower back",
+    "Jerking the bar off the floor",
+    "Hyperextending at the top"
+    ]
+    ),
+
+    Exercise(
+    name: "Downward Dog",
+    muscleGroup: .mobility,
+    equipment: .none,
+    image: "downward_dog",
+    instructions: "Lift hips upward forming an inverted V shape.",
+    gifUrl: "downward_doggif.gif",
+    level: "Beginner",
+    tempo: "Hold 20–40s",
+    form: [
+    "Press heels toward floor",
+    "Keep arms straight",
+    "Lengthen spine"
+    ],
+    variations: [
+    "Bent knee downward dog",
+    "Three leg downward dog"
+    ],
+    commonMistakes: [
+    "Rounding back",
+    "Collapsing shoulders",
+    "Heels forced down excessively"
+    ]
+    ),
+
+    Exercise(
+    name: "Elliptical Trainer",
+    muscleGroup: .cardio,
+    equipment: .machine,
+    image: "elliptical",
+    instructions: "Move arms and legs smoothly on the elliptical trainer.",
+    gifUrl: "ellipticalgif.gif",
+    level: "Beginner",
+    tempo: "Steady continuous pace",
+    form: [
+    "Keep torso upright",
+    "Push and pull handles evenly",
+    "Maintain smooth rhythm"
+    ],
+    variations: [
+    "Reverse pedaling",
+    "Interval training"
+    ],
+    commonMistakes: [
+    "Leaning heavily on handles",
+    "Moving too fast",
+    "Locking knees"
+    ]
+    ),
+
+    Exercise(
+    name: "Face Pulls",
+    muscleGroup: .shoulders,
+    equipment: .machine,
+    image: "face_pulls",
+    instructions: "Pull rope attachment toward your face while squeezing upper back.",
+    gifUrl: "face_pullsgif.gif",
+    level: "Beginner",
+    tempo: "1s pull, 2s return",
+    form: [
+    "Keep elbows high",
+    "Squeeze shoulder blades",
+    "Keep chest tall"
+    ],
+    variations: [
+    "Single arm face pull",
+    "Band face pull"
+    ],
+    commonMistakes: [
+    "Using too much weight",
+    "Shrugging shoulders",
+    "Pulling with arms only"
+    ]
+    ),
+
+    Exercise(
+    name: "Glute Bridge",
+    muscleGroup: .glutes,
+    equipment: .none,
+    image: "glute_bridge",
+    instructions: "Lift hips upward by squeezing glutes while keeping shoulders on floor.",
+    gifUrl: "glute_bridgegif.gif",
+    level: "Beginner",
+    tempo: "1s up, 2s down",
+    form: [
+    "Push through heels",
+    "Engage glutes at top",
+    "Keep core braced"
+    ],
+    variations: [
+    "Single leg glute bridge",
+    "Banded glute bridge"
+    ],
+    commonMistakes: [
+    "Overarching back",
+    "Feet too far from hips",
+    "Not squeezing glutes"
+    ]
+    ),
+
+    Exercise(
+    name: "Hammer Curl",
+    muscleGroup: .arms,
     equipment: .dumbbell,
-    image: "goblet_squat",
-    instructions: "Hold dumbbell at chest and squat down.",
+    image: "hammer_curl",
+    instructions: "Curl dumbbells upward with palms facing each other.",
+    gifUrl: "hammer_curlgif.gif",
+    level: "Beginner",
+    tempo: "1s up, 2s down",
+    form: [
+    "Keep elbows close to torso",
+    "Maintain neutral wrist",
+    "Control the descent"
+    ],
+    variations: [
+    "Cross body hammer curl",
+    "Cable hammer curl"
+    ],
+    commonMistakes: [
+    "Swinging weights",
+    "Using momentum",
+    "Shrugging shoulders"
+    ]
+    ),
+
+    Exercise(
+    name: "Hip Rotation",
+    muscleGroup: .mobility,
+    equipment: .none,
+    image: "hip_rotation",
+    instructions: "Rotate hips slowly to improve mobility.",
+    gifUrl: "hip_rotationgif.gif",
+    level: "Beginner",
+    tempo: "Controlled circular motion",
+    form: [
+    "Keep torso stable",
+    "Move through full hip range",
+    "Move slowly"
+    ],
+    variations: [
+    "Standing hip circles",
+    "Quadruped hip rotation"
+    ],
+    commonMistakes: [
+    "Arching lower back",
+    "Rushing movement",
+    "Rotating torso excessively"
+    ]
+    ),
+
+    Exercise(
+    name: "Incline Treadmill Walk",
+    muscleGroup: .cardio,
+    equipment: .machine,
+    image: "incline_treadmill",
+    instructions: "Walk on treadmill with incline to increase intensity.",
+    gifUrl: "incline_treadmillgif.gif",
+    level: "Beginner",
+    tempo: "Steady pace",
+    form: [
+    "Keep posture upright",
+    "Swing arms naturally",
+    "Step evenly"
+    ],
+    variations: [
+    "Incline intervals",
+    "Power walk incline"
+    ],
+    commonMistakes: [
+    "Holding rails constantly",
+    "Leaning forward",
+    "Taking uneven steps"
+    ]
+    ),
+
+    Exercise(
+    name: "Jump Rope",
+    muscleGroup: .cardio,
+    equipment: .none,
+    image: "jump_rope",
+    instructions: "Jump lightly while rotating rope under feet.",
+    gifUrl: "jump_ropegif.gif",
+    level: "Beginner",
+    tempo: "Fast rhythmic",
+    form: [
+    "Jump lightly",
+    "Rotate rope with wrists",
+    "Maintain steady rhythm"
+    ],
+    variations: [
+    "Single leg jumps",
+    "Double unders"
+    ],
+    commonMistakes: [
+    "Jumping too high",
+    "Using arms instead of wrists",
+    "Landing heavily"
+    ]
+    ),
+
+    Exercise(
+    name: "Jumping Jacks",
+    muscleGroup: .cardio,
+    equipment: .none,
+    image: "jumping_jacks",
+    instructions: "Jump feet apart while raising arms overhead.",
+    gifUrl: "jumping_jacksgif.gif",
+    level: "Beginner",
+    tempo: "Fast pace",
+    form: [
+    "Land softly",
+    "Move arms fully overhead",
+    "Maintain rhythm"
+    ],
+    variations: [
+    "Half jacks",
+    "Weighted jacks"
+    ],
+    commonMistakes: [
+    "Landing too hard",
+    "Shrugging shoulders",
+    "Losing coordination"
+    ]
+    ),
+    Exercise(
+    name: "Lat Pulldown",
+    muscleGroup: .back,
+    equipment: .machine,
+    image: "lat_pulldown",
+    instructions: "Pull the bar toward upper chest while engaging lats.",
+    gifUrl: "lat_pulldownsgif.gif",
+    level: "Beginner",
+    tempo: "2s pull, 2s return",
+    form: [
+    "Lean slightly back",
+    "Drive elbows downward",
+    "Squeeze lats"
+    ],
+    variations: [
+    "Reverse grip pulldown",
+    "Close grip pulldown"
+    ],
+    commonMistakes: [
+    "Pulling behind neck",
+    "Using momentum",
+    "Shrugging shoulders"
+    ]
+    ),
+
+    Exercise(
+    name: "Lateral Raises",
+    muscleGroup: .shoulders,
+    equipment: .dumbbell,
+    image: "lateral_raises",
+    instructions: "Raise dumbbells to shoulder height with arms slightly bent.",
+    gifUrl: "lateral_raisesgif.gif",
+    level: "Beginner",
+    tempo: "1s up, 2s down",
+    form: [
+    "Lead with elbows",
+    "Keep slight bend in arms",
+    "Pause at top"
+    ],
+    variations: [
+    "Cable lateral raise",
+    "Seated lateral raise"
+    ],
+    commonMistakes: [
+    "Swinging weights",
+    "Shrugging shoulders",
+    "Using too heavy weight"
+    ]
+    ),
+
+    Exercise(
+    name: "Leg Extension",
+    muscleGroup: .legs,
+    equipment: .machine,
+    image: "leg_extension",
+    instructions: "Extend knees upward against resistance.",
+    gifUrl: "leg_extensiongif.gif",
+    level: "Beginner",
+    tempo: "1s extend, 2s lower",
+    form: [
+    "Squeeze quads at top",
+    "Control the descent",
+    "Keep back against pad"
+    ],
+    variations: [
+    "Single leg extension",
+    "Drop sets"
+    ],
+    commonMistakes: [
+    "Kicking weight up",
+    "Using momentum",
+    "Too much weight"
+    ]
+    ),
+
+    Exercise(
+    name: "Leg Press",
+    muscleGroup: .legs,
+    equipment: .machine,
+    image: "leg_press",
+    instructions: "Push platform away using legs while keeping feet flat.",
+    gifUrl: "leg_pressgif.gif",
+    level: "Beginner",
+    tempo: "2s press, 2s return",
+    form: [
+    "Keep knees aligned with toes",
+    "Control range of motion",
+    "Avoid locking knees"
+    ],
+    variations: [
+    "Single leg press",
+    "High foot placement"
+    ],
+    commonMistakes: [
+    "Locking knees",
+    "Too shallow reps",
+    "Using excessive weight"
+    ]
+    ),
+
+    Exercise(
+    name: "Leg Raises",
+    muscleGroup: .core,
+    equipment: .none,
+    image: "leg_raises",
+    instructions: "Lift legs upward while lying flat keeping core tight.",
+    gifUrl: "leg_raisesgif.gif",
+    level: "Beginner",
+    tempo: "2s up, 2s down",
+    form: [
+    "Keep lower back pressed down",
+    "Move legs slowly",
+    "Engage core"
+    ],
+    variations: [
+    "Hanging leg raises",
+    "Bent knee raises"
+    ],
+    commonMistakes: [
+    "Arching back",
+    "Using momentum"
+    ]
+    ),
+
+    Exercise(
+    name: "Lunges",
+    muscleGroup: .legs,
+    equipment: .none,
+    image: "lunges",
+    instructions: "Step forward and lower until both knees are about 90 degrees.",
+    gifUrl: "lungesgif.gif",
+    level: "Beginner",
+    tempo: "1s down, 1s up",
+    form: [
+    "Keep torso upright",
+    "Step long enough",
+    "Push through front heel"
+    ],
+    variations: [
+    "Walking lunges",
+    "Reverse lunges"
+    ],
+    commonMistakes: [
+    "Knee caving inward",
+    "Leaning forward",
+    "Short steps"
+    ]
+    ),
+    Exercise(
+    name: "Malasana (Yogic Squat)",
+    muscleGroup: .mobility,
+    equipment: .none,
+    image: "malasana",
+    instructions: "Deep squat with elbows pressing knees outward.",
+    gifUrl: "malasanagif.gif",
+    level: "Beginner",
+    tempo: "Hold 20–40s",
+    form: [
+    "Keep heels grounded",
+    "Press knees outward",
+    "Maintain upright chest"
+    ],
+    variations: [
+    "Heel elevated malasana",
+    "Dynamic squat hold"
+    ],
+    commonMistakes: [
+    "Heels lifting",
+    "Rounding lower back",
+    "Collapsing chest"
+    ]
+    ),
+
+    Exercise(
+    name: "Seated Calf Raises",
+    muscleGroup: .legs,
+    equipment: .machine,
+    image: "seated_calf_raises",
+    instructions: "Raise heels upward by contracting calves.",
+    gifUrl: "seated_calf_raisesgif.gif",
+    level: "Beginner",
+    tempo: "1s up, 2s down",
+    form: [
+    "Pause at top",
+    "Move slowly",
+    "Full range of motion"
+    ],
+    variations: [
+    "Single leg calf raise",
+    "Weighted calf raise"
+    ],
+    commonMistakes: [
+    "Bouncing reps",
+    "Partial range of motion",
+    "Too much weight"
+    ]
+    ),
+
+    Exercise(
+    name: "Squats",
+    muscleGroup: .legs,
+    equipment: .none,
+    image: "squats",
+    instructions: "Lower hips down and back while keeping chest upright.",
     gifUrl: "squatsgif.gif",
     level: "Beginner",
     tempo: "3s down, 1s up",
     form: [
-        "Keep elbows close",
-        "Push knees outward",
-        "Stay upright"
+    "Knees track over toes",
+    "Chest upright",
+    "Drive through heels"
     ],
     variations: [
-        "Kettlebell goblet squat",
-        "Paused squat"
+    "Goblet squat",
+    "Jump squat"
     ],
     commonMistakes: [
-        "Letting chest collapse",
-        "Caving knees inward",
-        "Shallow squats"
+    "Knees caving inward",
+    "Heels lifting",
+    "Rounding lower back"
     ]
-)
-,
-        
-        // SHOULDER EXERCISES
-        Exercise(
-            name: "Overhead Press",
-            muscleGroup: .shoulders,
-            equipment: .barbell,
-            image: "dumbbell_curl",
-            instructions: "Press bar overhead while keeping core braced.",
-            gifUrl: "hammer_curlgif.gif",
-            level: "Intermediate",
-            tempo: "1–2s up, 2s down",
-            form: [
-                "Brace core and glutes",
-                "Keep bar close to face path",
-                "Lock out overhead"
-            ],
-            variations: [
-                "Push press",
-                "Seated shoulder press"
-            ],
-            commonMistakes: [
-                "Overarching lower back",
-                "Pressing in front of body",
-                "Using too much leg drive"
-            ]
-        )
-,
-        Exercise(
-            name: "Dumbbell Shoulder Press",
-            muscleGroup: .shoulders,
-            equipment: .dumbbell,
-            image: "dumbbell_press",
-            instructions: "Press dumbbells overhead with controlled movement.",
-            gifUrl: "hammer_curlgif.gif",
-            level: "Beginner",
-            tempo: "2s up, 2s down",
-            form: [
-                "Keep core tight",
-                "Press evenly with both arms",
-                "Avoid shrugging traps"
-            ],
-            variations: [
-                "Arnold press",
-                "Neutral-grip press"
-            ],
-            commonMistakes: [
-                "Flaring elbows",
-                "Arching back",
-                "Uneven pressing"
-            ]
-        )
-,
-        Exercise(
-            name: "Lateral Raises",
-            muscleGroup: .shoulders,
-            equipment: .dumbbell,
-            image: "romanian_deadlift",
-            instructions: "Raise arms to sides until shoulder height.",
-            gifUrl: "lat_pulldownsgif.gif",
-            level: "Beginner",
-            tempo: "1s lift, 2s lower",
-            form: [
-                "Keep slight elbow bend",
-                "Lift with delts, not traps",
-                "Pause at top"
-            ],
-            variations: [
-                "Cable lateral raise",
-                "Seated lateral raise"
-            ],
-            commonMistakes: [
-                "Swinging weights",
-                "Shrugging shoulders",
-                "Overloading weight"
-            ]
-        )
-,
-        Exercise(
-            name: "Front Raises",
-            muscleGroup: .shoulders,
-            equipment: .dumbbell,
-            image: "front_raises",
-            instructions: "Lift dumbbells forward to shoulder height.",
-            gifUrl: "cable_rowgif.gif",
-            level: "Beginner",
-            tempo: "1s up, 2s down",
-            form: [
-                "Keep arms straight but not locked",
-                "Lift to shoulder height only",
-                "Control lowering phase"
-            ],
-            variations: [
-                "Barbell front raise",
-                "Plate front raise"
-            ],
-            commonMistakes: [
-                "Swinging weights up",
-                "Using too much weight",
-                "Raising above shoulder height"
-            ]
-        )
-,
-        Exercise(
-            name: "Step-Up on Chair",
-            muscleGroup: .legs,
-            equipment: .none,
-            image: "step_up_chair",
-            instructions: "Step onto a sturdy chair with one foot, press through the heel to stand up, then step back down with control.",
-            gifUrl: "squatsgif.gif",
-            level: "Beginner",
-            tempo: "1s up, 2s down",
-            form: [
-                "Keep chest upright and core engaged",
-                "Drive through the heel of the working leg",
-                "Fully extend the hip at the top"
-            ],
-            variations: [
-                "Dumbbell step-up",
-                "High step-up",
-                "Alternating step-up"
-            ],
-            commonMistakes: [
-                "Pushing off the back leg too much",
-                "Letting knee cave inward",
-                "Dropping down too fast"
-            ]
-        )
-,
-        
-        // ARM EXERCISES
-        Exercise(
-            name: "Barbell Curl",
-            muscleGroup: .arms,
-            equipment: .barbell,
-            image: "barbell_curl",
-            instructions: "Curl bar upward while keeping elbows close to torso.",
-            gifUrl: "hammer_curlgif.gif",
-            level: "Beginner",
-            tempo: "1s up, 2s down",
-            form: [
-                "Keep elbows pinned to sides",
-                "Stand tall without leaning back",
-                "Control lowering phase"
-            ],
-            variations: [
-                "Reverse curl",
-                "Wide-grip curl"
-            ],
-            commonMistakes: [
-                "Using momentum",
-                "Letting elbows flare",
-                "Swinging body backward"
-            ]
-        )
-,
-        Exercise(
-            name: "Dumbbell Curl",
-            muscleGroup: .arms,
-            equipment: .dumbbell,
-            image: "dumbbell_curl",
-            instructions: "Curl dumbbells while rotating palms upward.",
-            gifUrl: "hammer_curlgif.gif",
-            level: "Beginner",
-            tempo: "1s up, 2s down",
-            form: [
-                "Rotate wrist supinated at top",
-                "Keep elbows still",
-                "Lift with biceps, not shoulders"
-            ],
-            variations: [
-                "Hammer curl",
-                "Alternating curls"
-            ],
-            commonMistakes: [
-                "Shrugging shoulders",
-                "Curling too quickly",
-                "Dropping weight without control"
-            ]
-        )
-,
-        Exercise(
-            name: "Tricep Dips",
-            muscleGroup: .arms,
-            equipment: .none,
-            image: "tricep_dips",
-            instructions: "Lower body by bending elbows and push back up.",
-            gifUrl: "lat_pulldownsgif.gif",
-            level: "Intermediate",
-            tempo: "2s down, 1s up",
-            form: [
-                "Keep elbows pointing backward",
-                "Lower until arms reach 90 degrees",
-                "Keep chest lifted"
-            ],
-            variations: [
-                "Bench dips",
-                "Weighted dips"
-            ],
-            commonMistakes: [
-                "Flaring elbows",
-                "Shrugging shoulders",
-                "Not using full range of motion"
-            ]
-        )
-,
-        Exercise(
-            name: "Tricep Pushdown",
-            muscleGroup: .arms,
-            equipment: .machine,
-            image: "tricep_pushdown",
-            instructions: "Push cable handle downward while keeping elbows fixed.",
-            gifUrl: "cable_rowgif.gif",
-            level: "Beginner",
-            tempo: "1s push, 2s return",
-            form: [
-                "Keep elbows tucked",
-                "Extend fully at bottom",
-                "Keep wrist neutral"
-            ],
-            variations: [
-                "Rope pushdown",
-                "Straight bar pushdown"
-            ],
-            commonMistakes: [
-                "Letting elbows flare",
-                "Using torso to swing weight",
-                "Not locking out arms"
-            ]
-        )
-,
-        Exercise(
-            name: "Hammer Curl",
-            muscleGroup: .arms,
-            equipment: .dumbbell,
-            image: "hammer_curl",
-            instructions: "Curl dumbbells with a neutral grip.",
-            gifUrl: "hammer_curlgif.gif",
-            level: "Beginner",
-            tempo: "1s up, 2s down",
-            form: [
-                "Keep palms facing inward",
-                "Keep elbows close",
-                "Control the tempo"
-            ],
-            variations: [
-                "Cross-body hammer curl",
-                "Cable rope hammer curl"
-            ],
-            commonMistakes: [
-                "Swinging weights",
-                "Bending wrists",
-                "Shrugging shoulders"
-            ]
-        )
-,
-        Exercise(
-            name: "Overhead Tricep Extension",
-            muscleGroup: .arms,
-            equipment: .dumbbell,
-            image: "cable_kickbacks",
-            instructions: "Lower dumbbell behind head and extend upward.",
-            gifUrl: "cable_rowgif.gif",
-            level: "Intermediate",
-            tempo: "2s down, 1s up",
-            form: [
-                "Keep elbows close together",
-                "Lower weight behind head fully",
-                "Keep core tight"
-            ],
-            variations: [
-                "Two-hand dumbbell extension",
-                "Cable overhead extension"
-            ],
-            commonMistakes: [
-                "Elbows flaring wide",
-                "Using too much weight",
-                "Arching lower back"
-            ]
-        )
-,
-        
-        // GLUTE EXERCISES
-        Exercise(
-            name: "Hip Thrust",
-            muscleGroup: .glutes,
-            equipment: .barbell,
-            image: "romanian_deadlift",
-            instructions: "Drive hips upward while squeezing glutes.",
-            gifUrl: "squatsgif.gif",
-            level: "Intermediate",
-            tempo: "1s up, 3s down",
-            form: [
-                "Tuck chin slightly",
-                "Keep shins vertical",
-                "Squeeze glutes at top"
-            ],
-            variations: [
-                "Single-leg hip thrust",
-                "Frog pumps"
-            ],
-            commonMistakes: [
-                "Hyperextending back",
-                "Feet too far forward",
-                "Dropping hips too fast"
-            ]
-        )
-,
-        Exercise(
-            name: "Glute Bridge",
-            muscleGroup: .glutes,
-            equipment: .none,
-            image: "face_pulls_machine",
-            instructions: "Lift hips off ground by squeezing glutes.",
-            gifUrl: "lat_pulldownsgif.gif",
-            level: "Beginner",
-            tempo: "1s up, 2s down",
-            form: [
-                "Keep core braced",
-                "Push through heels",
-                "Squeeze at top"
-            ],
-            variations: [
-                "Banded glute bridge",
-                "Single-leg bridge"
-            ],
-            commonMistakes: [
-                "Overarching back",
-                "Feet too close",
-                "Not squeezing glutes"
-            ]
-        )
-,
-        Exercise(
-            name: "Bulgarian Split Squat",
-            muscleGroup: .glutes,
-            equipment: .dumbbell,
-            image: "bulgarian_split",
-            instructions: "Lower into split squat with rear foot elevated.",
-            gifUrl: "squatsgif.gif",
-            level: "Intermediate",
-            tempo: "2s down, 1s up",
-            form: [
-                "Lean slightly forward for glute bias",
-                "Keep front knee aligned",
-                "Drive through heel"
-            ],
-            variations: [
-                "Bodyweight only",
-                "Barbell split squat"
-            ],
-            commonMistakes: [
-                "Too wide stance",
-                "Letting knee cave in",
-                "Pushing off back leg"
-            ]
-        )
-,
-        Exercise(
-            name: "Cable Kickbacks",
-            muscleGroup: .glutes,
-            equipment: .machine,
-            image: "cable_kickbacks",
-            instructions: "Kick leg backward while squeezing glute.",
-            gifUrl: "cable_rowgif.gif",
-            level: "Beginner",
-            tempo: "1s back, 2s return",
-            form: [
-                "Keep torso still",
-                "Kick through heel",
-                "Squeeze glute fully"
-            ],
-            variations: [
-                "Glute machine kickback",
-                "Banded kickback"
-            ],
-            commonMistakes: [
-                "Hyperextending back",
-                "Using quads instead of glutes",
-                "Swinging weight"
-            ]
-        )
-,
-        Exercise(
-            name: "Dumbbell Romanian Deadlift",
-            muscleGroup: .glutes,
-            equipment: .dumbbell,
-            image: "romanian_deadlift",
-            instructions: "Hinge at the hips while keeping a neutral spine and stretch hamstrings before returning to standing.",
-            gifUrl: "squatsgif.gif",
-            level: "Intermediate",
-            tempo: "3s down, 1s up",
-            form: [
-                "Keep slight knee bend",
-                "Push hips backward in a hinge",
-                "Keep dumbbells close to legs",
-                "Maintain neutral spine"
-            ],
-            variations: [
-                "Single-leg Romanian deadlift",
-                "Barbell Romanian deadlift",
-                "Banded RDL"
-            ],
-            commonMistakes: [
-                "Rounding lower back",
-                "Locking knees",
-                "Letting dumbbells drift forward",
-                "Squatting instead of hinging"
-            ]
-        ),
+    ),
 
-        
-        // CARDIO EXERCISES
-        Exercise(
-            name: "Jumping Jacks",
-            muscleGroup: .cardio,
-            equipment: .none,
-            image: "jumping_jacks",
-            instructions: "Jump legs out while raising arms overhead.",
-            gifUrl: "treadmillgif.gif",
-            level: "Beginner",
-            tempo: "Fast-paced",
-            form: [
-                "Land softly",
-                "Maintain rhythm",
-                "Keep arms controlled"
-            ],
-            variations: [
-                "Half-jacks",
-                "Weighted jacks"
-            ],
-            commonMistakes: [
-                "Stomping feet",
-                "Shrugging shoulders",
-                "Losing coordination"
-            ]
-        )
-,
-        Exercise(
-            name: "Burpees",
-            muscleGroup: .cardio,
-            equipment: .none,
-            image: "burpees",
-            instructions: "Drop to plank, perform push-up, jump up explosively.",
-            gifUrl: "ellipticalgif.gif",
-            level: "Intermediate",
-            tempo: "Continuous",
-            form: [
-                "Keep core tight",
-                "Land softly",
-                "Explode upward"
-            ],
-            variations: [
-                "Step-back burpee",
-                "Burpee with tuck jump"
-            ],
-            commonMistakes: [
-                "Letting hips sag",
-                "Not jumping fully",
-                "Skipping push-up"
-            ]
-        )
-,
-        Exercise(
-            name: "Mountain Climbers",
-            muscleGroup: .cardio,
-            equipment: .none,
-            image: "mountain_climbers",
-            instructions: "Alternate knees toward chest in plank position.",
-            gifUrl: "ellipticalgif.gif",
-            level: "Beginner",
-            tempo: "Fast-paced",
-            form: [
-                "Keep shoulders over wrists",
-                "Maintain flat back",
-                "Drive knees forward"
-            ],
-            variations: [
-                "Cross-body climbers",
-                "Slow climbers"
-            ],
-            commonMistakes: [
-                "Lifting hips high",
-                "Letting back sag",
-                "Short knee drive"
-            ]
-        )
-,
-        Exercise(
-            name: "High Knees",
-            muscleGroup: .cardio,
-            equipment: .none,
-            image: "high_knees",
-            instructions: "Run in place while lifting knees to hip height.",
-            gifUrl: "ellipticalgif.gif",
-            level: "Beginner",
-            tempo: "Fast-paced",
-            form: [
-                "Lift knees high",
-                "Pump arms",
-                "Stay light on feet"
-            ],
-            variations: [
-                "Low-impact high knees",
-                "Weighted high knees"
-            ],
-            commonMistakes: [
-                "Shallow knee lift",
-                "Landing hard on heels",
-                "Leaning backward"
-            ]
-        )
-,
-        Exercise(
-            name: "Elliptical Trainer",
-            muscleGroup: .cardio,
-            equipment: .machine,
-            image: "elliptical",
-            instructions: "Move arms and legs in a smooth, continuous motion while maintaining an upright posture.",
-            gifUrl: "ellipticalgif.gif",
-            level: "Beginner",
-            tempo: "Steady continuous pace",
-            form: [
-                "Keep torso upright",
-                "Push and pull handles evenly",
-                "Maintain smooth, controlled motion"
-            ],
-            variations: [
-                "Reverse pedaling",
-                "Increased resistance intervals"
-            ],
-            commonMistakes: [
-                "Leaning heavily on handles",
-                "Locking knees",
-                "Moving too fast without control"
-            ]
-        )
-        ,
-
-        Exercise(
-            name: "Jump Rope",
-            muscleGroup: .cardio,
-            equipment: .none,
-            image: "jump_rope",
-            instructions: "Jump rhythmically while spinning rope under feet.",
-            gifUrl: "jump_ropegif.gif",
-            level: "Beginner",
-            tempo: "Fast-paced",
-            form: [
-                "Jump lightly",
-                "Keep wrists relaxed",
-                "Maintain steady rhythm"
-            ],
-            variations: [
-                "High-speed rope",
-                "Alternate-foot jump"
-            ],
-            commonMistakes: [
-                "Jumping too high",
-                "Swinging arms too much",
-                "Landing hard"
-            ]
-        )
-,
-        
-        // MOBILITY EXERCISES
-        Exercise(
-            name: "Cat-Cow Stretch",
-            muscleGroup: .mobility,
-            equipment: .none,
-            image: "cat_cow",
-            instructions: "Alternate between arching and rounding spine.",
-            gifUrl: "ellipticalgif.gif",
-            level: "Beginner",
-            tempo: "Slow and controlled",
-            form: [
-                "Move with breath",
-                "Spread fingers wide",
-                "Engage core lightly"
-            ],
-            variations: [
-                "Thread the needle",
-                "Child’s pose flow"
-            ],
-            commonMistakes: [
-                "Rushing movement",
-                "Hyperextending neck",
-                "Not coordinating breath"
-            ]
-        )
-,
-        Exercise(
-            name: "World's Greatest Stretch",
-            muscleGroup: .mobility,
-            equipment: .none,
-            image: "worlds_greatest",
-            instructions: "Deep lunge with rotation to open hips and thoracic spine.",
-            gifUrl: "ellipticalgif.gif",
-            level: "Intermediate",
-            tempo: "Slow",
-            form: [
-                "Rotate chest open",
-                "Keep hips square",
-                "Reach long through fingertips"
-            ],
-            variations: [
-                "Dynamic WGS",
-                "Hold position static"
-            ],
-            commonMistakes: [
-                "Twisting lower back instead of upper",
-                "Short lunge stance",
-                "Rushing stretch"
-            ]
-        )
-,
-        Exercise(
-            name: "Hip Circles",
-            muscleGroup: .mobility,
-            equipment: .none,
-            image: "hip_circles",
-            instructions: "Circle leg to lubricate hip joint.",
-            gifUrl: "ellipticalgif.gif",
-            level: "Beginner",
-            tempo: "Controlled",
-            form: [
-                "Keep torso stable",
-                "Move leg through full range",
-                "Avoid rotating hips excessively"
-            ],
-            variations: [
-                "Standing hip circles",
-                "Quadruped circles"
-            ],
-            commonMistakes: [
-                "Rushing movement",
-                "Arching back",
-                "Not stabilizing torso"
-            ]
-        )
-,
-        Exercise(
-            name: "Shoulder Dislocations",
-            muscleGroup: .mobility,
-            equipment: .resistanceBand,
-            image: "shoulder_dislocations",
-            instructions: "Bring band overhead and behind body to open shoulders.",
-            gifUrl: "ellipticalgif.gif",
-            level: "Intermediate",
-            tempo: "Slow and controlled",
-            form: [
-                "Keep arms straight",
-                "Use wide grip to reduce strain",
-                "Control movement through full arc"
-            ],
-            variations: [
-                "PVC dislocations",
-                "Narrow-grip progression"
-            ],
-            commonMistakes: [
-                "Using too much tension",
-                "Bending elbows",
-                "Moving too fast"
-            ]
-        )
-,
-        
-        // FULL BODY EXERCISES
-        Exercise(
-            name: "Kettlebell Swing",
-            muscleGroup: .fullBody,
-            equipment: .kettlebell,
-            image: "kettlebell_swing",
-            instructions: "Hinge at hips to swing kettlebell to chest height.",
-            gifUrl: "ellipticalgif.gif",
-            level: "Intermediate",
-            tempo: "Explosive hip drive",
-            form: [
-                "Hinge, don’t squat",
-                "Snap hips forward",
-                "Keep arms relaxed"
-            ],
-            variations: [
-                "American swing",
-                "Single-arm swing"
-            ],
-            commonMistakes: [
-                "Squatting instead of hinging",
-                "Lifting weight with arms",
-                "Rounding back"
-            ]
-        )
-,
-        Exercise(
-            name: "Thrusters",
-            muscleGroup: .fullBody,
-            equipment: .dumbbell,
-            image: "face_pulls_machine",
-            instructions: "Squat down with dumbbells at shoulders and press overhead as you stand.",
-            gifUrl: "ellipticalgif.gif",
-            level: "Intermediate",
-            tempo: "Explosive up, 2s down",
-            form: [
-                "Keep elbows up in squat",
-                "Drive through heels",
-                "Push dumbbells overhead in one motion"
-            ],
-            variations: [
-                "Barbell thruster",
-                "Single-arm thruster"
-            ],
-            commonMistakes: [
-                "Letting knees cave inward",
-                "Pressing too early before standing",
-                "Rounding upper back"
-            ]
-        )
-,
-        Exercise(
-            name: "Clean and Press",
-            muscleGroup: .fullBody,
-            equipment: .barbell,
-            image: "hip_circles",
-            instructions: "Pull barbell to shoulders in a clean, then press overhead.",
-            gifUrl: "lat_pulldownsgif.gif",
-            level: "Advanced",
-            tempo: "Explosive clean, controlled press",
-            form: [
-                "Keep bar close to body",
-                "Catch bar in strong front-rack position",
-                "Press overhead with locked core"
-            ],
-            variations: [
-                "Dumbbell clean and press",
-                "Push press"
-            ],
-            commonMistakes: [
-                "Rounding back during clean",
-                "Catching bar with elbows low",
-                "Pressing with unstable core"
-            ]
-        )
-,
-        Exercise(
-            name: "Turkish Get-Up",
-            muscleGroup: .fullBody,
-            equipment: .kettlebell,
-            image: "turkish_getup",
-            instructions: "Stand up and lie back down while holding weight overhead.",
-            gifUrl: "ellipticalgif.gif",
-            level: "Advanced",
-            tempo: "Slow and controlled",
-            form: [
-                "Keep wrist stacked over shoulder",
-                "Move through each phase deliberately",
-                "Maintain core tension throughout"
-            ],
-            variations: [
-                "Bodyweight get-up",
-                "Dumbbell get-up"
-            ],
-            commonMistakes: [
-                "Rushing transitions",
-                "Letting kettlebell tilt inward",
-                "Losing tension in midline"
-            ]
-        )
-        ,
-        Exercise(
-            name: "Tree Pose",
-            muscleGroup: .legs,
-            equipment: .none,
-            image: "tree_pose",
-            instructions: "Stand on one leg and place the other foot on your calf or thigh while balancing.",
-            gifUrl: "ellipticalgif.gif",
-            level: "Beginner",
-            tempo: "Hold 20–40 seconds each side",
-            form: [
-                "Keep core engaged",
-                "Avoid placing foot on the knee"
-            ],
-            variations: [
-                "Hands at chest",
-                "Arms overhead"
-            ],
-            commonMistakes: [
-                "Locking standing knee",
-                "Foot on knee joint"
-            ]
-        )
-,Exercise(
-    name: "Leg Raises",
-    muscleGroup: .core,
-    equipment: .resistanceBand,
-    image: "leg_raises_band",
-    instructions: "Raise and lower legs while lying down, keeping band tension.",
-    gifUrl: "ellipticalgif.gif",
+    Exercise(
+    name: "Treadmill Run",
+    muscleGroup: .cardio,
+    equipment: .machine,
+    image: "treadmill",
+    instructions: "Run at steady pace maintaining upright posture.",
+    gifUrl: "treadmillgif.gif",
     level: "Beginner",
-    tempo: "2s up, 2s down",
+    tempo: "Steady pace",
     form: [
-        "Core tight",
-        "Back flat on mat",
-        "Slow, controlled movement"
+    "Land mid-foot",
+    "Relax shoulders",
+    "Maintain cadence"
     ],
     variations: [
-        "Single-leg raises",
-        "Hands under hips"
+    "Interval running",
+    "Incline running"
     ],
     commonMistakes: [
-        "Arching back",
-        "Using momentum"
+    "Overstriding",
+    "Leaning forward",
+    "Holding rails"
     ]
-),
-        Exercise(
-            name: "Face Pulls",
-            muscleGroup: .shoulders,
-            equipment: .machine,
-            image: "face_pulls_machine",
-            instructions: "Pull handles toward face with elbows high.",
-            gifUrl: "cable_rowgif.gif",
-            level: "Beginner",
-            tempo: "1s pull, 2s return",
-            form: [
-                "Elbows up",
-                "Squeeze upper back",
-                "Keep chest tall"
-            ],
-            variations: [
-                "Single-arm face pull",
-                "Wide grip"
-            ],
-            commonMistakes: [
-                "Shrugging shoulders",
-                "Using momentum"
-            ]
-        )
-
+    )
+    
 
 
     ]

@@ -250,6 +250,12 @@ struct WorkoutExercise: Codable, Identifiable {
     var sets: [ExerciseSet]
     var notes: String?
 }
+enum RoutineType: String, Codable {
+    case yoga
+    case strength
+    case mixed
+}
+
 struct Routine: Identifiable, Codable {
     var id: UUID
     var name: String
@@ -258,6 +264,8 @@ struct Routine: Identifiable, Codable {
     var thumbnailImageName: String?
     var routineTagline: String?
     var routineDescription: String?
+    var phase: Phase?              // nil for user-created routines
+    var routineType: RoutineType?
     var totalExercises: Int { exercises.count }
     
     var totalSets: Int {

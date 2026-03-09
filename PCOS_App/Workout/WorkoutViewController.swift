@@ -10,7 +10,9 @@ import UIKit
 class WorkoutViewController: UIViewController {
     
     private var cards: [Card] = [Card(name:"Cals burnt", image: "flame.fill", toBeDone: 300, done: 0, unit: "cal"),Card(name: "Steps", image: "figure.walk", toBeDone: 800, done: 500), Card(name: "Duration", image: "stopwatch.fill",toBeDone: 120, done: 0, unit: "s")]
-    private var exploreRoutine: [Routine] = RoutineDataStore.shared.predefinedRoutines
+    private var exploreRoutine: [Routine] = []
+    private var currentPhase: Phase = .unknown
+    private var recommendedRoutineId: UUID?
     
     private var selectedPredefinedRoutine: Routine?
     private var selectedRoutine: Routine?
@@ -246,7 +248,9 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
             
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "explore_routines_cell", for: indexPath) as! ExploreRoutinesCollectionViewCell
-            cell.configureCell(exploreRoutine[indexPath.row])
+            let routine = exploreRoutine[indexPath.row]
+            let isRecommended = routine.id == recommendedRoutineId
+            cell.configureCell(routine, isRecommended: isRecommended)
             return cell
         }
     }
@@ -391,6 +395,11 @@ extension WorkoutViewController {
 
         let calendar = Calendar.current
         let today = Date()
+
+        // Update current phase and phase-filtered routines
+        currentPhase = CycleDataStore.shared.currentPhaseInfo().phase
+        exploreRoutine = RoutineDataStore.shared.routines(for: currentPhase)
+        recommendedRoutineId = RoutineDataStore.shared.recommendedRoutine(for: currentPhase).id
 
         // Duration card: total in-app workout seconds today
         cards[2].done = Double(WorkoutSessionManager.shared.getTime())

@@ -57,6 +57,7 @@
                         <segue destination="yPh-2v-31Z" kind="show" identifier="showProtein" id="KAs-8a-Rkl"/>
                         <segue destination="ln6-le-QSD" kind="show" identifier="showInsulin" id="Amq-QU-DJc"/>
                         <segue destination="IYS-6Z-FPR" kind="show" identifier="showWorkoutPush" id="J5m-by-ubF"/>
+                        <segue destination="H8U-69-PPO" kind="show" identifier="showSleepReport" id="52v-OB-vNg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2450,10 +2451,477 @@ Length</string>
             </objects>
             <point key="canvasLocation" x="4639" y="-1502"/>
         </scene>
+        <!--SleepReportViewcontroller-->
+        <scene sceneID="LUO-VA-MWh">
+            <objects>
+                <viewController storyboardIdentifier="SleepReportViewController" title="SleepReportViewcontroller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="H8U-69-PPO" customClass="SleepReportViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ua8-ti-oeG">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="1141"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ggf-cj-FFx">
+                                <rect key="frame" x="0.0" y="59" width="393" height="1082"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Cg3-bR-f4h">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1051"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nNh-OD-yoT" customClass="SleepChartView" customModule="PCOS_App" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="8" width="361" height="300"/>
+                                                <subviews>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ogA-tW-4D4">
+                                                        <rect key="frame" x="93.666666666666686" y="16" width="174" height="32"/>
+                                                        <segments>
+                                                            <segment title="Week"/>
+                                                            <segment title="Month"/>
+                                                            <segment title="Year"/>
+                                                        </segments>
+                                                        <connections>
+                                                            <action selector="timeSegmentChanged:" destination="H8U-69-PPO" eventType="valueChanged" id="vgH-LR-uun"/>
+                                                        </connections>
+                                                    </segmentedControl>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="300" id="Qb7-eV-zz3"/>
+                                                    <constraint firstItem="ogA-tW-4D4" firstAttribute="top" secondItem="nNh-OD-yoT" secondAttribute="top" constant="16" id="VPE-g0-uh9"/>
+                                                    <constraint firstItem="ogA-tW-4D4" firstAttribute="centerX" secondItem="nNh-OD-yoT" secondAttribute="centerX" id="qev-rY-uH9"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What we observed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P1L-Fm-93r">
+                                                <rect key="frame" x="16" y="318" width="361" height="20.333333333333314"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C13-rX-02C">
+                                                <rect key="frame" x="16" y="348.33333333333331" width="361" height="80"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sleep dipped in the last 2 nights — your energy may feel lower today." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pzE-3H-X6Q">
+                                                        <rect key="frame" x="16" y="16" width="329" height="48"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="pzE-3H-X6Q" firstAttribute="top" secondItem="C13-rX-02C" secondAttribute="top" constant="16" id="6EE-dy-Lu1"/>
+                                                    <constraint firstAttribute="height" constant="80" id="Pah-D3-V9b"/>
+                                                    <constraint firstAttribute="bottom" secondItem="pzE-3H-X6Q" secondAttribute="bottom" constant="16" id="Y5J-4Z-sns"/>
+                                                    <constraint firstAttribute="trailing" secondItem="pzE-3H-X6Q" secondAttribute="trailing" constant="16" id="dMg-hE-P1F"/>
+                                                    <constraint firstItem="pzE-3H-X6Q" firstAttribute="leading" secondItem="C13-rX-02C" secondAttribute="leading" constant="16" id="gG2-Ta-vM7"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why Sleep Is Importamt For PCOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yq9-CS-ZBv">
+                                                <rect key="frame" x="16" y="438.33333333333331" width="361" height="20.333333333333314"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LxS-Sd-Wgv">
+                                                <rect key="frame" x="16" y="468.66666666666663" width="361" height="150"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnY-nG-xKb">
+                                                        <rect key="frame" x="18" y="16" width="325" height="78"/>
+                                                        <string key="text">Sleep matters for hormone balance as sleep supports insulin syability. Less sleep can increase cravings and raise cortisol levels, worsening fatigue</string>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DjD-gB-flT">
+                                                        <rect key="frame" x="8" y="99" width="237" height="43"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="National Library of Medicine"/>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="xnY-nG-xKb" firstAttribute="top" secondItem="LxS-Sd-Wgv" secondAttribute="top" constant="16" id="4ii-vA-S70"/>
+                                                    <constraint firstAttribute="height" constant="150" id="Cmi-mU-S27"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xnY-nG-xKb" secondAttribute="trailing" constant="18" id="ISI-3u-ToW"/>
+                                                    <constraint firstItem="DjD-gB-flT" firstAttribute="leading" secondItem="LxS-Sd-Wgv" secondAttribute="leading" constant="8" id="pSg-Ut-i3N"/>
+                                                    <constraint firstItem="DjD-gB-flT" firstAttribute="top" secondItem="xnY-nG-xKb" secondAttribute="bottom" constant="5" id="qiW-fl-Ppc"/>
+                                                    <constraint firstAttribute="bottom" secondItem="DjD-gB-flT" secondAttribute="bottom" constant="8" id="sjM-2W-rrz"/>
+                                                    <constraint firstItem="xnY-nG-xKb" firstAttribute="leading" secondItem="LxS-Sd-Wgv" secondAttribute="leading" constant="18" id="zuh-Dl-Qpr"/>
+                                                </constraints>
+                                                <edgeInsets key="layoutMargins" top="8" left="32" bottom="8" right="8"/>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support Your Body Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJw-iI-l4j">
+                                                <rect key="frame" x="16" y="628.66666666666663" width="361" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="5Ru-bK-N9v"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r7x-AK-gbN">
+                                                <rect key="frame" x="16" y="668.66666666666663" width="361" height="270"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="TC1-Sd-RQn">
+                                                        <rect key="frame" x="16" y="16" width="329" height="230"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dp8-gN-c2m">
+                                                                <rect key="frame" x="0.0" y="0.0" width="329" height="70"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fork.knife.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZJY-4C-VPu">
+                                                                        <rect key="frame" x="16" y="15.666666666666668" width="40" height="38.666666666666657"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="40" id="AHb-8H-xNu"/>
+                                                                            <constraint firstAttribute="height" constant="40" id="M2W-rm-gi9"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try a protein-rich dinner to reduce night cravings" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7o-oX-U98">
+                                                                        <rect key="frame" x="72" y="18.333333333333368" width="241" height="33.666666666666657"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.20141945419999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="70" id="2jE-t8-jIQ"/>
+                                                                    <constraint firstItem="ZJY-4C-VPu" firstAttribute="leading" secondItem="Dp8-gN-c2m" secondAttribute="leading" constant="16" id="5JK-jL-JjM"/>
+                                                                    <constraint firstItem="ZJY-4C-VPu" firstAttribute="centerY" secondItem="Dp8-gN-c2m" secondAttribute="centerY" id="FO2-hY-27J"/>
+                                                                    <constraint firstItem="f7o-oX-U98" firstAttribute="leading" secondItem="ZJY-4C-VPu" secondAttribute="trailing" constant="16" id="Z7e-Sv-VjY"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="f7o-oX-U98" secondAttribute="trailing" constant="16" id="fHa-wz-juD"/>
+                                                                    <constraint firstItem="f7o-oX-U98" firstAttribute="centerY" secondItem="Dp8-gN-c2m" secondAttribute="centerY" id="lhv-da-EXp"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioh-S8-V5s">
+                                                                <rect key="frame" x="0.0" y="80" width="329" height="70"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="figure.walk.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="P0d-SF-fQL">
+                                                                        <rect key="frame" x="16" y="15.666666666666668" width="40" height="38.666666666666657"/>
+                                                                        <color key="tintColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="40" id="E0G-d1-ScS"/>
+                                                                            <constraint firstAttribute="width" constant="40" id="abT-yy-4ad"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A 10-minute evening walk can improve sleep quality" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wv5-9n-efl">
+                                                                        <rect key="frame" x="72" y="18.333333333333368" width="241" height="33.666666666666657"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="70" id="3dj-FX-v2L"/>
+                                                                    <constraint firstItem="Wv5-9n-efl" firstAttribute="leading" secondItem="P0d-SF-fQL" secondAttribute="trailing" constant="16" id="RCk-SK-QdM"/>
+                                                                    <constraint firstItem="P0d-SF-fQL" firstAttribute="centerY" secondItem="ioh-S8-V5s" secondAttribute="centerY" id="UZu-P0-DZJ"/>
+                                                                    <constraint firstItem="Wv5-9n-efl" firstAttribute="centerY" secondItem="ioh-S8-V5s" secondAttribute="centerY" id="ddK-ao-FdC"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="Wv5-9n-efl" secondAttribute="trailing" constant="16" id="on2-JU-EBj"/>
+                                                                    <constraint firstItem="P0d-SF-fQL" firstAttribute="leading" secondItem="ioh-S8-V5s" secondAttribute="leading" constant="16" id="qaI-jJ-PXo"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nzU-oT-HfD">
+                                                                <rect key="frame" x="0.0" y="160" width="329" height="70"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lightbulb.slash.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pOV-o4-lvE">
+                                                                        <rect key="frame" x="14.666666666666664" y="13.666666666666664" width="41.999999999999986" height="41.666666666666671"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="40" id="4or-20-JaS"/>
+                                                                            <constraint firstAttribute="width" constant="40" id="7zY-Ka-8QK"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep lights dim 1 hour before bed" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejJ-rx-Xos">
+                                                                        <rect key="frame" x="72" y="27.333333333333375" width="241" height="15.666666666666668"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" red="0.85098039219999999" green="0.45098039220000002" blue="0.59607843140000005" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="tintColor" red="0.85098039219999999" green="0.45098039220000002" blue="0.59607843140000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="ejJ-rx-Xos" firstAttribute="leading" secondItem="pOV-o4-lvE" secondAttribute="trailing" constant="16" id="Ncg-QV-FFD"/>
+                                                                    <constraint firstItem="ejJ-rx-Xos" firstAttribute="centerY" secondItem="nzU-oT-HfD" secondAttribute="centerY" id="RNN-cd-tNw"/>
+                                                                    <constraint firstAttribute="height" constant="70" id="fRA-ua-DRp"/>
+                                                                    <constraint firstItem="pOV-o4-lvE" firstAttribute="leading" secondItem="nzU-oT-HfD" secondAttribute="leading" constant="16" id="gfj-04-4qA"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="ejJ-rx-Xos" secondAttribute="trailing" constant="16" id="ldA-Z7-zZk"/>
+                                                                    <constraint firstItem="pOV-o4-lvE" firstAttribute="centerY" secondItem="nzU-oT-HfD" secondAttribute="centerY" id="sfa-4t-pI0"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="TC1-Sd-RQn" firstAttribute="top" secondItem="r7x-AK-gbN" secondAttribute="top" constant="16" id="48N-qd-4dC"/>
+                                                    <constraint firstAttribute="height" constant="270" id="Aw4-SD-HM4"/>
+                                                    <constraint firstItem="TC1-Sd-RQn" firstAttribute="leading" secondItem="r7x-AK-gbN" secondAttribute="leading" constant="16" id="NLO-v2-3Kv"/>
+                                                    <constraint firstAttribute="trailing" secondItem="TC1-Sd-RQn" secondAttribute="trailing" constant="16" id="cN8-2w-Z4v"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Li-z3-SzT">
+                                                <rect key="frame" x="16" y="948.66666666666663" width="361" height="34.333333333333371"/>
+                                                <color key="backgroundColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Log Sleep"/>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iyu-Q4-AZA">
+                                                <rect key="frame" x="16" y="993" width="361" height="50"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If sleep is very low, severly disrupted, or affecting your wellbeing, consider medical care." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tll-6z-CDZ">
+                                                        <rect key="frame" x="16" y="-6" width="329" height="58"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="Tll-6z-CDZ" firstAttribute="top" secondItem="iyu-Q4-AZA" secondAttribute="top" constant="-6" id="6RZ-ne-T8G"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Tll-6z-CDZ" secondAttribute="bottom" constant="-2" id="9JL-mi-wOL"/>
+                                                    <constraint firstItem="Tll-6z-CDZ" firstAttribute="leading" secondItem="iyu-Q4-AZA" secondAttribute="leading" constant="16" id="U4N-XT-OaW"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Tll-6z-CDZ" secondAttribute="trailing" constant="16" id="gen-l1-E32"/>
+                                                    <constraint firstAttribute="height" constant="50" id="r3S-gE-7L2"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="C13-rX-02C" firstAttribute="leading" secondItem="Cg3-bR-f4h" secondAttribute="leading" constant="16" id="AfH-xn-c4f"/>
+                                            <constraint firstAttribute="trailing" secondItem="C13-rX-02C" secondAttribute="trailing" constant="16" id="gRx-ms-5NA"/>
+                                            <constraint firstItem="C13-rX-02C" firstAttribute="top" secondItem="P1L-Fm-93r" secondAttribute="bottom" constant="10" id="h5g-hQ-OzW"/>
+                                        </constraints>
+                                        <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Cg3-bR-f4h" firstAttribute="width" secondItem="pXh-Ho-55i" secondAttribute="width" id="2rA-Tb-Un8"/>
+                                    <constraint firstItem="Cg3-bR-f4h" firstAttribute="leading" secondItem="QCl-ii-2is" secondAttribute="leading" id="B0B-NM-I7n"/>
+                                    <constraint firstItem="Cg3-bR-f4h" firstAttribute="height" secondItem="QCl-ii-2is" secondAttribute="height" id="Lwu-FE-WXK"/>
+                                    <constraint firstItem="Cg3-bR-f4h" firstAttribute="trailing" secondItem="QCl-ii-2is" secondAttribute="trailing" id="i1y-40-uhs"/>
+                                    <constraint firstItem="QCl-ii-2is" firstAttribute="top" secondItem="Cg3-bR-f4h" secondAttribute="top" id="jip-r0-i85"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="QCl-ii-2is"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="pXh-Ho-55i"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="u5i-Ve-BV9"/>
+                        <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="u5i-Ve-BV9" firstAttribute="bottom" secondItem="ggf-cj-FFx" secondAttribute="bottom" id="3YN-Wp-R4V"/>
+                            <constraint firstItem="u5i-Ve-BV9" firstAttribute="trailing" secondItem="ggf-cj-FFx" secondAttribute="trailing" id="NrO-P6-BAn"/>
+                            <constraint firstItem="ggf-cj-FFx" firstAttribute="leading" secondItem="u5i-Ve-BV9" secondAttribute="leading" id="pkc-Z6-vDz"/>
+                            <constraint firstItem="ggf-cj-FFx" firstAttribute="top" secondItem="u5i-Ve-BV9" secondAttribute="top" id="zGn-79-JCR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ujL-2Q-ScN"/>
+                    <size key="freeformSize" width="393" height="1200"/>
+                    <connections>
+                        <outlet property="chartContainerView" destination="nNh-OD-yoT" id="I2R-IQ-8vs"/>
+                        <outlet property="logSleepButton" destination="6Li-z3-SzT" id="9f4-9R-uwk"/>
+                        <outlet property="observationCard" destination="C13-rX-02C" id="5yS-Mj-f6a"/>
+                        <outlet property="sleepInfoCard" destination="LxS-Sd-Wgv" id="iEc-ec-YYH"/>
+                        <outlet property="suggestionCard" destination="r7x-AK-gbN" id="1gR-1X-iGh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yz4-d2-H2a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4637" y="-3345"/>
+        </scene>
+        <!--Sleep Logger View Controller-->
+        <scene sceneID="ptB-Lv-jxD">
+            <objects>
+                <viewController storyboardIdentifier="SleepLoggerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3Ov-R9-9Cc" customClass="SleepLoggerViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="38W-yS-VyS">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cU7-9q-naC">
+                                <rect key="frame" x="0.0" y="0.0" width="403" height="852"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="w63-2T-HGC">
+                                        <rect key="frame" x="16" y="100" width="371" height="674"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good Morning !" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UIW-pZ-r0G">
+                                                <rect key="frame" x="0.0" y="0.0" width="371" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="C4T-LO-zpU"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's log your sleep for last night" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mbe-ak-0wZ">
+                                                <rect key="frame" x="0.0" y="36" width="371" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CpF-cT-rDP">
+                                                <rect key="frame" x="0.0" y="82" width="371" height="480"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="ACf-Vp-gqq">
+                                                        <rect key="frame" x="8" y="25" width="355" height="430"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="What time did you fall asleep?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMN-QP-sSc">
+                                                                <rect key="frame" x="0.0" y="0.0" width="355" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BGR-x0-fYs">
+                                                                <rect key="frame" x="0.0" y="43" width="355" height="50"/>
+                                                                <subviews>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="10 : 00" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bOI-VB-sDa">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="Enz-mo-6Ae"/>
+                                                                            <constraint firstAttribute="height" constant="50" id="P4d-Y4-6dz"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                    </textField>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Llm-fR-3IB">
+                                                                        <rect key="frame" x="305" y="1.6666666666666643" width="50" height="47"/>
+                                                                        <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="50" id="RGD-t9-Tfd"/>
+                                                                            <constraint firstAttribute="width" constant="50" id="rsU-KG-Nch"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What time did you get up?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8k-wm-qwF">
+                                                                <rect key="frame" x="0.0" y="117.99999999999999" width="355" height="20.333333333333329"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="c0F-iT-UMq">
+                                                                <rect key="frame" x="0.0" y="163.33333333333331" width="355" height="50"/>
+                                                                <subviews>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="80 : 00" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="niN-fp-9Yp">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="aNy-PZ-Cot"/>
+                                                                            <constraint firstAttribute="height" constant="50" id="plP-aQ-QK0"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                    </textField>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7hN-Zg-Fem">
+                                                                        <rect key="frame" x="305" y="1.6666666666666643" width="50" height="47"/>
+                                                                        <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="50" id="QHa-Hu-7WC"/>
+                                                                            <constraint firstAttribute="height" constant="50" id="dwA-Vy-olj"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You slept:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ruc-bj-oSm">
+                                                                <rect key="frame" x="0.0" y="238.33333333333331" width="355" height="20.333333333333314"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7 h 54 mins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NuR-kN-IDU">
+                                                                <rect key="frame" x="0.0" y="283.66666666666669" width="355" height="36"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate your sleep" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8DZ-zs-IHS">
+                                                                <rect key="frame" x="0.0" y="344.66666666666663" width="355" height="20.333333333333314"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="OPY-OU-hVM">
+                                                                <rect key="frame" x="0.0" y="390" width="355" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="7u0-yO-U3R"/>
+                                                                </constraints>
+                                                            </slider>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="BGR-x0-fYs" secondAttribute="trailing" id="GrV-t3-MVw"/>
+                                                            <constraint firstItem="BGR-x0-fYs" firstAttribute="leading" secondItem="ACf-Vp-gqq" secondAttribute="leading" id="efa-eh-UCH"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="ACf-Vp-gqq" firstAttribute="top" secondItem="CpF-cT-rDP" secondAttribute="top" constant="25" id="1hw-gm-wcK"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ACf-Vp-gqq" secondAttribute="trailing" constant="8" id="Acj-Hk-NqD"/>
+                                                    <constraint firstAttribute="height" constant="480" id="LF1-7k-LSI"/>
+                                                    <constraint firstItem="ACf-Vp-gqq" firstAttribute="leading" secondItem="CpF-cT-rDP" secondAttribute="leading" constant="8" id="Pvt-dx-zT6"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ACf-Vp-gqq" secondAttribute="bottom" constant="25" id="mqC-U1-RHH"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dIz-cn-C5K">
+                                                <rect key="frame" x="0.0" y="578" width="371" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="kDR-iT-8Zf"/>
+                                                </constraints>
+                                                <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Save Sleep"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aID-R2-H5A">
+                                                <rect key="frame" x="0.0" y="634" width="371" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="hg2-Si-Vrz"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="Not today"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="w63-2T-HGC" firstAttribute="top" secondItem="cU7-9q-naC" secondAttribute="top" constant="100" id="a55-Rq-sGK"/>
+                                    <constraint firstAttribute="trailing" secondItem="w63-2T-HGC" secondAttribute="trailing" constant="16" id="hbV-V3-xWi"/>
+                                    <constraint firstItem="w63-2T-HGC" firstAttribute="leading" secondItem="cU7-9q-naC" secondAttribute="leading" constant="16" id="iGH-f7-u8T"/>
+                                    <constraint firstAttribute="bottom" secondItem="w63-2T-HGC" secondAttribute="bottom" constant="78" id="nHE-ma-lue"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="RTZ-gm-7hd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="RTZ-gm-7hd" firstAttribute="trailing" secondItem="cU7-9q-naC" secondAttribute="trailing" id="APP-Ys-uQw"/>
+                            <constraint firstItem="cU7-9q-naC" firstAttribute="top" secondItem="38W-yS-VyS" secondAttribute="top" id="mmT-LY-BOw"/>
+                            <constraint firstItem="cU7-9q-naC" firstAttribute="leading" secondItem="RTZ-gm-7hd" secondAttribute="leading" id="r5t-IU-xmA"/>
+                            <constraint firstAttribute="bottom" secondItem="cU7-9q-naC" secondAttribute="bottom" id="zkd-4C-T7x"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="containerView" destination="cU7-9q-naC" id="wK5-6d-scm"/>
+                        <outlet property="notTodayButton" destination="aID-R2-H5A" id="obM-Da-i9p"/>
+                        <outlet property="ratingLabel" destination="8DZ-zs-IHS" id="fjf-p0-tMp"/>
+                        <outlet property="ratingSlider" destination="OPY-OU-hVM" id="8es-ly-750"/>
+                        <outlet property="saveButton" destination="dIz-cn-C5K" id="ztf-fX-oqr"/>
+                        <outlet property="sleepTimeChevron" destination="Llm-fR-3IB" id="BEa-pa-dov"/>
+                        <outlet property="sleepTimeLabel" destination="SMN-QP-sSc" id="dj6-iE-iby"/>
+                        <outlet property="sleepTimeTextField" destination="bOI-VB-sDa" id="0yi-S3-4Gr"/>
+                        <outlet property="subtitleLabel" destination="Mbe-ak-0wZ" id="EcX-SX-3Zy"/>
+                        <outlet property="titleLabel" destination="UIW-pZ-r0G" id="5br-g9-Ncj"/>
+                        <outlet property="totalSleepLabel" destination="Ruc-bj-oSm" id="lQE-e9-G5Q"/>
+                        <outlet property="totalSleepValueLabel" destination="NuR-kN-IDU" id="K7j-px-taf"/>
+                        <outlet property="wakeTimeChevron" destination="7hN-Zg-Fem" id="1YX-Le-pHV"/>
+                        <outlet property="wakeTimeLabel" destination="S8k-wm-qwF" id="eWN-wx-12C"/>
+                        <outlet property="wakeTimeTextField" destination="niN-fp-9Yp" id="FHp-WG-xXf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hl7-PW-g2v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5685" y="-3387"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="chevron.down.square.fill" catalog="system" width="128" height="114"/>
         <image name="clock.arrow.trianglehead.clockwise.rotate.90.path.dotted" catalog="system" width="128" height="119"/>
         <image name="drop.fill" catalog="system" width="96" height="128"/>
+        <image name="figure.walk.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="fork.knife.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="lightbulb.slash.fill" catalog="system" width="100" height="128"/>
         <image name="profile" width="992" height="1056"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2462,10 +2930,10 @@ Length</string>
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemCyanColor">
-            <color red="0.0" green="0.75294117647058822" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

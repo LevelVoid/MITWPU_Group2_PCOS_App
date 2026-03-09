@@ -22,8 +22,11 @@ class QuickActionsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var carbsCompleted: UILabel!
     @IBOutlet weak var proteinCompleted: UILabel!
     
-//    @IBOutlet weak var dietRecView: UIView!
-//    @IBOutlet weak var workoutRecView: UIView!
+    // Missing duration labels in XIB
+    @IBOutlet weak var workoutDurationCompleted: UILabel!
+    @IBOutlet weak var workoutDurationGoal: UILabel!
+    
+    @IBOutlet weak var workoutButton: UIButton!
     
     weak var delegate: QuickActionsDelegate?
     
@@ -31,11 +34,10 @@ class QuickActionsCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         dietActionCard.layer.cornerRadius = 20
         workoutActionCard.layer.cornerRadius = 20
-//        dietRecView.layer.cornerRadius = 10
-//        workoutRecView.layer.cornerRadius = 10
     }
     
-    func configure() {
+    func configure(steps: Int = 0, calories: Int = 0, duration: Int = 0, recommendedRoutineName: String? = nil) {
+        // Diet data
         let totals = FoodLogDataSource.todaysMeal.reduce(into: (0.0, 0.0, 0.0)) { result, food in
             result.0 += food.proteinContent
             result.1 += food.carbsContent
@@ -44,6 +46,29 @@ class QuickActionsCollectionViewCell: UICollectionViewCell {
         proteinCompleted.text = "\(Int(totals.0))"
         carbsCompleted.text = "\(Int(totals.1))"
         fatsCompleted.text = "\(Int(totals.2))"
+
+        // Workout data — mapped correctly based on Workout tab:
+        // Flame icon (calories): stepsCompleted / stepsGoal
+        // Walk icon (steps): durationCompleted / durationGoal
+        // Clock icon (duration): workoutDurationCompleted / workoutDurationGoal
+        
+        stepsCompleted.text = "\(calories)"
+        stepsGoal?.text = "/ 300 cal"
+        
+        durationCompleted.text = "\(steps)"
+        durationGoal?.text = "/ 800"
+        
+        // Workout View Controller stores duration goal as 120s directly in the cards logic.
+        workoutDurationCompleted?.text = "\(duration)"
+        workoutDurationGoal?.text = "/ 120s"
+
+        // Set recommended routine name on the workout button
+//        if let routineName = recommendedRoutineName {
+//            workoutButton?.setTitle(routineName, for: .normal)
+//            var config = workoutButton?.configuration
+//            config?.title = routineName
+//            workoutButton?.configuration = config
+//        }
     }
 
     @IBAction func addMeal(_ sender: Any) {
@@ -54,3 +79,4 @@ class QuickActionsCollectionViewCell: UICollectionViewCell {
         delegate?.quickActionsDidTapStartWorkout()
     }
 }
+

@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "AOI_d_9nWgx9TGK8NWHaay3zyhHrlo9aWmMCzlkfryY6f09BC8fs1o9OgXlEdt8cqpCLqbjNjOmUJlfzOFogVP4ROUGq4mRg0si0YL7F8JzOgWeT2UA726Df_E2p1pYL7jQglwIIvVNTf2L6eeZVQ333TuLKVdL1OU98zaGyN30TBLDfAOE3Sg_s1024-rj-removebg.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

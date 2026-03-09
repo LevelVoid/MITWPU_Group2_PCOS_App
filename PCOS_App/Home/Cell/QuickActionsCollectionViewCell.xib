@@ -141,7 +141,7 @@
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flame.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Gfh-H1-XSh">
                                         <rect key="frame" x="20" y="56" width="25" height="24.666666666666657"/>
-                                        <color key="tintColor" red="0.7803921568627451" green="0.61176470588235299" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="1" green="0.92156862745098034" blue="0.40784313725490196" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="8n4-bH-O3F"/>
                                             <constraint firstAttribute="width" constant="25" id="JgB-LP-eMw"/>
@@ -171,20 +171,20 @@
                                         <color key="textColor" systemColor="systemGrayColor"/>
                                         <color key="highlightedColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="figure.walk.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="FXQ-2f-Agg">
-                                        <rect key="frame" x="20" y="98" width="25" height="23.666666666666671"/>
-                                        <color key="tintColor" red="1" green="0.92156862745098034" blue="0.63529411764705879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoeprints.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="FXQ-2f-Agg">
+                                        <rect key="frame" x="20" y="96.666666666666657" width="25" height="26.333333333333343"/>
+                                        <color key="tintColor" red="0.5490196078431373" green="0.396078431372549" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="9jn-ca-Fx1"/>
                                             <constraint firstAttribute="height" constant="25" id="BL7-s9-ySy"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98C-iJ-TCX">
-                                        <rect key="frame" x="16" y="179.33333333333334" width="262.33333333333331" height="34.333333333333343"/>
+                                        <rect key="frame" x="16" y="179.33333333333334" width="262.33333333333331" height="35"/>
                                         <color key="backgroundColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Low Impact ">
+                                        <buttonConfiguration key="configuration" style="filled" title="Start Workout">
                                             <fontDescription key="titleFontDescription" style="UICTFontTextStyleHeadline"/>
                                             <color key="baseBackgroundColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
@@ -206,7 +206,7 @@
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aCh-oj-1ZY">
                                         <rect key="frame" x="20" y="139" width="25" height="23.666666666666657"/>
-                                        <color key="tintColor" red="0.69803921568627447" green="0.90980392156862744" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.59999999999999998" green="0.83529411764705885" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="NPS-5z-Ev2"/>
                                             <constraint firstAttribute="height" constant="25" id="gds-n4-NnV"/>
@@ -276,6 +276,9 @@
                 <outlet property="stepsCompleted" destination="kEw-ht-cYw" id="8dV-v9-Sxx"/>
                 <outlet property="stepsGoal" destination="YIz-cC-33i" id="YRo-12-Nrc"/>
                 <outlet property="workoutActionCard" destination="Irb-4y-UuQ" id="1lm-f8-50o"/>
+                <outlet property="workoutButton" destination="98C-iJ-TCX" id="wkb-QA-out"/>
+                <outlet property="workoutDurationCompleted" destination="Jlm-7I-kBd" id="abc-12-345"/>
+                <outlet property="workoutDurationGoal" destination="qIF-B4-b5X" id="def-67-890"/>
             </connections>
             <point key="canvasLocation" x="2.2900763358778624" y="130.63380281690141"/>
         </collectionViewCell>
@@ -284,9 +287,9 @@
         <image name="c.circle.fill" catalog="system" width="128" height="123"/>
         <image name="clock.fill" catalog="system" width="128" height="123"/>
         <image name="f.circle.fill" catalog="system" width="128" height="123"/>
-        <image name="figure.walk.circle.fill" catalog="system" width="128" height="123"/>
         <image name="flame.fill" catalog="system" width="106" height="128"/>
         <image name="p.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="shoeprints.fill" catalog="system" width="116" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

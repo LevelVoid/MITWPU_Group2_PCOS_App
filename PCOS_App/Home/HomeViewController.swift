@@ -1,6 +1,6 @@
 import UIKit
 
-class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollectionViewCellDelegate, LogPeriodCalendarDelegate {
+class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollectionViewCellDelegate, LogPeriodCalendarDelegate,SleepCardCollectionViewCellDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     private var selectedSymptoms: [SymptomItem] = []
@@ -10,13 +10,18 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     private var aboutPCOSArticles: [AboutPCOSSection] = []
     /// Cached sleep data fetched from HealthKit — nil until first fetch or if not available
     private var sleepData: SleepData? = nil
+    // MARK: - Sleep state
+    private var todaySleepLog: SleepLog? = nil
+    // Cached workout data from HealthKit for Quick Actions card
+    private var hkSteps: Int = 0
+    private var hkCalories: Double = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        #if DEBUG
-        CycleLogicTests.runAll()   // ← DELETE before shipping
-        #endif
+//        #if DEBUG
+//        CycleLogicTests.runAll()   // ← DELETE before shipping
+//        #endif
 
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.largeTitleDisplayMode = .never
@@ -49,20 +54,30 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         collectionView.delegate = self
         collectionView.collectionViewLayout = createCompositionalLayout()
         
-        allSymptoms = SymptomDataStore.loadAllSymptomsLastNDays(30)
+        // Scan up to ~1 year back so symptoms logged on past cycle days appear as cards
+        allSymptoms = SymptomDataStore.loadAllSymptomsLastNDays(365)
         loadTodaysSymptoms()
         buildDisplaySignals()
+        loadTodaySleepLog()
         aboutPCOSArticles = AboutPCOSDataStore.shared.fetchSections()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // Refresh allSymptoms so symptoms logged via the calendar are immediately reflected
+        allSymptoms = SymptomDataStore.loadAllSymptomsLastNDays(365)
         loadTodaysSymptoms()
         buildDisplaySignals()
         collectionView.reloadData()
         
-        // Fetch last night's sleep from HealthKit
+        loadTodaySleepLog()
+        // Fetch last night's sleep and today's workout data from HealthKit
         fetchSleepData()
+        fetchWorkoutData()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showSleepLoggerIfNeeded()
     }
 
     // MARK: - HealthKit Sleep Fetch
@@ -74,10 +89,90 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
                 self.sleepData = data
                 // Reload only the sleep card section (4)
                 self.collectionView.reloadSections(IndexSet(integer: 4))
+                self.showSleepLoggerIfNeeded()
             }
         }
     }
 
+    private func fetchWorkoutData() {
+        let group = DispatchGroup()
+        
+        group.enter()
+        HealthKitManager.shared.fetchTodaySteps { steps in
+            self.hkSteps = steps
+            group.leave()
+        }
+        
+        group.enter()
+        HealthKitManager.shared.fetchTodayActiveCalories { cals in
+            self.hkCalories = cals
+            group.leave()
+        }
+        
+        group.notify(queue: .main) { [weak self] in
+            // Refresh Quick Actions section (index 2) to show real HealthKit data
+            // (Only if it's currently on screen)
+            self?.collectionView.reloadSections(IndexSet(integer: 2))
+        }
+    }
+    // MARK: - Sleep Logger Presentation
+
+    private func showSleepLoggerIfNeeded() {
+        let todayString = todayDateString()
+        let lastShown = UserDefaults.standard.string(forKey: "sleepLoggerLastShownDate")
+        
+        guard lastShown != todayString else { return }
+        guard todaySleepLog == nil else { return }
+
+        UserDefaults.standard.set(todayString, forKey: "sleepLoggerLastShownDate")
+        presentSleepLogger(isNotNowMode: false)
+    }
+    private func presentSleepLogger(isNotNowMode: Bool) {
+
+        guard let loggerVC = storyboard?.instantiateViewController(
+            withIdentifier: "SleepLoggerViewController"
+        ) as? SleepLoggerViewController else {
+
+            let loggerVC = SleepLoggerViewController()
+            configureSleepLogger(loggerVC, isNotNowMode: isNotNowMode)
+            present(loggerVC, animated: true)
+            return
+        }
+
+        configureSleepLogger(loggerVC, isNotNowMode: isNotNowMode)
+        present(loggerVC, animated: true)
+    }
+    private func configureSleepLogger(
+        _ loggerVC: SleepLoggerViewController,
+        isNotNowMode: Bool
+    ) {
+        loggerVC.isNotNowMode = isNotNowMode
+        loggerVC.modalPresentationStyle = .pageSheet
+
+        if let sheet = loggerVC.sheetPresentationController {
+            sheet.detents = [.large()]
+            sheet.prefersGrabberVisible = true
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+        }
+
+        loggerVC.onSleepSaved = { [weak self] in
+            guard let self = self else { return }
+            self.loadTodaySleepLog()
+            self.collectionView.reloadSections(IndexSet(integer: 4))
+        }
+
+        loggerVC.onDismissedWithoutSaving = { [weak self] in
+            guard let self = self else { return }
+            self.collectionView.reloadSections(IndexSet(integer: 4))
+        }
+    }
+    private func todayDateString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: Date())
+    }
+    
+    
     private func loadTodaysSymptoms() {
         if let data = UserDefaults.standard.data(forKey: "todaysSymptoms"),
            let symptoms = try? JSONDecoder().decode([SymptomItem].self, from: data) {
@@ -95,6 +190,9 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
                 self?.collectionView.reloadData()
             }
         }
+    }
+    private func loadTodaySleepLog() {
+        todaySleepLog = SleepDataStore.shared.loadTodaySleepLog()
     }
     
     private func buildDisplaySignals() {
@@ -295,12 +393,12 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     func createSleepCardSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(180)
+            heightDimension: .estimated(200)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(180)
+            heightDimension: .estimated(200)
         )
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: groupSize,
@@ -315,14 +413,23 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     }
     
     func createSymptomPatternsSection() -> NSCollectionLayoutSection {
+        // Dynamic height: header(~92pt) + grid(rows*34) + legend+padding(~39pt)
+        let cycleCount = min(CycleDataStore.shared.previousCycles(count: 3).count, 3)
+        let cellHeight: CGFloat
+        switch cycleCount {
+        case 1:  cellHeight = 200   // 92 + 68 (2 rows) + 39 + 1 extra
+        case 2:  cellHeight = 240   // 92 + 102 (3 rows) + 39 + 7 extra
+        default: cellHeight = 280   // 92 + 136 (4 rows) + 39 + 13 extra
+        }
+
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .absolute(340),
-            heightDimension: .absolute(300)
+            heightDimension: .absolute(cellHeight)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .absolute(340),
-            heightDimension: .absolute(300)
+            heightDimension: .absolute(cellHeight)
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
@@ -330,10 +437,12 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         )
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 16
+        // Remove leading/trailing insets so groupPagingCentered can truly center each card
         section.contentInsets = NSDirectionalEdgeInsets(
-            top: 4, leading: 16, bottom: 16, trailing: 16
+            top: 4, leading: 0, bottom: 16, trailing: 0
         )
-        section.orthogonalScrollingBehavior = .paging
+        // Centers a single card in the frame; pages center-to-center with multiple cards
+        section.orthogonalScrollingBehavior = .groupPagingCentered
         addHeader(to: section)
         return section
     }
@@ -445,6 +554,11 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             destination.signal = signal
         }
     }
+    // MARK: - SleepCardCollectionViewCellDelegate
+
+    func sleepCardDidTapLogSleep(_ cell: SleepCardCollectionViewCell) {
+        presentSleepLogger(isNotNowMode: true)
+    }
 }
 
 // MARK: - QuickActionsDelegate
@@ -463,7 +577,18 @@ extension HomeViewController: QuickActionsDelegate {
     }
     
     func quickActionsDidTapStartWorkout() {
-        // Navigate to your workout VC here
+        let currentPhase = CycleDataStore.shared.currentPhaseInfo().phase
+        let recommended = RoutineDataStore.shared.recommendedRoutine(for: currentPhase)
+
+        let workoutStoryboard = UIStoryboard(name: "Workout", bundle: nil)
+        guard let routinePreviewVC = workoutStoryboard.instantiateViewController(
+            withIdentifier: "RoutinePreviewViewController"
+        ) as? RoutinePreviewViewController else {
+            print("Error: Could not instantiate RoutinePreviewViewController")
+            return
+        }
+        routinePreviewVC.routine = recommended
+        navigationController?.pushViewController(routinePreviewVC, animated: true)
     }
 }
 
@@ -543,8 +668,34 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
                 withReuseIdentifier: "quick_actions_cell",
                 for: indexPath
             ) as! QuickActionsCollectionViewCell
-            cell.delegate = self  // ← key line
-            cell.configure()
+            cell.delegate = self
+
+            // Pass real workout data to quick action card
+            let today = Date()
+            let calendar = Calendar.current
+
+            // Steps from HealthKit
+            let steps = hkSteps
+
+            // Calories: HealthKit all-day background + today's in-app session calories
+            let sessionCals = CompletedWorkoutsDataStore.shared.loadAll()
+                .filter { calendar.isDate($0.date, inSameDayAs: today) }
+                .reduce(0.0) { $0 + $1.caloriesBurned }
+            let totalCals = Int(hkCalories + sessionCals)
+
+            // Duration: total workout seconds today
+            let todayDuration = WorkoutSessionManager.shared.getTime()
+
+            // Get recommended routine name for the workout card
+            let currentPhase = CycleDataStore.shared.currentPhaseInfo().phase
+            let recommended = RoutineDataStore.shared.recommendedRoutine(for: currentPhase)
+
+            cell.configure(
+                steps: steps,
+                calories: totalCals,
+                duration: todayDuration,
+                recommendedRoutineName: recommended.name
+            )
             return cell
             
         case 3:
@@ -561,7 +712,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
                 withReuseIdentifier: "sleep_card_cell",
                 for: indexPath
             ) as! SleepCardCollectionViewCell
-            cell.configure(with: sleepData)
+            cell.delegate = self
+            cell.configure(with: sleepData, manualLog: todaySleepLog)
             return cell
             
         case 5:
@@ -665,7 +817,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             } else if indexPath.item == 2 {
                 performSegue(withIdentifier: "showWorkoutPush", sender: self)
             }
-            
+        case 4:
+            performSegue(withIdentifier: "showSleepReport", sender: nil)
         case 5:
             performSegue(withIdentifier: "showCycleReport", sender: nil)
             

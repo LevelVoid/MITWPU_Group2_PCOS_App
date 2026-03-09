@@ -72,16 +72,20 @@ extension Phase {
     var backgroundColor: UIColor {
             switch self {
             case .menstrual:
-                return UIColor(red: 0.90, green: 0.45, blue: 0.50, alpha: 1) // Rose red
+                //return UIColor(red: 0.90, green: 0.45, blue: 0.50, alpha: 1) // Rose red
+                return UIColor(hex: "FFB0B0")
                 
             case .follicular:
-                return UIColor(red: 0.45, green: 0.75, blue: 0.80, alpha: 1) // Soft teal
+               // return UIColor(red: 0.45, green: 0.75, blue: 0.80, alpha: 1) // Soft teal
+                return UIColor(hex: "8CF4F2")
                 
             case .ovulation:
-                return UIColor(red: 0.98, green: 0.80, blue: 0.30, alpha: 1) // Golden
+               // return UIColor(red: 0.98, green: 0.80, blue: 0.30, alpha: 1) // Golden
+                return UIColor(hex: "FFEFA2")
                 
             case .luteal:
-                return UIColor(red: 0.75, green: 0.65, blue: 0.85, alpha: 1) // Lavender
+               // return UIColor(red: 0.75, green: 0.65, blue: 0.85, alpha: 1) // Lavender
+                return UIColor(hex: "DDBFFF")
                 
             case .unknown:
                 return UIColor.systemGray4
