@@ -61,7 +61,9 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         DebugInspector.printAll()
         #endif
         loadTodaysSymptoms()
+        allSymptoms = SymptomDataStore.loadAllSymptomsLastNDays(30)
         buildDisplaySignals()
+        collectionView.collectionViewLayout = createCompositionalLayout()
         collectionView.reloadData()
         
         // Fetch last night's sleep from HealthKit
