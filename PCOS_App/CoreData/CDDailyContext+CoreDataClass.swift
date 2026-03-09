@@ -12,6 +12,11 @@ public class CDDailyContext: NSManagedObject {
         return Int(caloriesBurned)
     }
     
+    var sleepHours: Double? {
+        guard let sleep = sleepTime, let wake = wakeTime else { return nil }
+        return wake.timeIntervalSince(sleep) / 3600.0
+    }
+    
     /// Bridge to the DailyActivity struct used by SwiftUI Charts in MetricsViewController
     func toDailyActivity() -> DailyActivity {
         DailyActivity(

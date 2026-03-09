@@ -21,10 +21,18 @@
     <entity name="CDDailyContext" representedClassName="CDDailyContext" syncable="YES" codeGenerationType="category">
         <attribute name="activeDurationSeconds" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="caloriesBurned" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="cortisolEst" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="energyLevel" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="healthKitCalories" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="modifierPhase" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="sleepQuality" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="sleepTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="steps" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="stressLevel" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="wakeTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="waterL" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="CDFoodLog" representedClassName="CDFoodLog" syncable="YES" codeGenerationType="category">
         <attribute name="carbsContent" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -41,6 +49,30 @@
         <attribute name="tagsData" optional="YES" attributeType="Binary"/>
         <attribute name="timeStamp" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="weight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="CDRoutine" representedClassName="CDRoutine" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="descriptionText" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="lastUsedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="phase" optional="YES" attributeType="String"/>
+        <attribute name="routineType" optional="YES" attributeType="String"/>
+        <attribute name="tagline" optional="YES" attributeType="String"/>
+        <attribute name="thumbnailImage" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CDRoutineExercise" representedClassName="CDRoutineExercise" syncable="YES" codeGenerationType="class">
+        <attribute name="durationSecs" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="exerciseData" attributeType="Binary"/>
+        <attribute name="exerciseName" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="restSecs" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sortOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="targetReps" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="targetSets" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="targetWeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="CDSymptomLog" representedClassName="CDSymptomLog" syncable="YES" codeGenerationType="category">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
