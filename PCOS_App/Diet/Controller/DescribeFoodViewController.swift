@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import NaturalLanguage
+import FoundationModels
 
 class DescribeFoodViewController: UIViewController {
     
@@ -43,307 +43,231 @@ class DescribeFoodViewController: UIViewController {
             showAlert(message: "Please describe your meal")
             return
         }
-        
+
         showLoadingIndicator()
-        analyzeMeal(description: text.lowercased())
+        Task {
+            await analyzeMealWithFoundationModel(description: text)
+        }
     }
-    
-    // MARK: - Pipeline
-        private func analyzeMeal(description: String) {
-            let foodTerms = extractFoodTokens(from: description)
-            
-            guard !foodTerms.isEmpty else {
-                hideLoadingIndicator()
-                showAlert(message: "Could not identify food items. Try describing specific foods like 'roti', 'rice', 'dal'.")
+
+    // MARK: - Foundation Model Analysis
+    private func analyzeMealWithFoundationModel(description: String) async {
+        let instructions = """
+            You are a professional nutritionist specializing in Indian and international foods.
+            When given a meal description, return ONLY a valid JSON object with NO extra text,
+            NO markdown, NO code blocks, NO explanation — just raw JSON.
+
+            The JSON must follow this exact structure:
+            {
+              "name": "meal name based on user input",
+              "calories": 500,
+              "servingSize": 1.0,
+              "unit": "serving",
+              "protein": 20.5,
+              "carbs": 60.0,
+              "fat": 15.0,
+              "desc": "brief description",
+              "ingredients": [
+                {
+                  "name": "ingredient name",
+                  "quantity": 100.0,
+                  "unit": "g",
+                  "protein": 5.0,
+                  "carbs": 20.0,
+                  "fats": 3.0,
+                  "fibre": 1.0
+                }
+              ]
+            }
+
+            Rules:
+            - All numeric values must be doubles or integers (no strings for numbers)
+            - ingredients array must have at least one item
+            - quantity is always in grams
+            - Return ONLY the JSON, nothing else
+            """
+
+        let session = LanguageModelSession(instructions: instructions)
+
+        do {
+            let result = try await session.respond(to: description)
+            let responseText = result.content
+
+            print("DEBUG: Foundation Model response:\n\(responseText)")
+
+            await MainActor.run {
+                self.hideLoadingIndicator()
+                self.parseAndNavigate(json: responseText, originalInput: description)
+            }
+
+        } catch {
+            print("ERROR: Foundation Model failed: \(error)")
+            await MainActor.run {
+                self.hideLoadingIndicator()
+                self.showAlert(message: "AI analysis failed. Please try again.\n\nError: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func parseAndNavigate(json: String, originalInput: String) {
+        var cleaned = json.trimmingCharacters(in: .whitespacesAndNewlines)
+        if cleaned.hasPrefix("```json") {
+            cleaned = String(cleaned.dropFirst(7))
+        } else if cleaned.hasPrefix("```") {
+            cleaned = String(cleaned.dropFirst(3))
+        }
+        if cleaned.hasSuffix("```") {
+            cleaned = String(cleaned.dropLast(3))
+        }
+        cleaned = cleaned.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard let data = cleaned.data(using: .utf8) else {
+            showAlert(message: "Could not process AI response. Please try again.")
+            return
+        }
+
+        do {
+            // ← This line was missing
+            let decoded = try JSONDecoder().decode(AIFoodResponse.self, from: data)
+
+            let ingredients: [Ingredient] = decoded.ingredients.map { (raw: AIIngredient) -> Ingredient in
+                Ingredient(
+                    id: UUID(),
+                    name: raw.name,
+                    quantity: raw.quantity,
+                    weight: raw.quantity,
+                    unit: raw.unit,
+                    protein: raw.protein,
+                    carbs: raw.carbs,
+                    fats: raw.fats,
+                    fibre: raw.fibre,
+                    tags: [.none]
+                )
+            }
+
+            guard !ingredients.isEmpty else {
+                showAlert(message: "No ingredients found in AI response. Please try again.")
                 return
             }
-            
-            print("DEBUG: Extracted food terms: \(foodTerms)")
-            
-            fetchNutrition(for: foodTerms) { [weak self] foodItem in
-                DispatchQueue.main.async {
-                    self?.hideLoadingIndicator()
-                    
-                    guard !foodItem.ingredients.isEmpty else {
-                        self?.showAlert(message: "Could not find nutrition information. Please try again with common food names.")
-                        return
-                    }
-                    
-                    print("DEBUG: Successfully built FoodItem with \(foodItem.ingredients.count) ingredients")
-                    self?.navigateToAdd(foodItem)
-                }
-            }
-        }
-        
-        // MARK: - NLP
-        private func extractFoodTokens(from text: String) -> [String] {
-            let tagger = NLTagger(tagSchemes: [.lexicalClass])
-            tagger.string = text
-            
-            var foods: [String] = []
-            
-            tagger.enumerateTags(
-                in: text.startIndex..<text.endIndex,
-                unit: .word,
-                scheme: .lexicalClass,
-                options: [.omitWhitespace, .omitPunctuation]
-            ) { tag, range in
-                let token = String(text[range])
-                if tag == .noun && token.count > 2 {
-                    foods.append(token.lowercased())
-                }
-                return true
-            }
-            
-            // Remove duplicates while preserving order
-            var seen = Set<String>()
-            return foods.filter { seen.insert($0).inserted }
-        }
-        
-        // MARK: - Nutrition Fetch
-        private func fetchNutrition(for foods: [String], completion: @escaping (FoodItem) -> Void) {
-            let group = DispatchGroup()
-            var ingredients: [Ingredient] = []
-            
-            for food in foods {
-                group.enter()
-                fetchFromOpenFoodFacts(food: food) { ingredient in
-                    if let ingredient = ingredient {
-                        ingredients.append(ingredient)
-                    }
-                    group.leave()
-                }
-            }
-            
-            group.notify(queue: .main) {
-                print("DEBUG: Total ingredients fetched: \(ingredients.count)")
-                for ingredient in ingredients {
-                    print("  - \(ingredient.name): \(ingredient.quantity)g, P:\(ingredient.protein)g, C:\(ingredient.carbs)g, F:\(ingredient.fats)g")
-                }
-                completion(self.buildFoodItem(from: ingredients))
-            }
-        }
-        
-        // MARK: - OpenFoodFacts API
-        private func fetchFromOpenFoodFacts(food: String, completion: @escaping (Ingredient?) -> Void) {
-            let query = food.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? food
-            let urlString = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=\(query)&search_simple=1&action=process&json=1"
-            
-            guard let url = URL(string: urlString) else {
-                completion(nil)
-                return
-            }
-            
-            URLSession.shared.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-                if let error = error {
-                    print("OFF Error for '\(food)':", error)
-                    completion(nil)
-                    return
-                }
-                
-                guard let data = data else {
-                    completion(nil)
-                    return
-                }
-                
-                do {
-                    let decoded = try JSONDecoder().decode(OpenFoodFactsResponse.self, from: data)
-                    
-                    guard let product = decoded.products.first,
-                          let nutriments = product.nutriments else {
-                        print("DEBUG: No product found for '\(food)'")
-                        completion(nil)
-                        return
-                    }
-                    
-                    let ingredient = Ingredient(
-                        id: UUID(),
-                        name: product.product_name ?? food.capitalized,
-                        quantity: 100, // Default 100g serving
-                        weight: 100,
-                        unit: "g",
-                        protein: nutriments.proteins_100g ?? 0,
-                        carbs: nutriments.carbohydrates_100g ?? 0,
-                        fats: nutriments.fat_100g ?? 0,
-                        fibre: nutriments.fiber_100g ?? 0,
-                        tags: [.none]
-                    )
-                    
-                    print("DEBUG: Found ingredient from API: \(ingredient.name)")
-                    completion(ingredient)
-                    
-                } catch {
-                    print("Decode error for '\(food)':", error)
-                    completion(nil)
-                }
-                
-            }.resume()
-        }
-        
-        // MARK: - Aggregation
-        private func buildFoodItem(from ingredients: [Ingredient]) -> FoodItem {
-            var totalProtein: Double = 0
-            var totalCarbs: Double = 0
-            var totalFat: Double = 0
-            
-            for ingredient in ingredients {
-                // Macros are per 100g, quantity is in grams
-                let factor = ingredient.quantity / 100.0
-                totalProtein += ingredient.protein * factor
-                totalCarbs += ingredient.carbs * factor
-                totalFat += ingredient.fats * factor
-            }
-            
-            let totalCalories = Int((totalProtein * 4) + (totalCarbs * 4) + (totalFat * 9))
-            
-            // Get the user's original input text
-            let userInput = describeYourMealText.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "Described Meal"
-            
-            // Capitalize the first letter of the user's input
-            let mealName = userInput.isEmpty ? "Described Meal" : (userInput.prefix(1).uppercased() + userInput.dropFirst())
-            
-            print("DEBUG: Built FoodItem - Name: '\(mealName)', Calories: \(totalCalories), P: \(totalProtein), C: \(totalCarbs), F: \(totalFat)")
-            
-            return FoodItem(
-                id: 0,
-                name: mealName,  // Use user's input as the meal name
-                calories: totalCalories,
+
+            let foodItem = FoodItem(
+                id: Int.random(in: 100000...999999),
+                name: decoded.name,
+                calories: decoded.calories,
                 image: "dietPlaceholder",
-                servingSize: 1,
-                unit: "serving",
-                protein: totalProtein,
-                carbs: totalCarbs,
-                fat: totalFat,
+                servingSize: decoded.servingSize,
+                unit: decoded.unit,
+                protein: decoded.protein,
+                carbs: decoded.carbs,
+                fat: decoded.fat,
                 isSelected: false,
-                desc: userInput,  // Store original input in description too
+                desc: decoded.desc,
                 ingredients: ingredients
             )
-        }
-        
-        // MARK: - Navigation
-        private func navigateToAdd(_ foodItem: FoodItem) {
-            print("DEBUG: ========== NAVIGATION START ==========")
-            print("DEBUG: FoodItem name: \(foodItem.name)")
-            print("DEBUG: Ingredients count: \(foodItem.ingredients.count)")
-            print("DEBUG: Delegate set: \(dietDelegate != nil)")
-            
-            // Try to load from storyboard
-            guard let storyboard = self.storyboard ?? UIStoryboard(name: "Diet", bundle: nil) as UIStoryboard? else {
-                print("ERROR: Could not load Diet storyboard")
-                showAlert(message: "Could not load meal confirmation screen. Storyboard missing.")
-                return
-            }
-            
-            print("DEBUG: Storyboard loaded successfully")
-            
-            // Method 1: Instantiate as UINavigationController
-            do {
-                if let nav = storyboard.instantiateViewController(
-                    withIdentifier: "AddDescribedMealViewController"
-                ) as? UINavigationController {
-                    print("DEBUG: Found UINavigationController")
-                    
-                    if let vc = nav.topViewController as? AddDescribedMealViewController {
-                        print("DEBUG: Found AddDescribedMealViewController inside nav")
-                        vc.foodItem = foodItem
-                        vc.delegate = dietDelegate
-                        present(nav, animated: true)
-                        print("DEBUG: ========== NAVIGATION SUCCESS (Method 1) ==========")
-                        return
-                    }
-                }
-            } catch {
-                print("ERROR Method 1: \(error)")
-            }
-            
-            // Method 2: Instantiate directly as AddDescribedMealViewController
-            do {
-                if let vc = storyboard.instantiateViewController(
-                    withIdentifier: "AddDescribedMealViewController"
-                ) as? AddDescribedMealViewController {
-                    print("DEBUG: Found AddDescribedMealViewController directly")
-                    vc.foodItem = foodItem
-                    vc.delegate = dietDelegate
-                    
-                    let nav = UINavigationController(rootViewController: vc)
-                    present(nav, animated: true)
-                    print("DEBUG: ========== NAVIGATION SUCCESS (Method 2) ==========")
-                    return
-                }
-            } catch {
-                print("ERROR Method 2: \(error)")
-            }
-            
-            // If both methods fail
-            print("ERROR: ========== NAVIGATION FAILED ==========")
-            print("ERROR: Could not instantiate AddDescribedMealViewController")
-            print("ERROR: Check Storyboard ID in Interface Builder")
-            showAlert(message: "Could not load meal confirmation screen. Please check:\n\n1. Storyboard ID is set to 'AddDescribedMealViewController'\n2. Module is set correctly\n3. Class is AddDescribedMealViewController")
-        }
-        
-        // MARK: - UI
-        private func setupUI() {
-            describeYourMealText.placeholder = "e.g., 2 roti with dal and curd"
-            describeYourMealText.autocapitalizationType = .none
-            describeYourMealText.autocorrectionType = .no
-            
-            dietInfoLabel.text = "Nutrition values are estimates derived from public food databases."
-            dietInfoLabel.numberOfLines = 0
-            dietInfoLabel.layer.cornerRadius = 20
-            dietInfoLabel.clipsToBounds = true
-            dietInfoLabel.font = .systemFont(ofSize: 14)
-        }
-        
-        @objc private func dismissKeyboard() {
-            view.endEditing(true)
-        }
-        
-        private func showAlert(message: String) {
-            let alert = UIAlertController(title: "Notice", message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
-        }
-        
-        // MARK: - Loading Indicator
-        private func showLoadingIndicator() {
-            let loadingView = UIView(frame: view.bounds)
-            loadingView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-            loadingView.tag = 999 // Tag for easy removal
-            
-            let activityIndicator = UIActivityIndicatorView(style: .large)
-            activityIndicator.center = loadingView.center
-            activityIndicator.color = .white
-            activityIndicator.startAnimating()
-            
-            let label = UILabel()
-            label.text = "Analyzing meal..."
-            label.textColor = .white
-            label.font = .systemFont(ofSize: 16, weight: .medium)
-            label.textAlignment = .center
-            label.frame = CGRect(x: 0, y: activityIndicator.frame.maxY + 20, width: view.bounds.width, height: 30)
-            
-            loadingView.addSubview(activityIndicator)
-            loadingView.addSubview(label)
-            view.addSubview(loadingView)
-            
-            self.loadingView = loadingView
-            self.activityIndicator = activityIndicator
-            
-            doneButton.isEnabled = false
-            describeYourMealText.isEnabled = false
-            view.isUserInteractionEnabled = false
-        }
-        
-        private func hideLoadingIndicator() {
-            loadingView?.removeFromSuperview()
-            loadingView = nil
-            activityIndicator = nil
-            
-            // Remove by tag as backup
-            view.viewWithTag(999)?.removeFromSuperview()
-            
-            doneButton.isEnabled = true
-            describeYourMealText.isEnabled = true
-            view.isUserInteractionEnabled = true
+
+            print("DEBUG: Parsed FoodItem - \(foodItem.name), \(ingredients.count) ingredients")
+            navigateToAdd(foodItem)
+
+        } catch {
+            print("ERROR: JSON parsing failed: \(error)")
+            print("DEBUG: Raw cleaned JSON:\n\(cleaned)")
+            showAlert(message: "Could not parse AI response. Please try again with a clearer description.")
         }
     }
+    
+
+    // MARK: - Navigation
+    private func navigateToAdd(_ foodItem: FoodItem) {
+        let storyboard = self.storyboard ?? UIStoryboard(name: "Diet", bundle: nil)
+
+        if let vc = storyboard.instantiateViewController(
+            withIdentifier: "AddDescribedMealViewController"
+        ) as? AddDescribedMealViewController {
+            vc.foodItem = foodItem
+            vc.delegate = dietDelegate
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .pageSheet
+            if let sheet = nav.sheetPresentationController {
+                if #available(iOS 16.0, *) {
+                    sheet.detents = [.medium(), .large()]
+                    sheet.prefersGrabberVisible = true
+                    sheet.selectedDetentIdentifier = .large
+                }
+            }
+            present(nav, animated: true)
+        } else {
+            showAlert(message: "Could not load meal confirmation screen.")
+        }
+    }
+
+    // MARK: - UI
+    private func setupUI() {
+        describeYourMealText.placeholder = "e.g., 2 roti with dal and curd"
+        describeYourMealText.autocapitalizationType = .none
+        describeYourMealText.autocorrectionType = .no
+
+        dietInfoLabel.text = "Nutrition values are AI estimates. Results may vary."
+        dietInfoLabel.numberOfLines = 0
+        dietInfoLabel.layer.cornerRadius = 20
+        dietInfoLabel.clipsToBounds = true
+        dietInfoLabel.font = .systemFont(ofSize: 14)
+    }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    private func showAlert(message: String) {
+        let alert = UIAlertController(
+            title: "Notice", message: message, preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+
+    // MARK: - Loading Indicator
+    private func showLoadingIndicator() {
+        let loadingView = UIView(frame: view.bounds)
+        loadingView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        loadingView.tag = 999
+
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.center = loadingView.center
+        activityIndicator.color = .white
+        activityIndicator.startAnimating()
+
+        let label = UILabel()
+        label.text = "AI is analyzing your meal..."
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.textAlignment = .center
+        label.frame = CGRect(
+            x: 0,
+            y: activityIndicator.frame.maxY + 20,
+            width: view.bounds.width,
+            height: 30
+        )
+
+        loadingView.addSubview(activityIndicator)
+        loadingView.addSubview(label)
+        view.addSubview(loadingView)
+
+        self.loadingView = loadingView
+        self.activityIndicator = activityIndicator
+
+        doneButton.isEnabled = false
+        describeYourMealText.isEnabled = false
+        view.isUserInteractionEnabled = false
+    }
+
+    private func hideLoadingIndicator() {
+        loadingView?.removeFromSuperview()
+        loadingView = nil
+        activityIndicator = nil
+        view.viewWithTag(999)?.removeFromSuperview()
+
+        doneButton.isEnabled = true
+        describeYourMealText.isEnabled = true
+        view.isUserInteractionEnabled = true
+    }
+}
