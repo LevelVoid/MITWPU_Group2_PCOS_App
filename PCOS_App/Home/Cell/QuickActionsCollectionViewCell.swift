@@ -38,7 +38,7 @@ class QuickActionsCollectionViewCell: UICollectionViewCell {
     
     func configure() {
         // Diet Data from Core Data
-        let totals = FoodLogDataSource.todaysMeal.reduce(into: (0.0, 0.0, 0.0)) { result, food in
+        let totals = FoodLogDataStore.todaysMeal.reduce(into: (0.0, 0.0, 0.0)) { result, food in
             result.0 += food.proteinContent
             result.1 += food.carbsContent
             result.2 += food.fatsContent

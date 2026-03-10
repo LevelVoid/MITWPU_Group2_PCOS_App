@@ -579,7 +579,7 @@ extension HomeViewController: QuickActionsDelegate {
 // MARK: - AddMealDelegate
 extension HomeViewController: AddMealDelegate {
     func didAddMeal(_ food: Food) {
-        FoodLogDataSource.addFoodBarCode(food)
+        FoodLogDataStore.addFoodBarCode(food)
         navigationController?.popToRootViewController(animated: true)
         collectionView.reloadSections(IndexSet(integer: 2))
     }
@@ -589,7 +589,7 @@ extension HomeViewController: AddMealDelegate {
 // MARK: - AddDescribedMealDelegate
 extension HomeViewController: AddDescribedMealDelegate {
     func didConfirmMeal(_ food: Food) {
-        FoodLogDataSource.addFoodBarCode(food)
+        FoodLogDataStore.addFoodBarCode(food)
         if presentedViewController != nil {
             dismiss(animated: true) { [weak self] in
                 self?.navigationController?.popToRootViewController(animated: true)

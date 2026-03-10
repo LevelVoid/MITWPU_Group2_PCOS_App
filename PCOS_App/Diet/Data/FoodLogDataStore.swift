@@ -9,9 +9,9 @@ import Foundation
 import CoreData
 import UIKit
 
-struct FoodLogDataSource {
+struct FoodLogDataStore {
     
-    static var shared = FoodLogDataSource()
+    static var shared = FoodLogDataStore()
     
     private static var context: NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -46,16 +46,18 @@ struct FoodLogDataSource {
     }
     
     // MARK: - Add
-    
     static func addFoodBarCode(_ food: Food) {
             let cdFood = CDFoodLog.from(food, context: context)
             
-            // Link to CDDailyContext so this food log appears under the correct day
+            // Link to CDDailyContext
             let dailyContext = DailyActivityDataStore.shared.getOrCreateContext(for: food.timeStamp)
             cdFood.dailyContext = dailyContext
             
+            // Compute and save impact tags (static from catalog + computed from formulas)
+            CDFoodTag.saveTags(for: cdFood, staticTags: food.tags, context: context)
+            
             saveContext()
-            print("✅ CDFoodLog saved: \(food.name)")
+            print("✅ CDFoodLog saved: \(food.name) with \((cdFood.foodTags as? Set<CDFoodTag>)?.count ?? 0) tags")
         }
     
     // MARK: - Remove
@@ -71,6 +73,45 @@ struct FoodLogDataSource {
             print("🗑️ CDFoodLog deleted: \(food.name)")
         }
     }
+    
+    // MARK: - Update
+    
+    static func updateFood(_ food: Food) {
+        let request: NSFetchRequest<CDFoodLog> = CDFoodLog.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", food.id as CVarArg)
+        request.fetchLimit = 1
+        
+        guard let existing = try? context.fetch(request).first else {
+            print("❌ CDFoodLog not found for update: \(food.name)")
+            return
+        }
+        
+        // Update all fields
+        existing.name = food.name
+        existing.servingSize = food.servingSize
+        existing.weight = food.weight ?? 0
+        existing.proteinContent = food.proteinContent
+        existing.carbsContent = food.carbsContent
+        existing.fatsContent = food.fatsContent
+        existing.customCalories = food.customCalories ?? 0
+        existing.ingredients = food.ingredients
+        existing.tags = food.tags
+        
+        // Update image
+        if let img = food.image {
+            if img.hasPrefix("http") {
+                existing.imageURL = img
+                existing.localImage = nil
+            } else {
+                existing.localImage = img
+                existing.imageURL = nil
+            }
+        }
+        
+        saveContext()
+        print("✅ CDFoodLog updated: \(food.name)")
+    }
+
     
     // MARK: - Dates with meals (for calendar)
     

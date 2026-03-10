@@ -82,7 +82,7 @@ class DietCalendarLogsViewController: UIViewController {
     
     // MARK: - Data Loading
     private func loadMealDates() {
-        mealDates = FoodLogDataSource.allMealDates()
+        mealDates = FoodLogDataStore.allMealDates()
         print("DEBUG: Loaded \(mealDates.count) dates with meals from Core Data")
     }
     

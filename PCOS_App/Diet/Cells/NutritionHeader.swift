@@ -123,7 +123,7 @@ class NutritionHeader: UITableViewHeaderFooterView {
         carbs = 0
         
         // Simply sum today's meals from Core Data — no mutation needed
-        for food in FoodLogDataSource.todaysMeal {
+        for food in FoodLogDataStore.todaysMeal {
             calories += food.calories
             fats += food.fatsContent
             protein += food.proteinContent

@@ -38,6 +38,7 @@ public class CDFoodLog: NSManagedObject {
             proteinContent: proteinContent,
             carbsContent: carbsContent,
             fatsContent: fatsContent,
+            fiberContent: fiberContent,
             customCalories: customCalories > 0 ? customCalories : nil,
             tags: self.tags,
             ingredients: self.ingredients
@@ -55,6 +56,7 @@ public class CDFoodLog: NSManagedObject {
         cd.proteinContent = food.proteinContent
         cd.carbsContent = food.carbsContent
         cd.fatsContent = food.fatsContent
+        cd.fiberContent = food.fiberContent
         cd.customCalories = food.customCalories ?? 0
         cd.desc = food.desc
         

@@ -43,7 +43,7 @@ class DietViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         currentQuote = quotes.randomElement() ?? quotes[0]
         filterTodaysFoods()
-        for i in FoodLogDataSource.todaysMeal {
+        for i in FoodLogDataStore.todaysMeal {
             print(i.name)
         }
     }
@@ -188,7 +188,7 @@ class DietViewController: UIViewController {
     // MARK: - Data
 
     private func filterTodaysFoods() {
-        todaysFoods = FoodLogDataSource.todaysMeal.sorted { $0.timeStamp > $1.timeStamp }
+        todaysFoods = FoodLogDataStore.todaysMeal.sorted { $0.timeStamp > $1.timeStamp }
 
         tableView.reloadData()
 
@@ -218,7 +218,7 @@ class DietViewController: UIViewController {
             guard let self else { return }
 
             self.headerView?.subtractValues(mealToDelete)
-            FoodLogDataSource.removeFood(mealToDelete)
+            FoodLogDataStore.removeFood(mealToDelete)
             self.todaysFoods.remove(at: indexPath.row)
 
             if self.todaysFoods.isEmpty {
@@ -304,7 +304,7 @@ extension DietViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension DietViewController: AddMealDelegate {
     func didAddMeal(_ food: Food) {
-        FoodLogDataSource.addFoodBarCode(food)
+        FoodLogDataStore.addFoodBarCode(food)
         let startOfToday = Calendar.current.startOfDay(for: Date())
         let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday)!
         if food.timeStamp >= startOfToday && food.timeStamp < startOfTomorrow {
@@ -320,7 +320,7 @@ extension DietViewController: AddMealDelegate {
 extension DietViewController: AddDescribedMealDelegate {
     func didConfirmMeal(_ food: Food) {
         print("🎉 didConfirmMeal called with: \(food.name)")
-        FoodLogDataSource.addFoodBarCode(food)
+        FoodLogDataStore.addFoodBarCode(food)
         if presentedViewController != nil {
             dismiss(animated: true) { [weak self] in
                 self?.navigationController?.popToRootViewController(animated: true)

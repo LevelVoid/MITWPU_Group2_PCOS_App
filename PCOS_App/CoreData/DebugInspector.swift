@@ -116,6 +116,15 @@ struct DebugInspector {
                 let symptomCount = (c.symptomLogs as? Set<CDSymptomLog>)?.count ?? 0
                 let workoutCount = (c.completedWorkouts as? Set<CDCompletedWorkout>)?.count ?? 0
                 print("║    [\(d)] 🍽️\(foodCount) foods | 🩺\(symptomCount) symptoms | 🏋️\(workoutCount) workouts")
+                let sleepStr: String
+                if c.sleepTime != nil && c.wakeTime != nil {
+                    let hrs = c.wakeTime!.timeIntervalSince(c.sleepTime!) / 3600.0
+                    sleepStr = String(format: "💤 %.1fh (q:%.0f%%)", hrs, c.sleepQuality * 100)
+                } else {
+                    sleepStr = "💤 not logged"
+                }
+                print("║    [\(d)] \(sleepStr) | 🍽️\(foodCount) foods | 🩺\(symptomCount) symptoms | 🏋️\(workoutCount) workouts")
+
             }
         }
 
@@ -216,6 +225,22 @@ struct DebugInspector {
             }
         }
 
+        // CDFoodTag summary per food
+        let tagRequest: NSFetchRequest<CDFoodTag> = CDFoodTag.fetchRequest()
+        if let allTags = try? context.fetch(tagRequest) {
+            let computed = allTags.filter { $0.isComputed }.count
+            let staticT = allTags.filter { !$0.isComputed }.count
+            print("║                                                              ║")
+            print("║  🏷️ CDFoodTag (\(allTags.count) total)                        ║")
+            print("║    Static: \(staticT) | Computed: \(computed)")
+            
+            // Show unique computed tags
+            let uniqueComputed = Set(allTags.filter { $0.isComputed }.compactMap { $0.tagName })
+            if !uniqueComputed.isEmpty {
+                print("║    Computed tags in use: \(uniqueComputed.sorted().joined(separator: ", "))")
+            }
+        }
+        
 
 
         

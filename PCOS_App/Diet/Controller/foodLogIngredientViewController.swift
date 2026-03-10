@@ -19,7 +19,7 @@ class FoodLogIngredientViewController: UIViewController {
     
     // Header view
         private var headerView: FoodLogIngredientHeader!
-        let defaultIngredient = FoodLogDataSource.ingredient
+        let defaultIngredient = FoodLogDataStore.ingredient
         // Food data
         var food: Food!
         private var servingMultiplier: Double = 1.0
@@ -48,11 +48,7 @@ class FoodLogIngredientViewController: UIViewController {
             navigationController?.navigationBar.prefersLargeTitles = false
             navigationItem.largeTitleDisplayMode = .never
             
-            // Setup background color
-            view.backgroundColor = .systemBackground
-            
             // Setup all UI elements
-            setupHeaderConstraints()
             setupHeader()
             setupStepper()
             setupServingLabel()
@@ -60,20 +56,6 @@ class FoodLogIngredientViewController: UIViewController {
             updateServingDisplay()
             
             print("DEBUG: viewDidLoad completed successfully")
-        }
-        
-        // MARK: - Setup Header Constraints
-        private func setupHeaderConstraints() {
-            guard let headerContainer = foodweightView else { return }
-            
-            headerContainer.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                headerContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-                headerContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                headerContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                headerContainer.heightAnchor.constraint(equalToConstant: 300)
-            ])
         }
         
         //Header setuo
@@ -176,7 +158,33 @@ class FoodLogIngredientViewController: UIViewController {
             print(servingMultiplier)
         }
         
-        // MARK: - Update Display
+    @IBAction func saveButton(_ sender: Any) {
+        guard var updatedFood = food else { return }
+                    
+        // Apply the serving multiplier to all values
+        updatedFood.proteinContent = food.proteinContent * servingMultiplier
+        updatedFood.carbsContent = food.carbsContent * servingMultiplier
+        updatedFood.fatsContent = food.fatsContent * servingMultiplier
+        updatedFood.servingSize = food.servingSize * servingMultiplier
+                    
+        if let weight = food.weight {
+                updatedFood.weight = weight * servingMultiplier
+            }
+        if let customCalories = food.customCalories {
+                updatedFood.customCalories = customCalories * servingMultiplier
+            }
+        if let ingredients = food.ingredients {
+                updatedFood.ingredients = ingredients.map { ingredient in
+                var newIngredient = ingredient
+                newIngredient.quantity = ingredient.quantity * servingMultiplier
+                return newIngredient
+                }
+            }
+                    // Save to Core Data
+        FoodLogDataStore.updateFood(updatedFood)
+        navigationController?.popViewController(animated: true)
+    }
+    // MARK: - Update Display
         private func updateServingDisplay() {
             // Update serving label
             let servingText: String
@@ -324,7 +332,11 @@ extension FoodLogIngredientViewController: UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        75
+        60
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

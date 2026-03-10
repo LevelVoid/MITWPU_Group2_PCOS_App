@@ -71,7 +71,7 @@ class DayLoggedMealViewController: UIViewController {
         private func loadMeals() {
             guard let selectedDate = selectedDate else { return }
             
-            let allMeals = FoodLogDataSource.sampleFoods
+            let allMeals = FoodLogDataStore.sampleFoods
             let selectedDayStart = calendar.startOfDay(for: selectedDate)
             let selectedDayEnd = calendar.date(byAdding: .day, value: 1, to: selectedDayStart)!
             

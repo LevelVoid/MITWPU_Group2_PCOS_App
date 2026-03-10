@@ -19,7 +19,8 @@ struct Food: Codable, Identifiable {
     var proteinContent: Double
     var carbsContent: Double
     var fatsContent: Double
-    
+    var fiberContent: Double = 0
+
     // Optional override
     var customCalories: Double?
     

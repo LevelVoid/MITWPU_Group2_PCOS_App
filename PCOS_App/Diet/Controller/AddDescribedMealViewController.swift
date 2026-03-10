@@ -54,7 +54,6 @@ class AddDescribedMealViewController: UIViewController {
     // MARK: - Setup Methods
     
     private func setupUI() {
-        view.backgroundColor = .systemBackground
         foodName.font = .systemFont(ofSize: 22, weight: .bold)
         foodName.numberOfLines = 0
     }
@@ -351,11 +350,11 @@ extension AddDescribedMealViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 35
+        return 40
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+import CoreData
 
 // MARK: - SleepDatabase
 /// Lightweight UserDefaults-backed store for daily sleep logs.
@@ -24,11 +26,37 @@ class SleepDataStore {
     private var todayKey: String { key(for: Date()) }
 
     // MARK: - Save
+    // MARK: - Save
     func saveSleepLog(_ log: SleepLog) {
+        // 1. Keep UserDefaults for quick access (sleep card)
         if let encoded = try? JSONEncoder().encode(log) {
             UserDefaults.standard.set(encoded, forKey: key(for: log.wakeTime))
         }
+        
+        // 2. Also persist to CDDailyContext for correlation engine
+        let dailyContext = DailyActivityDataStore.shared.getOrCreateContext(for: log.wakeTime)
+        dailyContext.sleepTime = log.sleepTime
+        dailyContext.wakeTime = log.wakeTime
+        
+        // Map SleepRating → sleepQuality (0.0–1.0 scale for correlation)
+        let qualityScore: Double
+        switch log.rating {
+        case .deep:      qualityScore = 1.0
+        case .normal:    qualityScore = 0.75
+        case .light:     qualityScore = 0.5
+        case .disturbed: qualityScore = 0.25
+        }
+        dailyContext.sleepQuality = qualityScore
+        
+        // Save context
+        let ctx = (UIApplication.shared.delegate as! AppDelegate).viewContext
+        if ctx.hasChanges {
+            try? ctx.save()
+        }
+        
+        print("✅ SleepLog saved to UserDefaults + CDDailyContext")
     }
+
 
     // MARK: - Load today
     func loadTodaySleepLog() -> SleepLog? {

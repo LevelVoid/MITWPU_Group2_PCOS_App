@@ -62,7 +62,7 @@ class ChartViewController: UIViewController {
            switch range {
            case .day:
                // Last 7 meals in chronological order
-               let meals = Array(FoodLogDataSource.todaysMeal.sorted { $0.timeStamp < $1.timeStamp }.prefix(7))
+               let meals = Array(FoodLogDataStore.todaysMeal.sorted { $0.timeStamp < $1.timeStamp }.prefix(7))
                for (index, meal) in meals.enumerated() {
                    let value = getValue(from: meal)
                    newData.append(MacroChartDataPoint(
@@ -138,7 +138,7 @@ class ChartViewController: UIViewController {
            let startOfDay = calendar.startOfDay(for: date)
            let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
            
-           let dayMeals = FoodLogDataSource.sampleFoods.filter {
+           let dayMeals = FoodLogDataStore.sampleFoods.filter {
                $0.timeStamp >= startOfDay && $0.timeStamp < endOfDay
            }
            
@@ -151,7 +151,7 @@ class ChartViewController: UIViewController {
            let calendar = Calendar.current
            let endOfWeek = calendar.date(byAdding: .day, value: 7, to: date)!
            
-           let weekMeals = FoodLogDataSource.sampleFoods.filter {
+           let weekMeals = FoodLogDataStore.sampleFoods.filter {
                $0.timeStamp >= date && $0.timeStamp < endOfWeek
            }
            
@@ -170,7 +170,7 @@ class ChartViewController: UIViewController {
                return 0
            }
            
-           let monthMeals = FoodLogDataSource.sampleFoods.filter {
+           let monthMeals = FoodLogDataStore.sampleFoods.filter {
                $0.timeStamp >= startOfMonth && $0.timeStamp < endOfMonth
            }
            

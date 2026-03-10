@@ -136,7 +136,7 @@ class AddMealViewController: UIViewController {
     }
     
     private func loadRecentMeals() {
-        let allMeals = FoodLogDataSource.sampleFoods
+        let allMeals = FoodLogDataStore.sampleFoods
         recentMeals = Array(allMeals
             .sorted { $0.timeStamp > $1.timeStamp }
             .prefix(5))
@@ -246,7 +246,7 @@ class AddMealViewController: UIViewController {
         
         if let sheet = navController.sheetPresentationController {
             if #available(iOS 16.0, *) {
-                sheet.detents = [.medium(), .large()]
+                sheet.detents = [.large()]
                 sheet.prefersGrabberVisible = true
                 sheet.selectedDetentIdentifier = .medium
             }
@@ -275,7 +275,7 @@ class AddMealViewController: UIViewController {
         
         if let sheet = navController.sheetPresentationController {
             if #available(iOS 16.0, *) {
-                sheet.detents = [.medium(), .large()]
+                sheet.detents = [.large()]
                 sheet.prefersGrabberVisible = true
                 sheet.selectedDetentIdentifier = .large
             }
@@ -302,7 +302,7 @@ class AddMealViewController: UIViewController {
         
         if let sheet = navController.sheetPresentationController {
             if #available(iOS 16.0, *) {
-                sheet.detents = [.medium(), .large()]
+                sheet.detents = [.large()]
                 sheet.prefersGrabberVisible = true
                 sheet.selectedDetentIdentifier = .large
             }
@@ -327,7 +327,7 @@ extension AddMealViewController {
 
         if let sheet = addMealVC.sheetPresentationController {
             if #available(iOS 16.0, *) {
-                sheet.detents = [.medium(), .large()]
+                sheet.detents = [.large()]
                 sheet.prefersGrabberVisible = true
                 sheet.prefersScrollingExpandsWhenScrolledToEdge = false
                 sheet.selectedDetentIdentifier = .medium
