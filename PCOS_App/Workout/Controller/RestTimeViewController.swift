@@ -30,6 +30,10 @@ class RestTimeViewController: UIViewController {
             if trackLayer.path == nil {
                 setupRing()
             }
+            
+            // Make image circular
+            RestTimeImageOutlet?.layer.cornerRadius = (RestTimeImageOutlet?.frame.width ?? 0) / 2
+            RestTimeImageOutlet?.clipsToBounds = true
         }
 
         override func viewDidAppear(_ animated: Bool) {
@@ -56,8 +60,14 @@ class RestTimeViewController: UIViewController {
             // Configure label
             countLabel.textColor = .label
             countLabel.textAlignment = .center
-            countLabel.text = "💕"
+            countLabel.font = .systemFont(ofSize: 60, weight: .heavy) // Bigger and bolder
+            countLabel.text = "" // Removed emoji
             countLabel.alpha = 0
+            
+            // Set image
+            RestTimeImageOutlet?.image = UIImage(named: "resttimerimage")
+            RestTimeImageOutlet?.contentMode = .scaleAspectFit
+            RestTimeImageOutlet?.alpha = 1
             
             // Ensure label is on top of circle animation 
             view.bringSubviewToFront(countLabel)
@@ -81,7 +91,7 @@ class RestTimeViewController: UIViewController {
             // Track layer (background)
             trackLayer.path = circularPath.cgPath
             trackLayer.strokeColor = UIColor.systemGray5.cgColor
-            trackLayer.lineWidth = 15
+            trackLayer.lineWidth = 20
             trackLayer.fillColor = UIColor.clear.cgColor
             trackLayer.lineCap = .round
 
@@ -89,7 +99,7 @@ class RestTimeViewController: UIViewController {
             ringLayer.path = circularPath.cgPath
             //ringLayer.strokeColor = UIColor.systemGreen.cgColor
             ringLayer.strokeColor = UIColor(hex:"FE7A96").cgColor
-            ringLayer.lineWidth = 15
+            ringLayer.lineWidth = 20
             ringLayer.fillColor = UIColor.clear.cgColor
             ringLayer.lineCap = .round
             ringLayer.strokeEnd = 0
@@ -200,8 +210,7 @@ class RestTimeViewController: UIViewController {
             }
         }
     //Rest TIME LOGIC
-    @IBOutlet weak var RestCountdownOutlet: UILabel!
-   // @IBOutlet weak var RestTimeImageOutlet: UIImageView!
+    @IBOutlet weak var RestTimeImageOutlet: UIImageView!
     var secondsRemaining: Int = 10
         var timer: Timer?
 
@@ -209,7 +218,7 @@ class RestTimeViewController: UIViewController {
 
 
         private func updateLabel() {
-            RestCountdownOutlet.text = "\(secondsRemaining)s"
+            countLabel.text = "\(secondsRemaining)s"
         }
 
         @IBAction func skipTapped(_ sender: UIButton) {

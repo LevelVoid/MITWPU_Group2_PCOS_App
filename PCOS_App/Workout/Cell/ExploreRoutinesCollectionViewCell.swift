@@ -24,8 +24,8 @@ class ExploreRoutinesCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "⭐ Recommended Today"
         label.font = UIFont.systemFont(ofSize: 10, weight: .semibold)
-        label.textColor = .white
-        label.backgroundColor = UIColor(red: 0.99, green: 0.48, blue: 0.59, alpha: 1.0)
+        label.textColor = UIColor(red: 255/255.0, green: 175/255.0, blue: 177/255.0, alpha: 1.0)
+        label.backgroundColor = UIColor(red: 255/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1.0)
         label.textAlignment = .center
         label.layer.cornerRadius = 9
         label.clipsToBounds = true

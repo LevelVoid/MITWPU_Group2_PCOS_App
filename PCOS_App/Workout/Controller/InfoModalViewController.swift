@@ -41,11 +41,19 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
         guard exercise != nil else {
                 fatalError("InfoModalViewController: exercise must be set before presenting")
             }
-        gifImageContainer.layer.cornerRadius = 20
-
+        view.backgroundColor = .white
+        gifImageContainer.layer.cornerRadius = 24
+        gifImageContainer.backgroundColor = .white
+        gifImageContainer.layer.borderWidth = 1
+        gifImageContainer.layer.borderColor = UIColor.systemGray5.cgColor
+        
         gifImageView.image = exercise.gifImage
-        levelTag.layer.cornerRadius = levelTag.frame.height/2
-        muscleTag.layer.cornerRadius = muscleTag.frame.height/2
+        
+        let recommendedBg = UIColor(red: 255/255, green: 245/255, blue: 245/255, alpha: 1.0)
+        let recommendedText = UIColor(red: 255/255, green: 175/255, blue: 177/255, alpha: 1.0)
+        
+        styleTag(levelTag, label: exerciseLevelLabel, color: recommendedBg, textColor: recommendedText)
+        styleTag(muscleTag, label: exerciseMuscleNameLabel, color: recommendedBg, textColor: recommendedText)
         
         tableView.backgroundColor = .clear
         
@@ -57,13 +65,32 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
         exerciseMuscleNameLabel.text=muscle
         
         buildSections()
-
+        setupTableView()
+    }
+    
+    private func styleTag(_ tagView: UIView, label: UILabel, color: UIColor, textColor: UIColor) {
+        tagView.layer.cornerRadius = 10
+        tagView.backgroundColor = color
+        tagView.layer.borderWidth = 0
+        
+        label.textColor = textColor
+        label.font = .systemFont(ofSize: 10, weight: .semibold)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.7
+        
+        // Find icon inside and update it
+        if let icon = tagView.subviews.first(where: { $0 is UIImageView }) as? UIImageView {
+            icon.tintColor = textColor
+        }
+    }
+    
+    private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 200
         tableView.rowHeight = UITableView.automaticDimension
-
+        
         tableView.register(UINib(nibName: "InfoCardTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "InfoCardTableViewCell")
     }
@@ -111,23 +138,30 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
         return cell
     }
     func tableView(_ tableView: UITableView,
-                   titleForHeaderInSection section: Int) -> String? {
-        return sections[section].title
-    }
-    func tableView(_ tableView: UITableView,
-                   willDisplayHeaderView view: UIView,
-                   forSection section: Int) {
-
-        guard let header = view as? UITableViewHeaderFooterView else { return }
-    
-        header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-        header.textLabel?.textColor = .label
-       // header.contentView.backgroundColor = UIColor(hex:"FCEEED")
+                   viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = .white
         
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = sections[section].title
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .label
+        
+        headerView.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+            label.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -4),
+            label.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16)
+        ])
+        
+        return headerView
     }
+
     func tableView(_ tableView: UITableView,
                    heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 30
     }
 
     

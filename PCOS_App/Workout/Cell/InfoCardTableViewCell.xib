@@ -40,14 +40,14 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="9In-YH-42y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="04y-5Q-pnX"/>
+                    <constraint firstItem="9In-YH-42y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="04y-5Q-pnX"/>
                     <constraint firstAttribute="bottom" secondItem="9In-YH-42y" secondAttribute="bottom" id="3Jh-jo-weF"/>
                     <constraint firstAttribute="trailing" secondItem="9In-YH-42y" secondAttribute="trailing" constant="16" id="78k-Ja-U1W"/>
                     <constraint firstItem="9In-YH-42y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="m24-ie-GCW"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="containerView" destination="9In-YH-42y" id="pUa-pQ-ApX"/>
                 <outlet property="infoLabel" destination="Dho-kT-dEg" id="Hez-0b-DBD"/>

@@ -16,12 +16,28 @@ class InfoCardTableViewCell: UITableViewCell {
         
         backgroundColor = .clear
         selectionStyle = .none
-        containerView.layer.cornerRadius = 10
-        containerView.layer.masksToBounds = false
+        containerView.layer.cornerRadius = 16
+        containerView.layer.masksToBounds = true
+        containerView.layer.borderWidth = 1
+        containerView.layer.borderColor = UIColor.systemGray5.cgColor
+        containerView.backgroundColor = .white
     }
 
     func configure(items: [String]) {
-        infoLabel.text = items.map { " \($0)" }.joined(separator: "\n")
-       // infoLabel.text = items.map { " \($0)" }.joined(separator: " , ")
+        let font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        let textColor = UIColor.black
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 6
+        paragraphStyle.paragraphSpacing = 8
+        
+        let fullString = items.joined(separator: "\n")
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: textColor,
+            .paragraphStyle: paragraphStyle
+        ]
+        
+        infoLabel.attributedText = NSAttributedString(string: fullString, attributes: attributes)
     }
 }
