@@ -420,13 +420,16 @@
                     <connections>
                         <outlet property="caloriesCard" destination="pAE-6R-Dms" id="Y5e-XV-TYZ"/>
                         <outlet property="caloriesGoalLabel" destination="li8-GS-zsE" id="sd4-k7-EMl"/>
+                        <outlet property="caloriesTitleLabel" destination="kD9-iQ-k78" id="Title-Cal-ID"/>
                         <outlet property="caloriesValueLabel" destination="pCw-fb-P76" id="llh-Jt-pdT"/>
                         <outlet property="containerView" destination="GXI-Kn-8Hh" id="Yec-6Z-AhL"/>
                         <outlet property="durationCard" destination="XZE-vg-bgf" id="VDO-tr-mec"/>
                         <outlet property="durationGoalLabel" destination="v4M-Yg-IHx" id="jCQ-XT-9zK"/>
+                        <outlet property="durationTitleLabel" destination="dYR-JJ-P4D" id="Title-Dur-ID"/>
                         <outlet property="durationValueLabel" destination="1z8-iK-ipS" id="Efu-Fk-fTL"/>
                         <outlet property="exercisesCard" destination="2XU-hf-keW" id="GYq-yU-8vb"/>
                         <outlet property="exercisesDoneLabel" destination="crN-Km-I8m" id="Uuf-Oh-XhN"/>
+                        <outlet property="exercisesTitleLabel" destination="nvY-ns-xEp" id="Title-Exe-ID"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zpS-TQ-tCm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1505,35 +1508,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAu-Pr-uwz">
-                                <rect key="frame" x="76.666666666666686" y="306" width="240" height="240"/>
+                                <rect key="frame" x="46.5" y="276" width="300" height="300"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZRn-LV-AvT">
-                                        <rect key="frame" x="69.666666666666657" y="94.333333333333314" width="100.66666666666666" height="51.333333333333343"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYp-nv-hdh">
-                                                <rect key="frame" x="0.0" y="0.0" width="100.66666666666667" height="51.333333333333336"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="43"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="resttimerimage" translatesAutoresizingMaskIntoConstraints="NO" id="zrt-TI-Img">
+                                        <rect key="frame" x="30" y="30" width="240" height="240"/>
                                         <constraints>
-                                            <constraint firstItem="NYp-nv-hdh" firstAttribute="leading" secondItem="ZRn-LV-AvT" secondAttribute="leading" id="B9w-RZ-Etv"/>
-                                            <constraint firstItem="NYp-nv-hdh" firstAttribute="centerX" secondItem="ZRn-LV-AvT" secondAttribute="centerX" id="VP8-hW-Au9"/>
-                                            <constraint firstItem="NYp-nv-hdh" firstAttribute="top" secondItem="ZRn-LV-AvT" secondAttribute="top" id="ZcL-q1-qem"/>
-                                            <constraint firstItem="NYp-nv-hdh" firstAttribute="centerY" secondItem="ZRn-LV-AvT" secondAttribute="centerY" id="cuS-TL-jYZ"/>
-                                            <constraint firstAttribute="bottom" secondItem="NYp-nv-hdh" secondAttribute="bottom" id="s1A-9n-e0M"/>
-                                            <constraint firstAttribute="trailing" secondItem="NYp-nv-hdh" secondAttribute="trailing" id="xzP-oU-bxC"/>
+                                            <constraint firstAttribute="width" constant="240" id="A8k-fJ-0Bq"/>
+                                            <constraint firstAttribute="height" constant="240" id="M5e-z2-T12"/>
                                         </constraints>
-                                    </view>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYp-nv-hdh">
+                                        <rect key="frame" x="100" y="100" width="100" height="100"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="43"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="1bg-rx-X2l"/>
-                                    <constraint firstAttribute="width" constant="240" id="IYM-ph-gha"/>
-                                    <constraint firstItem="ZRn-LV-AvT" firstAttribute="centerY" secondItem="JAu-Pr-uwz" secondAttribute="centerY" id="g1Z-oQ-q1d"/>
-                                    <constraint firstItem="ZRn-LV-AvT" firstAttribute="centerX" secondItem="JAu-Pr-uwz" secondAttribute="centerX" id="nmd-3f-mZO"/>
+                                    <constraint firstAttribute="height" constant="300" id="1bg-rx-X2l"/>
+                                    <constraint firstAttribute="width" constant="300" id="IYM-ph-gha"/>
+                                    <constraint firstItem="zrt-TI-Img" firstAttribute="centerX" secondItem="JAu-Pr-uwz" secondAttribute="centerX" id="kbc-rt-C1a"/>
+                                    <constraint firstItem="zrt-TI-Img" firstAttribute="centerY" secondItem="JAu-Pr-uwz" secondAttribute="centerY" id="ybo-rt-E2b"/>
+                                    <constraint firstItem="NYp-nv-hdh" firstAttribute="centerX" secondItem="JAu-Pr-uwz" secondAttribute="centerX" id="nmd-3f-mZO"/>
+                                    <constraint firstItem="NYp-nv-hdh" firstAttribute="centerY" secondItem="JAu-Pr-uwz" secondAttribute="centerY" id="g1Z-oQ-q1d"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You're supporting your body with every rep. Breathe and hydrate." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OpS-tj-CEl">
@@ -1568,6 +1566,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="RestTimeImageOutlet" destination="zrt-TI-Img" id="res-img-id"/>
                         <outlet property="countLabel" destination="NYp-nv-hdh" id="QKL-JN-790"/>
                         <outlet property="ringContainerView" destination="JAu-Pr-uwz" id="gf3-JM-5nQ"/>
                     </connections>

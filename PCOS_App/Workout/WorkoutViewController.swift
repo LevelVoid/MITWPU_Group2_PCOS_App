@@ -9,7 +9,7 @@ import UIKit
 
 class WorkoutViewController: UIViewController {
     
-    private var cards: [Card] = [Card(name:"Cals burnt", image: "flame.fill", toBeDone: 300, done: 0, unit: "cal"),Card(name: "Steps", image: "figure.walk", toBeDone: 800, done: 500), Card(name: "Duration", image: "stopwatch.fill",toBeDone: 120, done: 0, unit: "s")]
+    private var cards: [Card] = [Card(name: "Duration", image: "clock",toBeDone: 120, done: 0, unit: "min"), Card(name:"Cals burnt", image: "flame.fill", toBeDone: 300, done: 0, unit: "kcal"), Card(name: "Steps", image: "shoeprints.fill", toBeDone: 800, done: 500)]
     private var exploreRoutine: [Routine] = []
     private var currentPhase: Phase = .unknown
     private var recommendedRoutineId: UUID?
@@ -62,7 +62,7 @@ class WorkoutViewController: UIViewController {
             // Header for all sections
             let headerSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(50)
+                heightDimension: .absolute(sectionIndex == 0 ? 10 : 50) // Reduce header height for section 0
             )
             let headerItem = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: headerSize,
@@ -74,21 +74,20 @@ class WorkoutViewController: UIViewController {
                 // Daily Goals - horizontal, non-scrollable, dynamic sizing
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0 / 3.0),
-                    //heightDimension: .fractionalWidth(1.0 / 3.0)
-                    heightDimension: .absolute(100)
+                    heightDimension: .absolute(160)
                 )
                 
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
+                item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4)
                 
                 let groupSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .estimated(120)
+                    heightDimension: .estimated(160)
                 )
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 
                 let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                section.contentInsets = NSDirectionalEdgeInsets(top: -10, leading: 0, bottom: 0, trailing: 0) // Negative top inset to pull it up
                 section.boundarySupplementaryItems = [headerItem]
                 return section
                 
@@ -265,12 +264,12 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
         //headerView.backgroundColor = .red
         
         if indexPath.section == 0 {
-            headerView.configureHeader(with:"Daily Goals")
+            headerView.configureHeader(with:"")
         }
         else if indexPath.section == 1{
-            headerView.configureHeader(with:"My Routines")
+            headerView.configureHeader(with:"My Created Routines")
         } else if  indexPath.section == 2{
-            headerView.configureHeader(with:"Explore Routines")
+            headerView.configureHeader(with:"Routines You Could Try")
         }
         return headerView
     }
@@ -398,21 +397,31 @@ extension WorkoutViewController {
 
         // Update current phase and phase-filtered routines
         currentPhase = CycleDataStore.shared.currentPhaseInfo().phase
-        exploreRoutine = RoutineDataStore.shared.routines(for: currentPhase)
-        recommendedRoutineId = RoutineDataStore.shared.recommendedRoutine(for: currentPhase).id
+        
+        var routinesList = RoutineDataStore.shared.routines(for: currentPhase)
+        let recommended = RoutineDataStore.shared.recommendedRoutine(for: currentPhase)
+        recommendedRoutineId = recommended.id
+        
+        if let index = routinesList.firstIndex(where: { $0.id == recommended.id }) {
+            let item = routinesList.remove(at: index)
+            routinesList.insert(item, at: 0)
+        }
+        exploreRoutine = routinesList
+
 
         // Duration card: total in-app workout seconds today
         cards[2].done = Double(CompletedWorkoutsDataStore.shared.loadAll().filter { Calendar.current.isDate($0.date, inSameDayAs: Date()) }.reduce(0) { $0 + $1.durationSeconds })
+
 
         // Cals card: start from today's real session calories (persisted on disk)
         // HealthKit will add background calories on top once the async fetch returns
         let todaySessionCals = CompletedWorkoutsDataStore.shared.loadAll()
             .filter { calendar.isDate($0.date, inSameDayAs: today) }
             .reduce(0.0) { $0 + $1.caloriesBurned }
-        cards[0].done = todaySessionCals
+        cards[1].done = todaySessionCals
 
         // Steps card: keep last known value; HealthKit update will replace it below
-        // (cards[1].done is untouched here — fetchHealthKitData fills it)
+        // (cards[2].done is untouched here — fetchHealthKitData fills it)
 
         syncWorkoutsToActivityStore()
         collectionView.reloadData()
@@ -462,14 +471,14 @@ extension WorkoutViewController {
 
             // Steps card — real HealthKit value
             if hkSteps > 0 {
-                self.cards[1].done = Double(hkSteps)
+                self.cards[2].done = Double(hkSteps)
             }
 
             // Cals card — HealthKit all-day background + today's in-app session calories
             let todaySessionCals = CompletedWorkoutsDataStore.shared.loadAll()
                 .filter { Calendar.current.isDate($0.date, inSameDayAs: Date()) }
                 .reduce(0.0) { $0 + $1.caloriesBurned }
-            self.cards[0].done = hkCalories + todaySessionCals
+            self.cards[1].done = hkCalories + todaySessionCals
 
             // Persist into DataStore so MetricsViewController charts reflect real HK data
             DailyActivityDataStore.shared.mergeHealthKitData(

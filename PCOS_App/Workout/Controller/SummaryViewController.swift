@@ -20,7 +20,9 @@ class SummaryViewController: UIViewController {
     @IBOutlet weak var durationValueLabel: UILabel!
     @IBOutlet weak var durationGoalLabel: UILabel!
     
-  
+    @IBOutlet weak var caloriesTitleLabel: UILabel!
+    @IBOutlet weak var exercisesTitleLabel: UILabel!
+    @IBOutlet weak var durationTitleLabel: UILabel!
     
     @IBOutlet weak var caloriesCard: UIView!
     @IBOutlet weak var exercisesCard: UIView!
@@ -176,10 +178,81 @@ class SummaryViewController: UIViewController {
         let cards = [caloriesCard, exercisesCard, durationCard]
         cards.forEach { card in
             card?.layer.cornerRadius = 20
-            
             card?.backgroundColor = .systemBackground
             card?.layer.masksToBounds = false
+            
+            // Add subtle shadow for premium look
+            card?.layer.shadowColor = UIColor.black.cgColor
+            card?.layer.shadowOffset = CGSize(width: 0, height: 4)
+            card?.layer.shadowRadius = 8
+            card?.layer.shadowOpacity = 0.05
         }
+        
+        setupStackViews()
+    }
+    
+    private func setupStackViews() {
+        // Calorie Card
+        if let card = caloriesCard, let val = caloriesValueLabel, let unit = caloriesGoalLabel, let title = caloriesTitleLabel {
+            configureCardStack(card: card, valueLabel: val, unitLabel: unit, titleLabel: title)
+        }
+        
+        // Exercises Card
+        if let card = exercisesCard, let val = exercisesDoneLabel, let title = exercisesTitleLabel {
+            configureCardStack(card: card, valueLabel: val, unitLabel: nil, titleLabel: title)
+        }
+        
+        // Duration Card
+        if let card = durationCard, let val = durationValueLabel, let unit = durationGoalLabel, let title = durationTitleLabel {
+            configureCardStack(card: card, valueLabel: val, unitLabel: unit, titleLabel: title)
+        }
+    }
+    
+    private func configureCardStack(card: UIView, valueLabel: UILabel, unitLabel: UILabel?, titleLabel: UILabel) {
+        // Clear existing subviews to prevent duplicates if called multiple times
+        card.subviews.forEach { $0.removeFromSuperview() }
+        
+        valueLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Horizontal stack for Value + Unit
+        let valueStack = UIStackView()
+        valueStack.axis = .horizontal
+        valueStack.alignment = .firstBaseline
+        valueStack.spacing = 4
+        valueStack.translatesAutoresizingMaskIntoConstraints = false
+        valueStack.addArrangedSubview(valueLabel)
+        
+        if let unit = unitLabel {
+            unit.translatesAutoresizingMaskIntoConstraints = false
+            valueStack.addArrangedSubview(unit)
+        }
+        
+        // Vertical stack for everything
+        let mainStack = UIStackView()
+        mainStack.axis = .vertical
+        mainStack.alignment = .center
+        mainStack.spacing = 8
+        mainStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        mainStack.addArrangedSubview(valueStack)
+        mainStack.addArrangedSubview(titleLabel)
+        
+        card.addSubview(mainStack)
+        
+        // Center the main stack in the card
+        NSLayoutConstraint.activate([
+            mainStack.centerXAnchor.constraint(equalTo: card.centerXAnchor),
+            mainStack.centerYAnchor.constraint(equalTo: card.centerYAnchor),
+            mainStack.leadingAnchor.constraint(greaterThanOrEqualTo: card.leadingAnchor, constant: 8),
+            mainStack.trailingAnchor.constraint(lessThanOrEqualTo: card.trailingAnchor, constant: -8)
+        ])
+        
+        // Ensure title label styling is consistent
+        titleLabel.textColor = .secondaryLabel
+        titleLabel.font = .preferredFont(forTextStyle: .footnote)
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 2
     }
     
     func formatDuration(_ seconds: Int) -> String {

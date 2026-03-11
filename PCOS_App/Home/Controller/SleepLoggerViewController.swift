@@ -181,8 +181,9 @@ class SleepLoggerViewController: UIViewController {
         
         bedIconImageView.translatesAutoresizingMaskIntoConstraints = false
         bedIconImageView.image = UIImage(named: "sleep_illustration")
-        bedIconImageView.contentMode = .scaleAspectFit
+        bedIconImageView.contentMode = .scaleAspectFill
         bedIconImageView.clipsToBounds = true
+        bedIconImageView.layer.cornerRadius = 24
         bedIconCircle.addSubview(bedIconImageView)
         
         customTitleLabel.translatesAutoresizingMaskIntoConstraints = false
