@@ -156,7 +156,7 @@
         <attribute name="heightCm" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
-        <attribute name="primaryFocus" optional="YES" attributeType="String"/>
+        <attribute name="pcosPhenotype" optional="YES" attributeType="String"/>
         <attribute name="weightKg" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="cycles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDCycleData" inverseName="user" inverseEntity="CDCycleData"/>
     </entity>

@@ -56,7 +56,7 @@ struct DebugInspector {
                 print("║    BMI:           \(String(format: "%.1f", user.calculatedBMI)) (\(user.bmiCategory))")
                 print("║    dietPattern:   \(user.dietPattern ?? "nil")")
                 print("║    activityLevel: \(user.activityLevel ?? "nil")")
-                print("║    primaryFocus:  \(user.primaryFocus ?? "nil")")
+                print("║    pcosPhenotype:  \(user.pcosPhenotype ?? "nil")")
                 print("║    createdAt:     \(user.createdAt?.description ?? "nil")")
             }
             if users.isEmpty {

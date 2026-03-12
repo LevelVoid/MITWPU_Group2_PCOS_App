@@ -14,5 +14,5 @@ struct ProfileModel: Codable{
     var weight: Int
     var dietType: String
     var workoutType: String
-    var goalType: String
+    var pcosPhenotype: String
 }

@@ -45,7 +45,7 @@ class ProfileService {
     /// Called from HealthDetailsTableViewController (edit mode)
     /// and from UserGoalViewController (end of onboarding).
     func setProfile(name: String, dob: Date, heightCm: Double, weightKg: Double,
-                    dietPattern: String, activityLevel: String, primaryFocus: String?) {
+                    dietPattern: String, activityLevel: String, pcosPhenotype: String?) {
         
         // Fetch existing or create new
         let user = getProfile() ?? CDUser(context: context)
@@ -62,7 +62,7 @@ class ProfileService {
         user.weightKg = weightKg
         user.dietPattern = dietPattern
         user.activityLevel = activityLevel
-        user.primaryFocus = primaryFocus
+        user.pcosPhenotype = pcosPhenotype
         
         saveContext()
     }
@@ -78,7 +78,7 @@ class ProfileService {
             weightKg: Double(profile.weight),
             dietPattern: profile.dietType,
             activityLevel: profile.workoutType,
-            primaryFocus: profile.goalType
+            pcosPhenotype: profile.pcosPhenotype
         )
     }
     
