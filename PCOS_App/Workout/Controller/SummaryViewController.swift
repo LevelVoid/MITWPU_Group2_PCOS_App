@@ -170,7 +170,7 @@ class SummaryViewController: UIViewController {
         CompletedWorkoutsDataStore.shared.save(completedWorkout)
 
         // Sync to DailyActivityDataStore so MetricsViewController graph shows session calories
-        DailyActivityDataStore.shared.syncWorkout(completedWorkout)
+        DailyActivityDataStore.shared.syncAllWorkouts(for: completedWorkout.date)
     }
 
     

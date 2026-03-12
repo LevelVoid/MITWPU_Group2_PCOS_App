@@ -19,11 +19,7 @@ final class Signal02ViewController: UIViewController {
     
     // Colors for the cards matching the design
     private let cardColors: [UIColor] = [
-        UIColor(red: 0.95, green: 0.85, blue: 0.90, alpha: 1.0),  // Light pink
-        UIColor(red: 0.98, green: 0.93, blue: 0.87, alpha: 1.0),  // Light peach
-        UIColor(red: 0.88, green: 0.87, blue: 0.95, alpha: 1.0),  // Light purple
-        UIColor(red: 0.95, green: 0.85, blue: 0.90, alpha: 1.0),  // Light pink
-        UIColor(red: 0.98, green: 0.93, blue: 0.87, alpha: 1.0)   // Light peach
+        UIColor(hex: "#fce4e8")
     ]
     
     // Store the maximum card height so all pills have the same height
@@ -35,8 +31,8 @@ final class Signal02ViewController: UIViewController {
         card1View.layer.cornerRadius = 16
         card2View.layer.cornerRadius = 16
         
-        card2View.layer.borderWidth = 1
-        card2View.layer.borderColor = UIColor(hex:"FE7A96").withAlphaComponent(0.5).cgColor
+//        card2View.layer.borderWidth = 1
+//        card2View.layer.borderColor = UIColor(hex:"FE7A96").withAlphaComponent(0.5).cgColor
         
         setupTableView()
         bindData()

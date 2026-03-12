@@ -32,7 +32,7 @@ class WorkoutCalendarViewController: UIViewController {
         setupUI()
        // loadPeriodDates()
         loadWorkoutDates()
-        CompletedWorkoutsDataStore.shared.seedMockWorkouts()
+//        CompletedWorkoutsDataStore.shared.seedMockWorkouts()
     }
     
     override func viewWillAppear(_ animated: Bool) {

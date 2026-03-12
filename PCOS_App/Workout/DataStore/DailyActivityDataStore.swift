@@ -22,7 +22,7 @@ class DailyActivityDataStore {
             DailyActivityDataStore.migrateLegacyDataIfNeeded()
             // If still empty after migration (e.g., fresh install), populate demo data
             if loadAll().isEmpty {
-                populateSampleData()
+//                populateSampleData()
             }
         }
     }
@@ -66,18 +66,26 @@ class DailyActivityDataStore {
     
     // MARK: - Updates
     
-    func syncWorkout(_ workout: CompletedWorkout) {
-        let ctx = getOrCreateContext(for: workout.date)
+    /// Recalculates today's workout totals from all completed workouts and writes them
+    /// to CDDailyContext. Safe to call multiple times — uses assignment (=) not accumulation (+=).
+    func syncAllWorkouts(for date: Date = Date()) {
+        let calendar = Calendar.current
+        let todayWorkouts = CompletedWorkoutsDataStore.shared.loadAll()
+            .filter { calendar.isDate($0.date, inSameDayAs: date) }
         
-        ctx.activeDurationSeconds += Int32(workout.durationSeconds)
-        
-        let sessionCals = Int32(workout.caloriesBurned)
-        if sessionCals > 0 {
-            ctx.caloriesBurned += sessionCals
-        } else {
-            let minutes = Double(workout.durationSeconds) / 60.0
-            ctx.caloriesBurned += Int32(minutes * 6.0)
+        let totalDuration = todayWorkouts.reduce(0) { $0 + $1.durationSeconds }
+        let totalCals = todayWorkouts.reduce(0.0) { total, w in
+            if w.caloriesBurned > 0 {
+                return total + w.caloriesBurned
+            } else {
+                // Fallback estimate: ~6 cal/min
+                return total + (Double(w.durationSeconds) / 60.0 * 6.0)
+            }
         }
+        
+        let ctx = getOrCreateContext(for: date)
+        ctx.activeDurationSeconds = Int32(totalDuration)
+        ctx.caloriesBurned = Int32(totalCals)
         
         saveContext()
     }

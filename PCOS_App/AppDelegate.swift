@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         print("📂 Core Data path: \(NSPersistentContainer.defaultDirectoryURL())")
         _ = SymptomDataStore.shared
-        FoodLogDataStore.seedSampleDataIfNeeded()
+//        FoodLogDataStore.seedSampleDataIfNeeded()
         return true
     }
 

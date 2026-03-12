@@ -41,7 +41,7 @@ class SleepCardCollectionViewCell: UICollectionViewCell {
 
     private func setupButton() {
 
-        logSleepButton.setTitle("Log Your Sleep 🌙", for: .normal)
+        logSleepButton.setTitle("Log Your Sleep", for: .normal)
         logSleepButton.setTitleColor(.white, for: .normal)
         logSleepButton.backgroundColor = UIColor(hex: "#FE7A96")
         logSleepButton.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
@@ -59,9 +59,9 @@ class SleepCardCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             logSleepButton.topAnchor.constraint(equalTo: emptyStateLabel.bottomAnchor, constant: 16),
             logSleepButton.bottomAnchor.constraint(lessThanOrEqualTo: Card.bottomAnchor, constant: -20),
-            logSleepButton.leadingAnchor.constraint(equalTo: Card.leadingAnchor, constant: 20),
-            logSleepButton.trailingAnchor.constraint(equalTo: Card.trailingAnchor, constant: -20),
-            logSleepButton.heightAnchor.constraint(equalToConstant: 52)
+            logSleepButton.leadingAnchor.constraint(equalTo: Card.leadingAnchor, constant: 30),
+            logSleepButton.trailingAnchor.constraint(equalTo: Card.trailingAnchor, constant: -30),
+            logSleepButton.heightAnchor.constraint(equalToConstant: 34.33)
         ])
     }
 

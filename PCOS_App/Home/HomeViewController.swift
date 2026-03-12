@@ -80,7 +80,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showSleepLoggerIfNeeded()
+//        showSleepLoggerIfNeeded()
     }
 
     // MARK: - HealthKit Sleep Fetch
@@ -92,30 +92,40 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
                 self.sleepData = data
                 // Reload only the sleep card section (4)
                 self.collectionView.reloadSections(IndexSet(integer: 4))
-                self.showSleepLoggerIfNeeded()
+//                self.showSleepLoggerIfNeeded()
             }
         }
     }
 
     private func fetchWorkoutData() {
         let group = DispatchGroup()
+        var hkSteps = 0
+        var hkCalories = 0.0
         
         group.enter()
         HealthKitManager.shared.fetchTodaySteps { steps in
-            self.hkSteps = steps
+            hkSteps = steps
             group.leave()
         }
         
         group.enter()
         HealthKitManager.shared.fetchTodayActiveCalories { cals in
-            self.hkCalories = cals
+            hkCalories = cals
             group.leave()
         }
         
         group.notify(queue: .main) { [weak self] in
-            // Refresh Quick Actions section (index 2) to show real HealthKit data
-            // (Only if it's currently on screen)
-            self?.collectionView.reloadSections(IndexSet(integer: 2))
+            guard let self = self else { return }
+            
+            // Merge HealthKit data into CDDailyContext so the Quick Actions cell
+            // reads up-to-date steps & calories from the single source of truth
+            DailyActivityDataStore.shared.mergeHealthKitData(
+                steps: hkSteps,
+                healthKitDailyCalories: Int(hkCalories)
+            )
+            
+            // Refresh Quick Actions section (index 2) to show updated data
+            self.collectionView.reloadSections(IndexSet(integer: 2))
         }
     }
     // MARK: - Sleep Logger Presentation
@@ -390,7 +400,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(200)
+            heightDimension: .estimated(170)
         )
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: groupSize,
@@ -677,26 +687,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             ) as! QuickActionsCollectionViewCell
             cell.delegate = self
 
-            // Pass real workout data to quick action card
-            let today = Date()
-            let calendar = Calendar.current
-
-            // Steps from HealthKit
-            let steps = hkSteps
-
-            // Calories: HealthKit all-day background + today's in-app session calories
-            let sessionCals = CompletedWorkoutsDataStore.shared.loadAll()
-                .filter { calendar.isDate($0.date, inSameDayAs: today) }
-                .reduce(0.0) { $0 + $1.caloriesBurned }
-            let totalCals = Int(hkCalories + sessionCals)
-
-            // Duration: total workout seconds today
-            let todayDuration = CompletedWorkoutsDataStore.shared.loadAll().filter { calendar.isDate($0.date, inSameDayAs: today) }.reduce(0) { $0 + $1.durationSeconds }
-
-            // Get recommended routine name for the workout card
-            let currentPhase = CycleDataStore.shared.currentPhaseInfo().phase
-            let recommended = RoutineDataStore.shared.recommendedRoutine(for: currentPhase)
-
+            // Cell reads directly from CDDailyContext — the single source of truth
             cell.configure()
             return cell
             

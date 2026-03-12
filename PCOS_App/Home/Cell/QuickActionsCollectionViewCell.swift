@@ -47,16 +47,18 @@ class QuickActionsCollectionViewCell: UICollectionViewCell {
         carbsCompleted.text = "\(Int(totals.1))"
         fatsCompleted.text = "\(Int(totals.2))"
         
-        // Workout Data from Core Data (CDDailyContext)
+        // Workout Data from Core Data (CDDailyContext) — single source of truth
         let allActivities = DailyActivityDataStore.shared.loadAll()
         let calendar = Calendar.current
         let todayActivity = allActivities.first(where: { calendar.isDateInToday($0.date) })
         
         let todayMinutes = (todayActivity?.activeDurationSeconds ?? 0) / 60
         let todaySteps = todayActivity?.steps ?? 0
+        let todayCalories = todayActivity?.totalCalories ?? 0
         
         durationCompleted.text = "\(todayMinutes)"
         stepsCompleted.text = "\(todaySteps)"
+        workoutDurationCompleted.text = "\(todayCalories)"
     }
 
 
