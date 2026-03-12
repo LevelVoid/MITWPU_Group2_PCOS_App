@@ -112,15 +112,23 @@ class PCOSPhenotypeViewController: UIViewController {
         guard let phenotype = selectedPhenotype else {
             // Show alert to user
             let alert = UIAlertController(title: "Selection Required",
-                                          message: "Please select a PCOS phenotype",
+                                          message: "Please select a PCOS phenotype or skip to continue",
                                           preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default))
+            alert.addAction(UIAlertAction(title: "Skip", style: .cancel) { [weak self] _ in
+                self?.saveProfileAndContinue(phenotypeRawValue: PCOSPhenotype.unknown.rawValue)
+            })
             present(alert, animated: true)
             return
         }
         
+        // Save selected phenotype and continue
+        saveProfileAndContinue(phenotypeRawValue: phenotype.rawValue)
+    }
+    
+    private func saveProfileAndContinue(phenotypeRawValue: String) {
         // Save selected phenotype to UserDefaults
-        UserDefaults.standard.set(phenotype.rawValue, forKey: "userPCOSPhenotype")
+        UserDefaults.standard.set(phenotypeRawValue, forKey: "userPCOSPhenotype")
         
         // Gather ALL onboarding data from UserDefaults
         let name = UserDefaults.standard.string(forKey: "userName") ?? ""
