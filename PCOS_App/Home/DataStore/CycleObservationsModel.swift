@@ -11,7 +11,7 @@ class CycleObservationsModel {
     Look at the provided history of the user's cycle lengths and period lengths in days.
     Write a single, highly concise, friendly sentence observing their cycle regularity over these months.
     Mention if it appears stable or irregular, and what that might mean for someone with PCOS.
-    Be encouraging and supportive. Do not use markdown, lists, or extra formatting. Be very brief (max 20 words).
+    Be encouraging and supportive. Do not ask questions or offer to find resources. Do not use markdown, lists, or extra formatting. Be very brief (max 20 words).
     """
     
     private func generateCyclePrompt(from cycles: [CycleData]) -> String {

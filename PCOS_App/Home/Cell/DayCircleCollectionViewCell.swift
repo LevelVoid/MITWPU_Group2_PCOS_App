@@ -40,7 +40,7 @@ class DayCircleCollectionViewCell: UICollectionViewCell {
         focusedSymptom: SymptomItem?
     ) {
         circleView.isHidden = false
-        circleView.backgroundColor = day.phase.backgroundColor
+        circleView.backgroundColor = day.phase.backgroundColor.withAlphaComponent(0.5)
 
         if symptom != nil, let iconName = focusedSymptom?.icon {
             // Use the original image (full-color) to display the symptom exactly as designed

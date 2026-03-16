@@ -38,10 +38,10 @@ class SymptomPatternsCollectionViewCell:
             contentView.layer.masksToBounds = true
 
             // Legend colors
-            menstrualView.backgroundColor = Phase.menstrual.backgroundColor
-            follicularView.backgroundColor = Phase.follicular.backgroundColor
-            ovulationView.backgroundColor = Phase.ovulation.backgroundColor
-            leutalView.backgroundColor = Phase.luteal.backgroundColor
+            menstrualView.backgroundColor = Phase.menstrual.backgroundColor.withAlphaComponent(0.5)
+            follicularView.backgroundColor = Phase.follicular.backgroundColor.withAlphaComponent(0.5)
+            ovulationView.backgroundColor = Phase.ovulation.backgroundColor.withAlphaComponent(0.5)
+            leutalView.backgroundColor = Phase.luteal.backgroundColor.withAlphaComponent(0.5)
 
             [menstrualView, follicularView, ovulationView, leutalView].forEach {
                 $0?.layer.cornerRadius = ($0?.bounds.width ?? 0) / 2

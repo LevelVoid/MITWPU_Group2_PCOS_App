@@ -400,8 +400,8 @@ let fatiguePCOSSignal = PCOSSignal(
     
     infoHeading: "Why fatigue can occur in PCOS",
     scientificReasons: [
-        "Insulin resistance common in PCOS can lead to unstable blood sugar levels, which may contribute to fatigue and energy crashes.",
-        "Hormonal imbalance and sleep disturbances such as poor sleep quality or sleep apnea may also contribute to persistent tiredness."
+        "**Insulin resistance**, common in PCOS, can lead to unstable blood sugar levels, contributing to frequent energy crashes.",
+        "**Hormonal imbalances** and **sleep disturbances**, such as poor sleep quality or sleep apnea, often result in chronic tiredness."
     ],
     
     appearanceHeading: "How PCOS fatigue may feel",
@@ -546,60 +546,60 @@ let depressionPCOSSignal = PCOSSignal(
         // MARK: Mood-supportive nutrition
         SupportAction(
             category: .dietNutrition,
-            text: "Include tryptophan-rich foods such as eggs, pumpkin seeds, oats, tofu, and turkey which support serotonin production."
+            text: "Eat tryptophan-rich foods like eggs, oats, and tofu to support serotonin."
         ),
 
         SupportAction(
             category: .dietNutrition,
-            text: "Consume omega-3 fatty acid sources such as salmon, sardines, walnuts, and chia seeds which may support brain health and mood regulation."
+            text: "Consume omega-3 sources like salmon and walnuts for mood regulation."
         ),
 
         SupportAction(
             category: .dietNutrition,
-            text: "Add fermented foods such as yogurt, kefir, kimchi, or sauerkraut which support gut microbiome health linked to mood regulation."
+            text: "Add fermented foods like yogurt to support gut health and mood."
         ),
 
         SupportAction(
             category: .dietNutrition,
-            text: "Avoid frequent consumption of highly processed foods and excessive sugar which may worsen inflammation and mood fluctuations."
+            text: "Avoid highly processed foods and excess sugar to reduce inflammation."
         ),
 
         // MARK: Physical activity
         SupportAction(
             category: .physicalCare,
-            text: "Engage in 30–45 minutes of moderate aerobic exercise such as brisk walking, cycling, or swimming most days of the week to support endorphin release."
+            text: "Engage in moderate aerobic exercise for 30–45 mins to release endorphins."
         ),
 
         SupportAction(
             category: .physicalCare,
-            text: "Perform strength training exercises such as squats, lunges, and resistance band rows two to three times per week which may support mood and metabolic health."
+            text: "Strength train 2-3 times per week to support mood and metabolic health."
         ),
 
         // MARK: Nervous system regulation
         SupportAction(
             category: .physicalCare,
-            text: "Practice yoga poses such as Child’s Pose, Bridge Pose, and Forward Fold which may help reduce stress and promote relaxation."
+            text: "Practice relaxing yoga poses like Child’s Pose to reduce stress."
         ),
 
         // MARK: Lifestyle support
         SupportAction(
             category: .miscellaneous,
-            text: "Spend 15–20 minutes outdoors in daylight daily to support circadian rhythm and vitamin D levels."
+            text: "Spend 15–20 mins outdoors daily to support circadian rhythm."
         ),
 
         SupportAction(
             category: .miscellaneous,
-            text: "Maintain consistent sleep and wake times to support hormonal balance and mental well-being."
+            text: "Maintain consistent sleep times for optimal hormonal balance."
         ),
 
         SupportAction(
             category: .miscellaneous,
-            text: "Reach out to a trusted friend, family member, or mental health professional for support if mood symptoms persist."
+            text: "Reach out to a professional or loved one if mood symptoms persist."
         ),
 
         SupportAction(
             category: .miscellaneous,
-            text: "Track mood changes alongside sleep, stress levels, and menstrual cycle patterns to identify potential triggers."
+            text: "Track mood, sleep, and cycle patterns to identify potential triggers."
         )
     ]
 )
@@ -632,111 +632,111 @@ let anxietyPCOSSignal = PCOSSignal(
         // MARK: Nervous System Regulation Exercises
         SupportAction(
             category: .physicalCare,
-            text: "Practice diaphragmatic breathing: inhale slowly through the nose for 4 seconds, allow the belly to expand, then exhale through the mouth for 6 seconds. Repeat for 5 minutes to activate the parasympathetic nervous system."
+            text: "Practice diaphragmatic breathing (4s inhale, 6s exhale) to relax."
         ),
         SupportAction(
             category: .physicalCare,
-            text: "Try box breathing: inhale for 4 seconds, hold for 4 seconds, exhale for 4 seconds, hold for 4 seconds. Repeat for 3–5 minutes to help calm acute anxiety."
+            text: "Try box breathing (4s hold on each phase) to calm acute anxiety."
         ),
         
         // MARK: Yoga Poses for Anxiety
         SupportAction(
             category: .physicalCare,
-            text: "Practice Child’s Pose (Balasana) for 3–5 minutes to promote relaxation and reduce nervous system activation."
+            text: "Practice Child’s Pose for 3–5 mins to promote relaxation."
         ),
         SupportAction(
             category: .physicalCare,
-            text: "Legs Up the Wall Pose (Viparita Karani) for 5–10 minutes may help lower stress and improve circulation."
+            text: "Legs Up the Wall Pose for 5–10 mins to lower stress."
         ),
         SupportAction(
             category: .physicalCare,
-            text: "Cat-Cow spinal flow for 10–15 slow repetitions may reduce tension and improve breathing patterns."
+            text: "Do 10–15 slow Cat-Cow flows to reduce tension."
         ),
         
         // MARK: Cardio for Stress Reduction
         SupportAction(
             category: .physicalCare,
-            text: "Perform brisk walking for 30 minutes at a pace where talking is possible but slightly challenging. This supports cortisol regulation and reduces anxiety symptoms."
+            text: "Brisk walking for 30 mins helps regulate cortisol."
         ),
         SupportAction(
             category: .physicalCare,
-            text: "Moderate cycling or swimming for 25–40 minutes may help regulate stress hormones and improve mood."
+            text: "Moderate cycling or swimming for 25–40 mins improves mood."
         ),
         
         // MARK: Foods That Support Calm Mood
         SupportAction(
             category: .dietNutrition,
-            text: "Include magnesium-rich foods such as pumpkin seeds, almonds, spinach, and dark chocolate (70% or higher cacao), which support nervous system relaxation."
+            text: "Eat magnesium-rich foods like pumpkin seeds to support relaxation."
         ),
         SupportAction(
             category: .dietNutrition,
-            text: "Eat omega-3 fatty acid sources such as salmon, sardines, walnuts, or chia seeds, which may help reduce inflammation and support brain health."
+            text: "Eat omega-3 sources like salmon to help reduce inflammation."
         ),
         SupportAction(
             category: .dietNutrition,
-            text: "Include fermented foods like yogurt, kefir, kimchi, or sauerkraut to support gut microbiome health, which plays a role in mood regulation."
+            text: "Include fermented foods like yogurt to support a healthy gut microbiome."
         ),
         SupportAction(
             category: .dietNutrition,
-            text: "Consume complex carbohydrates such as oats, quinoa, and sweet potatoes to support stable blood sugar and serotonin production."
+            text: "Consume complex carbs like oats to support stable serotonin production."
         ),
         
         // MARK: Things to Limit
         SupportAction(
             category: .dietNutrition,
-            text: "Limit excessive caffeine intake, especially from coffee, energy drinks, or pre-workout supplements, as high caffeine can increase anxiety symptoms."
+            text: "Limit excessive caffeine intake as it can increase anxiety symptoms."
         ),
         SupportAction(
             category: .dietNutrition,
-            text: "Reduce highly refined sugars such as sugary drinks, candies, and pastries, which can cause blood sugar spikes and worsen anxiety."
+            text: "Reduce refined sugars which can cause blood sugar spikes."
         ),
         
         // MARK: Sleep and Stress Management
         SupportAction(
             category: .miscellaneous,
-            text: "Maintain a consistent sleep schedule and aim for 7–9 hours of sleep to support hormone regulation and nervous system recovery."
+            text: "Maintain a consistent sleep schedule to support hormone regulation."
         ),
         SupportAction(
             category: .miscellaneous,
-            text: "Spend 15–20 minutes outdoors in morning sunlight daily to support circadian rhythm and cortisol balance."
+            text: "Spend 15–20 mins outdoors in sunlight daily to balance cortisol."
         ),
         SupportAction(
             category: .miscellaneous,
-            text: "Track anxiety episodes along with sleep, caffeine intake, and menstrual cycle patterns to identify potential triggers."
+            text: "Track anxiety episodes, sleep, and cycles to identify triggers."
         ),
         SupportAction(
             category: .physicalCare,
-            text: "Practice progressive muscle relaxation by tensing and slowly releasing muscle groups from feet to head for 10–15 minutes to reduce physical tension linked to anxiety."
+            text: "Practice progressive muscle relaxation for 10-15 mins to reduce tension."
         ),
 
         SupportAction(
             category: .physicalCare,
-            text: "Perform a 20–30 minute yoga session including Child’s Pose, Forward Fold, and Legs Up the Wall to activate the parasympathetic nervous system."
+            text: "Perform a 20-30 min yoga session to activate parasympathetic system."
         ),
 
         SupportAction(
             category: .dietNutrition,
-            text: "Include foods rich in vitamin B6 such as bananas, chickpeas, and potatoes which support neurotransmitter production involved in mood regulation."
+            text: "Include B6-rich foods like bananas to support mood regulation."
         ),
 
         SupportAction(
             category: .dietNutrition,
-            text: "Consume chamomile or lemon balm tea in the evening which may support relaxation and sleep quality."
+            text: "Consume chamomile or lemon balm tea to support relaxation and sleep."
         ),
 
         SupportAction(
             category: .dietNutrition,
-            text: "Limit ultra-processed snacks and highly refined carbohydrates which can contribute to rapid blood sugar fluctuations."
+            text: "Limit ultra-processed snacks which worsen blood sugar fluctuations."
         ),
 
         SupportAction(
             category: .miscellaneous,
-            text: "Reduce late-night screen exposure and blue light to support melatonin production and better sleep quality."
+            text: "Reduce late-night screen exposure to support melatonin production."
         ),
 
         SupportAction(
             category: .miscellaneous,
-            text: "Keep a short daily journal to track anxiety triggers, sleep, caffeine intake, and menstrual cycle patterns."
+            text: "Keep a journal to track anxiety triggers, sleep, and menstrual cycle."
         )
     ]
 )
@@ -749,8 +749,8 @@ let crampsPCOSSignal = PCOSSignal(
     
     infoHeading: "PCOS and Period Pain",
     scientificReasons: [
-        "In PCOS, irregular ovulation can cause the uterine lining to become thicker before shedding. A thicker lining may result in heavier bleeding and stronger uterine contractions",
-        "Hormonal imbalances, such as higher estrogen and lower progesterone, can intensify cramping. Inflammation, which is common in PCOS, may increase pain sensitivity during menstruation"
+        "In PCOS, **irregular ovulation** can cause the uterine lining to become thicker before shedding, leading to **heavier bleeding** and **stronger contractions**.",
+        "Higher estrogen and lower progesterone levels exacerbate cramping. **Inflammation**, common in PCOS, further increases pain sensitivity."
     ],
     
     appearanceHeading: "Why do cramps feel stronger?",
@@ -905,23 +905,23 @@ let tenderBreastsPCOSSignal = PCOSSignal(
         // MARK: Support Garments
         SupportAction(
             category: .physicalCare,
-            text: "Wear a well-fitted, supportive bra, especially during high-sensitivity days."
+            text: "Wear a well-fitted, supportive bra, especially during sensitive days."
         ),
         
         // MARK: Gentle Movement
         SupportAction(
             category: .physicalCare,
-            text: "Light movement and gentle upper-body stretching may help reduce muscle tension."
+            text: "Light movement and gentle upper-body stretching reduces muscle tension."
         ),
         
         // MARK: Nutrition
         SupportAction(
             category: .dietNutrition,
-            text: "Include foods rich in healthy fats and micronutrients, such as nuts and seeds."
+            text: "Include foods rich in healthy fats and micronutrients like nuts and seeds."
         ),
         SupportAction(
             category: .dietNutrition,
-            text: "Vitamin E has been studied for cyclic mastalgia, but evidence is mixed. Consult a healthcare professional before starting supplements."
+            text: "Consult a professional before using Vitamin E for cyclic mastalgia."
         ),
         
         // MARK: Monitoring
