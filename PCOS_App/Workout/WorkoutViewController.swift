@@ -2,14 +2,16 @@
 //  WorkoutViewController.swift
 //  PCOS_App
 //
-//  Created by SDC-USER on 24/11/25.
-//
 
 import UIKit
 
 class WorkoutViewController: UIViewController {
-    
-    private var cards: [Card] = [Card(name: "Duration", image: "clock.fill",toBeDone: 20, done: 0, unit: "min"), Card(name:"Cals burnt", image: "flame.fill", toBeDone: 300, done: 0, unit: "kcal"), Card(name: "Steps", image: "shoeprints.fill", toBeDone: 8000, done: 500)]
+
+    // ── Set these from outside before the VC appears ─────────────────────────
+    var goalMinutes: Double = 20
+    var goalSteps: Double   = 8000
+
+    private var cards: [Card] = []   // built in viewDidLoad using goal vars above
     private var exploreRoutine: [Routine] = []
     private var currentPhase: Phase = .unknown
     private var recommendedRoutineId: UUID?
@@ -17,11 +19,17 @@ class WorkoutViewController: UIViewController {
     private var selectedPredefinedRoutine: Routine?
     private var selectedRoutine: Routine?
     
-    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Build cards using whatever goals were injected from outside
+        cards = [
+            Card(name: "Duration",   image: "clock.fill",     toBeDone: goalMinutes, done: 0, unit: "min"),
+            Card(name: "Cals burnt", image: "flame.fill",      toBeDone: 300,         done: 0, unit: "kcal"),
+            Card(name: "Steps",      image: "shoeprints.fill", toBeDone: goalSteps,   done: 0)
+        ]
         
         title = "Workout"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -38,13 +46,14 @@ class WorkoutViewController: UIViewController {
             )
             longPressGesture.minimumPressDuration = 0.5
             collectionView.addGestureRecognizer(longPressGesture)
-        
     }
-    //calendar 
+
+    //calendar
     private func setupNavigation() {
         let calendar = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarTapped))
         navigationItem.rightBarButtonItem = calendar
     }
+
     //why to use obj c function here?
     @objc func calendarTapped() {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "WorkoutCalendarViewController") as? WorkoutCalendarViewController {
@@ -52,8 +61,7 @@ class WorkoutViewController: UIViewController {
         }
     }
     
-    func generateLayout()->UICollectionViewLayout {
-        //collectionView.backgroundColor=UIColor(hex: "FCEEED")
+    func generateLayout() -> UICollectionViewLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.interSectionSpacing = 20
         
@@ -62,7 +70,7 @@ class WorkoutViewController: UIViewController {
             // Header for all sections
             let headerSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(sectionIndex == 0 ? 10 : 50) // Reduce header height for section 0
+                heightDimension: .absolute(sectionIndex == 0 ? 10 : 50)
             )
             let headerItem = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: headerSize,
@@ -76,7 +84,6 @@ class WorkoutViewController: UIViewController {
                     widthDimension: .fractionalWidth(1.0 / 3.0),
                     heightDimension: .absolute(160)
                 )
-                
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4)
                 
@@ -87,13 +94,11 @@ class WorkoutViewController: UIViewController {
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 
                 let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets = NSDirectionalEdgeInsets(top: -10, leading: 0, bottom: 0, trailing: 0) // Negative top inset to pull it up
+                section.contentInsets = NSDirectionalEdgeInsets(top: -10, leading: 0, bottom: 0, trailing: 0)
                 section.boundarySupplementaryItems = [headerItem]
                 return section
                 
             } else if sectionIndex == 1 {
-                
-                
                 // My Routines - horizontal scrolling cards
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .absolute(200),
@@ -118,7 +123,6 @@ class WorkoutViewController: UIViewController {
                     widthDimension: .fractionalWidth(1.0),
                     heightDimension: .absolute(140)
                 )
-                
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0)
                 
@@ -126,56 +130,30 @@ class WorkoutViewController: UIViewController {
                     widthDimension: .fractionalWidth(1.0),
                     heightDimension: .absolute(140)
                 )
-                
-                let group = NSCollectionLayoutGroup.vertical(
-                    layoutSize: groupSize,
-                    subitems: [item]
-                )
+                let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
                 
                 let section = NSCollectionLayoutSection(group: group)
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
                 section.interGroupSpacing = 0
                 section.boundarySupplementaryItems = [headerItem]
-                
                 return section
-                
             }
         }, configuration: configuration)
         
         return layout
     }
     
-    
-    
     func registerCells() {
-        
         collectionView.register(UINib(nibName: "GoalCards", bundle: nil), forCellWithReuseIdentifier: "workout_Goal_Cell")
-        
-        collectionView.register(
-            UINib(nibName: "ExploreRoutinesCollectionViewCell", bundle: nil),
-            forCellWithReuseIdentifier: "explore_routines_cell"
-        )
-        collectionView.register(
-            UINib(nibName: "MyRoutinesEmptyCollectionViewCell", bundle: nil),
-            forCellWithReuseIdentifier: "my_routines_empty_cell"
-        )
-        
-        collectionView.register(
-            UINib(nibName: "MyRoutinesCollectionViewCell", bundle: nil),
-            forCellWithReuseIdentifier: "my_routines_cell"
-        )
-        
-        // Register header as supplementary view (not as a cell)
+        collectionView.register(UINib(nibName: "ExploreRoutinesCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "explore_routines_cell")
+        collectionView.register(UINib(nibName: "MyRoutinesEmptyCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "my_routines_empty_cell")
+        collectionView.register(UINib(nibName: "MyRoutinesCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "my_routines_cell")
         collectionView.register(
             UINib(nibName: "HeaderCollectionReusableView", bundle: nil),
             forSupplementaryViewOfKind: "header",
             withReuseIdentifier: "header_cell"
         )
     }
-    
-    
-    
-   
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PredefinedRoutines" {
@@ -190,7 +168,6 @@ class WorkoutViewController: UIViewController {
             vc.routine = routine
         }
     }
-    
 }
 
 extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -200,11 +177,8 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
             return cards.count
         } else if section == 1 {
             let count = UserRoutineDataStore.shared.loadAll().count
-            
             // If empty → show ONE placeholder cell
             return count == 0 ? 1 : count + 1
-            //if true->return one cell and if false->return no of cells
-            //            return WorkoutSessionManager.shared.savedRoutines.count
         } else {
             return exploreRoutine.count
         }
@@ -217,7 +191,6 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
             return cell
             
         } else if indexPath.section == 1 {
-            //NEW
             let routines = UserRoutineDataStore.shared.loadAll()
             
             // EMPTY STATE
@@ -226,21 +199,18 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
                     withReuseIdentifier: "my_routines_empty_cell",
                     for: indexPath
                 ) as! MyRoutinesEmptyCollectionViewCell
-                
                 return cell
             } else {
                 if indexPath.item != routines.count {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "my_routines_cell", for: indexPath) as! MyRoutinesCollectionViewCell
                     let routine = routines[indexPath.row]
                     cell.configureCell(with: routine)
-                    
                     return cell
                 } else {
                     let cell = collectionView.dequeueReusableCell(
                         withReuseIdentifier: "my_routines_empty_cell",
                         for: indexPath
                     ) as! MyRoutinesEmptyCollectionViewCell
-                    
                     return cell
                 }
             }
@@ -258,35 +228,27 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
         return 3
     }
     
-    func collectionView(_ collectionView: UICollectionView,viewForSupplementaryElementOfKind kind: String,at indexPath:IndexPath)->UICollectionReusableView{
-        
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: "header_cell", for: indexPath) as! HeaderCollectionReusableView
-        //headerView.backgroundColor = .red
-        
+
         if indexPath.section == 0 {
-            headerView.configureHeader(with:"")
-        }
-        else if indexPath.section == 1{
-            headerView.configureHeader(with:"My Created Routines")
-        } else if  indexPath.section == 2{
-            headerView.configureHeader(with:"Routines You Could Try")
+            headerView.configureHeader(with: "")
+        } else if indexPath.section == 1 {
+            headerView.configureHeader(with: "My Created Routines")
+        } else if indexPath.section == 2 {
+            headerView.configureHeader(with: "Routines You Could Try")
         }
         return headerView
     }
     
-    
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         switch indexPath.section {
         case 0:
-                // Handle goal card tap
-                let selectedCard = cards[indexPath.item]
-                navigateToMetrics(for: selectedCard)
+            let selectedCard = cards[indexPath.item]
+            navigateToMetrics(for: selectedCard)
                 
         case 1:
             let routines = UserRoutineDataStore.shared.loadAll()
-            //guard !routines.isEmpty else { return }
             if routines.isEmpty {
                 if indexPath.item == 0 {
                     performSegue(withIdentifier: "showCreateRoutine", sender: nil)
@@ -296,96 +258,65 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
                     let routine = routines[indexPath.item]
                     selectedRoutine = routine
                     performSegue(withIdentifier: "showRoutinePreview", sender: nil)
-
                 } else {
                     performSegue(withIdentifier: "showCreateRoutine", sender: nil)
                 }
             }
-            
             
         case 2:
             let routine = exploreRoutine[indexPath.item]
             selectedRoutine = routine
             performSegue(withIdentifier: "showRoutinePreview", sender: nil)
             
-            
         default:
             return
         }
     }
+
     private func navigateToMetrics(for card: Card) {
-        // Map Card to GoalType
         let goalType: GoalType
-        
         switch card.name {
-//        case "Calories burnt":
-//            goalType = .calories
-        case "Cals burnt":
-            goalType = .calories
-        case "Steps":
-            goalType = .steps
-        case "Duration":
-            goalType = .duration
-        default:
-            return
+        case "Cals burnt": goalType = .calories
+        case "Steps":      goalType = .steps
+        case "Duration":   goalType = .duration
+        default:           return
         }
-        
-        // Instantiate MetricsViewController
         if let metricsVC = storyboard?.instantiateViewController(withIdentifier: "MetricsViewController") as? MetricsViewController {
             metricsVC.goalType = goalType
             navigationController?.pushViewController(metricsVC, animated: true)
         }
     }
+
     @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
-
-        // We only want one trigger
         guard gesture.state == .began else { return }
-
         let point = gesture.location(in: collectionView)
-
-        guard let indexPath = collectionView.indexPathForItem(at: point) else {
-            return
-        }
-
-        // Only allow delete in "My Routines" section
+        guard let indexPath = collectionView.indexPathForItem(at: point) else { return }
         guard indexPath.section == 1 else { return }
-
         let routines = UserRoutineDataStore.shared.loadAll()
-
-        // Ignore empty/add cell
-        guard !routines.isEmpty, indexPath.item < routines.count else {
-            return
-        }
-
+        guard !routines.isEmpty, indexPath.item < routines.count else { return }
         let routine = routines[indexPath.item]
-        //hapticbefore deleting 
+        //haptic before deleting
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-
         showDeleteAlert(for: routine, at: indexPath)
     }
-    private func showDeleteAlert(for routine: Routine, at indexPath: IndexPath) {
 
+    private func showDeleteAlert(for routine: Routine, at indexPath: IndexPath) {
         let alert = UIAlertController(
             title: "Delete Routine?",
             message: "This routine will be permanently deleted.",
             preferredStyle: .alert
         )
-
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-            let routines = UserRoutineDataStore.shared.loadAll(); if indexPath.item < routines.count { UserRoutineDataStore.shared.delete(routines[indexPath.item]) }
+            let routines = UserRoutineDataStore.shared.loadAll()
+            if indexPath.item < routines.count { UserRoutineDataStore.shared.delete(routines[indexPath.item]) }
             self.collectionView.reloadSections(IndexSet(integer: 1))
         }
-
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-
         alert.addAction(cancelAction)
         alert.addAction(deleteAction)
-
         present(alert, animated: true)
     }
 }
-
-// Add this method to WorkoutViewController.swift
 
 extension WorkoutViewController {
     
@@ -423,9 +354,6 @@ extension WorkoutViewController {
     }
     
     // MARK: - HealthKit Live Data
-    
-    /// Fetches today's real steps and calories from HealthKit, merges into CDDailyContext,
-    /// then re-reads cards from the single source of truth.
     private func fetchHealthKitData() {
         var hkSteps: Int = 0
         var hkCalories: Double = 0
@@ -447,24 +375,16 @@ extension WorkoutViewController {
         
         group.notify(queue: .main) { [weak self] in
             guard let self = self else { return }
-
-            // Write HealthKit data into CDDailyContext
             DailyActivityDataStore.shared.mergeHealthKitData(
                 steps: hkSteps,
                 healthKitDailyCalories: Int(hkCalories)
             )
-
-            // Re-read everything from CDDailyContext
             self.loadCardsFromDailyContext()
             self.collectionView.reloadData()
         }
     }
     
     // MARK: - Single Source of Truth Reader
-    
-    /// Reads today's data from CDDailyContext and populates the 3 goal cards.
-    /// CDDailyContext already has workout duration + calories (from syncAllWorkouts)
-    /// and steps + HK calories (from mergeHealthKitData).
     private func loadCardsFromDailyContext() {
         let todayActivity = DailyActivityDataStore.shared.loadAll()
             .first(where: { Calendar.current.isDateInToday($0.date) })
