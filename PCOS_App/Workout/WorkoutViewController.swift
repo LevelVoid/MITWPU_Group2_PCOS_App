@@ -329,11 +329,13 @@ extension WorkoutViewController {
         //    BMI/profile changes in HealthDetails are picked up immediately) ──────
         if let profile = ProfileService.shared.buildUserProfile() {
             let workoutGoals = GoalEngine.generateGoals(for: profile).workout
-            
-            // Rounding figures
-            goalMinutes  = Double(Int(round(Double(workoutGoals.workoutMinutesPerDay) / 5.0)) * 5)
-            goalCalories = Double(Int(round(Double(workoutGoals.caloriesBurnedPerDay) / 10.0)) * 10)
-            goalSteps    = Double(Int(round(Double(workoutGoals.stepsPerDay) / 100.0)) * 100)
+
+            // Use starting (ramp-adjusted) targets for day-1 goal cards.
+            // Sedentary / lightly-active users begin with a lower, achievable goal;
+            // active / very-active users see the full ideal target from day 1.
+            goalMinutes  = Double(Int(round(Double(workoutGoals.startingMinutesPerDay) / 5.0)) * 5)
+            goalCalories = Double(Int(round(Double(workoutGoals.caloriesBurnedPerDay)  / 10.0)) * 10)
+            goalSteps    = Double(Int(round(Double(workoutGoals.startingStepsPerDay)   / 100.0)) * 100)
         }
 
         // Rebuild cards with updated goal denominators

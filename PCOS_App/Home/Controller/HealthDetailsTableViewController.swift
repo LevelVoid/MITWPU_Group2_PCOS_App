@@ -137,11 +137,13 @@ class HealthDetailsTableViewController: UITableViewController, UITextFieldDelega
                print("Diet Type Selected: \(action.title)")
            }
            
+           // These strings MUST match DietPattern.init(rawString:) cases
+           // and what the onboarding DietTypeViewController saves:
            let allDietTypes = [
-               "Balanced meals",
-               "Frequent-sugar and carbs",
-               "Irregular meals",
-               "Not sure yet"
+               "Balanced Diet",
+               "Frequent Sugar",
+               "Irregular Meals",
+               "Not Sure Yet"
            ]
 
            let actions: [UIAction] = allDietTypes.map { typeTitle in
@@ -160,8 +162,8 @@ class HealthDetailsTableViewController: UITableViewController, UITextFieldDelega
            dietTypeButton.menu = menu
            dietTypeButton.showsMenuAsPrimaryAction = true
            dietTypeButton.changesSelectionAsPrimaryAction = true
-           
-           // CRITICAL FIX: Set the button title to show current selection
+
+           // Set the button title to show current selection
            dietTypeButton.setTitle(currentProfile.dietType, for: .normal)
        }
 
@@ -173,11 +175,13 @@ class HealthDetailsTableViewController: UITableViewController, UITextFieldDelega
                print("Workout Type Selected: \(action.title)")
            }
            
+           // These strings MUST match ActivityLevel.init(rawString:) cases
+           // and what the onboarding MovementTypeViewController saves:
            let allWorkoutTypes = [
-               "Mostly sedentary",
-               "Light movements",
-               "Regular movements",
-               "Very active"
+               "Sedentary Type",
+               "Light Movements",
+               "Regular Movements",
+               "Very active on most days"
            ]
 
            let actions: [UIAction] = allWorkoutTypes.map { typeTitle in
@@ -196,8 +200,8 @@ class HealthDetailsTableViewController: UITableViewController, UITextFieldDelega
            workoutTypeButton.menu = menu
            workoutTypeButton.showsMenuAsPrimaryAction = true
            workoutTypeButton.changesSelectionAsPrimaryAction = true
-           
-           // CRITICAL FIX: Set the button title to show current selection
+
+           // Set the button title to show current selection
            workoutTypeButton.setTitle(currentProfile.workoutType, for: .normal)
        }
 
@@ -377,7 +381,7 @@ class HealthDetailsTableViewController: UITableViewController, UITextFieldDelega
            case 1:
                titleLabel.text = "Physical Measurements"
            case 2:
-               titleLabel.text = "Lifestyle & PCOS Type"
+               titleLabel.text = "Lifestyle"
            default:
                return nil
            }

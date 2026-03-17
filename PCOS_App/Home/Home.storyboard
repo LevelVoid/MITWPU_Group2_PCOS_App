@@ -1525,26 +1525,8 @@ Length</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="2nP-1o-WmN">
-                                        <rect key="frame" x="20" y="465" width="353" height="51"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2nP-1o-WmN" id="Shm-F3-lsr">
-                                            <rect key="frame" x="0.0" y="0.0" width="322.66666666666669" height="51"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allergies" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idr-pC-bOB">
-                                                    <rect key="frame" x="16" y="15" width="66" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="idr-pC-bOB" firstAttribute="centerY" secondItem="Shm-F3-lsr" secondAttribute="centerY" id="7el-ci-kpq"/>
-                                                <constraint firstItem="idr-pC-bOB" firstAttribute="leading" secondItem="Shm-F3-lsr" secondAttribute="leadingMargin" id="HeR-3K-5Vt"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
+
+
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="bhr-5c-AFe">
                                         <rect key="frame" x="20" y="516" width="353" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>

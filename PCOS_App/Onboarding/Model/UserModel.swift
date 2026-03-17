@@ -140,7 +140,39 @@ extension UserProfile {
         (phenotype == .typeA || phenotype == .typeB) &&
         (bmiCategory == .overweight || bmiCategory == .obese)
     }
-    
+
+    // ── Goal-readiness multipliers ──────────────────────────────────────────
+    //
+    // Workout readiness: how much of the ideal workout volume a user should
+    // start with on day 1, based on their self-reported activity level.
+    //
+    //   Very active  → 1.00  (already training; full ideal target from day 1)
+    //   Active       → 0.90  (mostly consistent; small warm-in buffer)
+    //   Lightly active→ 0.70  (occasional movement; begin at ~70% to build habit)
+    //   Sedentary    → 0.55  (desk-bound; starting too high causes drop-off)
+    //
+    fileprivate var workoutReadiness: Double {
+        switch activityLevel {
+        case .veryActive:    return 1.00
+        case .active:        return 0.90
+        case .lightlyActive: return 0.70
+        case .sedentary:     return 0.55
+        }
+    }
+
+    // Diet readiness: fraction of the ideal macro target shown on day 1.
+    //
+    //   Balanced / unsure → 1.00  (no transition needed)
+    //   High sugar        → 0.85  (reduce carbs/protein gradually; avoid rebound)
+    //   Irregular meals   → 0.80  (erratic intake means hard cutoffs are unsustainable)
+    //
+    fileprivate var dietReadiness: Double {
+        switch dietPattern {
+        case .balanced, .unsure: return 1.00
+        case .highSugar:         return 0.85
+        case .irregular:         return 0.80
+        }
+    }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -148,26 +180,42 @@ extension UserProfile {
 // ─────────────────────────────────────────────────────────────────────────────
  
 struct DietGoals {
+    /// Full ideal macro targets (phenotype + BMI calibrated)
     let proteinGrams: Int
     let carbsGrams: Int
     let fatsGrams: Int
+
+    /// Day-1 starting targets (ramped down for irregular/high-sugar eaters so the
+    /// transition is sustainable; equals ideal for balanced eaters).
+    let startingProteinGrams: Int
+    let startingCarbsGrams: Int
+    let startingFatsGrams: Int
 }
- 
+
 struct WorkoutGoals {
+    /// Full ideal targets (phenotype + BMI calibrated)
     let workoutMinutesPerDay: Int
     let caloriesBurnedPerDay: Int
     let stepsPerDay: Int
+
+    /// Day-1 starting targets (reduced for sedentary/lightly-active users so the
+    /// habit is achievable from the outset; equals ideal for active/very-active users).
+    let startingMinutesPerDay: Int
+    let startingStepsPerDay: Int
 }
- 
+
 struct SleepGoals {
     let sleepHours: Double
     let bedtimeRecommendation: String
 }
- 
+
 struct UserGoals {
     let diet: DietGoals
     let workout: WorkoutGoals
     let sleep: SleepGoals
+    /// Plain-language explanation of why goals may be set lower than the ideal,
+    /// and how they will increase over time. Empty string when no ramp-up applies.
+    let rampUpNote: String
 }
  
 // ─────────────────────────────────────────────────────────────────────────────
@@ -177,10 +225,27 @@ struct UserGoals {
 struct GoalEngine {
     static func generateGoals(for user: UserProfile) -> UserGoals {
         UserGoals(
-            diet:    dietGoals(for: user),
-            workout: workoutGoals(for: user),
-            sleep:   sleepGoals(for: user)
+            diet:      dietGoals(for: user),
+            workout:   workoutGoals(for: user),
+            sleep:     sleepGoals(for: user),
+            rampUpNote: rampUpNote(for: user)
         )
+    }
+
+    // ── Plain-language ramp-up explanation shown to the user ─────────────────
+    private static func rampUpNote(for user: UserProfile) -> String {
+        let activityRamped = user.activityLevel == .sedentary || user.activityLevel == .lightlyActive
+        let dietRamped     = user.dietPattern == .irregular || user.dietPattern == .highSugar
+
+        if activityRamped && dietRamped {
+            return "Your goals are set to a gentler starting level because both your current activity and eating patterns suggest a gradual approach will be more sustainable. Expect your daily targets to increase every 2–3 weeks as your habits build."
+        } else if activityRamped {
+            return "Your workout targets start a little lower than the ideal to help you build a lasting habit. They'll progress upward as your fitness grows."
+        } else if dietRamped {
+            return "Your nutrition targets are slightly eased for the first few weeks to give your body time to adjust. They'll move toward the full PCOS-optimised goal as your eating patterns stabilise."
+        } else {
+            return ""
+        }
     }
 }
  
@@ -304,11 +369,22 @@ private func dietGoals(for user: UserProfile) -> DietGoals {
     let protein = Int(dailyCalories * finalProteinPct / 4.0)
     let carbs   = Int(dailyCalories * finalCarbPct    / 4.0)
     let fats    = Int(dailyCalories * finalFatPct     / 9.0)
- 
+
+    // ── Step 5: Apply diet-readiness ramp-up ──────────────────────────────────
+    // Irregular and high-sugar eaters receive lower day-1 macro targets so the
+    // dietary shift is gradual and sustainable (avoids restriction-rebound cycle).
+    let r = user.dietReadiness
+    let startProtein = Int(Double(protein) * r)
+    let startCarbs   = Int(Double(carbs)   * r)
+    let startFats    = Int(Double(fats)    * r)
+
     return DietGoals(
-        proteinGrams: protein,
-        carbsGrams:   carbs,
-        fatsGrams:    fats
+        proteinGrams:         protein,
+        carbsGrams:           carbs,
+        fatsGrams:            fats,
+        startingProteinGrams: startProtein,
+        startingCarbsGrams:   startCarbs,
+        startingFatsGrams:    startFats
     )
 }
  
@@ -421,10 +497,20 @@ private func workoutGoals(for user: UserProfile) -> WorkoutGoals {
     }
     let caloriesBurned = Int(met * user.weightInKg * (Double(minutes) / 60.0))
  
+    // ── Step 5: Apply workout-readiness ramp-up ──────────────────────────────
+    // Sedentary and lightly-active users start at a reduced fraction of their
+    // ideal target so the habit is achievable from day 1 (high initial goals
+    // correlate with early abandonment in previously inactive PCOS populations).
+    let w = user.workoutReadiness
+    let startMinutes = max(10, Int(Double(minutes) * w))  // floor: 10 min always
+    let startSteps   = max(2_000, Int(Double(steps) * w)) // floor: 2 000 steps always
+
     return WorkoutGoals(
         workoutMinutesPerDay: minutes,
         caloriesBurnedPerDay: caloriesBurned,
-        stepsPerDay:          steps
+        stepsPerDay:          steps,
+        startingMinutesPerDay: startMinutes,
+        startingStepsPerDay:   startSteps
     )
 }
  
