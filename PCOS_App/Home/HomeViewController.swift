@@ -74,7 +74,27 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         DebugInspector.printAll()
         #endif
         loadTodaysSymptoms()
-        allSymptoms = SymptomDataStore.loadAllSymptomsLastNDays(30)
+        
+        // Force a rebuild of cycles from CoreData to catch any newly logged historical symptoms
+        CycleDataStore.shared.loadCycles()
+        
+        if let currentCycle = CycleDataStore.shared.currentCycle {
+            let limitSymptoms = SymptomDataStore.loadAllSymptomsBefore(date: currentCycle.startDate, limitDays: 365)
+            let previous3Cycles = CycleDataStore.shared.previousCycles(count: 3)
+            
+            var recentNames = Set<String>()
+            for cycle in previous3Cycles {
+                for day in cycle.days {
+                    for sym in day.symptoms {
+                        recentNames.insert(sym.name)
+                    }
+                }
+            }
+            allSymptoms = limitSymptoms.filter { recentNames.contains($0.name) }.sorted { $0.name < $1.name }
+        } else {
+            allSymptoms = []
+        }
+        
         buildDisplaySignals()
         collectionView.collectionViewLayout = createCompositionalLayout()
         collectionView.reloadData()
@@ -421,13 +441,13 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     }
     
     func createSymptomPatternsSection() -> NSCollectionLayoutSection {
-        // Dynamic height: header(~92pt) + grid(rows*34) + legend+padding(~39pt)
+        // Dynamic height: header(~92pt) + grid(rows*34) + legend+padding(~39pt) + AI Insight(~65pt)
         let cycleCount = min(CycleDataStore.shared.previousCycles(count: 3).count, 3)
         let cellHeight: CGFloat
         switch cycleCount {
-        case 1:  cellHeight = 200   // 92 + 68 (2 rows) + 39 + 1 extra
-        case 2:  cellHeight = 240   // 92 + 102 (3 rows) + 39 + 7 extra
-        default: cellHeight = 280   // 92 + 136 (4 rows) + 39 + 13 extra
+        case 1:  cellHeight = 265
+        case 2:  cellHeight = 305
+        default: cellHeight = 365
         }
 
         let itemSize = NSCollectionLayoutSize(
@@ -528,7 +548,24 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     func didSavePeriodDates(_ dates: [Date], cycleDay: Int) {
         CycleDataStore.shared.loadCycles()
         buildDisplaySignals()
-        allSymptoms = SymptomDataStore.loadAllSymptomsLastNDays(30)
+        
+        if let currentCycle = CycleDataStore.shared.currentCycle {
+            let limitSymptoms = SymptomDataStore.loadAllSymptomsBefore(date: currentCycle.startDate, limitDays: 365)
+            let previous3Cycles = CycleDataStore.shared.previousCycles(count: 3)
+            
+            var recentNames = Set<String>()
+            for cycle in previous3Cycles {
+                for day in cycle.days {
+                    for sym in day.symptoms {
+                        recentNames.insert(sym.name)
+                    }
+                }
+            }
+            allSymptoms = limitSymptoms.filter { recentNames.contains($0.name) }.sorted { $0.name < $1.name }
+        } else {
+            allSymptoms = []
+        }
+        
         // Recreate layout so sections 5 & 6 appear/disappear based on hasTwoCycles
         collectionView.collectionViewLayout = createCompositionalLayout()
         collectionView.reloadData()

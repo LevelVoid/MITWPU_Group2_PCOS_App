@@ -120,6 +120,30 @@ class SymptomDataStore {
         }
     }
     
+    static func loadAllSymptomsBefore(date: Date, limitDays: Int = 365) -> [SymptomItem] {
+        let calendar = Calendar.current
+        guard let startDate = calendar.date(byAdding: .day, value: -limitDays, to: Date()) else {
+            return []
+        }
+        
+        let request: NSFetchRequest<CDSymptomLog> = CDSymptomLog.fetchRequest()
+        request.predicate = NSPredicate(
+            format: "date >= %@ AND date < %@",
+            calendar.startOfDay(for: startDate) as NSDate,
+            calendar.startOfDay(for: date) as NSDate
+        )
+        
+        do {
+            let results = try context.fetch(request)
+            let unique = Dictionary(grouping: results, by: { $0.symptomName ?? "" })
+                .compactMap { $0.value.first?.toSymptomItem() }
+            return unique
+        } catch {
+            print("❌ Failed to fetch historical symptoms: \(error)")
+            return []
+        }
+    }
+    
     // MARK: - One-Time Migration
     
     private static func migrateLegacyDataIfNeeded() {

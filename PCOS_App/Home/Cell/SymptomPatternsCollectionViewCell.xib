@@ -151,7 +151,7 @@
                                 </collectionViewFlowLayout>
                             </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="vno-ih-Who">
-                                <rect key="frame" x="8" y="412" width="464" height="10"/>
+                                <rect key="frame" x="8" y="327" width="464" height="10"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Orn-c3-Cw1">
                                         <rect key="frame" x="0.0" y="0.0" width="107" height="10"/>
@@ -271,9 +271,16 @@
                                     </view>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AI Insight generating..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ai-insight-lbl">
+                                <rect key="frame" x="8" y="349" width="464" height="79"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="vno-ih-Who" firstAttribute="top" secondItem="VEc-wX-Bqs" secondAttribute="bottom" constant="16" id="0TA-bN-aD7"/>
                             <constraint firstItem="xvj-Rz-Q1r" firstAttribute="leading" secondItem="6L6-2B-9iT" secondAttribute="leading" constant="3" id="44v-rT-ucT"/>
                             <constraint firstItem="e1c-VW-uqS" firstAttribute="leading" secondItem="8gI-r4-5mp" secondAttribute="trailing" constant="18" id="48B-F7-GBS"/>
                             <constraint firstItem="xvj-Rz-Q1r" firstAttribute="top" secondItem="dd3-ND-RVV" secondAttribute="bottom" constant="3.6699999999999999" id="5LG-VE-Vk3"/>
@@ -283,9 +290,12 @@
                             <constraint firstAttribute="trailing" secondItem="fTQ-EN-sH4" secondAttribute="trailing" constant="8" id="LbT-W0-bqu"/>
                             <constraint firstItem="fTQ-EN-sH4" firstAttribute="leading" secondItem="6L6-2B-9iT" secondAttribute="leading" constant="8" id="TBd-DL-i7r"/>
                             <constraint firstItem="8gI-r4-5mp" firstAttribute="top" secondItem="6L6-2B-9iT" secondAttribute="top" constant="8" id="YZp-rO-1Vh"/>
+                            <constraint firstAttribute="bottom" secondItem="ai-insight-lbl" secondAttribute="bottom" constant="12" id="ai-bot-123"/>
+                            <constraint firstItem="ai-insight-lbl" firstAttribute="leading" secondItem="6L6-2B-9iT" secondAttribute="leading" constant="8" id="ai-lead-123"/>
+                            <constraint firstItem="ai-insight-lbl" firstAttribute="top" secondItem="vno-ih-Who" secondAttribute="bottom" constant="12" id="ai-top-123"/>
+                            <constraint firstAttribute="trailing" secondItem="ai-insight-lbl" secondAttribute="trailing" constant="8" id="ai-trail-123"/>
                             <constraint firstItem="e1c-VW-uqS" firstAttribute="top" secondItem="6L6-2B-9iT" secondAttribute="top" constant="8" id="csq-k7-LhG"/>
                             <constraint firstItem="e1c-VW-uqS" firstAttribute="centerY" secondItem="8gI-r4-5mp" secondAttribute="centerY" id="fIZ-Cq-8oL"/>
-                            <constraint firstAttribute="bottom" secondItem="vno-ih-Who" secondAttribute="bottom" constant="18" id="fcU-kp-sPT"/>
                             <constraint firstAttribute="trailing" secondItem="VEc-wX-Bqs" secondAttribute="trailing" id="hBg-FG-Doo"/>
                             <constraint firstItem="vno-ih-Who" firstAttribute="leading" secondItem="6L6-2B-9iT" secondAttribute="leading" constant="8" id="rE4-ee-Qpf"/>
                             <constraint firstItem="dd3-ND-RVV" firstAttribute="leading" secondItem="6L6-2B-9iT" secondAttribute="leading" constant="7" id="tN2-pF-bft"/>
@@ -308,6 +318,7 @@
                 <outlet property="SymptomImage" destination="8gI-r4-5mp" id="w4x-i6-enW"/>
                 <outlet property="collectionView" destination="VEc-wX-Bqs" id="Pca-7j-DEb"/>
                 <outlet property="follicularView" destination="D1O-pA-IiO" id="UEh-uC-fAK"/>
+                <outlet property="insightLabel" destination="ai-insight-lbl" id="ai-conn-123"/>
                 <outlet property="leutalView" destination="nQs-iV-3Nc" id="Eg3-j6-cBY"/>
                 <outlet property="menstrualView" destination="ur7-Dy-rAE" id="8gg-XV-y2n"/>
                 <outlet property="ovulationView" destination="XFg-SK-FcP" id="gWO-nZ-RNZ"/>

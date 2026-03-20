@@ -23,9 +23,20 @@ class SymptomPatternsCollectionViewCell:
         @IBOutlet var follicularView:UIView!
         @IBOutlet var leutalView:UIView!
         @IBOutlet var menstrualView:UIView!
+        @IBOutlet weak var insightLabel: UILabel!
+        
     private var symptom: SymptomItem?
 
     private var cycles: [CycleData] = []
+    
+    private var currentInsightTask: Task<Void, Never>?
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        currentInsightTask?.cancel()
+        insightLabel?.text = "Analyzing pattern..."
+        insightLabel?.textColor = .systemGray
+    }
 
 
         
@@ -107,6 +118,34 @@ class SymptomPatternsCollectionViewCell:
 
             collectionView.collectionViewLayout.invalidateLayout()
             collectionView.reloadData()
+            
+            // Cancel previous to avoid race conditions
+            currentInsightTask?.cancel()
+            
+            // Generate insight dynamically
+            currentInsightTask = Task { [weak self] in
+                guard let self = self else { return }
+                do {
+                    let insight = try await SymptomInsightModel.shared.fetchSymptomInsight(
+                        symptomName: symptom.name,
+                        cycles: cycles
+                    )
+                    
+                    if !Task.isCancelled {
+                        await MainActor.run {
+                            self.insightLabel.text = insight
+                            self.insightLabel.textColor = .darkGray
+                        }
+                    }
+                } catch {
+                    if !Task.isCancelled {
+                        await MainActor.run {
+                            self.insightLabel.text = "Insight unavailable at this time."
+                            self.insightLabel.textColor = .systemGray
+                        }
+                    }
+                }
+            }
         }
 
 
