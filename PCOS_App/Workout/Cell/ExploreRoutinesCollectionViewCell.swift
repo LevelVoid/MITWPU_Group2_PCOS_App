@@ -22,10 +22,12 @@ class ExploreRoutinesCollectionViewCell: UICollectionViewCell {
     // Programmatic "Recommended Today" tag — positioned beside the time tag
     private lazy var recommendedTagLabel: UILabel = {
         let label = UILabel()
-        label.text = "⭐Recommended Today"
-        label.font = UIFont.systemFont(ofSize: 10, weight: .semibold)
-        label.textColor = UIColor(red: 255/255.0, green: 175/255.0, blue: 177/255.0, alpha: 1.0)
-        label.backgroundColor = UIColor(red: 255/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1.0)
+        label.text = "Recommended Today"
+        label.font = UIFont.systemFont(ofSize: 11, weight: .medium)
+        label.textColor = UIColor(hex: "D4516A")
+        label.backgroundColor = UIColor(hex: "FDEEF1")
+        label.layer.borderWidth = 0.8
+        label.layer.borderColor = UIColor(hex: "F2C0CB").cgColor
         label.textAlignment = .center
         label.layer.cornerRadius = 9
         label.clipsToBounds = true

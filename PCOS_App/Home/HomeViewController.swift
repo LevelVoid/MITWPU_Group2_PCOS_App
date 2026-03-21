@@ -54,6 +54,10 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         collectionView.delegate = self
         collectionView.collectionViewLayout = createCompositionalLayout()
         
+        // Prevent UIKit from re-adjusting content insets on viewWillAppear
+        // (this was causing the header card to jump up after returning from sheets)
+        collectionView.contentInsetAdjustmentBehavior = .never
+        
         // Fix for content appearing behind floating tab bar
         // 1. Ensure content can be scrolled up above the tab bar
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
@@ -96,8 +100,12 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         }
         
         buildDisplaySignals()
-        collectionView.collectionViewLayout = createCompositionalLayout()
+        
+        // Preserve scroll position across reload so the header card doesn't jump
+        let savedOffset = collectionView.contentOffset
         collectionView.reloadData()
+        collectionView.layoutIfNeeded()
+        collectionView.contentOffset = savedOffset
         
         loadTodaySleepLog()
         // Fetch last night's sleep and today's workout data from HealthKit
@@ -320,8 +328,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     func createHomeHeaderSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-//            heightDimension: .absolute(380)
-            heightDimension: .estimated(220)
+            heightDimension: .estimated(370)
         )
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: itemSize,
@@ -592,8 +599,11 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         }
         
         // Recreate layout so sections 5 & 6 appear/disappear based on hasTwoCycles
+        let savedOffset = collectionView.contentOffset
         collectionView.collectionViewLayout = createCompositionalLayout()
         collectionView.reloadData()
+        collectionView.layoutIfNeeded()
+        collectionView.contentOffset = savedOffset
     }
     
     // MARK: - Segue

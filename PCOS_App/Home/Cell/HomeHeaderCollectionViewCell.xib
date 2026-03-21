@@ -17,61 +17,99 @@
                 <rect key="frame" x="0.0" y="0.0" width="487" height="400"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Uk-73-W3E">
-                        <rect key="frame" x="0.0" y="0.0" width="487" height="400"/>
-                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiV-Pd-smO">
                         <rect key="frame" x="0.0" y="0.0" width="487" height="400"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your body may be asking for rest and gentler movement today" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZbB-xp-tyV">
-                                <rect key="frame" x="40" y="223.33333333333334" width="407" height="40.333333333333343"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cycle Day 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyA-zA-4dJ">
-                                <rect key="frame" x="158.33333333333337" y="130" width="170.66666666666663" height="37"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="31"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menstrual Phase" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLF-lI-kK0">
-                                <rect key="frame" x="170.66666666666666" y="183.33333333333334" width="145.99999999999997" height="24"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kAS-d5-HxR">
-                                <rect key="frame" x="20" y="275.66666666666669" width="447" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjf-z9-c6r">
-                                <rect key="frame" x="181" y="316.66666666666669" width="125" height="50"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KiI-nJ-tbX">
+                                <rect key="frame" x="16" y="120.00000000000001" width="455" height="220.33333333333337"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.78000000000000003" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your body may be asking for rest and gentler movement today" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZbB-xp-tyV">
+                                        <rect key="frame" x="20" y="92.333333333333343" width="415" height="17"/>
+                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cycle Day 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyA-zA-4dJ">
+                                        <rect key="frame" x="20" y="43.333333333333343" width="170.66666666666666" height="37"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="31"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menstrual Phase" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLF-lI-kK0">
+                                        <rect key="frame" x="20.000000000000007" y="20" width="120.66666666666669" height="19.333333333333329"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kAS-d5-HxR">
+                                        <rect key="frame" x="20" y="165" width="56" height="25.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view alpha="0.34999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qyo-17-zCk">
+                                        <rect key="frame" x="20" y="125.33333333333334" width="415" height="0.6666666666666714"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="BXJ-rg-7lQ"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expected Period" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oo4-Kd-mSv">
+                                        <rect key="frame" x="46.999999999999993" y="142" width="99.333333333333314" height="15.666666666666657"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar.badge" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="OZY-6r-sOo">
+                                        <rect key="frame" x="20" y="139.33333333333334" width="21.333333333333329" height="19.333333333333343"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="RSL-8Z-n3N"/>
+                                            <constraint firstAttribute="height" constant="20" id="mJt-xb-U3O"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjf-z9-c6r">
+                                        <rect key="frame" x="310" y="150.33333333333331" width="125" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="XuK-qi-O3S"/>
+                                            <constraint firstAttribute="width" constant="125" id="lbC-aZ-el1"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Log Period">
+                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="15"/>
+                                            <directionalEdgeInsets key="contentInsets" top="0.0" leading="18" bottom="0.0" trailing="18"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.99607843137254903" green="0.47843137254901957" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="XuK-qi-O3S"/>
-                                    <constraint firstAttribute="width" constant="125" id="lbC-aZ-el1"/>
+                                    <constraint firstItem="OZY-6r-sOo" firstAttribute="top" secondItem="qyo-17-zCk" secondAttribute="bottom" constant="14" id="3KB-vu-RgP"/>
+                                    <constraint firstAttribute="bottom" secondItem="kAS-d5-HxR" secondAttribute="bottom" constant="30" id="7iu-kD-kHo"/>
+                                    <constraint firstItem="ZbB-xp-tyV" firstAttribute="leading" secondItem="KiI-nJ-tbX" secondAttribute="leading" constant="20" id="9zb-6F-791"/>
+                                    <constraint firstItem="ZbB-xp-tyV" firstAttribute="top" secondItem="lyA-zA-4dJ" secondAttribute="bottom" constant="12" id="AFp-Bc-Vj9"/>
+                                    <constraint firstItem="qyo-17-zCk" firstAttribute="top" secondItem="ZbB-xp-tyV" secondAttribute="bottom" constant="16" id="BFc-tT-2TR"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZbB-xp-tyV" secondAttribute="trailing" constant="20" id="ECD-EE-3JN"/>
+                                    <constraint firstItem="lyA-zA-4dJ" firstAttribute="leading" secondItem="KiI-nJ-tbX" secondAttribute="leading" constant="20" id="Evk-4z-e8P"/>
+                                    <constraint firstItem="Oo4-Kd-mSv" firstAttribute="centerY" secondItem="OZY-6r-sOo" secondAttribute="centerY" id="WXg-jP-LbG"/>
+                                    <constraint firstItem="kAS-d5-HxR" firstAttribute="top" secondItem="OZY-6r-sOo" secondAttribute="bottom" constant="5" id="Wv0-hh-AlQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="qyo-17-zCk" secondAttribute="trailing" constant="20" id="Yxk-2j-FTx"/>
+                                    <constraint firstItem="qyo-17-zCk" firstAttribute="leading" secondItem="KiI-nJ-tbX" secondAttribute="leading" constant="20" id="ZBG-f6-zQw"/>
+                                    <constraint firstItem="Oo4-Kd-mSv" firstAttribute="leading" secondItem="OZY-6r-sOo" secondAttribute="trailing" constant="7" id="a2p-Jk-KHX"/>
+                                    <constraint firstAttribute="trailing" secondItem="xjf-z9-c6r" secondAttribute="trailing" constant="20" id="dWm-D2-dIL"/>
+                                    <constraint firstItem="lyA-zA-4dJ" firstAttribute="top" secondItem="JLF-lI-kK0" secondAttribute="bottom" constant="4" id="gEb-X0-yng"/>
+                                    <constraint firstItem="xjf-z9-c6r" firstAttribute="bottom" secondItem="kAS-d5-HxR" secondAttribute="bottom" id="nXD-hj-bjh"/>
+                                    <constraint firstItem="JLF-lI-kK0" firstAttribute="leading" secondItem="KiI-nJ-tbX" secondAttribute="leading" constant="20" id="qh5-VV-Cgq"/>
+                                    <constraint firstItem="kAS-d5-HxR" firstAttribute="leading" secondItem="OZY-6r-sOo" secondAttribute="leading" id="s64-j5-mGP"/>
+                                    <constraint firstItem="OZY-6r-sOo" firstAttribute="leading" secondItem="KiI-nJ-tbX" secondAttribute="leading" constant="20" id="uFY-Df-KKc"/>
+                                    <constraint firstItem="JLF-lI-kK0" firstAttribute="top" secondItem="KiI-nJ-tbX" secondAttribute="top" constant="20" id="wgy-eD-Q2q"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Edit Period"/>
-                            </button>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.9882352941176471" green="0.93333333333333335" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ZbB-xp-tyV" firstAttribute="top" secondItem="JLF-lI-kK0" secondAttribute="bottom" constant="16" id="1nj-Cz-zAL"/>
-                            <constraint firstItem="kAS-d5-HxR" firstAttribute="top" secondItem="ZbB-xp-tyV" secondAttribute="bottom" constant="12" id="4wV-l6-3nz"/>
-                            <constraint firstItem="ZbB-xp-tyV" firstAttribute="leading" secondItem="aiV-Pd-smO" secondAttribute="leading" constant="40" id="5Bm-sU-HVh"/>
-                            <constraint firstItem="ZbB-xp-tyV" firstAttribute="centerX" secondItem="aiV-Pd-smO" secondAttribute="centerX" id="5l9-Z1-LEp"/>
-                            <constraint firstItem="lyA-zA-4dJ" firstAttribute="top" secondItem="aiV-Pd-smO" secondAttribute="top" constant="130" id="F0X-VN-7Rt"/>
-                            <constraint firstAttribute="trailing" secondItem="kAS-d5-HxR" secondAttribute="trailing" constant="20" id="HFy-kF-oAp"/>
-                            <constraint firstItem="xjf-z9-c6r" firstAttribute="top" secondItem="kAS-d5-HxR" secondAttribute="bottom" constant="20" id="IV8-zd-duR"/>
-                            <constraint firstItem="kAS-d5-HxR" firstAttribute="leading" secondItem="aiV-Pd-smO" secondAttribute="leading" constant="20" id="R8n-Qd-ocX"/>
-                            <constraint firstItem="lyA-zA-4dJ" firstAttribute="centerX" secondItem="aiV-Pd-smO" secondAttribute="centerX" id="RYT-Y0-glj"/>
-                            <constraint firstItem="JLF-lI-kK0" firstAttribute="centerX" secondItem="aiV-Pd-smO" secondAttribute="centerX" id="ayL-eO-eKr"/>
-                            <constraint firstItem="xjf-z9-c6r" firstAttribute="centerX" secondItem="aiV-Pd-smO" secondAttribute="centerX" id="hOg-Yy-uhN"/>
-                            <constraint firstItem="JLF-lI-kK0" firstAttribute="top" secondItem="lyA-zA-4dJ" secondAttribute="bottom" constant="16.333333333333314" id="qo2-Fl-oF1"/>
-                            <constraint firstAttribute="trailing" secondItem="ZbB-xp-tyV" secondAttribute="trailing" constant="40" id="xaA-UM-SeC"/>
+                            <constraint firstAttribute="trailing" secondItem="KiI-nJ-tbX" secondAttribute="trailing" constant="16" id="4ss-l7-Ji2"/>
+                            <constraint firstItem="KiI-nJ-tbX" firstAttribute="leading" secondItem="aiV-Pd-smO" secondAttribute="leading" constant="16" id="Nxo-js-zAh"/>
+                            <constraint firstItem="KiI-nJ-tbX" firstAttribute="top" secondItem="aiV-Pd-smO" secondAttribute="top" constant="120" id="RFJ-bm-4zG"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -80,27 +118,27 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="aiV-Pd-smO" secondAttribute="trailing" id="2hB-At-ptd"/>
                 <constraint firstAttribute="bottom" secondItem="aiV-Pd-smO" secondAttribute="bottom" id="3mP-DF-Jyv"/>
-                <constraint firstItem="7Uk-73-W3E" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="K1G-vA-fAs"/>
                 <constraint firstItem="aiV-Pd-smO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="KJV-hg-9Eu"/>
-                <constraint firstItem="7Uk-73-W3E" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Xma-nC-VdM"/>
                 <constraint firstItem="aiV-Pd-smO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ebD-Cg-Vnt"/>
-                <constraint firstAttribute="bottom" secondItem="7Uk-73-W3E" secondAttribute="bottom" id="qEz-g7-rjI"/>
-                <constraint firstAttribute="trailing" secondItem="7Uk-73-W3E" secondAttribute="trailing" id="sgQ-ta-JQw"/>
             </constraints>
             <size key="customSize" width="487" height="524"/>
             <connections>
+                <outlet property="calendarIcon" destination="OZY-6r-sOo" id="4uI-dR-y4L"/>
+                <outlet property="cellView" destination="aiV-Pd-smO" id="gUC-jZ-QzX"/>
                 <outlet property="cycleDayLabel" destination="lyA-zA-4dJ" id="sxm-1Q-z5P"/>
-                <outlet property="gradientOverlayView" destination="aiV-Pd-smO" id="gUC-jZ-QzX"/>
-                <outlet property="headerImageView" destination="7Uk-73-W3E" id="4UW-Tf-bva"/>
+                <outlet property="expectedLabel" destination="Oo4-Kd-mSv" id="8zs-u3-9yp"/>
+                <outlet property="headerCardView" destination="KiI-nJ-tbX" id="bPO-De-Z1H"/>
                 <outlet property="logPeriodButton" destination="xjf-z9-c6r" id="Kyk-6M-vpm"/>
                 <outlet property="phaseLabel" destination="JLF-lI-kK0" id="IvQ-Yg-1WX"/>
                 <outlet property="predictionLabel" destination="kAS-d5-HxR" id="nYS-67-5vf"/>
                 <outlet property="quoteLabel" destination="ZbB-xp-tyV" id="2gU-mV-VQf"/>
+                <outlet property="separatorView" destination="qyo-17-zCk" id="BU5-h5-y8K"/>
             </connections>
             <point key="canvasLocation" x="-74.045801526717554" y="316.90140845070425"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="calendar.badge" catalog="system" width="128" height="114"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

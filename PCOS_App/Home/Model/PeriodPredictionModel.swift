@@ -45,9 +45,12 @@ struct PeriodPrediction {
                 let overdue = abs(days)
                 return "Period is \(overdue) day\(overdue == 1 ? "" : "s") late"
             }
-//            let confidenceNote = confidence == .low ? " (low confidence)" : ""
-//            return "Next period in ~\(days) day\(days == 1 ? "" : "s")\(confidenceNote)"
-            return "Next period in ~\(days) day\(days == 1 ? "" : "s")"
+            if let date = predictedStartDate {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "MMM d"
+                return formatter.string(from: date)
+            }
+            return "\(days) day\(days == 1 ? "" : "s")"
         }
     }
 
