@@ -102,21 +102,23 @@ class WorkoutViewController: UIViewController {
                 
             } else if sectionIndex == 1 {
                 // My Routines - horizontal scrolling cards
+                let isEmpty = UserRoutineDataStore.shared.loadAll().isEmpty
+                
                 let itemSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(200),
-                    heightDimension: .absolute(170)
+                    widthDimension: isEmpty ? .fractionalWidth(1.0) : .absolute(160),
+                    heightDimension: .absolute(150)
                 )
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 
                 let groupSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(200),
+                    widthDimension: isEmpty ? .fractionalWidth(1.0) : .absolute(160),
                     heightDimension: .absolute(150)
                 )
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .groupPaging
+                section.orthogonalScrollingBehavior = isEmpty ? .none : .groupPaging
                 section.interGroupSpacing = 12
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 10, trailing: 16)
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
                 section.boundarySupplementaryItems = [headerItem]
                 return section
                 

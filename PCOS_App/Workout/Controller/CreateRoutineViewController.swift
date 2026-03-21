@@ -106,8 +106,8 @@ class CreateRoutineViewController: UIViewController {
                 
                 // FIXED: Estimated duration calculation
                 let totalDuration = routineExercises.reduce(0) { total, ex in
-                    if ex.exercise.isCardio {
-                        // For cardio: use durationSeconds (default or user-inputted)
+                    if ex.exercise.isTimeBased {
+                        // For cardio/yoga/mobility: use durationSeconds (default or user-inputted)
                         return total + (ex.durationSeconds ?? 0)
                     } else {
                         // For strength exercises:
@@ -127,7 +127,7 @@ class CreateRoutineViewController: UIViewController {
     
     private func formatDuration(_ seconds: Int) -> String {
             let minutes = seconds / 60
-            if minutes > 60 {
+            if minutes >= 60 {
                 let hours = minutes / 60
                 let remainingMinutes = minutes % 60
                 return "\(hours)h \(remainingMinutes)m"
@@ -135,14 +135,24 @@ class CreateRoutineViewController: UIViewController {
             return "\(minutes)m"
         }
     
-
     @IBAction func showAddExerciseOnTap(_ sender: UIButton) {
         performSegue(withIdentifier: "showAddExercise", sender: nil)
     }
     
     
-    
     @IBAction func saveRoutineButton(_ sender: UIBarButtonItem) {
+        // Enforce max routines limit globally for user-generated content
+        if UserRoutineDataStore.shared.loadAll().count >= 7 {
+            let limitAlert = UIAlertController(
+                title: "Limit Reached",
+                message: "You can only save up to 7 custom routines. Please delete an older routine before creating a new one.",
+                preferredStyle: .alert
+            )
+            limitAlert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(limitAlert, animated: true)
+            return
+        }
+
         // 1. Validate routine name
             guard let name = routineNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
                   !name.isEmpty else {
@@ -170,15 +180,16 @@ class CreateRoutineViewController: UIViewController {
             }
 
             // 3. Create routine
+            let usedImages = UserRoutineDataStore.shared.loadAll().compactMap { $0.thumbnailImageName }
             let routine = Routine(
                 id: UUID(),
                 name: name,
                 exercises: routineExercises,
-                thumbnailImageName: RoutineImageProvider.random(),
+                thumbnailImageName: RoutineImageProvider.uniqueImage(usedImages: usedImages),
                 routineDescription: nil
             )
 
-            // 4. Save to manager (FIXED: now uses addRoutine)
+            // 4. Save to manager 
             UserRoutineDataStore.shared.save(routine)
             
             // 5. Show success message
@@ -229,15 +240,15 @@ class CreateRoutineViewController: UIViewController {
         print("📥 Received \(exercises.count) exercises")
         
         let newRoutineExercises = exercises.map { exercise in
-            if exercise.isCardio {
-                print("🏃 Adding cardio: \(exercise.name)")
+            if exercise.isTimeBased {
+                print("🏃 Adding time-based: \(exercise.name)")
                 return RoutineExercise(
                     exercise: exercise,
                     numberOfSets: 1,
                     reps: 0,
                     weightKg: 0,
                     restTimerSeconds: nil,
-                    durationSeconds: 600,
+                    durationSeconds: exercise.isYoga ? 60 : 600,
                     notes: nil
                 )
             } else {

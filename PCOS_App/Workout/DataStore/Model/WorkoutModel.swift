@@ -342,16 +342,22 @@ class WorkoutSessionManager {
 
 struct RoutineImageProvider {
     static let images = [
-        "routine_91", "routine_101", "routine_111",
-        "routine_121", "routine_131", "routine_141",
-        "routine_151"
+//        "routine_91", "routine_101", "routine_111",
+//        "routine_121", "routine_131", "routine_141",
+//        "routine_151"
+        "routine_911", "routine_1011", "routine_1111",
+        "routine_1211", "routine_1311", "routine_1411",
+        "routine_1511"
     ]
     
     static func random() -> String {
         images.randomElement()!
     }
     
-
+    static func uniqueImage(usedImages: [String]) -> String {
+        let available = images.filter { !usedImages.contains($0) }
+        return available.randomElement() ?? images.randomElement()!
+    }
 }
 struct ResumePoint {
     let exerciseIndex: Int
