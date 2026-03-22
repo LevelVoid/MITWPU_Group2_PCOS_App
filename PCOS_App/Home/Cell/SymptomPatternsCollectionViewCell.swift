@@ -45,6 +45,9 @@ class SymptomPatternsCollectionViewCell:
             contentView.layer.cornerRadius = 20
             contentView.backgroundColor = UIColor.systemBackground
             contentView.layer.masksToBounds = true
+            
+            SymptomImage.layer.cornerRadius = 12
+            SymptomImage.clipsToBounds = true
 
             // Legend colors
             menstrualView.backgroundColor = Phase.menstrual.backgroundColor.withAlphaComponent(0.5)
@@ -261,8 +264,28 @@ class SymptomPatternsCollectionViewCell:
             // Keep the 3 most recent cycles (newest-first input)
             self.cycles = Array(cycles.prefix(3))
             
-            NameLabel.text = symptom.name
-            SymptomImage.image = UIImage(named: symptom.icon)
+            NameLabel.numberOfLines = 0
+            
+            let nameAttrs: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 17, weight: .medium),
+                .foregroundColor: UIColor.label
+            ]
+            let categoryAttrs: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 13, weight: .regular),
+                .foregroundColor: UIColor.secondaryLabel
+            ]
+            
+            let attrString = NSMutableAttributedString(string: symptom.name + "\n", attributes: nameAttrs)
+            attrString.append(NSAttributedString(string: symptom.category, attributes: categoryAttrs))
+            
+            NameLabel.attributedText = attrString
+            
+            // Resolve canonical icon from SymptomCategory to avoid legacy CoreData mismatch
+            let canonicalIcon = SymptomCategory.allCategories
+                .flatMap { $0.items }
+                .first(where: { $0.name == symptom.name })?.icon ?? symptom.icon
+                
+            SymptomImage.image = UIImage(named: canonicalIcon)
 
             for i in 0..<StartDateLabels.count {
                 if i < self.cycles.count {

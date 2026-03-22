@@ -334,13 +334,13 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     
     func createSignalsSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(160),
-            heightDimension: .absolute(190)
+            widthDimension: .absolute(135),
+            heightDimension: .absolute(155)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(160),
-            heightDimension: .absolute(190)
+            widthDimension: .estimated(135),
+            heightDimension: .absolute(155)
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
@@ -860,7 +860,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             let displaySignal = displaySignals[signalIndex]
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
             switch displaySignal {
-            case .symptom(let signal):
+            case .symptom(let signal, _):
                 let navController = storyboard.instantiateViewController(
                     withIdentifier: "SymptomStoryNavigationController"
                 ) as! UINavigationController

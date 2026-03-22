@@ -29,13 +29,23 @@ final class Signal01ViewController: UIViewController {
         card1View.layer.cornerRadius = 16
         card2View.layer.cornerRadius = 16
         illustrationImageView.contentMode = .scaleAspectFit
+        
+        // Prevent unusually large assets from blowing up the stack view
+        let heightConstraint = illustrationImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 200)
+        heightConstraint.isActive = true
     }
 
     private func bindData() {
         title = signal.signalTitle
         headingLabel.text = signal.infoHeading
         paragraph1Label.text = signal.scientificReasons.first
-        paragraph2Label.text = signal.scientificReasons.dropFirst().first
+        
+        let secondReason = signal.scientificReasons.dropFirst().first
+        paragraph2Label.text = secondReason
+        
+        // Hide the second card if there is no second paragraph data
+        card2View.isHidden = (secondReason == nil || secondReason!.isEmpty)
+        
         illustrationImageView.image = UIImage(named: signal.signalIllustration)
     }
 

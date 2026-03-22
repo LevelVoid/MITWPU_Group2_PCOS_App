@@ -226,7 +226,7 @@ extension SymptomLoggerViewController: UICollectionViewDelegate {
         )
         
         let sectionBackground = NSCollectionLayoutDecorationItem.background(elementKind: "SectionBackground")
-        sectionBackground.contentInsets = NSDirectionalEdgeInsets(top: 44, leading: 10, bottom: 8, trailing: 10)
+        sectionBackground.contentInsets = NSDirectionalEdgeInsets(top: 44, leading: 8, bottom: 8, trailing: 8)
         section.decorationItems = [sectionBackground]
         
         // Add section header

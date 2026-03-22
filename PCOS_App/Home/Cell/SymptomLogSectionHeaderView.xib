@@ -25,9 +25,9 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="510-Xe-7Oo" secondAttribute="trailing" constant="12" id="CE3-ep-KyI"/>
+                <constraint firstAttribute="trailing" secondItem="510-Xe-7Oo" secondAttribute="trailing" constant="8" id="CE3-ep-KyI"/>
                 <constraint firstItem="510-Xe-7Oo" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="15" id="JEm-2b-52n"/>
-                <constraint firstItem="510-Xe-7Oo" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="12" id="dPA-K4-XLg"/>
+                <constraint firstItem="510-Xe-7Oo" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="8" id="dPA-K4-XLg"/>
             </constraints>
             <connections>
                 <outlet property="SymptomSectionLabel" destination="510-Xe-7Oo" id="tui-7e-Ubw"/>

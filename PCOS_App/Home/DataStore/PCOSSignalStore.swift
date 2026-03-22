@@ -28,7 +28,20 @@ struct PCOSSignalStore {
         bloatingPCOSSignal,
         constipationPCOSSignal,
         diarrheaPCOSSignal,
-        gasPCOSSignal
+        gasPCOSSignal,
+        skinTagsPCOSSignal,
+        
+        lightFlowPCOSSignal,
+        mediumFlowPCOSSignal,
+        heavyFlowPCOSSignal,
+        superHeavyFlowPCOSSignal,
+        
+        dryDischargePCOSSignal,
+        stickyDischargePCOSSignal,
+        creamyDischargePCOSSignal,
+        wateryDischargePCOSSignal,
+        eggWhiteDischargePCOSSignal,
+        unusualDischargePCOSSignal
     ]
 
     static func signal(for symptomName: String) -> PCOSSignal? {

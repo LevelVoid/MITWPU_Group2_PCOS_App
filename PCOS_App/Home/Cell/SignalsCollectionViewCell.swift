@@ -33,6 +33,7 @@ class SignalsCollectionViewCell: UICollectionViewCell {
         
         IconBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         SignalsImage.translatesAutoresizingMaskIntoConstraints = false
+        SignalsImage.clipsToBounds = true
         SignalsLabel.translatesAutoresizingMaskIntoConstraints = false
         CategoryLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -40,31 +41,34 @@ class SignalsCollectionViewCell: UICollectionViewCell {
         IconBackgroundView.layer.cornerRadius = 16
         IconBackgroundView.clipsToBounds = true
         
-        SignalsLabel.font = .systemFont(ofSize: 20, weight: .medium)
-        SignalsLabel.textColor = .black
-        SignalsLabel.numberOfLines = 1
+        SignalsImage.layer.cornerRadius = 16
+        SignalsImage.clipsToBounds = true
         
-        CategoryLabel.font = .systemFont(ofSize: 13, weight: .regular)
+        SignalsLabel.font = .systemFont(ofSize: 15, weight: .semibold)
+        SignalsLabel.textColor = .black
+        SignalsLabel.numberOfLines = 2
+        
+        CategoryLabel.font = .systemFont(ofSize: 12, weight: .regular)
         CategoryLabel.textColor = .darkGray
         
         NSLayoutConstraint.activate([
-            IconBackgroundView.topAnchor.constraint(equalTo: SignalsCardView.topAnchor, constant: 8),
-            IconBackgroundView.leadingAnchor.constraint(equalTo: SignalsCardView.leadingAnchor, constant: 8),
-            IconBackgroundView.trailingAnchor.constraint(equalTo: SignalsCardView.trailingAnchor, constant: -8),
-            IconBackgroundView.heightAnchor.constraint(equalToConstant: 110),
+            IconBackgroundView.topAnchor.constraint(equalTo: SignalsCardView.topAnchor, constant: 10),
+            IconBackgroundView.leadingAnchor.constraint(equalTo: SignalsCardView.leadingAnchor, constant: 10),
+            IconBackgroundView.trailingAnchor.constraint(equalTo: SignalsCardView.trailingAnchor, constant: -10),
+            IconBackgroundView.heightAnchor.constraint(equalTo: SignalsCardView.heightAnchor, multiplier: 0.58),
             
             SignalsImage.topAnchor.constraint(equalTo: IconBackgroundView.topAnchor),
             SignalsImage.leadingAnchor.constraint(equalTo: IconBackgroundView.leadingAnchor),
             SignalsImage.trailingAnchor.constraint(equalTo: IconBackgroundView.trailingAnchor),
             SignalsImage.bottomAnchor.constraint(equalTo: IconBackgroundView.bottomAnchor),
             
-            SignalsLabel.topAnchor.constraint(equalTo: IconBackgroundView.bottomAnchor, constant: 12),
-            SignalsLabel.leadingAnchor.constraint(equalTo: SignalsCardView.leadingAnchor, constant: 12),
-            SignalsLabel.trailingAnchor.constraint(equalTo: SignalsCardView.trailingAnchor, constant: -12),
+            SignalsLabel.topAnchor.constraint(equalTo: IconBackgroundView.bottomAnchor, constant: 8),
+            SignalsLabel.leadingAnchor.constraint(equalTo: SignalsCardView.leadingAnchor, constant: 10),
+            SignalsLabel.trailingAnchor.constraint(equalTo: SignalsCardView.trailingAnchor, constant: -10),
             
-            CategoryLabel.topAnchor.constraint(equalTo: SignalsLabel.bottomAnchor, constant: 4),
-            CategoryLabel.leadingAnchor.constraint(equalTo: SignalsCardView.leadingAnchor, constant: 12),
-            CategoryLabel.trailingAnchor.constraint(equalTo: SignalsCardView.trailingAnchor, constant: -12)
+            CategoryLabel.topAnchor.constraint(equalTo: SignalsLabel.bottomAnchor, constant: 2),
+            CategoryLabel.leadingAnchor.constraint(equalTo: SignalsCardView.leadingAnchor, constant: 10),
+            CategoryLabel.trailingAnchor.constraint(equalTo: SignalsCardView.trailingAnchor, constant: -10)
         ])
     }
     
@@ -72,8 +76,14 @@ class SignalsCollectionViewCell: UICollectionViewCell {
         if let symptom = symptom {
             SignalsLabel.text = symptom.name
             CategoryLabel.text = symptom.category
-            SignalsImage.image = UIImage(named: symptom.icon)
-            SignalsImage.contentMode = .center // center it in the pink box
+            
+            // Resolve canonical icon from SymptomCategory to avoid legacy CoreData mismatch
+            let canonicalIcon = SymptomCategory.allCategories
+                .flatMap { $0.items }
+                .first(where: { $0.name == symptom.name })?.icon ?? symptom.icon
+                
+            SignalsImage.image = UIImage(named: canonicalIcon)
+            SignalsImage.contentMode = .scaleAspectFill // fills the 144x144 square
             IconBackgroundView.isHidden = false
         } else {
             SignalsLabel.text = signal.signalTitle
