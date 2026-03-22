@@ -225,7 +225,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         // 1. Logged Symptoms First
         for symptom in selectedSymptoms {
             if let signal = PCOSSignalStore.signal(for: symptom.name) {
-                displaySignals.append(.symptom(signal))
+                displaySignals.append(.symptom(signal, symptom))
             }
         }
         
@@ -334,13 +334,13 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     
     func createSignalsSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(105),
-            heightDimension: .absolute(120)
+            widthDimension: .absolute(160),
+            heightDimension: .absolute(190)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(105),
-            heightDimension: .absolute(120)
+            widthDimension: .estimated(160),
+            heightDimension: .absolute(190)
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
@@ -747,8 +747,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             switch displaySignal {
             case .phase(let phaseSignal, let cardType):
                 cell.configurePhase(phase: phaseSignal, cardType: cardType)
-            case .symptom(let symptomSignal):
-                cell.configure(with: symptomSignal)
+            case .symptom(let symptomSignal, let symptomItem):
+                cell.configure(with: symptomSignal, symptom: symptomItem)
             }
             return cell
             

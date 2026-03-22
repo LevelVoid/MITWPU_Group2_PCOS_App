@@ -25,8 +25,8 @@ struct SymptomCategory {
             SymptomItem(name: "Acne", icon: "AcneIcon",category: "Skin and Hair"),
             SymptomItem(name: "Hair Loss", icon: "HairLossIcon",category: "Skin and Hair"),
             SymptomItem(name: "Skin Darkening", icon: "SkinDarkeningIcon",category: "Skin and Hair"),
-            SymptomItem(name: "Hirsutism", icon: "HirutismIcon",category: "Skin and Hair"),
-            SymptomItem(name: "Skin Tags", icon: "HirutismIcon",category: "Skin and Hair")
+            SymptomItem(name: "Hirsutism", icon: "HirsuitismIcon",category: "Skin and Hair"),
+            SymptomItem(name: "Skin Tags", icon: "SkinTagsIcon",category: "Skin and Hair")
         ]),
         SymptomCategory(title: "Lifestyle", items: [
             SymptomItem(name: "Fatigue", icon: "FatigueIcon",category: "Lifestyle"),

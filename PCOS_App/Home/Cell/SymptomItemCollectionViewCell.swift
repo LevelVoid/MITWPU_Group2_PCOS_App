@@ -28,13 +28,12 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 20
         contentView.clipsToBounds = true
         
-        IconImage?.layer.cornerRadius = 50/2 // Will be 50x50, so half is 25
+        IconImage?.layer.cornerRadius = 16 // Rounded square instead of circle
         IconImage?.clipsToBounds = true
         IconImage?.contentMode = .scaleAspectFit
         IconImage?.backgroundColor = .white
         
         IconImage.clipsToBounds = true
-        IconImage.layer.cornerRadius = IconImage.bounds.width / 2
     }
     
     func configure(with symptom: SymptomItem, isSelected: Bool) {
