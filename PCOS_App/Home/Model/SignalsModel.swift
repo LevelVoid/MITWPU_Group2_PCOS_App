@@ -66,7 +66,7 @@ struct SupportCategoryAssets {
 
 
 enum DisplaySignal {
-    case symptom(PCOSSignal)
+    case symptom(PCOSSignal, SymptomItem?)
     case phase(PhaseSignal, PhaseCardType)
 }
 

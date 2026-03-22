@@ -20,10 +20,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="142" height="98"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AcneIcon" translatesAutoresizingMaskIntoConstraints="NO" id="lcU-FZ-5Oy">
-                                <rect key="frame" x="46" y="8" width="50" height="50"/>
+                                <rect key="frame" x="36" y="8" width="70" height="70"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="Hw4-N2-MeB"/>
-                                    <constraint firstAttribute="height" constant="50" id="VKG-rm-rq9"/>
+                                    <constraint firstAttribute="width" constant="70" id="Hw4-N2-MeB"/>
+                                    <constraint firstAttribute="height" constant="70" id="VKG-rm-rq9"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Onl-Bi-UBH">

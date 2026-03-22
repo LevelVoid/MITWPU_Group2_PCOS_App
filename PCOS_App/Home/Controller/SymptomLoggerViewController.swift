@@ -35,6 +35,9 @@ class SymptomLoggerViewController: UIViewController {
         
         setupCollectionView()
         preselectSymptoms()
+        
+        view.backgroundColor = UIColor(hex: "#FCEEED")
+        collectionView.backgroundColor = .clear
     }
     
     private func setupCollectionView() {
@@ -52,6 +55,10 @@ class SymptomLoggerViewController: UIViewController {
             withReuseIdentifier: "SymptomLogSectionHeaderView"
         )
         collectionView.collectionViewLayout = createCompositionalLayout()
+        
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewCompositionalLayout {
+            layout.register(SectionBackgroundDecorationView.self, forDecorationViewOfKind: "SectionBackground")
+        }
     }
     
     func setSelectedSymptoms(_ symptoms: [SymptomItem]) {
@@ -201,7 +208,7 @@ extension SymptomLoggerViewController: UICollectionViewDelegate {
         // Group size - 4 items horizontally
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),   // Full width
-            heightDimension: .absolute(120)           // Fixed height per row
+            heightDimension: .absolute(145)           // Fixed height per row
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
@@ -212,11 +219,15 @@ extension SymptomLoggerViewController: UICollectionViewDelegate {
         // Section
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(
-            top: 8,
-            leading: 10,
-            bottom: 16,
-            trailing: 10
+            top: 20,
+            leading: 16,
+            bottom: 24,
+            trailing: 16
         )
+        
+        let sectionBackground = NSCollectionLayoutDecorationItem.background(elementKind: "SectionBackground")
+        sectionBackground.contentInsets = NSDirectionalEdgeInsets(top: 44, leading: 8, bottom: 8, trailing: 8)
+        section.decorationItems = [sectionBackground]
         
         // Add section header
         let headerSize = NSCollectionLayoutSize(

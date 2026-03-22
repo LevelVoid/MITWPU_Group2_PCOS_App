@@ -42,9 +42,14 @@ class DayCircleCollectionViewCell: UICollectionViewCell {
         circleView.isHidden = false
         circleView.backgroundColor = day.phase.backgroundColor.withAlphaComponent(0.5)
 
-        if symptom != nil, let iconName = focusedSymptom?.icon {
+        if symptom != nil, let focused = focusedSymptom {
+            // Resolve canonical icon from SymptomCategory to avoid legacy CoreData mismatch
+            let canonicalIcon = SymptomCategory.allCategories
+                .flatMap { $0.items }
+                .first(where: { $0.name == focused.name })?.icon ?? focused.icon
+                
             // Use the original image (full-color) to display the symptom exactly as designed
-            let image = UIImage(named: iconName)?.withRenderingMode(.alwaysOriginal)
+            let image = UIImage(named: canonicalIcon)?.withRenderingMode(.alwaysOriginal)
             iconImageView.image = image
             iconImageView.isHidden = false
         } else {

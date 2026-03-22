@@ -1314,3 +1314,253 @@ let gasPCOSSignal = PCOSSignal(
         )
     ]
 )
+
+let skinTagsPCOSSignal = PCOSSignal(
+    symptomName: "Skin Tags",
+    signalTitle: "Understanding Skin Tags",
+    signalIllustration: "skin_tags",
+    infoHeading: "PCOS and Skin Tags",
+    scientificReasons: [
+        "Skin tags in PCOS are closely associated with insulin resistance. Excess insulin promotes the rapid growth of skin cells, leading to these small, benign skin growths.",
+        "They often appear alongside skin darkening (acanthosis nigricans) and are generally harmless but serve as an indicator of metabolic changes."
+    ],
+    appearanceHeading: "What do skin tags look like?",
+    appearanceDescriptions: [
+        "Small, soft, flesh-colored or slightly darker growths",
+        "Often hang off the skin by a thin stalk",
+        "Commonly found in areas with skin friction, such as the neck, armpits, groin, or under the breasts",
+        "Painless, though they can become irritated if rubbed by clothing"
+    ],
+    doctorDisclaimer: "If skin tags bleed, change shape, or cause discomfort, consult a dermatologist. Do not attempt to remove them yourself.",
+    supportHeading: "Support your body today",
+    supportActions: [
+        SupportAction(category: .dietNutrition, text: "Focus on a low-glycemic, balanced diet to improve insulin sensitivity and support metabolic health."),
+        SupportAction(category: .physicalCare, text: "Maintain regular physical activity, which helps regulate insulin levels and may prevent new skin tags from forming."),
+        SupportAction(category: .miscellaneous, text: "Wear loose, breathable clothing to reduce friction in areas where skin tags commonly appear."),
+        SupportAction(category: .physicalCare, text: "If removal is desired for cosmetic or comfort reasons, seek professional removal by a healthcare provider or dermatologist.")
+    ]
+)
+
+// MARK: - Flow Signals
+let lightFlowPCOSSignal = PCOSSignal(
+    symptomName: "Light",
+    signalTitle: "Understanding Light Flow",
+    signalIllustration: "flow",
+    infoHeading: "PCOS and Light Bleeding",
+    scientificReasons: [
+        "Light flow or prolonged spotting in PCOS often results from anovulation (cycles where an egg is not released).",
+        "Without ovulation, the uterine lining doesn't build up normally or shed cleanly, leading to lighter, irregular bleeding rather than a true menstrual period."
+    ],
+    appearanceHeading: "What does light flow mean?",
+    appearanceDescriptions: [
+        "Minimal bleeding that may only require a panty liner",
+        "Sometimes appears pinkish or light brown",
+        "Can occur frequently throughout the month as irregular spotting"
+    ],
+    doctorDisclaimer: "Consult a healthcare provider if light flow happens continuously over many weeks without a true period.",
+    supportHeading: "Support your cycle health",
+    supportActions: [
+        SupportAction(category: .miscellaneous, text: "Track the consistency and length of light bleeding daily."),
+        SupportAction(category: .dietNutrition, text: "Ensure a balanced diet rich in micronutrients to support hormonal production.")
+    ]
+)
+
+let mediumFlowPCOSSignal = PCOSSignal(
+    symptomName: "Medium",
+    signalTitle: "Standard Menstrual Flow",
+    signalIllustration: "flow",
+    infoHeading: "Why medium flow matters",
+    scientificReasons: [
+        "A regular, medium flow typically indicates a healthy shedding of the uterine lining (endometrium).",
+        "In PCOS, achieving a normal medium flow is often a positive sign of hormonal balance, regular ovulation, and healthy endometrial shedding."
+    ],
+    appearanceHeading: "Typical medium flow",
+    appearanceDescriptions: [
+        "Requires changing a regular pad or tampon every 3-4 hours",
+        "Standard red bleeding without large, heavy clots",
+        "Typically lasts 4 to 6 days"
+    ],
+    doctorDisclaimer: "If your periods are regular and medium but you experience severe pain, consult your physician.",
+    supportHeading: "Maintain your hormonal balance",
+    supportActions: [
+        SupportAction(category: .dietNutrition, text: "Maintain a stable blood sugar to continue supporting regular ovulatory cycles."),
+        SupportAction(category: .physicalCare, text: "Keep a consistent exercise routine to support insulin sensitivity.")
+    ]
+)
+
+let heavyFlowPCOSSignal = PCOSSignal(
+    symptomName: "Heavy",
+    signalTitle: "Understanding Heavy Flow",
+    signalIllustration: "flow",
+    infoHeading: "PCOS and Heavy Bleeding",
+    scientificReasons: [
+        "In PCOS, missed periods allow the uterine lining (endometrium) to thicken significantly over time due to prolonged estrogen exposure without the countering effect of progesterone.",
+        "When the thickened lining finally sheds, the bleeding can be unusually heavy and prolonged."
+    ],
+    appearanceHeading: "Signs of heavy flow",
+    appearanceDescriptions: [
+        "Requiring frequent pad/tampon changes (every 1-2 hours)",
+        "Passing blood clots that are larger than a quarter",
+        "Bleeding that lasts longer than 7 days"
+    ],
+    doctorDisclaimer: "If heavy bleeding persists longer than a week or interferes with daily life, it requires medical evaluation.",
+    supportHeading: "Support your body today",
+    supportActions: [
+        SupportAction(category: .dietNutrition, text: "Increase your iron intake with leafy greens, red meat, or lentils to prevent anemia."),
+        SupportAction(category: .physicalCare, text: "Rest and use a heating pad if you experience severe cramping alongside heavy flow.")
+    ]
+)
+
+let superHeavyFlowPCOSSignal = PCOSSignal(
+    symptomName: "Super Heavy",
+    signalTitle: "Managing Super Heavy Flow",
+    signalIllustration: "flow",
+    infoHeading: "Extreme Endometrial Shedding",
+    scientificReasons: [
+        "Prolonged anovulation causes significant endometrial buildup. Super heavy bleeding is the body's aggressive attempt to clear this thickened lining.",
+        "Constant high estrogen levels without progesterone can result in severe bleeding episodes known as anovulatory bleeding."
+    ],
+    appearanceHeading: "When bleeding represents a concern",
+    appearanceDescriptions: [
+        "Soaking through heavy-absorbency pads or tampons in under an hour",
+        "Passing very large clots repeatedly",
+        "Feeling dizzy, extremely fatigued, or short of breath due to blood loss"
+    ],
+    doctorDisclaimer: "Seek immediate medical attention if you are soaking through a pad or tampon every hour for two or more consecutive hours, or if you feel weak and dizzy.",
+    supportHeading: "Immediate Care",
+    supportActions: [
+        SupportAction(category: .miscellaneous, text: "Rest heavily and stay hydrated to maintain blood volume."),
+        SupportAction(category: .dietNutrition, text: "Consider eating iron-dense foods or taking prescribed supplements to combat rapid iron loss.")
+    ]
+)
+
+// MARK: - Discharge Signals
+let dryDischargePCOSSignal = PCOSSignal(
+    symptomName: "Dry",
+    signalTitle: "Understanding Dry Days",
+    signalIllustration: "discharge",
+    infoHeading: "PCOS and Cervical Dryness",
+    scientificReasons: [
+        "Dryness is typical early in the menstrual cycle when estrogen levels are low.",
+        "In PCOS, hindered follicular development and irregular cycles can lead to extended, unusually long periods of dryness before any ovulation is attempted."
+    ],
+    appearanceHeading: "What it feels like",
+    appearanceDescriptions: [
+        "No visible cervical fluid on underwear or toilet paper",
+        "Feeling dry or slightly damp at the vaginal opening"
+    ],
+    doctorDisclaimer: "Prolonged extreme dryness causing pain or severe irritation should be evaluated by a doctor.",
+    supportHeading: "Vaginal and Hormonal Health",
+    supportActions: [
+        SupportAction(category: .miscellaneous, text: "Stay well-hydrated, as overall body hydration can mildly influence cervical fluid volume.")
+    ]
+)
+
+let stickyDischargePCOSSignal = PCOSSignal(
+    symptomName: "Sticky",
+    signalTitle: "Sticky Cervical Fluid",
+    signalIllustration: "discharge",
+    infoHeading: "The Transition Phase",
+    scientificReasons: [
+        "As estrogen begins to rise, cervical fluid develops a sticky or tacky texture. This marks the early transition period before the highly fertile window opens."
+    ],
+    appearanceHeading: "Visual and tactile signs",
+    appearanceDescriptions: [
+        "Tacky, crumbly, or paste-like consistency",
+        "Does not stretch without breaking easily",
+        "Often cloudy, whitish, or slightly yellow"
+    ],
+    doctorDisclaimer: "If sticky discharge becomes thoroughly yellow or green with an odor, it may indicate a vaginal infection.",
+    supportHeading: "Track your shift",
+    supportActions: [
+        SupportAction(category: .miscellaneous, text: "Note this consistency as a sign that your body is beginning to increase estrogen production.")
+    ]
+)
+
+let creamyDischargePCOSSignal = PCOSSignal(
+    symptomName: "Creamy",
+    signalTitle: "Creamy Cervical Fluid",
+    signalIllustration: "discharge",
+    infoHeading: "Closing in on Fertility",
+    scientificReasons: [
+        "Creamy discharge occurs as estrogen levels continue to rise. It normally indicates that ovulation may be approaching, signaling that the body is preparing an optimal environment."
+    ],
+    appearanceHeading: "How to identify it",
+    appearanceDescriptions: [
+        "Lotion-like or creamy consistency",
+        "White or slightly yellow",
+        "Leaves a slightly wet, cool feeling on your underwear"
+    ],
+    doctorDisclaimer: "Heavy, clumpy white discharge resembling cottage cheese accompanied by extreme itching may be a yeast infection.",
+    supportHeading: "Approaching Ovulation",
+    supportActions: [
+        SupportAction(category: .miscellaneous, text: "Log this daily as you may see a transition into highly fertile fluid soon.")
+    ]
+)
+
+let wateryDischargePCOSSignal = PCOSSignal(
+    symptomName: "Watery",
+    signalTitle: "Watery Cervical Fluid",
+    signalIllustration: "discharge",
+    infoHeading: "PCOS and Watery Fluid",
+    scientificReasons: [
+        "Watery fluid is highly fertile cervical mucus driven by peaking estrogen levels just before ovulation.",
+        "In PCOS, your body may gear up for ovulation multiple times without actually releasing an egg, which means you might experience multiple recurring phases of watery fluid in one long cycle."
+    ],
+    appearanceHeading: "Identifying watery fluid",
+    appearanceDescriptions: [
+        "Clear or slightly cloudy",
+        "Feels very wet or slippery",
+        "Runs like water or drips easily"
+    ],
+    doctorDisclaimer: "Excessive watery fluid with an unusual odor may occasionally be linked to Bacterial Vaginosis.",
+    supportHeading: "Fertility Awareness",
+    supportActions: [
+        SupportAction(category: .miscellaneous, text: "Be prepared with panty liners as watery fluid can easily soak through underwear.")
+    ]
+)
+
+let eggWhiteDischargePCOSSignal = PCOSSignal(
+    symptomName: "Egg White",
+    signalTitle: "Egg White Cervical Fluid",
+    signalIllustration: "discharge",
+    infoHeading: "Peak Fertility Indicator",
+    scientificReasons: [
+        "This is the most fertile type of cervical fluid. It is caused by peak estrogen right before ovulation and contains channels that guide and nourish sperm, providing a highly supportive environment."
+    ],
+    appearanceHeading: "How it looks and feels",
+    appearanceDescriptions: [
+        "Clear, stretchy, and extremely slippery",
+        "Resembles raw egg whites",
+        "Can easily stretch an inch or more between your fingers without breaking"
+    ],
+    doctorDisclaimer: "If you have PCOS, remember that 'egg white' fluid means your body is attempting to ovulate, but irregular cycles mean the egg release isn't guaranteed.",
+    supportHeading: "Tracking the peak",
+    supportActions: [
+        SupportAction(category: .miscellaneous, text: "If you are trying to conceive, this signifies your most highly fertile window.")
+    ]
+)
+
+let unusualDischargePCOSSignal = PCOSSignal(
+    symptomName: "Unusual",
+    signalTitle: "Unusual Vaginal Discharge",
+    signalIllustration: "discharge",
+    infoHeading: "Identifying Infections",
+    scientificReasons: [
+        "Changes in color, odor, or texture often indicate an infection such as yeast or bacterial vaginosis (BV).",
+        "Individuals with PCOS who have elevated blood sugar or insulin resistance may be slightly more prone to recurring yeast infections."
+    ],
+    appearanceHeading: "Concerning symptoms",
+    appearanceDescriptions: [
+        "Gray, green, or frothy appearance",
+        "Extremely clumpy (like cottage cheese)",
+        "Strong, fishy, or unpleasant odor",
+        "Accompanied by itching, burning, soreness, or redness"
+    ],
+    doctorDisclaimer: "Always consult a healthcare professional for an accurate diagnosis and appropriate treatment of unusual discharge.",
+    supportHeading: "Restoring Balance",
+    supportActions: [
+        SupportAction(category: .dietNutrition, text: "Incorporate probiotic-rich foods like yogurt or kefir to support a healthy vaginal microbiome."),
+        SupportAction(category: .miscellaneous, text: "Wear breathable cotton underwear and avoid scented feminine hygiene products.")
+    ]
+)

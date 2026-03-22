@@ -233,7 +233,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         // 1. Logged Symptoms First
         for symptom in selectedSymptoms {
             if let signal = PCOSSignalStore.signal(for: symptom.name) {
-                displaySignals.append(.symptom(signal))
+                displaySignals.append(.symptom(signal, symptom))
             }
         }
         
@@ -341,13 +341,13 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     
     func createSignalsSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(105),
-            heightDimension: .absolute(120)
+            widthDimension: .absolute(135),
+            heightDimension: .absolute(155)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(105),
-            heightDimension: .absolute(120)
+            widthDimension: .estimated(135),
+            heightDimension: .absolute(155)
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
@@ -757,8 +757,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             switch displaySignal {
             case .phase(let phaseSignal, let cardType):
                 cell.configurePhase(phase: phaseSignal, cardType: cardType)
-            case .symptom(let symptomSignal):
-                cell.configure(with: symptomSignal)
+            case .symptom(let symptomSignal, let symptomItem):
+                cell.configure(with: symptomSignal, symptom: symptomItem)
             }
             return cell
             
@@ -870,7 +870,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             let displaySignal = displaySignals[signalIndex]
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
             switch displaySignal {
-            case .symptom(let signal):
+            case .symptom(let signal, _):
                 let navController = storyboard.instantiateViewController(
                     withIdentifier: "SymptomStoryNavigationController"
                 ) as! UINavigationController

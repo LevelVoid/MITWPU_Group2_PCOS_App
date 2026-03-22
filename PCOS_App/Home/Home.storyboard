@@ -359,7 +359,7 @@
                             <constraint firstItem="OOA-AE-fe9" firstAttribute="trailing" secondItem="Lbu-xo-ugm" secondAttribute="trailing" constant="20" id="9Kp-30-4H4"/>
                             <constraint firstItem="Lbu-xo-ugm" firstAttribute="top" secondItem="OOA-AE-fe9" secondAttribute="top" constant="20" id="B2E-uJ-DHL"/>
                             <constraint firstItem="NMG-mH-yD0" firstAttribute="leading" secondItem="OOA-AE-fe9" secondAttribute="leading" constant="20" id="Mik-5p-Jq5"/>
-                            <constraint firstItem="NMG-mH-yD0" firstAttribute="bottom" secondItem="OOA-AE-fe9" secondAttribute="bottom" id="Q8P-uz-PQQ"/>
+                            <constraint firstItem="OOA-AE-fe9" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="NMG-mH-yD0" secondAttribute="bottom" id="Q8P-uz-PQQ"/>
                             <constraint firstAttribute="trailing" secondItem="NMG-mH-yD0" secondAttribute="trailing" constant="20" id="Tn1-5q-8dg"/>
                         </constraints>
                     </view>
