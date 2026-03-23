@@ -10,14 +10,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="SymptomItemCollectionViewCell" reuseIdentifier="SymptomItemCollectionViewCell" id="gTV-IL-0wX" customClass="SymptomItemCollectionViewCell" customModule="PCOS_App" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="142" height="98"/>
+            <rect key="frame" x="0.0" y="0.0" width="142" height="163"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="142" height="98"/>
+                <rect key="frame" x="0.0" y="0.0" width="142" height="163"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uao-HM-WtK">
-                        <rect key="frame" x="0.0" y="0.0" width="142" height="98"/>
+                        <rect key="frame" x="0.0" y="0.0" width="142" height="163"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AcneIcon" translatesAutoresizingMaskIntoConstraints="NO" id="lcU-FZ-5Oy">
                                 <rect key="frame" x="36" y="8" width="70" height="70"/>
@@ -27,7 +27,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Onl-Bi-UBH">
-                                <rect key="frame" x="0.0" y="62" width="142" height="28"/>
+                                <rect key="frame" x="0.0" y="82" width="142" height="73"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -53,16 +53,16 @@
                 <constraint firstAttribute="bottom" secondItem="uao-HM-WtK" secondAttribute="bottom" id="AxX-7c-SCz"/>
                 <constraint firstItem="uao-HM-WtK" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="nWh-h3-LWe"/>
             </constraints>
-            <size key="customSize" width="142" height="98"/>
+            <size key="customSize" width="142" height="163"/>
             <connections>
                 <outlet property="IconImage" destination="lcU-FZ-5Oy" id="GMO-cs-FSd"/>
                 <outlet property="cell" destination="uao-HM-WtK" id="N6C-4G-tdH"/>
                 <outlet property="symptomLabel" destination="Onl-Bi-UBH" id="uaT-YU-qbe"/>
             </connections>
-            <point key="canvasLocation" x="-143.5114503816794" y="113.38028169014085"/>
+            <point key="canvasLocation" x="-143.5114503816794" y="136.26760563380282"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="AcneIcon" width="240" height="240"/>
+        <image name="AcneIcon" width="1024" height="1024"/>
     </resources>
 </document>

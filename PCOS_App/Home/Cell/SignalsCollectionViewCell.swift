@@ -37,24 +37,24 @@ class SignalsCollectionViewCell: UICollectionViewCell {
         SignalsLabel.translatesAutoresizingMaskIntoConstraints = false
         CategoryLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        IconBackgroundView.backgroundColor = UIColor(hex: "#FCEEED")
-        IconBackgroundView.layer.cornerRadius = 16
+        IconBackgroundView.backgroundColor = UIColor(hex: "#fee6f3")
+        //IconBackgroundView.layer.cornerRadius = 16
         IconBackgroundView.clipsToBounds = true
         
-        SignalsImage.layer.cornerRadius = 16
+        //SignalsImage.layer.cornerRadius = 16
         SignalsImage.clipsToBounds = true
         
-        SignalsLabel.font = .systemFont(ofSize: 15, weight: .semibold)
-        SignalsLabel.textColor = .black
-        SignalsLabel.numberOfLines = 2
+        SignalsLabel.font = .systemFont(ofSize: 12, weight: .medium)
+        SignalsLabel.textColor = .label
+        SignalsLabel.numberOfLines = 0
         
         CategoryLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        CategoryLabel.textColor = .darkGray
+        CategoryLabel.textColor = .secondaryLabel
         
         NSLayoutConstraint.activate([
-            IconBackgroundView.topAnchor.constraint(equalTo: SignalsCardView.topAnchor, constant: 10),
-            IconBackgroundView.leadingAnchor.constraint(equalTo: SignalsCardView.leadingAnchor, constant: 10),
-            IconBackgroundView.trailingAnchor.constraint(equalTo: SignalsCardView.trailingAnchor, constant: -10),
+            IconBackgroundView.topAnchor.constraint(equalTo: SignalsCardView.topAnchor, constant: 0),
+            IconBackgroundView.leadingAnchor.constraint(equalTo: SignalsCardView.leadingAnchor, constant: 0),
+            IconBackgroundView.trailingAnchor.constraint(equalTo: SignalsCardView.trailingAnchor, constant: 0),
             IconBackgroundView.heightAnchor.constraint(equalTo: SignalsCardView.heightAnchor, multiplier: 0.58),
             
             SignalsImage.topAnchor.constraint(equalTo: IconBackgroundView.topAnchor),
@@ -83,13 +83,13 @@ class SignalsCollectionViewCell: UICollectionViewCell {
                 .first(where: { $0.name == symptom.name })?.icon ?? symptom.icon
                 
             SignalsImage.image = UIImage(named: canonicalIcon)
-            SignalsImage.contentMode = .scaleAspectFill // fills the 144x144 square
+            //SignalsImage.contentMode = .scaleAspectFill // fills the 144x144 square
             IconBackgroundView.isHidden = false
         } else {
             SignalsLabel.text = signal.signalTitle
             CategoryLabel.text = ""
             SignalsImage.image = UIImage(named: signal.signalIllustration)
-            SignalsImage.contentMode = .scaleAspectFill
+            //SignalsImage.contentMode = .scaleAspectFill
             IconBackgroundView.isHidden = true
         }
         SignalsImage.tintColor = .clear
@@ -104,7 +104,7 @@ class SignalsCollectionViewCell: UICollectionViewCell {
         SignalsImage.image = UIImage(
             named: phase.cardImage(for: cardType)
         )
-        SignalsImage.contentMode = .scaleAspectFill
+        //SignalsImage.contentMode = .scaleAspectFit
         IconBackgroundView.isHidden = true
         SignalsImage.tintColor = .clear
     }
