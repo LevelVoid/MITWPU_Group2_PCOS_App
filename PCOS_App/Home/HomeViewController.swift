@@ -278,9 +278,11 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         }
         
         // 2. Phase Cards Second
-        let currentPhase = getCurrentPhase()
-        let phaseSignals = PhaseSignalDataStore.shared.signals(for: currentPhase)
-        displaySignals.append(contentsOf: phaseSignals)
+        if selectedSymptoms.isEmpty {
+            let currentPhase = getCurrentPhase()
+            let phaseSignals = PhaseSignalDataStore.shared.signals(for: currentPhase)
+            displaySignals.append(contentsOf: phaseSignals)
+        }
     }
 
     private func getCurrentPhase() -> Phase {
@@ -381,13 +383,13 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
     
     func createSignalsSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(135),
-            heightDimension: .absolute(155)
+            widthDimension: .absolute(105),
+            heightDimension: .absolute(120)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(135),
-            heightDimension: .absolute(155)
+            widthDimension: .estimated(105),
+            heightDimension: .absolute(120)
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,

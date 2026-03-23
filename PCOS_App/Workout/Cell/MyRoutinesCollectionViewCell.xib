@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,13 +20,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="160" height="150"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gBD-9s-9RO">
-                                <rect key="frame" x="0.0" y="0.0" width="160" height="90"/>
+                                <rect key="frame" x="4" y="8" width="152" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="90" id="r4S-ai-ipV"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Routine Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V75-om-OLM">
-                                <rect key="frame" x="16" y="94" width="144" height="21"/>
+                                <rect key="frame" x="16" y="102" width="144" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="rd0-Ht-sWv"/>
                                 </constraints>
@@ -35,53 +34,55 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JT6-5g-J93">
-                                <rect key="frame" x="16" y="119" width="70" height="20"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9tV-nP-ZCs">
+                                <rect key="frame" x="16" y="127" width="70" height="20"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="gxn-9L-Qm9">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Adm-We-Qys">
                                         <rect key="frame" x="4" y="4" width="62" height="12"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="sbc-79-5IQ">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Yco-jP-YqQ">
                                                 <rect key="frame" x="0.0" y="0.66666666666666607" width="15" height="10.666666666666668"/>
-                                                <color key="tintColor" red="0.99607843137254903" green="0.47843137254901957" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="tintColor" red="0.54117647059999996" green="0.35294117650000001" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="15" id="nBO-91-lBQ"/>
+                                                    <constraint firstAttribute="width" constant="15" id="8KX-fc-d2y"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLR-vY-em3">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Rx-XJ-9dw">
                                                 <rect key="frame" x="18" y="0.0" width="44" height="12"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" red="0.54117647059999996" green="0.35294117650000001" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="sbc-79-5IQ" firstAttribute="centerY" secondItem="gxn-9L-Qm9" secondAttribute="centerY" id="Ojs-og-5AN"/>
-                                            <constraint firstItem="bLR-vY-em3" firstAttribute="top" secondItem="gxn-9L-Qm9" secondAttribute="top" id="RYN-WE-E1W"/>
-                                            <constraint firstAttribute="bottom" secondItem="bLR-vY-em3" secondAttribute="bottom" id="xu6-55-CB7"/>
+                                            <constraint firstAttribute="bottom" secondItem="2Rx-XJ-9dw" secondAttribute="bottom" id="pFq-LF-7IN"/>
+                                            <constraint firstItem="Yco-jP-YqQ" firstAttribute="centerY" secondItem="Adm-We-Qys" secondAttribute="centerY" id="ujN-gh-YuM"/>
+                                            <constraint firstItem="2Rx-XJ-9dw" firstAttribute="top" secondItem="Adm-We-Qys" secondAttribute="top" id="xec-ES-UcT"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="gxn-9L-Qm9" firstAttribute="leading" secondItem="JT6-5g-J93" secondAttribute="leading" constant="4" id="Axb-vA-RnO"/>
-                                    <constraint firstItem="gxn-9L-Qm9" firstAttribute="top" secondItem="JT6-5g-J93" secondAttribute="top" constant="4" id="B2l-cr-GP1"/>
-                                    <constraint firstAttribute="bottom" secondItem="gxn-9L-Qm9" secondAttribute="bottom" constant="4" id="Ch7-A4-k7M"/>
-                                    <constraint firstAttribute="trailing" secondItem="gxn-9L-Qm9" secondAttribute="trailing" constant="4" id="FyA-OP-jWn"/>
-                                    <constraint firstAttribute="height" constant="20" id="PMp-xV-7Lp"/>
-                                    <constraint firstAttribute="width" constant="70" id="iLL-tq-K4W"/>
+                                    <constraint firstAttribute="trailing" secondItem="Adm-We-Qys" secondAttribute="trailing" constant="4" id="Dx0-XR-slW"/>
+                                    <constraint firstItem="Adm-We-Qys" firstAttribute="top" secondItem="9tV-nP-ZCs" secondAttribute="top" constant="4" id="KdV-96-VEI"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="OTJ-PP-6oV"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="Q8Z-lm-vkI"/>
+                                    <constraint firstAttribute="bottom" secondItem="Adm-We-Qys" secondAttribute="bottom" constant="4" id="WxC-B7-Dv1"/>
+                                    <constraint firstAttribute="width" constant="70" id="o43-PD-mR1"/>
+                                    <constraint firstAttribute="height" constant="20" id="pW5-fl-tPR"/>
+                                    <constraint firstItem="Adm-We-Qys" firstAttribute="leading" secondItem="9tV-nP-ZCs" secondAttribute="leading" constant="4" id="wfH-bU-ouh"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="gBD-9s-9RO" secondAttribute="trailing" id="49J-6p-WWt"/>
+                            <constraint firstItem="9tV-nP-ZCs" firstAttribute="leading" secondItem="oOp-lA-weA" secondAttribute="leading" constant="16" id="3x1-3s-gUw"/>
+                            <constraint firstAttribute="trailing" secondItem="gBD-9s-9RO" secondAttribute="trailing" constant="4" id="49J-6p-WWt"/>
                             <constraint firstItem="V75-om-OLM" firstAttribute="top" secondItem="gBD-9s-9RO" secondAttribute="bottom" constant="4" id="6Aw-CJ-7LZ"/>
-                            <constraint firstItem="gBD-9s-9RO" firstAttribute="top" secondItem="oOp-lA-weA" secondAttribute="top" id="LBC-1E-XR5"/>
-                            <constraint firstItem="JT6-5g-J93" firstAttribute="leading" secondItem="oOp-lA-weA" secondAttribute="leading" constant="16" id="Lvk-wP-WFU"/>
-                            <constraint firstItem="gBD-9s-9RO" firstAttribute="leading" secondItem="oOp-lA-weA" secondAttribute="leading" id="OYi-xW-7R2"/>
+                            <constraint firstItem="9tV-nP-ZCs" firstAttribute="top" secondItem="V75-om-OLM" secondAttribute="bottom" constant="4" id="JRD-Vs-Ev4"/>
+                            <constraint firstItem="gBD-9s-9RO" firstAttribute="top" secondItem="oOp-lA-weA" secondAttribute="top" constant="8" id="LBC-1E-XR5"/>
+                            <constraint firstItem="gBD-9s-9RO" firstAttribute="leading" secondItem="oOp-lA-weA" secondAttribute="leading" constant="4" id="OYi-xW-7R2"/>
                             <constraint firstAttribute="trailing" secondItem="V75-om-OLM" secondAttribute="trailing" id="Wsk-6G-ALr"/>
-                            <constraint firstItem="JT6-5g-J93" firstAttribute="top" secondItem="V75-om-OLM" secondAttribute="bottom" constant="4" id="Xck-yw-OZ3"/>
                             <constraint firstItem="V75-om-OLM" firstAttribute="leading" secondItem="oOp-lA-weA" secondAttribute="leading" constant="16" id="jJG-9s-TNO"/>
                         </constraints>
                     </view>
@@ -96,19 +97,16 @@
             </constraints>
             <size key="customSize" width="311" height="339"/>
             <connections>
-                <outlet property="EstimatedTimeLabelOutlet" destination="bLR-vY-em3" id="ZVu-Dd-F1C"/>
+                <outlet property="EstimatedTimeLabelOutlet" destination="2Rx-XJ-9dw" id="Ggv-Yv-K5H"/>
                 <outlet property="MyRoutinesImageOutlet" destination="gBD-9s-9RO" id="fvf-mA-cid"/>
                 <outlet property="containerView" destination="oOp-lA-weA" id="m4l-SF-Fx2"/>
                 <outlet property="routineNameOutlet" destination="V75-om-OLM" id="PZU-eD-ILe"/>
-                <outlet property="timeTagContainer" destination="JT6-5g-J93" id="tLc-rc-rpS"/>
+                <outlet property="timeTagContainer" destination="9tV-nP-ZCs" id="AHf-LT-BBV"/>
             </connections>
             <point key="canvasLocation" x="338.16793893129767" y="120.77464788732395"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="clock" catalog="system" width="128" height="123"/>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>
