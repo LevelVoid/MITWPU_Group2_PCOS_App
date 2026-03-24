@@ -25,7 +25,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             super.viewDidLoad()
 
             tabBarItem.title = "Today"
-            title = "Today"
+            navigationItem.title = ""
 
             let bgColor = UIColor(hex: "#FCEEED")
             collectionView.backgroundColor = bgColor
@@ -234,10 +234,11 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         private func setupChatbotButton() {
             chatbotButton = UIButton(type: .system)
             chatbotButton.translatesAutoresizingMaskIntoConstraints = false
-            let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium)
-            chatbotButton.setImage(UIImage(systemName: "message.fill", withConfiguration: config), for: .normal)
-            chatbotButton.tintColor = .white
-            chatbotButton.backgroundColor = UIColor(hex: "#FE7A96")
+            let icon = UIImage(named: "chat3")?.withRenderingMode(.alwaysOriginal)
+                    chatbotButton.setImage(icon, for: .normal)
+                    chatbotButton.imageView?.contentMode = .scaleAspectFill
+                    chatbotButton.clipsToBounds = true
+                    chatbotButton.backgroundColor = UIColor(hex: "#ffffff")
             chatbotButton.layer.cornerRadius = 28
             chatbotButton.layer.shadowColor = UIColor.black.cgColor
             chatbotButton.layer.shadowOpacity = 0.25
@@ -328,7 +329,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
                 case 4: return self.createSleepCardSection()
                 case 5: return self.createCycleSection()
                 case 6: return self.createSymptomPatternsSection()
-                case 7: return self.createAboutPCOSSection()
+                //case 7: return self.createAboutPCOSSection()
                 default: return nil
                 }
             }
@@ -393,7 +394,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
 
         func createSleepCardSection() -> NSCollectionLayoutSection {
             let itemSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
+                widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(150))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(170))
@@ -636,7 +637,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             case 6:
                 return (CycleDataStore.shared.hasTwoCycles && allSymptoms.count > 0)
                     ? allSymptoms.count : 1
-            case 7: return aboutPCOSArticles.count
+            //case 7: return aboutPCOSArticles.count
             default: return 0
             }
         }
@@ -725,12 +726,12 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
                 }
                 return cell
 
-            case 7:
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: "about_pcos_cell", for: indexPath
-                ) as! AboutPCOSCollectionViewCell
-                cell.configure(with: aboutPCOSArticles[indexPath.item])
-                return cell
+//            case 7:
+//                let cell = collectionView.dequeueReusableCell(
+//                    withReuseIdentifier: "about_pcos_cell", for: indexPath
+//                ) as! AboutPCOSCollectionViewCell
+//                cell.configure(with: aboutPCOSArticles[indexPath.item])
+//                return cell
 
             default:
                 return UICollectionViewCell()
@@ -755,7 +756,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             case 4: headerView.configureHeader(with: "Sleep Patterns")
             case 5: headerView.configureHeader(with: "Cycle Trends")
             case 6: headerView.configureHeader(with: "Symptom Patterns")
-            case 7: headerView.configureHeader(with: "About PCOS")
+            //case 7: headerView.configureHeader(with: "About PCOS")
             default: headerView.configureHeader(with: "")
             }
             return headerView
@@ -795,12 +796,12 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
                 }
             case 4:
                 performSegue(withIdentifier: "showSleepReport", sender: nil)
-            case 7:
-                let article = aboutPCOSArticles[indexPath.item]
-                let vc = storyboard?.instantiateViewController(
-                    withIdentifier: "AboutPCOSViewController") as! AboutPCOSViewController
-                vc.section = article
-                navigationController?.pushViewController(vc, animated: true)
+//            case 7:
+//                let article = aboutPCOSArticles[indexPath.item]
+//                let vc = storyboard?.instantiateViewController(
+//                    withIdentifier: "AboutPCOSViewController") as! AboutPCOSViewController
+//                vc.section = article
+//                navigationController?.pushViewController(vc, animated: true)
             default:
                 break
             }

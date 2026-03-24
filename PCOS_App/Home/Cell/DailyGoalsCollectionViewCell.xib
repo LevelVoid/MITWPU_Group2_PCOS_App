@@ -41,7 +41,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="will help to digest meal, and all" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uzg-xf-EI1">
-                                                <rect key="frame" x="9.9999999999999858" y="74" width="248.66666666666663" height="95"/>
+                                                <rect key="frame" x="15.999999999999986" y="74" width="236.66666666666663" height="95"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -58,9 +58,9 @@
                                             <constraint firstItem="CWu-jV-5Yu" firstAttribute="leading" secondItem="GI8-wP-wnm" secondAttribute="leading" constant="16" id="2Xt-LI-zqy"/>
                                             <constraint firstItem="UWE-D3-yhC" firstAttribute="top" secondItem="GI8-wP-wnm" secondAttribute="top" constant="16" id="3UU-9Y-h2i"/>
                                             <constraint firstItem="Uzg-xf-EI1" firstAttribute="top" secondItem="CWu-jV-5Yu" secondAttribute="bottom" constant="8" id="3vV-mi-da5"/>
-                                            <constraint firstAttribute="trailing" secondItem="Uzg-xf-EI1" secondAttribute="trailing" constant="10" id="GtT-0f-lSF"/>
+                                            <constraint firstAttribute="trailing" secondItem="Uzg-xf-EI1" secondAttribute="trailing" constant="16" id="GtT-0f-lSF"/>
                                             <constraint firstItem="CWu-jV-5Yu" firstAttribute="top" secondItem="GI8-wP-wnm" secondAttribute="top" constant="16" id="SKq-qD-KNj"/>
-                                            <constraint firstItem="Uzg-xf-EI1" firstAttribute="leading" secondItem="GI8-wP-wnm" secondAttribute="leading" constant="10" id="ViF-UI-plW"/>
+                                            <constraint firstItem="Uzg-xf-EI1" firstAttribute="leading" secondItem="GI8-wP-wnm" secondAttribute="leading" constant="16" id="ViF-UI-plW"/>
                                             <constraint firstItem="nTo-DZ-cLp" firstAttribute="leading" secondItem="CWu-jV-5Yu" secondAttribute="trailing" constant="8" id="ch1-3Q-Vs0"/>
                                             <constraint firstAttribute="bottom" secondItem="Uzg-xf-EI1" secondAttribute="bottom" constant="16" id="iFK-b7-DCC"/>
                                             <constraint firstItem="nTo-DZ-cLp" firstAttribute="top" secondItem="GI8-wP-wnm" secondAttribute="top" constant="30" id="ky3-DO-Zv6"/>
@@ -93,7 +93,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="will help to digest meal, and all" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U2L-yb-xnw">
-                                                <rect key="frame" x="10.000000000000014" y="74" width="248.33333333333337" height="95"/>
+                                                <rect key="frame" x="16.000000000000014" y="74" width="236.33333333333337" height="95"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -101,11 +101,10 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="U2L-yb-xnw" firstAttribute="leading" secondItem="zk1-07-7do" secondAttribute="leading" constant="10" id="0i4-a8-fkw"/>
+                                            <constraint firstItem="U2L-yb-xnw" firstAttribute="leading" secondItem="zk1-07-7do" secondAttribute="leading" constant="16" id="0i4-a8-fkw"/>
                                             <constraint firstItem="U2L-yb-xnw" firstAttribute="top" secondItem="TId-6w-4Cd" secondAttribute="bottom" constant="8" id="1hz-Pl-p0k"/>
                                             <constraint firstAttribute="trailing" secondItem="C5j-Rz-IgV" secondAttribute="trailing" constant="8" id="4wE-PD-ehS"/>
-                                            <constraint firstItem="U2L-yb-xnw" firstAttribute="top" secondItem="TId-6w-4Cd" secondAttribute="bottom" constant="8" id="6H6-az-QHK"/>
-                                            <constraint firstAttribute="trailing" secondItem="U2L-yb-xnw" secondAttribute="trailing" constant="10" id="85e-uA-L5s"/>
+                                            <constraint firstAttribute="trailing" secondItem="U2L-yb-xnw" secondAttribute="trailing" constant="16" id="85e-uA-L5s"/>
                                             <constraint firstItem="TId-6w-4Cd" firstAttribute="top" secondItem="zk1-07-7do" secondAttribute="top" constant="16" id="IpA-TJ-4YL"/>
                                             <constraint firstItem="C5j-Rz-IgV" firstAttribute="top" secondItem="zk1-07-7do" secondAttribute="top" constant="30" id="ND4-No-3lV"/>
                                             <constraint firstItem="8FZ-MI-zLN" firstAttribute="leading" secondItem="TId-6w-4Cd" secondAttribute="trailing" constant="8" id="dj2-ix-75p"/>
