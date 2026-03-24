@@ -363,6 +363,7 @@ class WorkoutPlayerViewController: UIViewController {
             repetitionsText.text="Duration"
         } else {
             RepsOutlet.text = "\(currentSet.reps)"
+            repetitionsText.text = "Reps"
             repetitionsText.isHidden=false
         }
 
@@ -426,21 +427,28 @@ class WorkoutPlayerViewController: UIViewController {
     @IBAction func endWorkoutTapped(_ sender: UIBarButtonItem) {
                 print("end workout tap")
         
-     //if alert is not needed simply uncomment this
-//        timer?.invalidate()
-//            finishWorkoutAndShowSummary()
-            
         let alert = UIAlertController(
                 title: "End Workout?",
-                message: "Are you sure you want to end this workout?",
+                message: "Your progress will be saved. You can resume this workout later.",
                 preferredStyle: .alert
             )
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             alert.addAction(UIAlertAction(title: "End Workout", style: .destructive) { [weak self] _ in
-                self?.timer?.invalidate()
-                self?.markRemainingSetsAsSkipped()
-                self?.finishWorkoutAndShowSummary()
+                guard let self = self else { return }
+                self.timer?.invalidate()
+                
+                // Save partial elapsed time for time-based exercises
+                if self.activeWorkout.exercises[self.exerciseIndex].exercise.isTimeBased {
+                    let duration = self.workoutExercise.sets.first?.durationSeconds ?? 0
+                    let completedTime = max(0, duration - self.elapsedSeconds)
+                    self.activeWorkout.exercises[self.exerciseIndex].sets[0].elapsedSeconds = completedTime
+                }
+                
+                // Save partial progress WITHOUT marking remaining sets as skipped
+                // so they remain .notStarted and are cleanly resumable
+                self.saveProgressState()
+                self.dismiss(animated: true)
             })
             
             present(alert, animated: true)
@@ -493,14 +501,51 @@ class WorkoutPlayerViewController: UIViewController {
             exercise.sets[0].completionState = state
             activeWorkout.exercises[exerciseIndex] = exercise
             updateExerciseProgressBar()
-            goToRestBeforeNext()
+            
+            if exerciseIndex == activeWorkout.exercises.count - 1 {
+                finishWorkoutAndShowSummary()
+            } else {
+                showNextExerciseTransition()
+            }
             return
         }
 
         exercise.sets[currentSetIndex].completionState = state
         activeWorkout.exercises[exerciseIndex] = exercise
         updateExerciseProgressBar()
-        performSegue(withIdentifier: "RestTimeStart", sender: nil)
+        
+        if currentSetIndex == exercise.sets.count - 1 {
+            if exerciseIndex == activeWorkout.exercises.count - 1 {
+                finishWorkoutAndShowSummary()
+            } else {
+                showNextExerciseTransition()
+            }
+        } else {
+            performSegue(withIdentifier: "RestTimeStart", sender: nil)
+        }
+    }
+    
+    private func showNextExerciseTransition() {
+        let nextIndex = exerciseIndex + 1
+        guard nextIndex < activeWorkout.exercises.count else { return }
+        
+        let nextWorkoutExercise = activeWorkout.exercises[nextIndex]
+        
+        let transitionVC = NextExerciseTransitionViewController()
+        transitionVC.nextExerciseName = nextWorkoutExercise.exercise.name
+        transitionVC.nextExerciseGif = nextWorkoutExercise.exercise.gifImage
+        transitionVC.currentExerciseIndex = nextIndex + 1
+        transitionVC.totalExercises = activeWorkout.exercises.count
+        transitionVC.modalPresentationStyle = .overFullScreen
+        transitionVC.modalTransitionStyle = .crossDissolve
+        
+        transitionVC.onTransitionFinished = { [weak self] in
+            // Move immediately since the transition took the place of rest
+            self?.moveToNextExercise()
+        }
+        
+        updateProgressBar()
+        present(transitionVC, animated: true)
     }
 
 

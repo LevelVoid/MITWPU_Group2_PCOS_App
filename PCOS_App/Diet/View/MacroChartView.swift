@@ -12,6 +12,11 @@ struct MacroChartView: View {
     let dataPoints: [MacroChartDataPoint]
     let macroType: MacroType
     let timeRange: MacroChartTimeRange
+    let goalValue: Double
+    private var dailyTotal: Double {
+        dataPoints.map { $0.value }.reduce(0, +)
+    }
+
     
     private var currentAverage: Double {
         guard !dataPoints.isEmpty else { return 0 }
@@ -19,18 +24,11 @@ struct MacroChartView: View {
     }
     
     private var shouldShowGoalLine: Bool {
-        return timeRange != .day
+        return true
     }
     
     private var displayGoalValue: Double {
-        if timeRange == .week {
-            return macroType.recommendedValue
-        } else if timeRange == .month || timeRange == .year {
-            // For month and year, show 60% of goal
-            return macroType.recommendedValue * 0.6
-        } else {
-            return macroType.recommendedValue
-        }
+        return goalValue
     }
     
     private var maxChartValue: Double {
@@ -45,12 +43,12 @@ struct MacroChartView: View {
             // Header with current average and unit
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Average")
+                    Text(timeRange == .day ? "Today's Total" : "Average")
                         .font(.caption)
                         .foregroundColor(.secondary)
                     
                     HStack(alignment: .firstTextBaseline, spacing: 2) {
-                        Text("\(Int(currentAverage))")
+                        Text("\(Int(timeRange == .day ? dailyTotal : currentAverage))")
                             .font(.system(size: 24, weight: .bold))
                         Text(macroType.unit)
                             .font(.system(size: 14, weight: .medium))
@@ -60,7 +58,7 @@ struct MacroChartView: View {
                 
                 Spacer()
                 
-                // Goal info (only show for week, month, year)
+                // Goal info
                 if shouldShowGoalLine {
                     VStack(alignment: .trailing, spacing: 2) {
                         Text("Goal")
@@ -82,20 +80,31 @@ struct MacroChartView: View {
             
             // Chart
             if dataPoints.isEmpty {
-                VStack {
+                VStack(alignment: .center, spacing: 12) {
                     Spacer()
-                    Text("No data available")
+                    Image(systemName: timeRange == .day ? "fork.knife" : "chart.bar.xaxis")
+                        .font(.system(size: 36))
+                        .foregroundColor(.secondary.opacity(0.4))
+                    Text(timeRange == .day ? "No meals logged today" : "No data available")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
+                    if timeRange == .day {
+                        Text("Add a meal to see your \(macroType.title.lowercased()) breakdown")
+                            .font(.caption)
+                            .foregroundColor(.secondary.opacity(0.7))
+                            .multilineTextAlignment(.center)
+                    }
                     Spacer()
                 }
+                .frame(maxWidth: .infinity) 
                 .frame(height: 220)
             } else {
                 Chart {
                     ForEach(dataPoints) { dataPoint in
                         BarMark(
                             x: .value("Period", dataPoint.label),
-                            y: .value("Amount", dataPoint.value)
+                            y: .value("Amount", dataPoint.value),
+                            width: timeRange == .day ? .fixed(28) : .automatic
                         )
                         .foregroundStyle(macroType.color.gradient)
                         .cornerRadius(6)

@@ -17,8 +17,8 @@ class AddExerciseViewController: UIViewController {
     // Data source
     private var exercises: [Exercise] = []
     private var filteredExercises : [Exercise] = []
-    // Optional: track selected exercise IDs if you need them later
-    private var selectedExerciseIDs = Set<UUID>()
+    // track selected exercise IDs
+    var selectedExerciseIDs = Set<UUID>()
     
     //(([Exercise]) -> Void)? means: "A function that takes an array of Exercise and returns nothing"
     var onExercisesSelected: (([Exercise]) -> Void)?

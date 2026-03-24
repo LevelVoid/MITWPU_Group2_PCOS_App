@@ -50,8 +50,10 @@ class SleepCardCollectionViewCell: UICollectionViewCell {
         hideAll()
 
         if let data = healthKitSleep {
-            let h = Int(data.totalHours)
-            let m = Int((data.totalHours - Double(h)) * 60)
+            // Cap at 24h to handle HealthKit overlapping-sample anomalies
+            let capped = min(data.totalHours, 24.0)
+            let h = Int(capped)
+            let m = Int((capped - Double(h)) * 60)
             
             hoursValueLabel.text = "\(h)"
             minutesValueLabel.text = "\(m)"
@@ -108,11 +110,12 @@ class SleepCardCollectionViewCell: UICollectionViewCell {
 
     private func observation(for hours: Int) -> String {
         switch hours {
-        case ..<5: return "You slept very little. Try to rest more tonight."
-        case 5..<6: return "Below recommended sleep. Aim for 7–8 hours."
-        case 6..<7: return "Almost there! A little more sleep would help."
-        case 7...8: return "Great sleep! This supports hormone balance."
-        default: return "You slept more than usual. Listen to your body."
+        case ..<5: return "A short night — try to catch up with an earlier bedtime."
+        case 5..<6: return "A bit below target. Aim for 7–8 hours tonight."
+        case 6..<7: return "Almost there! Just a little more rest would help."
+        case 7...8: return "Nicely done! A solid night of rest."
+        case 9...10: return "A long rest — your body may have needed it."
+        default: return "Extra recovery sleep. Consistency helps energy levels."
         }
     }
 
@@ -127,10 +130,10 @@ class SleepCardCollectionViewCell: UICollectionViewCell {
 
     private func tipText(for quality: SleepQuality) -> String {
         switch quality {
-        case .poor: return "Try to get at least 7h of sleep."
-        case .fair: return "You're close! An extra 30–60 min helps."
-        case .good: return "Great sleep! Helps hormone balance."
-        case .excellent: return "Excellent sleep supports energy levels."
+        case .poor: return "A short night — try to wind down earlier tonight."
+        case .fair: return "You're close! An extra 30–60 min makes a difference."
+        case .good: return "Great sleep! You should feel refreshed today."
+        case .excellent: return "Excellent rest — your body will thank you!"
         }
     }
 }

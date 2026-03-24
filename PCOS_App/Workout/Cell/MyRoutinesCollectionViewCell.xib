@@ -20,13 +20,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="160" height="150"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gBD-9s-9RO">
-                                <rect key="frame" x="4" y="8" width="152" height="90"/>
+                                <rect key="frame" x="4" y="8" width="152" height="85"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="90" id="r4S-ai-ipV"/>
+                                    <constraint firstAttribute="height" constant="85" id="r4S-ai-ipV"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Routine Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V75-om-OLM">
-                                <rect key="frame" x="16" y="102" width="144" height="21"/>
+                                <rect key="frame" x="16" y="95" width="144" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="rd0-Ht-sWv"/>
                                 </constraints>
@@ -35,7 +35,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9tV-nP-ZCs">
-                                <rect key="frame" x="16" y="127" width="70" height="20"/>
+                                <rect key="frame" x="16" y="119" width="70" height="20"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Adm-We-Qys">
                                         <rect key="frame" x="4" y="4" width="62" height="12"/>
@@ -78,8 +78,8 @@
                         <constraints>
                             <constraint firstItem="9tV-nP-ZCs" firstAttribute="leading" secondItem="oOp-lA-weA" secondAttribute="leading" constant="16" id="3x1-3s-gUw"/>
                             <constraint firstAttribute="trailing" secondItem="gBD-9s-9RO" secondAttribute="trailing" constant="4" id="49J-6p-WWt"/>
-                            <constraint firstItem="V75-om-OLM" firstAttribute="top" secondItem="gBD-9s-9RO" secondAttribute="bottom" constant="4" id="6Aw-CJ-7LZ"/>
-                            <constraint firstItem="9tV-nP-ZCs" firstAttribute="top" secondItem="V75-om-OLM" secondAttribute="bottom" constant="4" id="JRD-Vs-Ev4"/>
+                            <constraint firstItem="V75-om-OLM" firstAttribute="top" secondItem="gBD-9s-9RO" secondAttribute="bottom" constant="2" id="6Aw-CJ-7LZ"/>
+                            <constraint firstItem="9tV-nP-ZCs" firstAttribute="top" secondItem="V75-om-OLM" secondAttribute="bottom" constant="3" id="JRD-Vs-Ev4"/>
                             <constraint firstItem="gBD-9s-9RO" firstAttribute="top" secondItem="oOp-lA-weA" secondAttribute="top" constant="8" id="LBC-1E-XR5"/>
                             <constraint firstItem="gBD-9s-9RO" firstAttribute="leading" secondItem="oOp-lA-weA" secondAttribute="leading" constant="4" id="OYi-xW-7R2"/>
                             <constraint firstAttribute="trailing" secondItem="V75-om-OLM" secondAttribute="trailing" id="Wsk-6G-ALr"/>

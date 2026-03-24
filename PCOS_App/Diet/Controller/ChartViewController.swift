@@ -17,6 +17,7 @@ class ChartViewController: UIViewController {
     @IBOutlet weak var chartView: UIView!
     @IBOutlet weak var contentView: UIView!
     var macroType: MacroType = .protein
+    private var goalValue: Double = 0.0
        private var dataPoints: [MacroChartDataPoint] = []
        private var hostingController: UIHostingController<MacroChartView>?
        private var currentTimeRange: MacroChartTimeRange = .week
@@ -26,7 +27,26 @@ class ChartViewController: UIViewController {
            super.viewDidLoad()
            
            print("📊 ChartViewController loaded with macroType: \(macroType.title)")
-           
+           // Compute personalized goal from GoalEngine
+           if let user = ProfileService.shared.buildUserProfile() {
+               let goals = GoalEngine.generateGoals(for: user)
+               switch macroType {
+               case .protein:
+                   goalValue = Double(Int(round(Double(goals.diet.startingProteinGrams) / 5.0)) * 5)
+               case .carbs:
+                   goalValue = Double(Int(round(Double(goals.diet.startingCarbsGrams) / 5.0)) * 5)
+               case .fats:
+                   goalValue = Double(Int(round(Double(goals.diet.startingFatsGrams) / 5.0)) * 5)
+               }
+           } else {
+               // Fallback if profile not available
+               switch macroType {
+               case .protein: goalValue = 90
+               case .carbs:   goalValue = 180
+               case .fats:    goalValue = 60
+               }
+           }
+
            title = macroType.title
            navigationController?.navigationBar.prefersLargeTitles = false
            
@@ -192,7 +212,8 @@ class ChartViewController: UIViewController {
            let swiftUIView = MacroChartView(
                dataPoints: dataPoints,
                macroType: macroType,
-               timeRange: currentTimeRange
+               timeRange: currentTimeRange,
+               goalValue: goalValue
            )
            let hosting = UIHostingController(rootView: swiftUIView)
            
@@ -211,7 +232,8 @@ class ChartViewController: UIViewController {
            let swiftUIView = MacroChartView(
                dataPoints: dataPoints,
                macroType: macroType,
-               timeRange: currentTimeRange
+               timeRange: currentTimeRange,
+               goalValue: goalValue
            )
            hostingController?.rootView = swiftUIView
        }

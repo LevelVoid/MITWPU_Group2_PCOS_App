@@ -29,14 +29,6 @@ enum MacroType {
         }
     }
     
-    var recommendedValue: Double {
-        switch self {
-        case .protein: return 90.0
-        case .carbs: return 180.0
-        case .fats: return 60.0
-        }
-    }
-    
     var unit: String { return "g" }
 }
 

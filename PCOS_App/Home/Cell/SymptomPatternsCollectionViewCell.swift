@@ -320,7 +320,16 @@ class SymptomPatternsCollectionViewCell:
             // Cancel previous to avoid race conditions
             currentInsightTask?.cancel()
             
-            // Generate insight dynamically
+            // Show cached insight immediately so text is visible without async delay
+            if let cached = SymptomInsightModel.shared.cachedInsight(for: symptom.name, cycles: cycles) {
+                insightLabel.text = cached
+                insightLabel.textColor = .darkGray
+            } else {
+                insightLabel.text = "Generating insight…"
+                insightLabel.textColor = .secondaryLabel
+            }
+            
+            // Generate/refresh insight asynchronously
             currentInsightTask = Task { [weak self] in
                 guard let self = self else { return }
                 do {

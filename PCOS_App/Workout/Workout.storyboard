@@ -884,12 +884,12 @@
                                     <constraint firstItem="qys-SN-NUF" firstAttribute="leading" secondItem="pqe-Sx-HWU" secondAttribute="leading" constant="16" id="qli-Gq-xib"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlB-zG-BrI">
-                                <rect key="frame" x="328" y="740" width="47" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlB-zG-BrI">
+                                <rect key="frame" x="328" y="740" width="47" height="47"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="47" id="Hv7-uC-COq"/>
-                                    <constraint firstAttribute="height" constant="35" id="reM-e5-jpA"/>
+                                    <constraint firstAttribute="height" constant="47" id="reM-e5-jpA"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <buttonConfiguration key="configuration" style="filled" image="plus" catalog="system">
@@ -1629,21 +1629,21 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="D5M-d4-TRP">
-                                                <rect key="frame" x="0.0" y="50" width="393" height="51.333332061767578"/>
+                                                <rect key="frame" x="0.0" y="50" width="393" height="52.333332061767578"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D5M-d4-TRP" id="RZp-np-n88">
-                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="51.333332061767578"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="52.333332061767578"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9JB-59-mVj">
-                                                            <rect key="frame" x="15" y="0.66666666666666785" width="50" height="50"/>
+                                                            <rect key="frame" x="15" y="1.3333333333333321" width="50" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="Ouj-YP-LK7"/>
                                                                 <constraint firstAttribute="width" constant="50" id="qoA-HO-k5U"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ixQ-nb-O8C">
-                                                            <rect key="frame" x="89" y="14.999999999999998" width="284" height="21.333333333333329"/>
+                                                            <rect key="frame" x="89" y="14.999999999999998" width="284" height="22.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1819,7 +1819,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Juh-00-hdX"/>
+        <segue reference="AQi-3p-M3y"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="backward.end.fill" catalog="system" width="128" height="97"/>

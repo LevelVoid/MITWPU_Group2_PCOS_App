@@ -24,7 +24,7 @@ final class PhaseStoryPageViewController: UIPageViewController {
         configureNavBar()
         configurePages()
         disableSwipe()
-        addTapNavigation()
+       // addTapNavigation()
     }
 
     // MARK: - Navigation Bar
@@ -87,48 +87,48 @@ final class PhaseStoryPageViewController: UIPageViewController {
             .forEach { $0.isEnabled = false }
     }
 
-    private func addTapNavigation() {
-        let tapGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(handleTap(_:))
-        )
-        view.addGestureRecognizer(tapGesture)
-    }
-
-    @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
-
-        let location = gesture.location(in: view)
-        let midpoint = view.bounds.width / 2
-
-        guard
-            let currentVC = viewControllers?.first,
-            let currentIndex = pages.firstIndex(of: currentVC)
-        else { return }
-
-        if location.x > midpoint {
-            goToNext(from: currentIndex)
-        } else {
-            goToPrevious(from: currentIndex)
-        }
-    }
-
-    private func goToNext(from index: Int) {
-        guard index < pages.count - 1 else { return }
-        setViewControllers(
-            [pages[index + 1]],
-            direction: .forward,
-            animated: true
-        )
-    }
-
-    private func goToPrevious(from index: Int) {
-        guard index > 0 else { return }
-        setViewControllers(
-            [pages[index - 1]],
-            direction: .reverse,
-            animated: true
-        )
-    }
+//    private func addTapNavigation() {
+//        let tapGesture = UITapGestureRecognizer(
+//            target: self,
+//            action: #selector(handleTap(_:))
+//        )
+//        view.addGestureRecognizer(tapGesture)
+//    }
+//
+//    @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
+//
+//        let location = gesture.location(in: view)
+//        let midpoint = view.bounds.width / 2
+//
+//        guard
+//            let currentVC = viewControllers?.first,
+//            let currentIndex = pages.firstIndex(of: currentVC)
+//        else { return }
+//
+//        if location.x > midpoint {
+//            goToNext(from: currentIndex)
+//        } else {
+//            goToPrevious(from: currentIndex)
+//        }
+//    }
+//
+//    private func goToNext(from index: Int) {
+//        guard index < pages.count - 1 else { return }
+//        setViewControllers(
+//            [pages[index + 1]],
+//            direction: .forward,
+//            animated: true
+//        )
+//    }
+//
+//    private func goToPrevious(from index: Int) {
+//        guard index > 0 else { return }
+//        setViewControllers(
+//            [pages[index - 1]],
+//            direction: .reverse,
+//            animated: true
+//        )
+//    }
 
     // MARK: - Actions
     @objc private func closeTapped() {

@@ -13,6 +13,18 @@ class SymptomInsightModel {
     static let shared = SymptomInsightModel()
     private init() {}
     
+    /// Returns a cached insight for this symptom if one exists, without invoking the model.
+    func cachedInsight(for symptomName: String, cycles: [CycleData]) -> String? {
+        let prompt = generateSymptomPrompt(symptomName: symptomName, cycles: cycles)
+        if prompt == "The user rarely logged this symptom recently." {
+            return "Keep tracking to uncover personalized patterns for this symptom."
+        }
+        if symptomName.lowercased() == "vulvar pain" {
+            return "If you experience excess vulvar pain, please consult your doctor."
+        }
+        return insightCache[prompt]
+    }
+    
     private let systemInstructions = """
     You are a supportive AI pattern analyzer for a symptom tracking app.
     
@@ -25,6 +37,7 @@ class SymptomInsightModel {
     - Friendly, literal, and purely observational tone.
     - NO medical claims, diagnosis, or hormonal explanations.
     - NO lists, markdown, emojis, or extra formatting.
+    - Do NOT wrap your response in quotation marks.
     
     Example input: "Acne was logged 3 times in Luteal phase, 1 time in Menstrual phase."
     Example output: "You most frequently logged acne during your luteal phase, with occasional occurrences during menstruation."
@@ -85,7 +98,9 @@ class SymptomInsightModel {
         
         do {
             let result = try await session.respond(to: prompt)
-            let insight = result.content.trimmingCharacters(in: .whitespacesAndNewlines)
+            let insight = result.content
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .trimmingCharacters(in: CharacterSet(charactersIn: "\""  ))
             
             // Save to persistent cache
             var currentCache = insightCache

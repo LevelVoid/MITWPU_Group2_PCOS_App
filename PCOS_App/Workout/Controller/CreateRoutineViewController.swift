@@ -30,17 +30,19 @@ class CreateRoutineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Create New Routine"
+        //view.backgroundColor=UIColor(hex: "#FCEEED")
         navigationController?.navigationBar.prefersLargeTitles = false
         saveRoutineButton.isEnabled = false
-        addExerciseButton.tintColor = UIColor(
-            red: 254/255,
-            green: 122/255,
-            blue: 150/255,
-            alpha: 0.8
-        )
+        addExerciseButton.tintColor = .white
+        addExerciseButton.backgroundColor = UIColor(hex: "#FE7A96")  // match the pink from design
+        // corner radius will be updated in viewDidLayoutSubviews
+        addExerciseButton.layer.shadowColor = UIColor.black.cgColor
+        addExerciseButton.layer.shadowOpacity = 0.18
+        addExerciseButton.layer.shadowOffset = CGSize(width: 0, height: 4)
+        addExerciseButton.layer.shadowRadius = 8
+        addExerciseButton.clipsToBounds = false
         exerciseTableView.separatorStyle = .none
-        
-        
+       
         setupUI()
         registerCells()
         updateUI()
@@ -55,6 +57,14 @@ class CreateRoutineViewController: UIViewController {
             updateUI()
         }
         
+        
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Guarantee perfectly circular button by using the smaller layout dimension 
+        let minSide = min(addExerciseButton.bounds.width, addExerciseButton.bounds.height)
+        addExerciseButton.layer.cornerRadius = minSide / 2.0
+    }
+    
     private func setupUI() {
             containerView.bringSubviewToFront(exerciseTableView)
             
@@ -63,6 +73,12 @@ class CreateRoutineViewController: UIViewController {
             exerciseTableView.estimatedRowHeight = 88
             exerciseTableView.rowHeight = UITableView.automaticDimension
         routineNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
+        // Style the text field
+        routineNameTextField.layer.cornerRadius = 12
+        routineNameTextField.layer.masksToBounds = true
+        routineNameTextField.layer.borderWidth = 0
+        routineNameTextField.backgroundColor = UIColor.white.withAlphaComponent(0.85)
             
         }
     
@@ -210,6 +226,7 @@ class CreateRoutineViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == "showAddExercise" {
                 if let addVC = segue.destination as? AddExerciseViewController {
+                            addVC.selectedExerciseIDs = Set(routineExercises.map { $0.exercise.id })
                             addVC.onExercisesSelected = { [weak self] selectedExercises in
                                 self?.handleSelectedExercises(selectedExercises)
                             }
@@ -239,7 +256,15 @@ class CreateRoutineViewController: UIViewController {
     private func handleSelectedExercises(_ exercises: [Exercise]) {
         print("📥 Received \(exercises.count) exercises")
         
-        let newRoutineExercises = exercises.map { exercise in
+        // 1. Filter out un-ticked exercises to remove them from routine
+        let selectedIDs = Set(exercises.map { $0.id })
+        routineExercises = routineExercises.filter { selectedIDs.contains($0.exercise.id) }
+        
+        // 2. Identify newly ticked exercises that aren't yet in the routine
+        let existingIDs = Set(routineExercises.map { $0.exercise.id })
+        let newlySelected = exercises.filter { !existingIDs.contains($0.id) }
+        
+        let newRoutineExercises = newlySelected.map { exercise in
             if exercise.isTimeBased {
                 print("🏃 Adding time-based: \(exercise.name)")
                 return RoutineExercise(

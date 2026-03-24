@@ -508,18 +508,12 @@ class SleepReportViewController: UIViewController {
         observedLabel.text = ""
         observationLoadingIndicator.startAnimating()
         
+        let range = currentTimeRange
         Task {
-            do {
-                let insight = try await SleepObservationsModel.shared.fetchSleepInsight(chartData: chartData)
-                await MainActor.run {
-                    self.observationLoadingIndicator.stopAnimating()
-                    self.observedLabel.text = insight
-                }
-            } catch {
-                await MainActor.run {
-                    self.observationLoadingIndicator.stopAnimating()
-                    self.observedLabel.text = "Keep logging your sleep to track your energy trends."
-                }
+            let insight = try await SleepObservationsModel.shared.fetchSleepInsight(chartData: chartData, timeRange: range)
+            await MainActor.run {
+                self.observationLoadingIndicator.stopAnimating()
+                self.observedLabel.text = insight
             }
         }
     }

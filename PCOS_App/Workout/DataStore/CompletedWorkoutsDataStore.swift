@@ -21,6 +21,10 @@ final class CompletedWorkoutsDataStore {
     func save(_ workout: CompletedWorkout) {
             let ctx = Self.context
             
+            // Remove any existing partial (not fully completed) record for the same routine
+            // to prevent duplicate partial records from piling up
+            deletePartialWorkouts(for: workout.routineName, in: ctx)
+            
             let cdWorkout = CDCompletedWorkout(context: ctx)
             cdWorkout.id = workout.id
             cdWorkout.routineName = workout.routineName
@@ -44,6 +48,27 @@ final class CompletedWorkoutsDataStore {
             } catch {
                 print(" Failed to save CDCompletedWorkout: \(error)")
             }
+        }
+    }
+    
+    // MARK: - Cleanup Partial Records
+    /// Deletes any existing partial (not fully completed) workout records for a given routine.
+    /// This prevents duplicate partial records from accumulating when the user ends a workout
+    /// early multiple times.
+    private func deletePartialWorkouts(for routineName: String, in ctx: NSManagedObjectContext) {
+        let request: NSFetchRequest<CDCompletedWorkout> = CDCompletedWorkout.fetchRequest()
+        request.predicate = NSPredicate(format: "routineName == %@", routineName)
+        
+        do {
+            let results = try ctx.fetch(request)
+            for cdWorkout in results {
+                let workout = cdWorkout.toCompletedWorkout()
+                if !workout.isFullyCompleted {
+                    ctx.delete(cdWorkout)
+                }
+            }
+        } catch {
+            print("Failed to clean up partial workouts: \(error)")
         }
     }
 

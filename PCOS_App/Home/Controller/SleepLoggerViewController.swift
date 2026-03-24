@@ -134,46 +134,38 @@ class SleepLoggerViewController: UIViewController {
     }
     
     private func applyGlassmorphism(to button: UIButton) {
-        button.backgroundColor = .clear
-        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.isUserInteractionEnabled = false
-        blurView.translatesAutoresizingMaskIntoConstraints = false
-        blurView.layer.cornerRadius = 22
-        blurView.clipsToBounds = true
-        blurView.layer.borderWidth = 0.5
-        blurView.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 28 // 56x56 from the constraints
         
-        // Add behind the button instead of inside
-        contentView.insertSubview(blurView, belowSubview: button)
-        
-        NSLayoutConstraint.activate([
-            blurView.topAnchor.constraint(equalTo: button.topAnchor),
-            blurView.bottomAnchor.constraint(equalTo: button.bottomAnchor),
-            blurView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-            blurView.trailingAnchor.constraint(equalTo: button.trailingAnchor)
-        ])
+        button.layer.borderWidth = 0.5
+        button.layer.borderColor = UIColor.systemGray6.cgColor
+
+        // Subtle shadow around circle
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.05
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 8
+        button.clipsToBounds = false
     }
     
     private func setupTopNav() {
         // Dismiss Button
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
-        dismissButton.setImage(UIImage(systemName: "xmark"), for: .normal)
-        dismissButton.tintColor = .black
-        dismissButton.layer.cornerRadius = 22
+        let xConfig = UIImage.SymbolConfiguration(pointSize: 13, weight: .semibold)
+        dismissButton.setImage(UIImage(systemName: "xmark", withConfiguration: xConfig), for: .normal)
+        dismissButton.tintColor = .label
+        dismissButton.layer.cornerRadius = 28
         dismissButton.addTarget(self, action: #selector(dismissTapped), for: .touchUpInside)
         contentView.addSubview(dismissButton)
         applyGlassmorphism(to: dismissButton)
-        
+
         // Save Button
         customSaveButton.translatesAutoresizingMaskIntoConstraints = false
-        customSaveButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
-        customSaveButton.tintColor = .black
-        customSaveButton.layer.cornerRadius = 22
+        let checkConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .regular)
+        customSaveButton.setImage(UIImage(systemName: "checkmark", withConfiguration: checkConfig), for: .normal)
+        customSaveButton.tintColor = .label
+        customSaveButton.layer.cornerRadius = 28
         customSaveButton.addTarget(self, action: #selector(saveTapped), for: .touchUpInside)
-        
-        let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold)
-        customSaveButton.setPreferredSymbolConfiguration(config, forImageIn: .normal)
         contentView.addSubview(customSaveButton)
         applyGlassmorphism(to: customSaveButton)
         
@@ -188,16 +180,16 @@ class SleepLoggerViewController: UIViewController {
         NSLayoutConstraint.activate([
             dismissButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             dismissButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            dismissButton.widthAnchor.constraint(equalToConstant: 44),
-            dismissButton.heightAnchor.constraint(equalToConstant: 44),
+            dismissButton.widthAnchor.constraint(equalToConstant: 56),
+            dismissButton.heightAnchor.constraint(equalToConstant: 56),
             
             navTitleLabel.centerYAnchor.constraint(equalTo: dismissButton.centerYAnchor),
             navTitleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             
             customSaveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
             customSaveButton.centerYAnchor.constraint(equalTo: dismissButton.centerYAnchor),
-            customSaveButton.widthAnchor.constraint(equalToConstant: 44),
-            customSaveButton.heightAnchor.constraint(equalToConstant: 44)
+            customSaveButton.widthAnchor.constraint(equalToConstant: 56),
+            customSaveButton.heightAnchor.constraint(equalToConstant: 56)
         ])
     }
     
