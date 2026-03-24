@@ -94,12 +94,7 @@
     "category": "Beverage",
     "mealType": "Breakfast",
     "impactTags": [
-      "noAddedSugar",
       "caffeine",
-      "wholeFood",
-      "highProtein",
-      "lowCarb",
-      "lowFibre"
     ],
     "isSelected": false,
     "desc": "",
@@ -115,12 +110,7 @@
         "fats": 0.1,
         "fibre": 0.0,
         "tags": [
-          "noAddedSugar",
-          "caffeine",
-          "wholeFood",
-          "highProtein",
-          "lowCarb",
-          "lowFibre"
+          "caffeine"
         ]
       }
     ]
@@ -29983,7 +29973,6 @@
     "category": "Indian",
     "mealType": "",
     "impactTags": [
-      "wholeFood",
       "lowProtein",
       "lowFibre"
     ],
@@ -30001,7 +29990,6 @@
         "fats": 6.0,
         "fibre": 1.0,
         "tags": [
-          "wholeFood",
           "lowProtein",
           "lowFibre"
         ]
@@ -30022,7 +30010,6 @@
     "category": "Indian",
     "mealType": "",
     "impactTags": [
-      "wholeFood",
       "lowProtein",
       "lowFibre"
     ],
@@ -30040,7 +30027,6 @@
         "fats": 6.0,
         "fibre": 1.0,
         "tags": [
-          "wholeFood",
           "lowProtein",
           "lowFibre"
         ]
@@ -30061,7 +30047,6 @@
     "category": "Indian",
     "mealType": "",
     "impactTags": [
-      "wholeFood",
       "lowProtein",
       "lowFibre"
     ],
@@ -30079,7 +30064,6 @@
         "fats": 6.0,
         "fibre": 1.0,
         "tags": [
-          "wholeFood",
           "lowProtein",
           "lowFibre"
         ]
@@ -30100,7 +30084,6 @@
     "category": "Indian",
     "mealType": "",
     "impactTags": [
-      "wholeFood",
       "lowProtein",
       "lowFibre"
     ],
@@ -30118,7 +30101,6 @@
         "fats": 6.0,
         "fibre": 1.0,
         "tags": [
-          "wholeFood",
           "lowProtein",
           "lowFibre"
         ]

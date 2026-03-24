@@ -37,7 +37,7 @@ class AddMealViewController: UIViewController {
        private let scanWithAIButton: UIButton = {
            let button = createOptionButton(
                imageName: "camera",
-               title: "Scan with AI"
+               title: "Scan Image"
            )
            button.tag = 2
            return button

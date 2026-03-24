@@ -36,7 +36,7 @@ class FoodIngredientListTableViewCell: UITableViewCell {
         let cals = ingredient.calories ?? 0
         IngredientCalorieLabel.text = "\(Int(cals)) kcal"
         
-        IngredientWeightLabel.text = nil // Removed the gram label per user request
+        IngredientWeightLabel.isHidden = true
     }
     
 }

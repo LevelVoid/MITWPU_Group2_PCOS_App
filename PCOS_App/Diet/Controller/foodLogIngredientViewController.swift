@@ -127,6 +127,8 @@ class FoodLogIngredientViewController: UIViewController {
             
             label.font = .systemFont(ofSize: 18, weight: .medium)
             label.textColor = .label
+            label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.7
         }
         
         // MARK: - Setup Weight Label
@@ -140,11 +142,12 @@ class FoodLogIngredientViewController: UIViewController {
             label.layer.cornerRadius = 10
             label.clipsToBounds = true
             label.textAlignment = .center
-            label.numberOfLines = 2
+            label.numberOfLines = 1
+            label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.7
             label.font = .systemFont(ofSize: 13, weight: .medium)
             label.textColor = .label
             
-            // Debug - make it visible with border (remove in production)
             label.layer.borderWidth = 1
             label.layer.borderColor = UIColor.systemGray3.cgColor
             
@@ -193,65 +196,27 @@ class FoodLogIngredientViewController: UIViewController {
             if servingMultiplier == 1.0 {
                 servingText = "1 serving"
             } else if servingMultiplier.truncatingRemainder(dividingBy: 1) == 0 {
-                // Whole number
                 servingText = "\(Int(servingMultiplier)) servings"
             } else {
-                // Decimal
                 servingText = String(format: "%.1f servings", servingMultiplier)
             }
             
             servingNumberLabel?.text = servingText
             
-            // Update weight label - check weight property, fallback to quantity
+            // Update weight label - single line format
             guard let food = food else { return }
             
-            let weightText: String
+            let scaledWeight: Double
             if let baseWeight = food.weight, baseWeight > 0 {
-                // food.weight is already the total weight for the saved food.
-                // Multiply by servingMultiplier to scale (1.0 = as saved, 2.0 = double)
-                let scaledWeight = baseWeight * servingMultiplier
-                weightText = "Weight total\n\(Int(scaledWeight)) g"
+                scaledWeight = baseWeight * servingMultiplier
             } else {
-                // Fallback to ingredient sum — quantities are already the actual amounts
                 let ingTotal = (food.ingredients ?? []).reduce(0.0) { $0 + $1.quantity }
-                let scaledWeight = ingTotal * servingMultiplier
-                weightText = "Weight total\n\(Int(scaledWeight)) g"
+                scaledWeight = ingTotal * servingMultiplier
             }
             
-            // Create attributed string for better formatting
-            let attributedString = NSMutableAttributedString(string: weightText)
+            FoodWeightLabel?.text = "  Weight total  \(Int(scaledWeight)) g  "
             
-            // Style "Weight total" (smaller, secondary)
-            if let range = weightText.range(of: "Weight total") {
-                let nsRange = NSRange(range, in: weightText)
-                attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 11, weight: .regular), range: nsRange)
-                attributedString.addAttribute(.foregroundColor, value: UIColor.secondaryLabel, range: nsRange)
-            }
-            
-            // Style weight value (larger, bold) - only if not "No data"
-            if !weightText.contains("No data") {
-                // Extract the number and "g" from the string
-                let components = weightText.components(separatedBy: "\n")
-                if components.count > 1 {
-                    let valueText = components[1]
-                    if let range = weightText.range(of: valueText) {
-                        let nsRange = NSRange(range, in: weightText)
-                        attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 15, weight: .semibold), range: nsRange)
-                        attributedString.addAttribute(.foregroundColor, value: UIColor.label, range: nsRange)
-                    }
-                }
-            } else {
-                // Style "No data" in red
-                if let range = weightText.range(of: "No data") {
-                    let nsRange = NSRange(range, in: weightText)
-                    attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 13, weight: .medium), range: nsRange)
-                    attributedString.addAttribute(.foregroundColor, value: UIColor.systemRed, range: nsRange)
-                }
-            }
-            
-            FoodWeightLabel?.attributedText = attributedString
-            
-            print("DEBUG: Weight label updated with text: \(weightText)")
+            print("DEBUG: Weight label updated: Weight total \(Int(scaledWeight)) g")
         }
         
         private func updateMacros() {
