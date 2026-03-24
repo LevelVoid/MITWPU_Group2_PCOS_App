@@ -220,6 +220,7 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
             4. Workout gap: no strength training or movement logged in the past 7 days
 
             HARD RULES:
+            - CRITICAL: Use ONLY the exact numbers from the context. Read protein target from the "Targets: ...PXg..." line. Never invent or assume typical values.
             - Never generate a sleep goal — sleep is excluded entirely
             - Never suggest weight loss or calorie restriction if BMI is Underweight or Normal
             - Read PCOS phenotype: Type A/B → insulin and cortisol goals; Type C → androgen-reducing foods; Type D → cycle and ovulation support foods
