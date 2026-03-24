@@ -37,15 +37,32 @@ struct FoodCard {
 
 @Generable
 struct DailyGoalsOutput {
-    @Guide(description: "Exactly 2 actionable goals derived from cross-day pattern analysis.")
+    @Guide(description: """
+    Exactly 2 goals. Priority order — pick the top 2 that apply:
+    1. Diet + symptom connection (e.g. anti-inflammatory food for active cramps/bloating)
+    2. Diet + workout connection (e.g. protein gap after a workout session)
+    3. Nutrition gap (e.g. protein or fibre deficit from today's logs)
+    4. Workout gap (e.g. no strength training this week)
+    Never include sleep. Never include more than 2 goals.
+    """)
     var goals: [GoalCard]
 }
 
 @Generable
 struct GoalCard {
-    @Guide(description: "One actionable sentence starting with a verb, with evidence from logs, e.g., 'Sleep by 10pm tonight — your average this week is 5.8h'.")
-    var sentence: String
+    @Guide(description: "1-3 word title. Sharp and direct. If larger words then only 2 or 1 word title will be shown. E.g. 'Boost protein now', 'Ease cramps', 'Strength training'.")
+    var title: String
 
-    @Guide(description: "The goal category: nutrition, sleep, exercise, or symptoms.")
+    @Guide(description: """
+    One action sentence, max 12 words. Include one real number from their logs.
+    Be warm and encouraging — frame it as an opportunity, not a deficit.
+    E.g. 'Only 20g protein logged — add moong dal or dahi.'
+    E.g. 'Bloating today — swap rice with fruit salad to reduce bloating'
+    E.g. 'Cramps today — swap rice for ragi to reduce inflammation.'
+    E.g. 'No strength training in 7 days — add a 20-min session.'
+    """)
+    var sentence: String
+    
+    @Guide(description: "One word only: nutrition | exercise | symptoms")
     var category: String
 }
