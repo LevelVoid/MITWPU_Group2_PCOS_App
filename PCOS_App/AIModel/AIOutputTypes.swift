@@ -50,15 +50,16 @@ struct DailyGoalsOutput {
 
 @Generable
 struct GoalCard {
-    @Guide(description: "2-3 word title. Sharp and direct. E.g. 'Boost protein now', 'Ease cramps with food', 'Add strength today'.")
+    @Guide(description: "1-3 word title. Sharp and direct. If larger words then only 2 or 1 word title will be shown. E.g. 'Boost protein now', 'Ease cramps', 'Strength training'.")
     var title: String
 
     @Guide(description: """
     One action sentence, max 12 words. Include one real number from their logs.
     Be warm and encouraging — frame it as an opportunity, not a deficit.
     E.g. 'Only 20g protein logged — add moong dal or dahi.'
-        E.g. 'Cramps today — swap rice for ragi to reduce inflammation.'
-        E.g. 'No strength training in 7 days — add a 20-min session.'
+    E.g. 'Bloating today — swap rice with fruit salad to reduce bloating'
+    E.g. 'Cramps today — swap rice for ragi to reduce inflammation.'
+    E.g. 'No strength training in 7 days — add a 20-min session.'
     """)
     var sentence: String
     
