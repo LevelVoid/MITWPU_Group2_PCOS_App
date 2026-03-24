@@ -148,8 +148,8 @@ class CyclePatternCollectionViewCell: UICollectionViewCell {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Keep logging to see your trends"
-        titleLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-        titleLabel.textColor = UIColor(red: 0.35, green: 0.30, blue: 0.33, alpha: 1.0)
+        titleLabel.font = .systemFont(ofSize: 16, weight: .regular)
+        titleLabel.textColor = .label
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         emptyStateContainer.addSubview(titleLabel)

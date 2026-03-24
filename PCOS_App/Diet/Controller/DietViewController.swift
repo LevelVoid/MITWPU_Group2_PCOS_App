@@ -7,6 +7,9 @@ class DietViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!  // ← was tableView
     @IBOutlet weak var AddMealButton: UIButton!
     private var nutritionCell: NutritionHeaderCollectionViewCell?  // ← was headerView
+    // Add this property at the top with other properties
+    private var mealOutput: MealRecommendationOutput?
+    private var isMealLoading = false
 
     // MARK: - Lifecycle
 
@@ -22,6 +25,7 @@ class DietViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
         filterTodaysFoods()
+        loadFoodSuggestions()
     }
 
     // MARK: - Setup
@@ -59,7 +63,8 @@ class DietViewController: UIViewController {
             NoFoodCollectionViewCell.nib(),
             forCellWithReuseIdentifier: NoFoodCollectionViewCell.identifier
         )
-
+        
+        
 
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -139,6 +144,28 @@ class DietViewController: UIViewController {
         })
         present(alert, animated: true)
     }
+    private func loadFoodSuggestions() {
+        guard !isMealLoading else { return }
+        isMealLoading = true
+
+        Task {
+            let context = await SharedContextEngine.shared.buildContext()
+            do {
+                let output = try await AIBrain.shared.generateMealRecommendations(context: context)
+                await MainActor.run {
+                    self.mealOutput = output
+                    self.isMealLoading = false
+                    // Reload only section 1
+                    self.collectionView.reloadSections(IndexSet(integer: 1))
+                }
+            } catch {
+                await MainActor.run {
+                    self.isMealLoading = false
+                    print("Meal suggestions error: \(error)")
+                }
+            }
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource & UICollectionViewDelegateFlowLayout
@@ -172,6 +199,7 @@ extension DietViewController: UICollectionViewDataSource, UICollectionViewDelega
             self.nutritionCell = cell
             return cell
 
+
         case 1:
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: FoodSuggestionsCollectionViewCell.identifier,
@@ -180,6 +208,12 @@ extension DietViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.layer.cornerRadius = 16
             cell.layer.masksToBounds = true
             cell.backgroundColor = .white
+
+            if let output = mealOutput {
+                cell.configure(with: output)   // ← AI data
+            } else {
+                cell.showLoadingState()         // ← dots while loading
+            }
             return cell
 
         case 2:

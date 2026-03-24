@@ -16,8 +16,8 @@ final class ChatBubbleCell: UITableViewCell {
     private var timeLabelLeading:      NSLayoutConstraint!
     private var timeLabelTrailing:     NSLayoutConstraint!
 
-    static let userBubbleColor = UIColor(red: 0.52, green: 0.24, blue: 0.76, alpha: 1)
-    static let aiBubbleColor   = UIColor(red: 0.90, green: 0.90, blue: 0.92, alpha: 1)
+    static let userBubbleColor = UIColor(hex:"fe7a96")
+    static let aiBubbleColor   = UIColor(hex:"ffffff")
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -35,12 +35,12 @@ final class ChatBubbleCell: UITableViewCell {
         contentView.backgroundColor = .clear
 
         // Avatar
-        avatarView.backgroundColor = UIColor(red: 0.52, green: 0.24, blue: 0.76, alpha: 1)
+        avatarView.backgroundColor = UIColor(hex:"fe7a96")
         avatarView.layer.cornerRadius = 14
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(avatarView)
 
-        avatarLabel.text = "P"
+        avatarLabel.text = "A"
         avatarLabel.font = .systemFont(ofSize: 12, weight: .bold)
         avatarLabel.textColor = .white
         avatarLabel.textAlignment = .center

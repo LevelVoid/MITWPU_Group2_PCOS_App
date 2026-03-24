@@ -30,19 +30,19 @@ final class TypingIndicatorCell: UITableViewCell {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         
-        avatarView.backgroundColor = UIColor(red: 0.52, green: 0.24, blue: 0.76, alpha: 1)
+        avatarView.backgroundColor = UIColor(hex:"fe7a96")
         avatarView.layer.cornerRadius = 14
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(avatarView)
         
-        avatarLabel.text = "P"
+        avatarLabel.text = "A"
         avatarLabel.font = .systemFont(ofSize: 12, weight: .bold)
         avatarLabel.textColor = .white
         avatarLabel.textAlignment = .center
         avatarLabel.translatesAutoresizingMaskIntoConstraints = false
         avatarView.addSubview(avatarLabel)
         
-        bubbleView.backgroundColor = UIColor(red: 0.90, green: 0.90, blue: 0.92, alpha: 1)
+        bubbleView.backgroundColor = UIColor(hex:"ffffff")
         bubbleView.layer.cornerRadius = 18
         bubbleView.layer.cornerCurve = .continuous
         bubbleView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]

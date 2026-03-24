@@ -32,7 +32,7 @@ final class ChatbotViewController: UIViewController {
         tv.dataSource = self
         tv.delegate = self
         tv.separatorStyle = .none
-        tv.backgroundColor = UIColor(red: 0.95, green: 0.93, blue: 0.97, alpha: 1)
+        tv.backgroundColor = UIColor(hex:"fceeed")
         tv.keyboardDismissMode = .interactive
         tv.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -46,7 +46,7 @@ final class ChatbotViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0.95, green: 0.93, blue: 0.97, alpha: 1)
+        view.backgroundColor = UIColor(hex:"fceeed")
         setupNavigationBar()
         setupTableView()
         setupInputBar()
@@ -93,18 +93,18 @@ final class ChatbotViewController: UIViewController {
 
     // MARK: - Setup
     private func setupNavigationBar() {
-        title = "Priya"
+        title = "Adira"
         navigationController?.navigationBar.prefersLargeTitles = false
 
         // Subtitle "PCOS Coach" via attributed title workaround
         let titleLabel = UILabel()
-        titleLabel.text = "Priya"
+        titleLabel.text = "Adira"
         titleLabel.font = .systemFont(ofSize: 17, weight: .semibold)
 
         let subtitleLabel = UILabel()
         subtitleLabel.text = "PCOS Coach • Online"
         subtitleLabel.font = .systemFont(ofSize: 11)
-        subtitleLabel.textColor = UIColor(red: 0.52, green: 0.24, blue: 0.76, alpha: 1)
+        subtitleLabel.textColor = UIColor(hex:"#fe7a96")
 
         let stack = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
         stack.axis = .vertical
@@ -119,7 +119,7 @@ final class ChatbotViewController: UIViewController {
             target: self,
             action: #selector(clearChatTapped)
         )
-        navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 0.52, green: 0.24, blue: 0.76, alpha: 1)
+        //navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 0.52, green: 0.24, blue: 0.76, alpha: 1)
     }
 
     private func setupTableView() {
@@ -144,7 +144,7 @@ final class ChatbotViewController: UIViewController {
     // MARK: - Welcome
     private func sendWelcomeMessage() {
         let welcome = ChatMessage(
-            text: "Hi! I'm Priya, your PCOS health coach 💜\n\nI can help with meal ideas, understanding your symptoms, cycle questions, or anything PCOS-related. What's on your mind today?",
+            text: "Hi! I'm Adira, your PCOS health coach.\n\nI can help with meal ideas, understanding your symptoms, cycle questions, or anything PCOS-related. \n\nWhat's on your mind today?",
             sender: .ai
         )
         messages.append(welcome)
@@ -214,7 +214,7 @@ final class ChatbotViewController: UIViewController {
                 }
             } catch {
                 await MainActor.run {
-                    self.addAIMessage("I'm having trouble connecting right now. Please make sure Apple Intelligence is enabled in Settings. 🔧")
+                    self.addAIMessage("I'm having trouble connecting right now. Please make sure Apple Intelligence is enabled in Settings. ")
                 }
             }
         }
@@ -222,7 +222,7 @@ final class ChatbotViewController: UIViewController {
 
     // MARK: - Actions
     @objc private func clearChatTapped() {
-        let alert = UIAlertController(title: "Clear Chat", message: "Start a new conversation with Priya?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Clear Chat", message: "Start a new conversation with Adira?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Clear", style: .destructive) { _ in
             self.brain.resetChat()
             self.messages.removeAll()

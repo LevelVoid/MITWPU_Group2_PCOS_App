@@ -110,12 +110,12 @@ class SleepCardCollectionViewCell: UICollectionViewCell {
 
     private func observation(for hours: Int) -> String {
         switch hours {
-        case ..<5: return "A short night — try to catch up with an earlier bedtime."
-        case 5..<6: return "A bit below target. Aim for 7–8 hours tonight."
-        case 6..<7: return "Almost there! Just a little more rest would help."
-        case 7...8: return "Nicely done! A solid night of rest."
-        case 9...10: return "A long rest — your body may have needed it."
-        default: return "Extra recovery sleep. Consistency helps energy levels."
+        case ..<5: return "Under 5 hours disrupts cortisol and insulin regulation. Prioritise sleep tonight."
+        case 5..<6: return "Below the recommended range. Sleep debt accumulates and can worsen PCOS symptoms."
+        case 6..<7: return "Slightly under the 7–8 hour target. Consistent rest supports hormone balance."
+        case 7...8: return "Within the optimal range. Quality sleep aids cortisol and metabolic function."
+        case 9...10: return "Extended sleep may indicate recovery need. Monitor energy levels through the day."
+        default:    return "Excess sleep can affect circadian rhythm. Aim for a consistent 7–8 hour window."
         }
     }
 
@@ -130,10 +130,10 @@ class SleepCardCollectionViewCell: UICollectionViewCell {
 
     private func tipText(for quality: SleepQuality) -> String {
         switch quality {
-        case .poor: return "A short night — try to wind down earlier tonight."
-        case .fair: return "You're close! An extra 30–60 min makes a difference."
-        case .good: return "Great sleep! You should feel refreshed today."
-        case .excellent: return "Excellent rest — your body will thank you!"
+        case .poor:      return "Poor sleep elevates cortisol, impacting insulin and androgen levels."
+        case .fair:      return "Fair sleep quality. An additional 30–60 min may reduce hormonal disruption."
+        case .good:      return "Good sleep supports metabolic and reproductive hormone regulation."
+        case .excellent: return "Optimal rest achieved. Consistent sleep strengthens hormonal and immune function."
         }
     }
 }

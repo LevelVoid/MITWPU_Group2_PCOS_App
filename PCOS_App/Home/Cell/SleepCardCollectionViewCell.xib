@@ -20,48 +20,49 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zls-hv-BHK">
                         <rect key="frame" x="0.0" y="0.0" width="360" height="180"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Last Night" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDf-Td-ct2">
-                                <rect key="frame" x="20" y="16" width="80" height="21"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Night" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDf-Td-ct2">
+                                <rect key="frame" x="20" y="16" width="68" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="moon.zzz.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="moon-icon">
-                                <rect key="frame" x="20" y="60" width="40" height="40"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="moon.zzz.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="moon-icon">
+                                <rect key="frame" x="20" y="52.333333333333314" width="30" height="30.666666666666686"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="hgh-hh"/>
-                                    <constraint firstAttribute="width" constant="40" id="wrd-hh"/>
+                                    <constraint firstAttribute="height" constant="30" id="hgh-hh"/>
+                                    <constraint firstAttribute="width" constant="30" id="wrd-hh"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hours-val">
-                                <rect key="frame" x="75" y="58" width="22" height="41"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hours-val">
+                                <rect key="frame" x="65" y="47.666666666666657" width="22" height="41"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hours-text">
-                                <rect key="frame" x="101" y="74" width="54" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hours-text">
+                                <rect key="frame" x="91" y="59.000000000000007" width="54" height="26.333333333333336"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                 <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="53" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mins-val">
-                                <rect key="frame" x="164" y="58" width="41" height="41"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="53" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mins-val">
+                                <rect key="frame" x="154" y="47.666666666666657" width="41" height="41"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mins-text">
-                                <rect key="frame" x="209" y="74" width="41.666666666666657" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mins-text">
+                                <rect key="frame" x="199" y="61" width="41.666666666666657" height="24"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Try to get around 7-8 hours of sleep..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="subtitle-label">
-                                <rect key="frame" x="20" y="112" width="320" height="52"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try to get around 7-8 hours of sleep..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="subtitle-label">
+                                <rect key="frame" x="20" y="103" width="320" height="15.666666666666671"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Sleep tracking will help give you personalized results." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="empty-state-label">
-                                <rect key="frame" x="20" y="52" width="320" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing logged yet. Start tracking to see your patterns." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="empty-state-label">
+                                <rect key="frame" x="20" y="65" width="320" height="38"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" systemColor="secondaryLabelColor"/>
                                 <nil key="highlightedColor"/>
@@ -69,24 +70,23 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="empty-state-label" firstAttribute="top" secondItem="vDf-Td-ct2" secondAttribute="bottom" constant="32" id="Irt-yX-jEo"/>
                             <constraint firstItem="vDf-Td-ct2" firstAttribute="top" secondItem="Zls-hv-BHK" secondAttribute="top" constant="16" id="abc-12-345"/>
                             <constraint firstItem="vDf-Td-ct2" firstAttribute="leading" secondItem="Zls-hv-BHK" secondAttribute="leading" constant="20" id="def-67-890"/>
                             <constraint firstItem="empty-state-label" firstAttribute="leading" secondItem="Zls-hv-BHK" secondAttribute="leading" constant="20" id="empty-ld"/>
-                            <constraint firstItem="empty-state-label" firstAttribute="top" secondItem="vDf-Td-ct2" secondAttribute="bottom" constant="28" id="empty-tp"/>
                             <constraint firstAttribute="trailing" secondItem="empty-state-label" secondAttribute="trailing" constant="20" id="empty-tr"/>
                             <constraint firstItem="hours-text" firstAttribute="firstBaseline" secondItem="hours-val" secondAttribute="firstBaseline" id="hourst-bl"/>
                             <constraint firstItem="hours-text" firstAttribute="leading" secondItem="hours-val" secondAttribute="trailing" constant="4" id="hourst-ld"/>
                             <constraint firstItem="hours-val" firstAttribute="centerY" secondItem="moon-icon" secondAttribute="centerY" id="hoursv-bt"/>
                             <constraint firstItem="hours-val" firstAttribute="leading" secondItem="moon-icon" secondAttribute="trailing" constant="15" id="hoursv-ld"/>
+                            <constraint firstItem="moon-icon" firstAttribute="top" secondItem="vDf-Td-ct2" secondAttribute="bottom" constant="20" id="jKZ-sw-679"/>
                             <constraint firstItem="mins-text" firstAttribute="firstBaseline" secondItem="mins-val" secondAttribute="firstBaseline" id="minst-bl"/>
                             <constraint firstItem="mins-text" firstAttribute="leading" secondItem="mins-val" secondAttribute="trailing" constant="4" id="minst-ld"/>
                             <constraint firstItem="mins-val" firstAttribute="firstBaseline" secondItem="hours-val" secondAttribute="firstBaseline" id="minsv-bl"/>
                             <constraint firstItem="mins-val" firstAttribute="leading" secondItem="hours-text" secondAttribute="trailing" constant="9" id="minsv-ld"/>
                             <constraint firstItem="moon-icon" firstAttribute="leading" secondItem="Zls-hv-BHK" secondAttribute="leading" constant="20" id="moon-ld"/>
-                            <constraint firstItem="moon-icon" firstAttribute="top" secondItem="vDf-Td-ct2" secondAttribute="bottom" constant="23" id="moon-tp"/>
-                            <constraint firstAttribute="bottom" secondItem="subtitle-label" secondAttribute="bottom" constant="24" id="sub-bt"/>
                             <constraint firstItem="subtitle-label" firstAttribute="leading" secondItem="Zls-hv-BHK" secondAttribute="leading" constant="20" id="sub-ld"/>
-                            <constraint firstItem="subtitle-label" firstAttribute="top" secondItem="moon-icon" secondAttribute="bottom" constant="12" id="sub-tp"/>
+                            <constraint firstItem="subtitle-label" firstAttribute="top" secondItem="moon-icon" secondAttribute="bottom" constant="20" id="sub-tp"/>
                             <constraint firstAttribute="trailing" secondItem="subtitle-label" secondAttribute="trailing" constant="20" id="sub-tr"/>
                         </constraints>
                     </view>

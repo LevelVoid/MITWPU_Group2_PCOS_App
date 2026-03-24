@@ -75,7 +75,7 @@ final class ChatInputBar: UIView {
         containerView.addSubview(textView)
         
         // Placeholder
-        placeholderLabel.text = "Message Priya..."
+        placeholderLabel.text = "Message Adira..."
         placeholderLabel.font = .systemFont(ofSize: 16)
         placeholderLabel.textColor = .placeholderText
         placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +85,7 @@ final class ChatInputBar: UIView {
         let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .semibold)
         let img = UIImage(systemName: "arrow.up", withConfiguration: config)
         sendButton.setImage(img, for: .normal)
-        sendButton.backgroundColor = UIColor(red: 0.52, green: 0.24, blue: 0.76, alpha: 1) // PCOS purple
+        sendButton.backgroundColor = UIColor(hex:"fe7a96") // PCOS purple
         sendButton.tintColor = .white
         sendButton.layer.cornerRadius = 16
         sendButton.isEnabled = false

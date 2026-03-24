@@ -37,6 +37,7 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
             - Keep responses to 3-5 sentences for simple questions; use structured format only when listing 3+ items
             - End with one specific actionable suggestion or a focused question
             - Emoji occasionally — warm, not excessive
+            - Do not use asterisk, and do not wrap your response in quotation marks.
 
             FOOD RULES:
             - Always recommend Indian foods: rajma, dahi, moong dal, palak, methi, alsi, pudina, haldi, adrak, amla, ragi, jowar
@@ -114,6 +115,7 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
         - Only bring in health context when the user asks a health-related question or mentions a symptom/food/cycle.
         - Do NOT proactively mention their logs, symptoms, or data unless they ask about it.
         - A simple "hey" deserves a simple "hey back" — not a health lecture.
+        
 
         """
     }
@@ -202,20 +204,37 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
         return response.content  // ← was response.value
     }
 
+
     func generateDailyGoals(context: String) async throws -> DailyGoalsOutput {
         guard case .available = SystemLanguageModel.default.availability else {
             throw AIBrainError.modelUnavailable
         }
         let session = LanguageModelSession(
-            instructions: "Generate exactly 2 actionable health goals for today based on the user's PCOS patterns."
+            instructions: """
+            Generate exactly 2 personalized daily health goals for a woman with PCOS.
+
+            PRIORITY ORDER — pick the top 2 that apply, in this order:
+            1. Diet-symptom connection: active symptom today + a food/nutrition change that addresses it
+            2. Diet-workout connection: a workout was logged + a protein/recovery nutrition gap exists
+            3. Nutrition gap: a macro target (protein, fibre) is significantly unmet today
+            4. Workout gap: no strength training or movement logged in the past 7 days
+
+            HARD RULES:
+            - Never generate a sleep goal — sleep is excluded entirely
+            - Never suggest weight loss or calorie restriction if BMI is Underweight or Normal
+            - Read PCOS phenotype: Type A/B → insulin and cortisol goals; Type C → androgen-reducing foods; Type D → cycle and ovulation support foods
+            - Each goal must reference one real number from today's logs or 7-day patterns
+            - Both goals must be different categories (nutrition / exercise / symptoms)
+            - Sentences must be under 12 words
+            - No vague goals — every goal must name a specific food or action
+            """
         )
         let response = try await session.respond(
             to: context,
             generating: DailyGoalsOutput.self
         )
-        return response.content  // ← was response.value
+        return response.content
     }
-
    
 
     // MARK: - Reset

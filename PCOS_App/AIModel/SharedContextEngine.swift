@@ -357,7 +357,7 @@ final class SharedContextEngine {
         // 7-day
         let patternsBlock = """
         7-day: avg sleep \(patterns.avgSleepHours)h (target \(goals?.sleep.sleepHours ?? 8.0)h), \(patterns.highGIMealCount) high-GI meals, \(patterns.totalWorkoutSessions) workouts (\(patterns.strengthSessions) strength).
-        Recurring symptoms: \(patterns.recurringSymptoms.isEmpty ? "none" : patterns.recurringSymptoms.joined(separator: ", "))
+        Recurring symptoms:   \(patterns.recurringSymptoms.isEmpty ? "none" : patterns.recurringSymptoms.joined(separator: ", "))
         """
 
         return [profileBlock, goalsBlock, cycleBlock, todayBlock, patternsBlock]
