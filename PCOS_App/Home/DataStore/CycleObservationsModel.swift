@@ -20,6 +20,7 @@ class CycleObservationsModel {
         Do not use markdown, lists, or quotation marks.
         Do not ask questions.
         Speak as if you already know the user has PCOS — this is a PCOS-focused app.
+    Keep it short and one line .
     """
     
     private func generateCyclePrompt(from cycles: [CycleData]) -> String {
