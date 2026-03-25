@@ -12,13 +12,24 @@ class PeriodCycleChartView: UIView {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let legendStackView = UIStackView()
-    //    private let averageLineView = UIView()
-    //    private let averageLabel = UILabel()
+    private let yAxisContainer = UIView()
     
     private var cycleData: [CycleData] = []
     private let barWidth: CGFloat = 40
     private let barSpacing: CGFloat = 20
     private let chartHeight: CGFloat = 200
+    private let yAxisWidth: CGFloat = 30
+    
+    /// Builds Y-axis tick values in increments of 7, up to the maxValue
+    private func yAxisTicks(for maxValue: Int) -> [Int] {
+        var ticks: [Int] = []
+        var v = 0
+        while v <= maxValue {
+            ticks.append(v)
+            v += 7
+        }
+        return ticks
+    }
     
     enum LineType {
         case periodLength
@@ -48,8 +59,10 @@ class PeriodCycleChartView: UIView {
         super.init(coder: coder)
         setupView()
     }
+    
     private func setupView() {
         // 1. Add subviews to the hierarchy
+        addSubview(yAxisContainer)
         addSubview(scrollView)
         addSubview(legendStackView)
         
@@ -57,14 +70,14 @@ class PeriodCycleChartView: UIView {
         scrollView.addSubview(contentView)
         
         // 2. Disable Autoresizing Masks
+        yAxisContainer.translatesAutoresizingMaskIntoConstraints = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         legendStackView.translatesAutoresizingMaskIntoConstraints = false
         
         // 3. Configure Legend Stack View Spacing
         legendStackView.axis = .horizontal
-        legendStackView.spacing = 20  // <--- This increases spacing between the two legend items
-        //legendStackView.alignment = .center
+        legendStackView.spacing = 20
         
         // 4. Clear and Re-populate Legend
         legendStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -73,11 +86,20 @@ class PeriodCycleChartView: UIView {
             legendStackView.addArrangedSubview(itemView)
         }
         
+        // Hide scrollbar
+        scrollView.showsHorizontalScrollIndicator = false
+        
         // 5. Set Layout Constraints
         NSLayoutConstraint.activate([
-            // ScrollView pinned to top, leading, trailing, and bottom to legendStackView top
+            // Y-axis container on the left
+            yAxisContainer.topAnchor.constraint(equalTo: topAnchor),
+            yAxisContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
+            yAxisContainer.widthAnchor.constraint(equalToConstant: yAxisWidth),
+            yAxisContainer.bottomAnchor.constraint(equalTo: legendStackView.topAnchor, constant: -12),
+            
+            // ScrollView starts after Y-axis
             scrollView.topAnchor.constraint(equalTo: topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: yAxisContainer.trailingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: legendStackView.topAnchor, constant: -12),
             
@@ -100,28 +122,35 @@ class PeriodCycleChartView: UIView {
         // Reverse the data so newest is first (right side)
         self.cycleData = data.reversed()
         
-        // Clear previous bars
+        // Clear previous bars and gridlines
         contentView.subviews.forEach { $0.removeFromSuperview() }
+        yAxisContainer.subviews.forEach { $0.removeFromSuperview() }
         
-        let totalWidth = CGFloat(cycleData.count) * (barWidth + barSpacing) + 40
+        // Remove old content width constraints
+        contentView.constraints.filter { $0.firstAttribute == .width }.forEach { $0.isActive = false }
+        
+        layoutIfNeeded() // ensure scrollView frame is known
+        let barsWidth = CGFloat(cycleData.count) * (barWidth + barSpacing) + 40
+        let totalWidth = max(barsWidth, scrollView.bounds.width) // gridlines fill visible area
         contentView.widthAnchor.constraint(equalToConstant: totalWidth).isActive = true
         
-        // Calculate average
-        let cycleLengths = cycleData.map{ $0.cycleLength}
-        let avgCycleLength = cycleLengths.reduce ( 0,+ ) / max(cycleLengths.count,1)
+        // Calculate max value for scaling
+        let cycleLengths = cycleData.map{ $0.cycleLength }
         let maxCycleLength = cycleLengths.max() ?? 30
+        let maxValue = max(maxCycleLength + 5, 35) // Ensure gridlines go at least to 35
         
-        // Add average line
-        //        averageLineView.removeFromSuperview()
-        //        contentView.addSubview(averageLineView)
+        // The bottom of bars area = the area above month labels
+        // Month labels take ~25pt from bottom of the container
+        let monthLabelSpace: CGFloat = 25
         
-        
-        let avgY = chartHeight - (CGFloat(avgCycleLength) / CGFloat(maxCycleLength + 5)) * chartHeight + 20
+        // Build dynamic tick values and draw Y-axis labels + gridlines
+        let ticks = yAxisTicks(for: maxValue)
+        addYAxisLabelsAndGridlines(ticks: ticks, maxValue: maxValue, monthLabelSpace: monthLabelSpace, totalContentWidth: totalWidth)
         
         // Draw bars
         for (index, cycle) in cycleData.enumerated() {
             let xPosition = 20 + CGFloat(index) * (barWidth + barSpacing)
-            createBar(at: xPosition, cycleLength: cycle.cycleLength, periodLength: cycle.periodLength, month: cycle.month, maxCycle: maxCycleLength)
+            createBar(at: xPosition, cycleLength: cycle.cycleLength, periodLength: cycle.periodLength, month: cycle.month, maxCycle: maxValue)
         }
         
         // IMPORTANT: Scroll to the right (newest data) after layout
@@ -134,19 +163,75 @@ class PeriodCycleChartView: UIView {
         }
     }
     
+    // MARK: - Y-Axis Labels & Gridlines
+    
+    private func addYAxisLabelsAndGridlines(ticks: [Int], maxValue: Int, monthLabelSpace: CGFloat, totalContentWidth: CGFloat) {
+        // We need to wait for layout to know the actual height of the scroll area.
+        // Use layoutIfNeeded to ensure frames are up-to-date.
+        layoutIfNeeded()
+        
+        let availableHeight = scrollView.bounds.height
+        guard availableHeight > 0 else {
+            // If layout hasn't happened yet, defer
+            DispatchQueue.main.async { [weak self] in
+                self?.addYAxisLabelsAndGridlines(ticks: ticks, maxValue: maxValue, monthLabelSpace: monthLabelSpace, totalContentWidth: totalContentWidth)
+            }
+            return
+        }
+        
+        // The chart area is the scrollView/contentView height minus month label space
+        let chartAreaHeight = availableHeight - monthLabelSpace
+        
+        for value in ticks {
+            guard value <= maxValue else { continue }
+            
+            // Calculate Y position (0 is at the bottom of the chart area, maxValue at top)
+            let fraction = CGFloat(value) / CGFloat(maxValue)
+            let yFromBottom = fraction * chartAreaHeight
+            let yPosition = availableHeight - monthLabelSpace - yFromBottom
+            
+            // --- Y-axis label (fixed, in yAxisContainer) ---
+            let label = UILabel()
+            label.text = "\(value)"
+            label.font = .systemFont(ofSize: 10, weight: .regular)
+            label.textColor = UIColor.secondaryLabel
+            label.textAlignment = .right
+            label.translatesAutoresizingMaskIntoConstraints = false
+            yAxisContainer.addSubview(label)
+            
+            NSLayoutConstraint.activate([
+                label.trailingAnchor.constraint(equalTo: yAxisContainer.trailingAnchor, constant: -4),
+                label.centerYAnchor.constraint(equalTo: yAxisContainer.topAnchor, constant: yPosition),
+                label.widthAnchor.constraint(lessThanOrEqualToConstant: yAxisWidth - 4)
+            ])
+            
+            // --- Horizontal gridline (in scrollable contentView) ---
+            let line = UIView()
+            line.backgroundColor = UIColor.systemGray5
+            line.translatesAutoresizingMaskIntoConstraints = false
+            contentView.insertSubview(line, at: 0) // Behind bars
+            
+            NSLayoutConstraint.activate([
+                line.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                line.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                line.heightAnchor.constraint(equalToConstant: 0.5),
+                line.topAnchor.constraint(equalTo: contentView.topAnchor, constant: yPosition)
+            ])
+        }
+    }
+    
     private func createBar(at x: CGFloat, cycleLength: Int, periodLength: Int, month: String, maxCycle: Int) {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(containerView)
         
         // Calculate heights
-        let cycleBarHeight = (CGFloat(cycleLength) / CGFloat(maxCycle + 5)) * chartHeight
-        let periodBarHeight = (CGFloat(periodLength) / CGFloat(maxCycle + 5)) * chartHeight
+        let cycleBarHeight = (CGFloat(cycleLength) / CGFloat(maxCycle)) * chartHeight
+        let periodBarHeight = (CGFloat(periodLength) / CGFloat(maxCycle)) * chartHeight
         
         // Period bar (pink, bottom)
         let periodBar = UIView()
         periodBar.backgroundColor = UIColor(red: 254.0/255.0, green: 122.0/255.0, blue: 150.0/255.0, alpha: 1.0)
-        //periodBar.layer.cornerRadius = 4
         periodBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         periodBar.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(periodBar)
@@ -154,7 +239,6 @@ class PeriodCycleChartView: UIView {
         // Cycle bar (purple, top)
         let cycleBar = UIView()
         cycleBar.backgroundColor = UIColor(red: 0.7, green: 0.7, blue: 1.0, alpha: 1.0)
-        //cycleBar.layer.cornerRadius = 4
         cycleBar.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         cycleBar.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(cycleBar)
@@ -251,4 +335,3 @@ class PeriodCycleChartView: UIView {
     }
     
 }
-
