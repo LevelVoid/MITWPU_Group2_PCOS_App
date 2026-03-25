@@ -165,7 +165,7 @@
 				CODE_SIGN_ENTITLEMENTS = PCOS_App/PCOS_App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 474MDX8R3T;
+				DEVELOPMENT_TEAM = M693R36JPD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCOS_App/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please give camera access to scan barcode.";
@@ -181,7 +181,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Dnyanu;
+				PRODUCT_BUNDLE_IDENTIFIER = sakshi.beloshe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -201,7 +201,7 @@
 				CODE_SIGN_ENTITLEMENTS = PCOS_App/PCOS_App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 474MDX8R3T;
+				DEVELOPMENT_TEAM = M693R36JPD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCOS_App/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please give camera access to scan barcode.";
@@ -217,7 +217,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Dnyanu;
+				PRODUCT_BUNDLE_IDENTIFIER = sakshi.beloshe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;

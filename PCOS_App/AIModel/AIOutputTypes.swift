@@ -44,6 +44,16 @@ struct DailyGoalsOutput {
     3. Nutrition gap (e.g. protein or fibre deficit from today's logs)
     4. Workout gap (e.g. no strength training this week)
     Never include sleep. Never include more than 2 goals.
+    
+    Generate exactly 2 personalized daily health goals for a woman with PCOS.
+
+    FIRST: Read the context carefully and extract:
+    - Symptoms today: [list from context — if none, note that]
+    - Protein logged vs target: [exact numbers from context]
+    - Workout logged today: [yes/no from context]
+    - Strength sessions this week: [number from context]
+
+    THEN generate goals only from what you extracted above. Do not use any other data.
     """)
     var goals: [GoalCard]
 }

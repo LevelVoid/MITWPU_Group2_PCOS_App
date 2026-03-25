@@ -223,6 +223,10 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
             HARD RULES:
             - CRITICAL: Use ONLY the exact numbers from the context. Read protein target from the "Targets: ...PXg..." line. Never invent or assume typical values.
             - Never generate a sleep goal — sleep is excluded entirely
+            - ONLY generate goals based on data explicitly present in the context. If a symptom is not listed under "Symptoms today:", do not reference it.
+            - If "Symptoms today: none" — do not generate any symptom-based goal. Move to nutrition or workout gap instead.
+            - If "Workout: none" and "strengthSessions: 0" are both present — only then generate a workout gap goal.
+            - Never invent or assume symptoms, food logs, or patterns that are not explicitly stated in the context string.
             - Never suggest weight loss or calorie restriction if BMI is Underweight or Normal
             - Read PCOS phenotype: Type A/B → insulin and cortisol goals; Type C → androgen-reducing foods; Type D → cycle and ovulation support foods
             - Each goal must reference one real number from today's logs or 7-day patterns
