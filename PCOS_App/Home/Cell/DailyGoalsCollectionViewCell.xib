@@ -85,7 +85,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walk 10K steps everyday to digest meal" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5j-Rz-IgV">
-                                                <rect key="frame" x="20" y="60.000000000000007" width="308.66666666666669" height="20.333333333333336"/>
+                                                <rect key="frame" x="20" y="60.000000000000007" width="362" height="20.333333333333336"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -101,6 +101,7 @@
                                         <constraints>
                                             <constraint firstItem="TId-6w-4Cd" firstAttribute="centerY" secondItem="8FZ-MI-zLN" secondAttribute="centerY" id="FW0-Dp-6LJ"/>
                                             <constraint firstItem="TId-6w-4Cd" firstAttribute="top" secondItem="zk1-07-7do" secondAttribute="top" constant="20" id="IpA-TJ-4YL"/>
+                                            <constraint firstAttribute="trailing" secondItem="C5j-Rz-IgV" secondAttribute="trailing" constant="8" id="M6O-yi-NFH"/>
                                             <constraint firstAttribute="trailing" secondItem="8FZ-MI-zLN" secondAttribute="trailing" constant="16" id="OEc-Do-O3E"/>
                                             <constraint firstItem="C5j-Rz-IgV" firstAttribute="top" secondItem="TId-6w-4Cd" secondAttribute="bottom" constant="12" id="Q3t-wS-J4q"/>
                                             <constraint firstItem="8FZ-MI-zLN" firstAttribute="leading" secondItem="TId-6w-4Cd" secondAttribute="trailing" constant="10" id="dj2-ix-75p"/>

@@ -52,6 +52,8 @@ class DailyGoalsCollectionViewCell: UICollectionViewCell {
                (GoalTitle_2, GoalDescription_2, GoalCategory_2)
            ] {
                title?.text = "Generating goal..."
+               title?.textAlignment = .center
+               title?.textColor = .tertiaryLabel
                desc?.text = ""
                cat?.text = ""
            }
@@ -110,6 +112,7 @@ class DailyGoalsCollectionViewCell: UICollectionViewCell {
            title.text = goal.title
            title.font = .systemFont(ofSize: 16, weight: .medium)
            title.textColor = .label
+           title.textAlignment = .left
            title.numberOfLines = 2
 
            // Description
