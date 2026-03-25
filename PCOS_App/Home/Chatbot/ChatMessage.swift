@@ -28,4 +28,13 @@ struct ChatMessage: Identifiable {
         self.sender = sender
         self.timestamp = timestamp
     }
+    
+    /// Create from a Core Data managed object
+    init(from cdMessage: CDChatMessage) {
+        self.text = cdMessage.text ?? ""
+        self.sender = cdMessage.senderRaw == "user" ? .user : .ai
+        self.timestamp = cdMessage.timestamp ?? Date()
+    }
+
 }
+

@@ -257,7 +257,7 @@ extension DietViewController: UICollectionViewDataSource, UICollectionViewDelega
         switch indexPath.section {
         case 0:  return CGSize(width: width, height: 195)  // nutrition header
         case 1:
-            return CGSize(width: width, height: 250)  // food suggestions
+            return CGSize(width: width, height: 300)  // food suggestions
 
         case 2:
             if todaysFoods.isEmpty {

@@ -51,7 +51,7 @@ final class ChatbotViewController: UIViewController {
         setupTableView()
         setupInputBar()
         setupKeyboardObservers()   // ← add this
-        sendWelcomeMessage()
+        loadPersistedMessages()
     }
 
     // Add this new method:
@@ -63,6 +63,26 @@ final class ChatbotViewController: UIViewController {
             object: nil
         )
     }
+    
+    private func loadPersistedMessages() {
+        let saved = ChatPersistenceManager.shared.loadTodaysMessages()
+
+        if saved.isEmpty {
+            // First launch today or after clear — show welcome and persist it
+            let welcome = ChatMessage(
+                text: "Hi! I'm Adira, your PCOS health coach.\n\nI can help with meal ideas, understanding your symptoms, cycle questions, or anything PCOS-related. \n\nWhat's on your mind today?",
+                sender: .ai
+            )
+            messages.append(welcome)
+            ChatPersistenceManager.shared.saveMessage(text: welcome.text, sender: .ai)
+        } else {
+            messages = saved
+        }
+
+        tableView.reloadData()
+        scrollToBottom(animated: false)
+    }
+
 
     @objc private func keyboardWillChange(_ notification: Notification) {
         guard
@@ -156,6 +176,7 @@ final class ChatbotViewController: UIViewController {
         let msg = ChatMessage(text: text, sender: .user)
         messages.append(msg)
         insertLastRow(animated: true)
+        ChatPersistenceManager.shared.saveMessage(text: text, sender: .user)
     }
 
     private func showTypingIndicator() {
@@ -182,6 +203,7 @@ final class ChatbotViewController: UIViewController {
             let msg = ChatMessage(text: text, sender: .ai)
             self.messages.append(msg)
             self.insertLastRow(animated: true)
+            ChatPersistenceManager.shared.saveMessage(text: text, sender: .ai)
         }
     }
 
@@ -207,7 +229,11 @@ final class ChatbotViewController: UIViewController {
         Task {
             do {
                 let context = await SharedContextEngine.shared.buildContext()
-                let response = try await brain.sendChatMessage(text, context: context)
+                // Re-inject earlier conversation summary if AI session was reset
+                let chatSummary = ChatPersistenceManager.shared.buildChatSummary()
+                let fullContext = chatSummary.isEmpty ? context : "\(context)\n\n\(chatSummary)"
+                
+                let response = try await brain.sendChatMessage(text, context: fullContext)
 
                 await MainActor.run {
                     self.addAIMessage(response)
@@ -225,10 +251,11 @@ final class ChatbotViewController: UIViewController {
         let alert = UIAlertController(title: "Clear Chat", message: "Start a new conversation with Adira?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Clear", style: .destructive) { _ in
             self.brain.resetChat()
+            ChatPersistenceManager.shared.clearAllMessages()
             self.messages.removeAll()
             self.isAITyping = false
             self.tableView.reloadData()
-            self.sendWelcomeMessage()
+            self.loadPersistedMessages()
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(alert, animated: true)

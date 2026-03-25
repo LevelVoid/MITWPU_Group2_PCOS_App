@@ -47,19 +47,40 @@ struct FoodLogDataStore {
     
     // MARK: - Add
     static func addFoodBarCode(_ food: Food) {
-            let cdFood = CDFoodLog.from(food, context: context)
-            
-            // Link to CDDailyContext
-            let dailyContext = DailyActivityDataStore.shared.getOrCreateContext(for: food.timeStamp)
-            cdFood.dailyContext = dailyContext
-            
-            // Compute and save impact tags (static from catalog + computed from formulas)
-            CDFoodTag.saveTags(for: cdFood, staticTags: food.tags, context: context)
-            
-            saveContext()
-            print("CDFoodLog saved: \(food.name) with \((cdFood.foodTags as? Set<CDFoodTag>)?.count ?? 0) tags")
-        }
+        let cdFood = CDFoodLog.from(food, context: context)
+        
+        // Link to CDDailyContext
+        let dailyContext = DailyActivityDataStore.shared.getOrCreateContext(for: food.timeStamp)
+        cdFood.dailyContext = dailyContext
+        
+        // Compute and save impact tags
+        CDFoodTag.saveTags(for: cdFood, staticTags: food.tags, context: context)
+        
+        // ── Upsert CDCustomFood ──
+        upsertCustomFood(from: food)
+        
+        saveContext()
+        print("CDFoodLog saved: \(food.name) with \((cdFood.foodTags as? Set<CDFoodTag>)?.count ?? 0) tags")
+    }
     
+    /// Upserts a CDCustomFood: if a food with the same name exists, increments timesUsed.
+    /// Otherwise creates a new CDCustomFood entry.
+    private static func upsertCustomFood(from food: Food) {
+        let request: NSFetchRequest<CDCustomFood> = CDCustomFood.fetchRequest()
+        request.predicate = NSPredicate(format: "name ==[cd] %@", food.name)
+        request.fetchLimit = 1
+        
+        if let existing = try? context.fetch(request).first {
+            // Already exists — just bump the usage count
+            existing.timesUsed += 1
+        } else {
+            // New food — create CDCustomFood entry
+            let isAI = food.image == "dietPlaceholder" || food.image == nil
+            CDCustomFood.from(food, isAI: isAI, context: context)
+        }
+    }
+
+
     // MARK: - Remove
     
     static func removeFood(_ food: Food) {

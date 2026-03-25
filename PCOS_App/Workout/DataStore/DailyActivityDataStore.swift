@@ -53,16 +53,58 @@ class DailyActivityDataStore {
         request.fetchLimit = 1
         
         let ctx = Self.context
+        let dailyCtx: CDDailyContext
+        
         if let existing = try? ctx.fetch(request).first {
-            return existing
+            dailyCtx = existing
+        } else {
+            dailyCtx = CDDailyContext(context: ctx)
+            dailyCtx.id = UUID()
+            dailyCtx.date = startOfDay
         }
         
-        // Doesn't exist yet, make a new one
-        let newContext = CDDailyContext(context: ctx)
-        newContext.id = UUID() // Standard UUID for CloudKit
-        newContext.date = startOfDay
-        return newContext
+        // ── Populate cycle phase (runs every time to stay in sync) ──
+        populateCycleInfo(for: dailyCtx, date: startOfDay)
+        
+        return dailyCtx
     }
+    
+    private func populateCycleInfo(for dailyCtx: CDDailyContext, date: Date) {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: date)
+        
+        // Find the cycle that contains this date
+        let cycles = CycleDataStore.shared.cycles
+        guard let cycle = cycles.first(where: { cycle in
+            let cycleStart = calendar.startOfDay(for: cycle.startDate)
+            let cycleEnd: Date
+            if let end = cycle.endDate {
+                cycleEnd = calendar.startOfDay(for: end)
+            } else {
+                // Ongoing cycle — extend to today + buffer
+                cycleEnd = calendar.date(byAdding: .day, value: cycle.cycleLength, to: cycleStart) ?? today
+            }
+            return today >= cycleStart && today <= cycleEnd
+        }) else {
+            return  // No cycle covers this date
+        }
+        
+        let cycleStart = calendar.startOfDay(for: cycle.startDate)
+        let daysDiff = calendar.dateComponents([.day], from: cycleStart, to: today).day ?? 0
+        let cycleDay = daysDiff + 1
+        
+        let phase = CycleDataStore.shared.phaseForDay(
+            day: cycleDay,
+            cycleLength: cycle.cycleLength,
+            periodLength: cycle.periodLength,
+            isOvulationConfirmed: cycle.isOvulationConfirmed
+        )
+        
+        dailyCtx.cycleDay = Int16(cycleDay)
+        dailyCtx.cyclePhase = phase.displayName
+    }
+
+
     
     // MARK: - Updates
     

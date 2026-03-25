@@ -86,6 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("📂 Core Data path: \(NSPersistentContainer.defaultDirectoryURL())")
         _ = SymptomDataStore.shared
 //        FoodLogDataStore.seedSampleDataIfNeeded()
+        ChatPersistenceManager.shared.deleteOldMessages()
         return true
     }
 

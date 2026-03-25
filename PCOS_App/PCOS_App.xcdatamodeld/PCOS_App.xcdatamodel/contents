@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="24512" systemVersion="25D2128" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="CDChatMessage" representedClassName="CDChatMessage" syncable="YES" codeGenerationType="category">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="senderRaw" attributeType="String"/>
+        <attribute name="sortOrder" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="text" attributeType="String"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
     <entity name="CDCompletedWorkout" representedClassName="CDCompletedWorkout" syncable="YES" codeGenerationType="category">
         <attribute name="caloriesBurned" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
@@ -10,21 +17,6 @@
         <attribute name="startTime" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="dailyContext" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDailyContext" inverseName="completedWorkouts" inverseEntity="CDDailyContext"/>
         <relationship name="workoutExercises" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDWorkoutExercise" inverseName="completedWorkout" inverseEntity="CDWorkoutExercise"/>
-    </entity>
-    <entity name="CDCorrelationResult" representedClassName="CDCorrelationResult" syncable="YES" codeGenerationType="category">
-        <attribute name="category" attributeType="String"/>
-        <attribute name="computedAt" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="confidence" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="daysOfData" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="entityA" attributeType="String"/>
-        <attribute name="entityB" attributeType="String"/>
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="lagDays" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="resultHash" attributeType="String"/>
-        <attribute name="rValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="windowEnd" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="windowStart" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="insight" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CDInsightCache" inverseName="correlation" inverseEntity="CDInsightCache"/>
     </entity>
     <entity name="CDCustomFood" representedClassName="CDCustomFood" syncable="YES" codeGenerationType="category">
         <attribute name="calories" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -102,17 +94,6 @@
         <attribute name="isComputed" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="tagName" attributeType="String"/>
         <relationship name="foodLog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDFoodLog" inverseName="foodTags" inverseEntity="CDFoodLog"/>
-    </entity>
-    <entity name="CDInsightCache" representedClassName="CDInsightCache" syncable="YES" codeGenerationType="category">
-        <attribute name="actionPrimary" attributeType="String"/>
-        <attribute name="actionSecondary" attributeType="String"/>
-        <attribute name="generatedAt" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="graphType" attributeType="String"/>
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="phaseNote" optional="YES" attributeType="String"/>
-        <attribute name="sourceResultHash" attributeType="String"/>
-        <attribute name="whyText" attributeType="String"/>
-        <relationship name="correlation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCorrelationResult" inverseName="insight" inverseEntity="CDCorrelationResult"/>
     </entity>
     <entity name="CDRoutine" representedClassName="CDRoutine" syncable="YES" codeGenerationType="category">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>

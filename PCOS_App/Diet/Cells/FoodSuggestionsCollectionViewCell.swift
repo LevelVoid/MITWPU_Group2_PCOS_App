@@ -2,6 +2,9 @@ import UIKit
 
 class FoodSuggestionsCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var thirdView: UIView!
+    @IBOutlet weak var firstView: UIView!
+    @IBOutlet weak var secondView: UIView!
     @IBOutlet weak var mainContent: UIView!
     @IBOutlet weak var Todaysfocus: UIButton!
     @IBOutlet weak var DescriptionFocus: UILabel!
@@ -38,6 +41,9 @@ class FoodSuggestionsCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Configure with AI Output
     func configure(with output: MealRecommendationOutput) {
+        firstView.layer.cornerRadius = 10
+        secondView.layer.cornerRadius = 10
+        thirdView.layer.cornerRadius = 10
         Todaysfocus.setTitle(output.focusTag, for: .normal)
         DescriptionFocus.text = output.observationLine
 
