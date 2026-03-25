@@ -8,33 +8,44 @@
 import Foundation
 import FoundationModels
 
+//MARK: meal reccomendation system
 @Generable
 struct MealRecommendationOutput {
-    @Guide(description: "One factual sentence with specific numbers, explaining why these foods were chosen based on recent logs.")
+    @Guide(description: """
+    One sentence, max 12 words, referencing actual logged numbers from context.
+    E.g. 'You have logged only 20g protein against your 60g target.'
+    Use ONLY numbers present in the context — never invent values.
+    """)
     var observationLine: String
 
-    @Guide(description: "A short 2-4 word focus tag for the UI element, e.g. 'Low on protein', 'Cramp recovery'.")
-    var focusTag: String
-
-    @Guide(description: "Exactly 3 Indian food suggestions.")
+    @Guide(description: """
+    Exactly 3 Indian food suggestions. 
+    None of these should repeat any food already logged today in the context.
+    Each must directly address the focus tag gap.
+    """)
     var foods: [FoodCard]
 }
 
 @Generable
 struct FoodCard {
-    @Guide(description: "Specific name of the dish, including Hindi name if applicable, e.g., 'Dahi with ground flaxseed (Alsi)'.")
+    @Guide(description: """
+    Specific Indian dish name with Hindi name in brackets.
+    E.g. 'Moong Dal Chilla', 'Dahi with Alsi (flaxseed)', 'Ragi Roti'.
+    Never suggest a food already logged today.
+    """)
     var name: String
 
-    @Guide(description: "The most relevant macro or health metric, e.g., '22g protein', 'Low-GI (GI 38)'.")
+    @Guide(description: "Metric based on the nutritional gap (e.g. '22g protein', '8g fibre').")
     var primaryMacro: String
 
-    @Guide(description: "Exactly 2 impact tags from the fixed PCOS list.")
-    var impactTags: [String]
+    @Guide(description: "Exactly 1 short, relevant PCOS tag (e.g. 'Low GI').")
+    var impactTag: String
 
-    @Guide(description: "One word hint for the UI color: pink, green, or amber.")
+    @Guide(description: "One word only: pink | green | amber. Rotate across the 3 cards.")
     var colorHint: String
 }
 
+//MARK: daily goals output
 @Generable
 struct DailyGoalsOutput {
     @Guide(description: """
@@ -44,7 +55,7 @@ struct DailyGoalsOutput {
     3. Nutrition gap (e.g. protein or fibre deficit from today's logs)
     4. Workout gap (e.g. no strength training this week)
     Never include sleep. Never include more than 2 goals.
-    
+
     Generate exactly 2 personalized daily health goals for a woman with PCOS.
 
     FIRST: Read the context carefully and extract:

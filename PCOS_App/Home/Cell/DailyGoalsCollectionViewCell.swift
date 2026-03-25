@@ -52,6 +52,8 @@ class DailyGoalsCollectionViewCell: UICollectionViewCell {
                (GoalTitle_2, GoalDescription_2, GoalCategory_2)
            ] {
                title?.text = "Generating goal..."
+               title?.textAlignment = .center
+               title?.textColor = .tertiaryLabel
                desc?.text = ""
                cat?.text = ""
            }
@@ -110,6 +112,7 @@ class DailyGoalsCollectionViewCell: UICollectionViewCell {
            title.text = goal.title
            title.font = .systemFont(ofSize: 16, weight: .medium)
            title.textColor = .label
+           title.textAlignment = .left
            title.numberOfLines = 2
 
            // Description
@@ -126,7 +129,7 @@ class DailyGoalsCollectionViewCell: UICollectionViewCell {
 
        private func categoryColor(_ category: String) -> UIColor {
            let c = category.lowercased()
-           if c.contains("diet")      { return UIColor(red: 0.90, green: 0.22, blue: 0.21, alpha: 1) }
+           if c.contains("diet")      { return UIColor(hex: "#e8624a") }
            if c.contains("nutrition") { return UIColor(red: 0.20, green: 0.65, blue: 0.35, alpha: 1) }
            if c.contains("exercise") || c.contains("workout") {
                return UIColor(red: 0.95, green: 0.50, blue: 0.10, alpha: 1)

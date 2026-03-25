@@ -43,7 +43,7 @@ final class Signal01ViewController: UIViewController {
         headingLabel.numberOfLines = 0
         headingLabel.lineBreakMode = .byWordWrapping
         // Ensure standard native large title sizing feeling
-        headingLabel.font = .systemFont(ofSize: 28, weight: .regular)
+        headingLabel.font = .systemFont(ofSize: 24, weight: .regular)
         
         paragraph1Label.text = signal.scientificReasons.first
         

@@ -188,21 +188,40 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
             throw error
         }
     }
-
-    // MARK: - Structured Output
+    
+//MARK: generate meal recommendations
     func generateMealRecommendations(context: String) async throws -> MealRecommendationOutput {
         guard case .available = SystemLanguageModel.default.availability else {
             throw AIBrainError.modelUnavailable
         }
         let session = LanguageModelSession(
-            tools: [IndianFoodTool()],
-            instructions: "Generate 3 personalized Indian meal suggestions based on the user's PCOS context."
+            instructions: """
+            Generate exactly 3 personalized Indian meal suggestions based on the user's PCOS context.
+
+            CONTEXT DATA:
+            - Meals eaten today
+            - Protein/Macro targets vs actuals
+            - PCOS phenotype and cycle phase
+            - Current symptoms
+
+            RULES:
+            - Provide exactly 3 Indian food suggestions.
+            - Do NOT repeat any food already logged today.
+            - Focus on the biggest nutritional gap (protein, fibre, anti-inflammatory).
+            - Use "Dish Name (Hindi Name)" format.
+            - primaryMacro: Must be a metric based on the nutritional gap (e.g. "22g protein", "8g fibre").
+            - impactTag: Exactly 1 relevant PCOS tag (string, not array).
+            - DO NOT repeat the nutritional gap or primaryMacro in the impactTag.
+            - Assign colorHint: "pink" for first, "green" for second, "amber" for third.
+
+            OBSERVATION LINE: One short sentence referencing today's logged numbers.
+            """
         )
         let response = try await session.respond(
             to: context,
             generating: MealRecommendationOutput.self
         )
-        return response.content  // ← was response.value
+        return response.content
     }
 
 
