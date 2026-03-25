@@ -129,7 +129,7 @@ class DailyGoalsCollectionViewCell: UICollectionViewCell {
 
        private func categoryColor(_ category: String) -> UIColor {
            let c = category.lowercased()
-           if c.contains("diet")      { return UIColor(red: 0.90, green: 0.22, blue: 0.21, alpha: 1) }
+           if c.contains("diet")      { return UIColor(hex: "#e8624a") }
            if c.contains("nutrition") { return UIColor(red: 0.20, green: 0.65, blue: 0.35, alpha: 1) }
            if c.contains("exercise") || c.contains("workout") {
                return UIColor(red: 0.95, green: 0.50, blue: 0.10, alpha: 1)

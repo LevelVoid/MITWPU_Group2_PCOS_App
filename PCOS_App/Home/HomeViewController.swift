@@ -756,7 +756,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             switch indexPath.section {
             case 1: headerView.configureHeader(with: "Today's PCOS Signals")
             case 2: headerView.configureHeader(with: "Quick Actions")
-            case 3: headerView.configureHeader(with: "Daily Goals")        // ← NEW
+            case 3: headerView.configureHeader(with: "Today's Focus")
             case 4: headerView.configureHeader(with: "Sleep Patterns")
             case 5: headerView.configureHeader(with: "Cycle Trends")
             case 6: headerView.configureHeader(with: "Symptom Patterns")

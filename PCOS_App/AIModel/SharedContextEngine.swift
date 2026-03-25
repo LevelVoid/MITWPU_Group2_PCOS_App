@@ -18,7 +18,7 @@ final class SharedContextEngine {
     func buildContext() async -> String {
         let user      = fetchUser()
         let goals     = computeGoals(for: user)
-        let todayCtx  = fetchTodayContext()
+        let todayCtx  = fetchTodayContext()   // always non-nil now
         let patterns  = fetchSevenDayPatterns()
         let cycleInfo = fetchCycleInfo(user: user)
         return format(user: user, goals: goals, todayCtx: todayCtx,
@@ -78,20 +78,21 @@ final class SharedContextEngine {
         let caloriesBurned: Double
     }
 
-    private func fetchTodayContext() -> TodayContext? {
+    private func fetchTodayContext() -> TodayContext {
         let cal = Calendar.current
         let todayStart = cal.startOfDay(for: Date())
-        guard let todayEnd = cal.date(byAdding: .day, value: 1, to: todayStart) else { return nil }
+        let todayEnd   = cal.date(byAdding: .day, value: 1, to: todayStart) ?? Date()
 
+        // Try to load CDDailyContext row for today (optional — may not exist)
         let request = NSFetchRequest<NSManagedObject>(entityName: "CDDailyContext")
         request.predicate = NSPredicate(format: "date >= %@ AND date < %@",
                                         todayStart as NSDate, todayEnd as NSDate)
         request.fetchLimit = 1
-        guard let cd = try? context.fetch(request).first else { return nil }
+        let cd = (try? context.fetch(request).first)
 
-        let sleepTime    = cd.value(forKey: "sleepTime") as? Date
-        let wakeTime     = cd.value(forKey: "wakeTime") as? Date
-        let sleepQuality = cd.value(forKey: "sleepQuality") as? Double ?? 0
+        let sleepTime    = cd?.value(forKey: "sleepTime") as? Date
+        let wakeTime     = cd?.value(forKey: "wakeTime") as? Date
+        let sleepQuality = cd?.value(forKey: "sleepQuality") as? Double ?? 0
         var sleepHours   = 0.0
         if let s = sleepTime, let w = wakeTime {
             var wake = w
@@ -99,8 +100,20 @@ final class SharedContextEngine {
             sleepHours = wake.timeIntervalSince(s) / 3600.0
         }
 
-        let foodSet  = cd.value(forKey: "foodLogs") as? Set<NSManagedObject> ?? []
-        let foodLogs: [FoodLogSnapshot] = foodSet.map { fl in
+        // Primary: fetch CDFoodLog directly by date — this always works regardless
+        // of whether the CDDailyContext → CDFoodLog relationship is correctly set up.
+        let directFoodRequest = NSFetchRequest<NSManagedObject>(entityName: "CDFoodLog")
+        directFoodRequest.predicate = NSPredicate(format: "timeStamp >= %@ AND timeStamp < %@",
+                                                  todayStart as NSDate, todayEnd as NSDate)
+        let directLogs = (try? context.fetch(directFoodRequest)) ?? []
+
+        // Supplement: also check the CDDailyContext.foodLogs relationship in case it
+        // contains entries whose timeStamp falls outside the predicate (edge case).
+        let relationshipSet = cd?.value(forKey: "foodLogs") as? Set<NSManagedObject> ?? []
+        let rawLogs: [NSManagedObject] = directLogs.count >= relationshipSet.count
+            ? directLogs : Array(relationshipSet)
+
+        let foodLogs: [FoodLogSnapshot] = rawLogs.map { fl in
             let protein   = fl.value(forKey: "proteinContent") as? Double ?? 0
             let carbs     = fl.value(forKey: "carbsContent") as? Double ?? 0
             let fats      = fl.value(forKey: "fatsContent") as? Double ?? 0
@@ -114,12 +127,12 @@ final class SharedContextEngine {
             )
         }.sorted { $0.timeStamp < $1.timeStamp }
 
-        let symptomSet = cd.value(forKey: "symptomLogs") as? Set<NSManagedObject> ?? []
+        let symptomSet = cd?.value(forKey: "symptomLogs") as? Set<NSManagedObject> ?? []
         let symptoms   = symptomSet.map {
             "\($0.value(forKey: "symptomName") as? String ?? "") (\($0.value(forKey: "symptomCategory") as? String ?? ""))"
         }
 
-        let workoutSet = cd.value(forKey: "completedWorkouts") as? Set<NSManagedObject> ?? []
+        let workoutSet = cd?.value(forKey: "completedWorkouts") as? Set<NSManagedObject> ?? []
         let workouts   = workoutSet.map {
             WorkoutSnapshot(
                 routineName:     $0.value(forKey: "routineName") as? String ?? "",
@@ -131,11 +144,11 @@ final class SharedContextEngine {
         return TodayContext(
             sleepTime: sleepTime, wakeTime: wakeTime,
             sleepQuality: sleepQuality, sleepDurationHours: sleepHours,
-            steps: Int(cd.value(forKey: "steps") as? Int32 ?? 0),
-            caloriesBurned: Int(cd.value(forKey: "caloriesBurned") as? Int32 ?? 0),
-            waterL: cd.value(forKey: "waterL") as? Double ?? 0,
-            cyclePhase: cd.value(forKey: "cyclePhase") as? String ?? "Unknown",
-            cycleDay: Int(cd.value(forKey: "cycleDay") as? Int16 ?? 0),
+            steps:         Int(cd?.value(forKey: "steps") as? Int32 ?? 0),
+            caloriesBurned: Int(cd?.value(forKey: "caloriesBurned") as? Int32 ?? 0),
+            waterL:        cd?.value(forKey: "waterL") as? Double ?? 0,
+            cyclePhase:    cd?.value(forKey: "cyclePhase") as? String ?? "Unknown",
+            cycleDay:      Int(cd?.value(forKey: "cycleDay") as? Int16 ?? 0),
             foodLogs: foodLogs, symptoms: symptoms, completedWorkouts: workouts
         )
     }

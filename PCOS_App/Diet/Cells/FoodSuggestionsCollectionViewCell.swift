@@ -6,23 +6,21 @@ class FoodSuggestionsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var firstView: UIView!
     @IBOutlet weak var secondView: UIView!
     @IBOutlet weak var mainContent: UIView!
-    @IBOutlet weak var Todaysfocus: UIButton!
     @IBOutlet weak var DescriptionFocus: UILabel!
     
     @IBOutlet weak var MealName1: UILabel!
     @IBOutlet weak var mealGram1: UILabel!
-    @IBOutlet weak var ImpactTag1_1: UILabel!
-    @IBOutlet weak var ImpactTag2_1: UILabel!
+    @IBOutlet weak var ImpactTag_1: UILabel!
+    
     
     @IBOutlet weak var MealName2: UILabel!
     @IBOutlet weak var mealGram2: UILabel!
-    @IBOutlet weak var ImpactTag1_2: UILabel!
-    @IBOutlet weak var ImpactTag2_2: UILabel!
+    @IBOutlet weak var ImpactTag_2: UILabel!
+    
     
     @IBOutlet weak var MealName3: UILabel!
     @IBOutlet weak var mealGram3: UILabel!
-    @IBOutlet weak var ImpactTag1_3: UILabel!
-    @IBOutlet weak var ImpactTag2_3: UILabel!
+    @IBOutlet weak var ImpactTag_3: UILabel!
     
     
     static let identifier = "FoodSuggestionsCollectionViewCell"
@@ -30,13 +28,30 @@ class FoodSuggestionsCollectionViewCell: UICollectionViewCell {
         return UINib(nibName: identifier, bundle: nil)
     }
 
-    // MARK: - Loading State
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        // Enable multi-line for labels to support dynamic height
+        DescriptionFocus.numberOfLines = 0
+        MealName1.numberOfLines = 0
+        MealName2.numberOfLines = 0
+        MealName3.numberOfLines = 0
+        
+        // Also ensure impact tags can wrap if they are long
+        ImpactTag_1.numberOfLines = 0
+        ImpactTag_2.numberOfLines = 0
+        ImpactTag_3.numberOfLines = 0
+    }
+
+    // MARK: - States
     func showLoadingState() {
-        Todaysfocus.setTitle("Loading", for: .normal)
-        DescriptionFocus.text = "Generating personalised meal suggestions"
-        MealName1.text = "—"; mealGram1.text = "—"; ImpactTag1_1.text = ""; ImpactTag2_1.text = ""
-        MealName2.text = "—"; mealGram2.text = "—"; ImpactTag1_2.text = ""; ImpactTag2_2.text = ""
-        MealName3.text = "—"; mealGram3.text = "—"; ImpactTag1_3.text = ""; ImpactTag2_3.text = ""
+        DescriptionFocus.text = "Fetching personalized recommendations..."
+        [firstView, secondView, thirdView].forEach { $0?.isHidden = true }
+    }
+
+    func showErrorState(message: String) {
+        DescriptionFocus.text = message
+        [firstView, secondView, thirdView].forEach { $0?.isHidden = true }
     }
 
     // MARK: - Configure with AI Output
@@ -44,25 +59,38 @@ class FoodSuggestionsCollectionViewCell: UICollectionViewCell {
         firstView.layer.cornerRadius = 10
         secondView.layer.cornerRadius = 10
         thirdView.layer.cornerRadius = 10
-        Todaysfocus.setTitle(output.focusTag, for: .normal)
+        
         DescriptionFocus.text = output.observationLine
-
         let foods = output.foods
-        guard foods.count >= 3 else { return }
+        
+        // Slot 1
+        if foods.count > 0 {
+            firstView.isHidden = false
+            MealName1.text = foods[0].name
+            mealGram1.text = foods[0].primaryMacro
+            ImpactTag_1.text = foods[0].impactTag
+        } else {
+            firstView.isHidden = true
+        }
 
-        MealName1.text = foods[0].name
-        mealGram1.text = foods[0].primaryMacro
-        ImpactTag1_1.text = foods[0].impactTags.count > 0 ? foods[0].impactTags[0] : ""
-        ImpactTag2_1.text = foods[0].impactTags.count > 1 ? foods[0].impactTags[1] : ""
+        // Slot 2
+        if foods.count > 1 {
+            secondView.isHidden = false
+            MealName2.text = foods[1].name
+            mealGram2.text = foods[1].primaryMacro
+            ImpactTag_2.text = foods[1].impactTag
+        } else {
+            secondView.isHidden = true
+        }
 
-        MealName2.text = foods[1].name
-        mealGram2.text = foods[1].primaryMacro
-        ImpactTag1_2.text = foods[1].impactTags.count > 0 ? foods[1].impactTags[0] : ""
-        ImpactTag2_2.text = foods[1].impactTags.count > 1 ? foods[1].impactTags[1] : ""
-
-        MealName3.text = foods[2].name
-        mealGram3.text = foods[2].primaryMacro
-        ImpactTag1_3.text = foods[2].impactTags.count > 0 ? foods[2].impactTags[0] : ""
-        ImpactTag2_3.text = foods[2].impactTags.count > 1 ? foods[2].impactTags[1] : ""
+        // Slot 3
+        if foods.count > 2 {
+            thirdView.isHidden = false
+            MealName3.text = foods[2].name
+            mealGram3.text = foods[2].primaryMacro
+            ImpactTag_3.text = foods[2].impactTag
+        } else {
+            thirdView.isHidden = true
+        }
     }
 }
