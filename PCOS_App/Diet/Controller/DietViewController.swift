@@ -14,6 +14,12 @@ class DietViewController: UIViewController {
     private var mealError: String?
     private var lastFoodLogCount: Int = -1
  
+    // Sizing prototype for dynamic height
+    private lazy var sizingSuggestionCell: FoodSuggestionsCollectionViewCell = {
+        let cell = FoodSuggestionsCollectionViewCell.nib().instantiate(withOwner: nil).first as! FoodSuggestionsCollectionViewCell
+        return cell
+    }()
+ 
     // MARK: - Lifecycle
  
     override func viewDidLoad() {
@@ -292,10 +298,21 @@ extension DietViewController: UICollectionViewDataSource, UICollectionViewDelega
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         let width = collectionView.bounds.width - 32
- 
         switch indexPath.section {
         case 0: return CGSize(width: width, height: 195)
-        case 1: return CGSize(width: width, height: 300)
+        case 1:
+            if let output = mealOutput {
+                sizingSuggestionCell.configure(with: output)
+                // Calculate height based on width and Auto Layout
+                let size = sizingSuggestionCell.contentView.systemLayoutSizeFitting(
+                    CGSize(width: width, height: UIView.layoutFittingCompressedSize.height),
+                    withHorizontalFittingPriority: .required,
+                    verticalFittingPriority: .fittingSizeLevel
+                )
+                return CGSize(width: width, height: size.height)
+            } else {
+                return CGSize(width: width, height: 110) // Loading or Error state
+            }
         case 2:
             if todaysFoods.isEmpty {
                 return CGSize(width: width, height: 112)
