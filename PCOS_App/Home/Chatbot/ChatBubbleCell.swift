@@ -167,8 +167,33 @@ final class ChatBubbleCell: UITableViewCell {
         let baseFont = UIFont.systemFont(ofSize: 16)
         let boldFont = UIFont.systemFont(ofSize: 16, weight: .semibold)
 
+        var cleanText = text
+        
+        // Strip [?] replacement characters and any stray emojis
+        cleanText = cleanText.replacingOccurrences(of: "\u{FFFD}", with: "")
+        cleanText = String(cleanText.unicodeScalars.filter { !$0.properties.isEmojiPresentation })
+        
+        // Clean up markdown bullet points (* or -) into proper unicode bullets
+        let listPattern = "(?m)^[\\*\\-]\\s+"
+        if let regex = try? NSRegularExpression(pattern: listPattern) {
+            cleanText = regex.stringByReplacingMatches(
+                in: cleanText,
+                range: NSRange(cleanText.startIndex..., in: cleanText),
+                withTemplate: "• "
+            )
+        }
+        
+        // Remove excessive empty lines (3 or more consecutive newlines)
+        if let regex = try? NSRegularExpression(pattern: "\\n{3,}") {
+            cleanText = regex.stringByReplacingMatches(
+                in: cleanText,
+                range: NSRange(cleanText.startIndex..., in: cleanText),
+                withTemplate: "\n\n"
+            )
+        }
+
         let result = NSMutableAttributedString()
-        let lines  = text.components(separatedBy: "\n")
+        let lines  = cleanText.components(separatedBy: "\n")
 
         for (i, line) in lines.enumerated() {
             result.append(processInlineBold(line, baseFont: baseFont, boldFont: boldFont, color: baseColor))

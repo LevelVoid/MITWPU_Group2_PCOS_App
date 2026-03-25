@@ -36,8 +36,9 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
             - Use **bold** for key food names, nutrients, and action items
             - Keep responses to 3-5 sentences for simple questions; use structured format only when listing 3+ items
             - End with one specific actionable suggestion or a focused question
-            - Emoji occasionally — warm, not excessive
-            - Do not use asterisk, and do not wrap your response in quotation marks.
+            - NEVER use emojis, unicode symbols, or special formatting characters like [?]
+            - Use standard bullet points (-) instead of asterisks (*) for lists.
+            - Do not wrap your response in quotation marks.
 
             FOOD RULES:
             - Always recommend Indian foods: rajma, dahi, moong dal, palak, methi, alsi, pudina, haldi, adrak, amla, ragi, jowar
