@@ -721,154 +721,166 @@ Learn, track and heal at your own pace</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Syy-jW-hMb">
-                                <rect key="frame" x="16" y="305.33333333333331" width="175" height="175"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4xs-g3-hbF">
+                                <rect key="frame" x="16" y="315.33333333333331" width="361" height="175"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="TYPE A" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9WT-mU-ejc">
-                                        <rect key="frame" x="16" y="28" width="143" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Full blown" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wy-3E-m7q">
-                                        <rect key="frame" x="16" y="62.000000000000007" width="143" height="14.333333333333336"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High androgens, ovulation issues and polycystic ovaries" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-eG-XvF">
-                                        <rect key="frame" x="16" y="88.333333333333371" width="143" height="46.666666666666657"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Syy-jW-hMb">
+                                        <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="175"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="TYPE A" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9WT-mU-ejc">
+                                                <rect key="frame" x="16" y="28" width="140.66666666666666" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Full blown" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wy-3E-m7q">
+                                                <rect key="frame" x="16" y="62.000000000000007" width="140.66666666666666" height="14.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High androgens, ovulation issues and polycystic ovaries" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-eG-XvF">
+                                                <rect key="frame" x="16" y="88.333333333333371" width="140.66666666666666" height="46.666666666666657"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="9WT-mU-ejc" firstAttribute="top" secondItem="Syy-jW-hMb" secondAttribute="top" constant="28" id="39u-8f-qY1"/>
+                                            <constraint firstItem="4aU-eG-XvF" firstAttribute="leading" secondItem="Syy-jW-hMb" secondAttribute="leading" constant="16" id="B3x-fm-luY"/>
+                                            <constraint firstItem="2wy-3E-m7q" firstAttribute="top" secondItem="9WT-mU-ejc" secondAttribute="bottom" constant="4" id="Fxy-9w-mmd"/>
+                                            <constraint firstAttribute="trailing" secondItem="9WT-mU-ejc" secondAttribute="trailing" constant="16" id="RzV-wv-SCY"/>
+                                            <constraint firstAttribute="height" constant="175" id="eSb-gt-Dx5"/>
+                                            <constraint firstAttribute="trailing" secondItem="2wy-3E-m7q" secondAttribute="trailing" constant="16" id="erW-bU-L2M"/>
+                                            <constraint firstItem="2wy-3E-m7q" firstAttribute="leading" secondItem="Syy-jW-hMb" secondAttribute="leading" constant="16" id="fOS-4o-Jvv"/>
+                                            <constraint firstAttribute="trailing" secondItem="4aU-eG-XvF" secondAttribute="trailing" constant="16" id="ocs-Rj-15j"/>
+                                            <constraint firstItem="9WT-mU-ejc" firstAttribute="leading" secondItem="Syy-jW-hMb" secondAttribute="leading" constant="16" id="oy8-eO-c0u"/>
+                                            <constraint firstItem="4aU-eG-XvF" firstAttribute="top" secondItem="2wy-3E-m7q" secondAttribute="bottom" constant="12" id="rTR-2F-loL"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="92n-tA-SQh">
+                                        <rect key="frame" x="188.66666666666663" y="0.0" width="172.33333333333337" height="175"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Non-PCO" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6db-6X-VcQ">
+                                                <rect key="frame" x="16" y="62.000000000000007" width="140.33333333333334" height="14.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High androgens and ovulation issues, but no cysts" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2b5-Fy-Utb">
+                                                <rect key="frame" x="20" y="88.333333333333371" width="132.33333333333334" height="46.666666666666657"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="TYPE B" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rnp-mE-Ail">
+                                                <rect key="frame" x="16" y="28" width="140.33333333333334" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="Rnp-mE-Ail" firstAttribute="top" secondItem="92n-tA-SQh" secondAttribute="top" constant="28" id="2Bf-RD-v4z"/>
+                                            <constraint firstAttribute="height" constant="175" id="G2X-NJ-c1t"/>
+                                            <constraint firstAttribute="trailing" secondItem="2b5-Fy-Utb" secondAttribute="trailing" constant="20" id="RRK-58-VbR"/>
+                                            <constraint firstItem="Rnp-mE-Ail" firstAttribute="leading" secondItem="92n-tA-SQh" secondAttribute="leading" constant="16" id="Y1Y-zI-FDQ"/>
+                                            <constraint firstItem="2b5-Fy-Utb" firstAttribute="top" secondItem="6db-6X-VcQ" secondAttribute="bottom" constant="12" id="c68-by-X4b"/>
+                                            <constraint firstItem="2b5-Fy-Utb" firstAttribute="leading" secondItem="92n-tA-SQh" secondAttribute="leading" constant="20" id="c74-do-oeS"/>
+                                            <constraint firstItem="6db-6X-VcQ" firstAttribute="leading" secondItem="92n-tA-SQh" secondAttribute="leading" constant="16" id="dlb-nC-yWI"/>
+                                            <constraint firstAttribute="trailing" secondItem="6db-6X-VcQ" secondAttribute="trailing" constant="16" id="r03-gK-03A"/>
+                                            <constraint firstItem="6db-6X-VcQ" firstAttribute="top" secondItem="Rnp-mE-Ail" secondAttribute="bottom" constant="4" id="v4e-nj-EvR"/>
+                                            <constraint firstAttribute="trailing" secondItem="Rnp-mE-Ail" secondAttribute="trailing" constant="16" id="zIc-Gq-XyZ"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="9WT-mU-ejc" firstAttribute="top" secondItem="Syy-jW-hMb" secondAttribute="top" constant="28" id="39u-8f-qY1"/>
-                                    <constraint firstAttribute="width" constant="175" id="AtI-Bh-diC"/>
-                                    <constraint firstItem="4aU-eG-XvF" firstAttribute="leading" secondItem="Syy-jW-hMb" secondAttribute="leading" constant="16" id="B3x-fm-luY"/>
-                                    <constraint firstItem="2wy-3E-m7q" firstAttribute="top" secondItem="9WT-mU-ejc" secondAttribute="bottom" constant="4" id="Fxy-9w-mmd"/>
-                                    <constraint firstAttribute="trailing" secondItem="9WT-mU-ejc" secondAttribute="trailing" constant="16" id="RzV-wv-SCY"/>
-                                    <constraint firstAttribute="height" constant="175" id="eSb-gt-Dx5"/>
-                                    <constraint firstAttribute="trailing" secondItem="2wy-3E-m7q" secondAttribute="trailing" constant="16" id="erW-bU-L2M"/>
-                                    <constraint firstItem="2wy-3E-m7q" firstAttribute="leading" secondItem="Syy-jW-hMb" secondAttribute="leading" constant="16" id="fOS-4o-Jvv"/>
-                                    <constraint firstAttribute="trailing" secondItem="4aU-eG-XvF" secondAttribute="trailing" constant="16" id="ocs-Rj-15j"/>
-                                    <constraint firstItem="9WT-mU-ejc" firstAttribute="leading" secondItem="Syy-jW-hMb" secondAttribute="leading" constant="16" id="oy8-eO-c0u"/>
-                                    <constraint firstItem="4aU-eG-XvF" firstAttribute="top" secondItem="2wy-3E-m7q" secondAttribute="bottom" constant="12" id="rTR-2F-loL"/>
+                                    <constraint firstAttribute="height" constant="175" id="Sfd-Z3-FZS"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pFg-BJ-Bb0">
-                                <rect key="frame" x="16" y="496.33333333333326" width="175" height="175"/>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4UM-tY-Di8">
+                                <rect key="frame" x="16" y="506.33333333333326" width="361" height="175"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="TYPE C" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ht-9p-Fr6">
-                                        <rect key="frame" x="16" y="28.000000000000057" width="143" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Ovulatory" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwp-cA-B9e">
-                                        <rect key="frame" x="16" y="62.000000000000064" width="143" height="14.333333333333336"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High androgens and cysts but normal ovulation" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mlb-gm-wrS">
-                                        <rect key="frame" x="20" y="88.333333333333314" width="135" height="46.666666666666657"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pFg-BJ-Bb0">
+                                        <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="175"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="TYPE C" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ht-9p-Fr6">
+                                                <rect key="frame" x="16" y="28.000000000000057" width="140.66666666666666" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Ovulatory" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwp-cA-B9e">
+                                                <rect key="frame" x="16" y="62.000000000000064" width="140.66666666666666" height="14.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High androgens and cysts but normal ovulation" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mlb-gm-wrS">
+                                                <rect key="frame" x="20" y="88.333333333333314" width="132.66666666666666" height="46.666666666666657"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="xwp-cA-B9e" firstAttribute="leading" secondItem="pFg-BJ-Bb0" secondAttribute="leading" constant="16" id="AyO-oC-dhu"/>
+                                            <constraint firstAttribute="trailing" secondItem="6ht-9p-Fr6" secondAttribute="trailing" constant="16" id="FlU-jP-0iK"/>
+                                            <constraint firstItem="6ht-9p-Fr6" firstAttribute="top" secondItem="pFg-BJ-Bb0" secondAttribute="top" constant="28" id="GOm-u9-R0a"/>
+                                            <constraint firstAttribute="trailing" secondItem="xwp-cA-B9e" secondAttribute="trailing" constant="16" id="Ibn-ft-sQt"/>
+                                            <constraint firstItem="6ht-9p-Fr6" firstAttribute="leading" secondItem="pFg-BJ-Bb0" secondAttribute="leading" constant="16" id="QeC-C4-3t4"/>
+                                            <constraint firstItem="Mlb-gm-wrS" firstAttribute="leading" secondItem="pFg-BJ-Bb0" secondAttribute="leading" constant="20" id="YZq-W0-Zfk"/>
+                                            <constraint firstItem="Mlb-gm-wrS" firstAttribute="top" secondItem="xwp-cA-B9e" secondAttribute="bottom" constant="12" id="fjy-Hl-j7c"/>
+                                            <constraint firstAttribute="height" constant="175" id="lBg-Ja-DyN"/>
+                                            <constraint firstAttribute="trailing" secondItem="Mlb-gm-wrS" secondAttribute="trailing" constant="20" id="rwr-0c-G20"/>
+                                            <constraint firstItem="xwp-cA-B9e" firstAttribute="top" secondItem="6ht-9p-Fr6" secondAttribute="bottom" constant="4" id="ry6-nt-lYq"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9PO-MR-DCl">
+                                        <rect key="frame" x="188.66666666666663" y="0.0" width="172.33333333333337" height="175"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="TYPE D" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxC-jF-KdP">
+                                                <rect key="frame" x="16" y="28.000000000000057" width="140.33333333333334" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Non-hyperandrogenic" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5z-0V-Uru">
+                                                <rect key="frame" x="16" y="62.000000000000064" width="140.33333333333334" height="14.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ovulation issues and cysts, but normal androgen levels" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sC3-ob-OCP">
+                                                <rect key="frame" x="16" y="88.333333333333314" width="140.33333333333334" height="46.666666666666657"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="I5z-0V-Uru" secondAttribute="trailing" constant="16" id="677-Ih-f7j"/>
+                                            <constraint firstAttribute="trailing" secondItem="hxC-jF-KdP" secondAttribute="trailing" constant="16" id="6D4-OR-lNa"/>
+                                            <constraint firstItem="I5z-0V-Uru" firstAttribute="top" secondItem="hxC-jF-KdP" secondAttribute="bottom" constant="4" id="9IJ-q4-cmz"/>
+                                            <constraint firstItem="I5z-0V-Uru" firstAttribute="leading" secondItem="9PO-MR-DCl" secondAttribute="leading" constant="16" id="TaX-LZ-0Em"/>
+                                            <constraint firstAttribute="height" constant="175" id="X6s-Cm-j92"/>
+                                            <constraint firstItem="sC3-ob-OCP" firstAttribute="top" secondItem="I5z-0V-Uru" secondAttribute="bottom" constant="12" id="e6R-6F-sj7"/>
+                                            <constraint firstItem="hxC-jF-KdP" firstAttribute="top" secondItem="9PO-MR-DCl" secondAttribute="top" constant="28" id="eFe-QQ-2sb"/>
+                                            <constraint firstItem="hxC-jF-KdP" firstAttribute="leading" secondItem="9PO-MR-DCl" secondAttribute="leading" constant="16" id="rqC-GP-Nol"/>
+                                            <constraint firstItem="sC3-ob-OCP" firstAttribute="leading" secondItem="9PO-MR-DCl" secondAttribute="leading" constant="16" id="rwD-UE-4dS"/>
+                                            <constraint firstAttribute="trailing" secondItem="sC3-ob-OCP" secondAttribute="trailing" constant="16" id="uxs-G2-LUl"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="xwp-cA-B9e" firstAttribute="leading" secondItem="pFg-BJ-Bb0" secondAttribute="leading" constant="16" id="AyO-oC-dhu"/>
-                                    <constraint firstAttribute="trailing" secondItem="6ht-9p-Fr6" secondAttribute="trailing" constant="16" id="FlU-jP-0iK"/>
-                                    <constraint firstItem="6ht-9p-Fr6" firstAttribute="top" secondItem="pFg-BJ-Bb0" secondAttribute="top" constant="28" id="GOm-u9-R0a"/>
-                                    <constraint firstAttribute="trailing" secondItem="xwp-cA-B9e" secondAttribute="trailing" constant="16" id="Ibn-ft-sQt"/>
-                                    <constraint firstItem="6ht-9p-Fr6" firstAttribute="leading" secondItem="pFg-BJ-Bb0" secondAttribute="leading" constant="16" id="QeC-C4-3t4"/>
-                                    <constraint firstItem="Mlb-gm-wrS" firstAttribute="leading" secondItem="pFg-BJ-Bb0" secondAttribute="leading" constant="20" id="YZq-W0-Zfk"/>
-                                    <constraint firstItem="Mlb-gm-wrS" firstAttribute="top" secondItem="xwp-cA-B9e" secondAttribute="bottom" constant="12" id="fjy-Hl-j7c"/>
-                                    <constraint firstAttribute="width" constant="175" id="j1S-nD-Dcu"/>
-                                    <constraint firstAttribute="height" constant="175" id="lBg-Ja-DyN"/>
-                                    <constraint firstAttribute="trailing" secondItem="Mlb-gm-wrS" secondAttribute="trailing" constant="20" id="rwr-0c-G20"/>
-                                    <constraint firstItem="xwp-cA-B9e" firstAttribute="top" secondItem="6ht-9p-Fr6" secondAttribute="bottom" constant="4" id="ry6-nt-lYq"/>
+                                    <constraint firstAttribute="height" constant="175" id="EkA-tT-2Ly"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="92n-tA-SQh">
-                                <rect key="frame" x="207" y="305.33333333333331" width="175" height="175"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Non-PCO" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6db-6X-VcQ">
-                                        <rect key="frame" x="16" y="62.000000000000007" width="143" height="14.333333333333336"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High androgens and ovulation issues, but no cysts" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2b5-Fy-Utb">
-                                        <rect key="frame" x="20" y="88.333333333333371" width="135" height="46.666666666666657"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="TYPE B" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rnp-mE-Ail">
-                                        <rect key="frame" x="16" y="28" width="143" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="Rnp-mE-Ail" firstAttribute="top" secondItem="92n-tA-SQh" secondAttribute="top" constant="28" id="2Bf-RD-v4z"/>
-                                    <constraint firstAttribute="width" constant="175" id="5Gg-F3-Vre"/>
-                                    <constraint firstAttribute="height" constant="175" id="G2X-NJ-c1t"/>
-                                    <constraint firstAttribute="trailing" secondItem="2b5-Fy-Utb" secondAttribute="trailing" constant="20" id="RRK-58-VbR"/>
-                                    <constraint firstItem="Rnp-mE-Ail" firstAttribute="leading" secondItem="92n-tA-SQh" secondAttribute="leading" constant="16" id="Y1Y-zI-FDQ"/>
-                                    <constraint firstItem="2b5-Fy-Utb" firstAttribute="top" secondItem="6db-6X-VcQ" secondAttribute="bottom" constant="12" id="c68-by-X4b"/>
-                                    <constraint firstItem="2b5-Fy-Utb" firstAttribute="leading" secondItem="92n-tA-SQh" secondAttribute="leading" constant="20" id="c74-do-oeS"/>
-                                    <constraint firstItem="6db-6X-VcQ" firstAttribute="leading" secondItem="92n-tA-SQh" secondAttribute="leading" constant="16" id="dlb-nC-yWI"/>
-                                    <constraint firstAttribute="trailing" secondItem="6db-6X-VcQ" secondAttribute="trailing" constant="16" id="r03-gK-03A"/>
-                                    <constraint firstItem="6db-6X-VcQ" firstAttribute="top" secondItem="Rnp-mE-Ail" secondAttribute="bottom" constant="4" id="v4e-nj-EvR"/>
-                                    <constraint firstAttribute="trailing" secondItem="Rnp-mE-Ail" secondAttribute="trailing" constant="16" id="zIc-Gq-XyZ"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9PO-MR-DCl">
-                                <rect key="frame" x="207" y="496.33333333333326" width="175" height="175"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="TYPE D" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxC-jF-KdP">
-                                        <rect key="frame" x="16" y="28.000000000000057" width="143" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Non-hyperandrogenic" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5z-0V-Uru">
-                                        <rect key="frame" x="16" y="62.000000000000064" width="143" height="14.333333333333336"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ovulation issues and cysts, but normal androgen levels" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sC3-ob-OCP">
-                                        <rect key="frame" x="16" y="88.333333333333314" width="143" height="46.666666666666657"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="I5z-0V-Uru" secondAttribute="trailing" constant="16" id="677-Ih-f7j"/>
-                                    <constraint firstAttribute="trailing" secondItem="hxC-jF-KdP" secondAttribute="trailing" constant="16" id="6D4-OR-lNa"/>
-                                    <constraint firstItem="I5z-0V-Uru" firstAttribute="top" secondItem="hxC-jF-KdP" secondAttribute="bottom" constant="4" id="9IJ-q4-cmz"/>
-                                    <constraint firstItem="I5z-0V-Uru" firstAttribute="leading" secondItem="9PO-MR-DCl" secondAttribute="leading" constant="16" id="TaX-LZ-0Em"/>
-                                    <constraint firstAttribute="height" constant="175" id="X6s-Cm-j92"/>
-                                    <constraint firstAttribute="width" constant="175" id="cNh-AB-PE2"/>
-                                    <constraint firstItem="sC3-ob-OCP" firstAttribute="top" secondItem="I5z-0V-Uru" secondAttribute="bottom" constant="12" id="e6R-6F-sj7"/>
-                                    <constraint firstItem="hxC-jF-KdP" firstAttribute="top" secondItem="9PO-MR-DCl" secondAttribute="top" constant="28" id="eFe-QQ-2sb"/>
-                                    <constraint firstItem="hxC-jF-KdP" firstAttribute="leading" secondItem="9PO-MR-DCl" secondAttribute="leading" constant="16" id="rqC-GP-Nol"/>
-                                    <constraint firstItem="sC3-ob-OCP" firstAttribute="leading" secondItem="9PO-MR-DCl" secondAttribute="leading" constant="16" id="rwD-UE-4dS"/>
-                                    <constraint firstAttribute="trailing" secondItem="sC3-ob-OCP" secondAttribute="trailing" constant="16" id="uxs-G2-LUl"/>
-                                </constraints>
-                            </view>
+                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDf-nh-KMf">
                                 <rect key="frame" x="16" y="694" width="361" height="60"/>
                                 <constraints>
@@ -894,23 +906,21 @@ Learn, track and heal at your own pace</string>
                         <viewLayoutGuide key="safeArea" id="6AC-hl-F52"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="4UM-tY-Di8" firstAttribute="top" secondItem="4xs-g3-hbF" secondAttribute="bottom" constant="16" id="4ye-Mx-dOd"/>
                             <constraint firstItem="6AC-hl-F52" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="psn-Ui-uBg" secondAttribute="trailing" constant="30" id="64A-be-OnL"/>
-                            <constraint firstItem="Syy-jW-hMb" firstAttribute="leading" secondItem="6AC-hl-F52" secondAttribute="leading" constant="16" id="9Xe-82-TiU"/>
+                            <constraint firstItem="4xs-g3-hbF" firstAttribute="leading" secondItem="6AC-hl-F52" secondAttribute="leading" constant="16" id="65d-Pt-idf"/>
                             <constraint firstItem="6AC-hl-F52" firstAttribute="trailing" secondItem="SDf-nh-KMf" secondAttribute="trailing" constant="16" id="D3p-KF-3wy"/>
-                            <constraint firstItem="9PO-MR-DCl" firstAttribute="top" secondItem="92n-tA-SQh" secondAttribute="bottom" constant="16" id="FLr-rR-0Ks"/>
                             <constraint firstItem="WGD-ry-ACQ" firstAttribute="top" secondItem="psn-Ui-uBg" secondAttribute="bottom" constant="8" id="PX5-hb-dpN"/>
-                            <constraint firstItem="Syy-jW-hMb" firstAttribute="top" secondItem="WGD-ry-ACQ" secondAttribute="bottom" constant="20" id="Qae-x5-91P"/>
-                            <constraint firstItem="92n-tA-SQh" firstAttribute="top" secondItem="WGD-ry-ACQ" secondAttribute="bottom" constant="20" id="S8n-WB-SIX"/>
-                            <constraint firstItem="9PO-MR-DCl" firstAttribute="leading" secondItem="pFg-BJ-Bb0" secondAttribute="trailing" constant="16" id="Vdr-zU-9uZ"/>
+                            <constraint firstItem="6AC-hl-F52" firstAttribute="trailing" secondItem="4xs-g3-hbF" secondAttribute="trailing" constant="16" id="Rv1-vQ-20A"/>
                             <constraint firstItem="SDf-nh-KMf" firstAttribute="leading" secondItem="6AC-hl-F52" secondAttribute="leading" constant="16" id="ZIk-Ss-Ea6"/>
                             <constraint firstItem="6AC-hl-F52" firstAttribute="bottom" secondItem="SDf-nh-KMf" secondAttribute="bottom" constant="30" id="aG7-zy-pjX"/>
                             <constraint firstItem="psn-Ui-uBg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6AC-hl-F52" secondAttribute="leading" constant="30" id="bgu-Ov-7tT"/>
                             <constraint firstItem="psn-Ui-uBg" firstAttribute="top" secondItem="6AC-hl-F52" secondAttribute="top" id="cqE-CB-61l"/>
-                            <constraint firstItem="92n-tA-SQh" firstAttribute="leading" secondItem="Syy-jW-hMb" secondAttribute="trailing" constant="16" id="hpL-Yj-pO4"/>
-                            <constraint firstItem="pFg-BJ-Bb0" firstAttribute="top" secondItem="Syy-jW-hMb" secondAttribute="bottom" constant="16" id="ne2-kb-XuD"/>
-                            <constraint firstItem="pFg-BJ-Bb0" firstAttribute="leading" secondItem="6AC-hl-F52" secondAttribute="leading" constant="16" id="o7G-g4-RLX"/>
+                            <constraint firstItem="6AC-hl-F52" firstAttribute="trailing" secondItem="4UM-tY-Di8" secondAttribute="trailing" constant="16" id="f9k-Y9-fBi"/>
+                            <constraint firstItem="4UM-tY-Di8" firstAttribute="leading" secondItem="6AC-hl-F52" secondAttribute="leading" constant="16" id="swk-Vd-MFf"/>
                             <constraint firstItem="6AC-hl-F52" firstAttribute="trailing" secondItem="WGD-ry-ACQ" secondAttribute="trailing" constant="30" id="tDl-tN-geK"/>
                             <constraint firstItem="WGD-ry-ACQ" firstAttribute="leading" secondItem="6AC-hl-F52" secondAttribute="leading" constant="30" id="tFK-Az-r9p"/>
+                            <constraint firstItem="4xs-g3-hbF" firstAttribute="top" secondItem="WGD-ry-ACQ" secondAttribute="bottom" constant="30" id="tr9-cV-hg9"/>
                             <constraint firstItem="psn-Ui-uBg" firstAttribute="centerX" secondItem="mcy-qA-JLd" secondAttribute="centerX" id="uIx-K1-eNL"/>
                         </constraints>
                     </view>
@@ -1085,13 +1095,13 @@ Learn, track and heal at your own pace</string>
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
