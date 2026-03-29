@@ -74,8 +74,8 @@ class ExploreRoutinesCollectionViewCell: UICollectionViewCell {
         exploreRoutineImage.clipsToBounds = true
 
         cellBackgroundView.backgroundColor = .systemBackground
-        cellBackgroundView.layer.cornerRadius = 16
-        exploreRoutineImage.layer.cornerRadius = 16
+        cellBackgroundView.layer.cornerRadius = 20
+        exploreRoutineImage.layer.cornerRadius = 20
 
         // Show/hide recommended tag beside the time tag
         addRecommendedTag()

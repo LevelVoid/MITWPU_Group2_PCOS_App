@@ -21,6 +21,9 @@ class SignalsCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
         SignalsCardView.layer.cornerRadius = 20
+        SignalsCardView.layer.borderWidth = 1
+        SignalsCardView.layer.borderColor = UIColor.separator.cgColor
+
         SignalsCardView.clipsToBounds = true
         
         SignalsLabel.removeFromSuperview()

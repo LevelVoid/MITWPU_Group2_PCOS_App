@@ -61,11 +61,11 @@ class NutritionHeaderCollectionViewCell: UICollectionViewCell {
     // EXACTLY from NutritionHeader.swift — they work the same way.
 
     func configure() {
-        nutritionCard.layer.cornerRadius = 16
+        nutritionCard.layer.cornerRadius = 20
         nutritionCard.layer.masksToBounds = true
         nutritionCard.layer.borderColor = UIColor.systemGray5.cgColor
         nutritionCard.layer.borderWidth = 0.5
-        stackMacros.layer.cornerRadius = 16
+        stackMacros.layer.cornerRadius = 20
         setupTapGestures()
 
         if let user = ProfileService.shared.buildUserProfile() {

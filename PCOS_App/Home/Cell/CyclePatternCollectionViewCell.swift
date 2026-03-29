@@ -47,6 +47,9 @@ class CyclePatternCollectionViewCell: UICollectionViewCell {
         
         cyclePatternView.layer.cornerRadius = 20
         viewTooTiredToRemove.layer.cornerRadius = 20
+        viewTooTiredToRemove.layer.borderWidth = 1
+        viewTooTiredToRemove.layer.borderColor = UIColor.separator.cgColor
+
         CycleLengthView.layer.cornerRadius = 10
         PeriodLengthView.layer.cornerRadius = 10
         
@@ -58,7 +61,7 @@ class CyclePatternCollectionViewCell: UICollectionViewCell {
         observationLabel = UILabel()
         observationLabel.translatesAutoresizingMaskIntoConstraints = false
         observationLabel.font = .systemFont(ofSize: 14)
-        observationLabel.textColor = .black
+        observationLabel.textColor = .label
         observationLabel.numberOfLines = 0
         observationLabel.textAlignment = .left
         
@@ -257,7 +260,7 @@ class CyclePatternCollectionViewCell: UICollectionViewCell {
         let cycleCount = cycles.count
         if let cached = cachedInsight, lastCycleCount == cycleCount {
             observationLabel.text = cached
-            observationLabel.textColor = .black
+            observationLabel.textColor = .label
             observationLabel.textAlignment = .left
             observationLabel.font = .systemFont(ofSize: 14)
             loadingIndicator.stopAnimating()
@@ -278,7 +281,7 @@ class CyclePatternCollectionViewCell: UICollectionViewCell {
                 DispatchQueue.main.async { [weak self] in
                     self?.loadingIndicator.stopAnimating()
                     self?.observationLabel.text = insight
-                    self?.observationLabel.textColor = .black
+                    self?.observationLabel.textColor = .label
                     self?.observationLabel.textAlignment = .left
                     self?.observationLabel.font = .systemFont(ofSize: 14)
                     self?.cachedInsight = insight

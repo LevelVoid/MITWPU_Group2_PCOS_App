@@ -65,14 +65,14 @@ class WorkoutViewController: UIViewController {
     
     func generateLayout() -> UICollectionViewLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        configuration.interSectionSpacing = 20
+        configuration.interSectionSpacing = 16
         
         let layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex: Int, env: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             
             // Header for all sections
             let headerSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(sectionIndex == 0 ? 10 : 50)
+                heightDimension: .absolute(sectionIndex == 0 ? 10 : 40)
             )
             let headerItem = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: headerSize,

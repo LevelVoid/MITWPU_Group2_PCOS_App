@@ -21,8 +21,11 @@ class HomeRecommendationCollectionViewCell: UICollectionViewCell {
         
         backgroundColor = .clear
         
-        containerView.layer.cornerRadius = 16
-        iconContainerView.layer.cornerRadius = 12
+        containerView.layer.cornerRadius = 20
+        containerView.layer.borderWidth = 1
+        containerView.layer.borderColor = UIColor.separator.cgColor
+
+        iconContainerView.layer.cornerRadius = 20
     }
     
     func configure(with recommendation: Recommendation) {

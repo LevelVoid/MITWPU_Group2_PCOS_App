@@ -18,8 +18,8 @@ class SectionBackgroundDecorationView: UICollectionReusableView {
     }
     
     private func configure() {
-        backgroundColor = .white
-        layer.cornerRadius = 16
+        backgroundColor = .systemBackground
+        layer.cornerRadius = 20
         layer.masksToBounds = true
     }
 }

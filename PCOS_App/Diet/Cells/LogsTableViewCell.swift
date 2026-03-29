@@ -35,7 +35,7 @@ class LogsTableViewCell: UITableViewCell {
         carbs.text = "\(Int(log.carbsContent))g"
         protein.text = "\(Int(log.proteinContent))g"
         calories.text = "\(Int(log.calories))kcal"
-        innerCell.layer.cornerRadius = 16
+        innerCell.layer.cornerRadius = 20
         foodImg.clipsToBounds = true
         foodImg.layer.cornerRadius = 12
         

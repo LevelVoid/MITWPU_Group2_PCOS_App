@@ -240,9 +240,9 @@ extension DietViewController: UICollectionViewDataSource, UICollectionViewDelega
             ) as! NutritionHeaderCollectionViewCell
             cell.configure()
             cell.delegate = self
-            cell.layer.cornerRadius = 16
+            cell.layer.cornerRadius = 20
             cell.layer.masksToBounds = true
-            cell.backgroundColor = .white
+            cell.backgroundColor = .systemBackground
             self.nutritionCell = cell
             return cell
  
@@ -251,9 +251,9 @@ extension DietViewController: UICollectionViewDataSource, UICollectionViewDelega
                 withReuseIdentifier: FoodSuggestionsCollectionViewCell.identifier,
                 for: indexPath
             ) as! FoodSuggestionsCollectionViewCell
-            cell.layer.cornerRadius = 16
+            cell.layer.cornerRadius = 20
             cell.layer.masksToBounds = true
-            cell.backgroundColor = .white
+            cell.backgroundColor = .systemBackground
             if let output = mealOutput {
                 cell.configure(with: output)
             } else if let errorMsg = mealError {
@@ -270,9 +270,9 @@ extension DietViewController: UICollectionViewDataSource, UICollectionViewDelega
                     for: indexPath
                 ) as! NoFoodCollectionViewCell
                 cell.refreshQuote()
-                cell.layer.cornerRadius = 16
+                cell.layer.cornerRadius = 20
                 cell.layer.masksToBounds = true
-                cell.backgroundColor = .white
+                cell.backgroundColor = .systemBackground
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(
@@ -281,9 +281,9 @@ extension DietViewController: UICollectionViewDataSource, UICollectionViewDelega
                 ) as! MealLogsCollectionViewCell
                 cell.configure(with: todaysFoods, quote: "")
                 cell.delegate = self
-                cell.layer.cornerRadius = 16
+                cell.layer.cornerRadius = 20
                 cell.layer.masksToBounds = true
-                cell.backgroundColor = .white
+                cell.backgroundColor = .systemBackground
                 return cell
             }
  

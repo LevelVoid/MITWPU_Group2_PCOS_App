@@ -34,6 +34,9 @@ class SleepCardCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         Card.layer.cornerRadius = 20
+        Card.layer.borderWidth = 1
+        Card.layer.borderColor = UIColor.separator.cgColor
+
         setupButton()
     }
 
@@ -66,6 +69,7 @@ class SleepCardCollectionViewCell: UICollectionViewCell {
             hoursValueLabel.text = "\(log.hours)"
             minutesValueLabel.text = "\(log.minutes)"
             subtitleLabel.text = observation(for: log.hours)
+            subtitleLabel.textColor = .secondaryLabel
             moonIcon.tintColor = .label
 
             showDataElements()

@@ -33,9 +33,9 @@ class GoalCards: UICollectionViewCell {
         iconContainer.layer.cornerRadius = 12
         iconContainer.backgroundColor = model.tintColor.withAlphaComponent(0.1)
         
-        card.layer.cornerRadius = 16
+        card.layer.cornerRadius = 20
         card.layer.masksToBounds = true
-        card.backgroundColor = .white
+        card.backgroundColor = .systemBackground
         
         done.text = "\(Int(model.done ?? 0))"
         toBeDone.text = "/ \(Int(model.toBeDone)) " + (model.unit ?? "")
