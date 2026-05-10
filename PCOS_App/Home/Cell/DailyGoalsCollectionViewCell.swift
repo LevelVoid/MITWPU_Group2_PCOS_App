@@ -73,8 +73,7 @@ class DailyGoalsCollectionViewCell: UICollectionViewCell {
            // Card background — clean white with subtle border
            view.backgroundColor = UIColor.systemBackground
            view.layer.cornerRadius = 20
-           view.layer.borderWidth = 1
-           view.layer.borderColor = color.withAlphaComponent(0.15).cgColor
+           view.layer.borderWidth = 0
 
            // Icon — white symbol on colored rounded-square background
            image.image = UIImage(systemName: categoryIcon(goal.category))?

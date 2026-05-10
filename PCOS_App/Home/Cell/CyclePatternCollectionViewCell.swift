@@ -47,8 +47,7 @@ class CyclePatternCollectionViewCell: UICollectionViewCell {
         
         cyclePatternView.layer.cornerRadius = 20
         viewTooTiredToRemove.layer.cornerRadius = 20
-        viewTooTiredToRemove.layer.borderWidth = 1
-        viewTooTiredToRemove.layer.borderColor = UIColor.separator.cgColor
+        viewTooTiredToRemove.layer.borderWidth = 0
 
         CycleLengthView.layer.cornerRadius = 10
         PeriodLengthView.layer.cornerRadius = 10

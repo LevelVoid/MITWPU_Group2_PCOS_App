@@ -235,16 +235,22 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             chatbotButton = UIButton(type: .custom)
             chatbotButton.translatesAutoresizingMaskIntoConstraints = false
             
-            let icon = UIImage(named: "chat3")?.withRenderingMode(.alwaysOriginal)
-            chatbotButton.setImage(icon, for: .normal)
-            chatbotButton.imageView?.contentMode = .scaleAspectFill
+            // let icon = UIImage(named: "chat3")?.withRenderingMode(.alwaysOriginal)
+            // chatbotButton.setImage(icon, for: .normal)
+            // chatbotButton.imageView?.contentMode = .scaleAspectFill
             
-            chatbotButton.backgroundColor = .white
+            let symbolConfig = UIImage.SymbolConfiguration(pointSize: 26, weight: .medium)
+            let sfIcon = UIImage(systemName: "message.badge.filled.fill", withConfiguration: symbolConfig)
+            chatbotButton.setImage(sfIcon, for: .normal)
+            chatbotButton.tintColor = .white
+            
+            chatbotButton.backgroundColor = UIColor(hex: "#fe7a96")
             chatbotButton.layer.cornerRadius = 30
             
             // Apply clipping to the imageView so the button's shadow isn't cut off
-            chatbotButton.imageView?.layer.cornerRadius = 30
-            chatbotButton.imageView?.clipsToBounds = true
+            // (Only needed for raster images — SF symbols don't need this)
+            // chatbotButton.imageView?.layer.cornerRadius = 30
+            // chatbotButton.imageView?.clipsToBounds = true
             
             chatbotButton.layer.shadowColor = UIColor.black.cgColor
             chatbotButton.layer.shadowOpacity = 0.15
