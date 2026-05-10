@@ -351,15 +351,31 @@ final class SharedContextEngine {
         if let t = todayCtx {
             let totalP   = Int(t.foodLogs.reduce(0.0) { $0 + $1.protein })
             let totalCal = Int(t.foodLogs.reduce(0.0) { $0 + $1.calories })
-            let lastMeal = t.foodLogs.last.map { $0.name } ?? "none"
+            let allMealNames = t.foodLogs.map { $0.name }.joined(separator: ", ")
             let sleepStr = t.sleepDurationHours > 0
                 ? String(format: "%.1fh", t.sleepDurationHours) : "not logged"
             let workoutStr  = t.completedWorkouts.isEmpty ? "none"
                 : t.completedWorkouts.map { $0.routineName }.joined(separator: ", ")
             let symptomsStr = t.symptoms.isEmpty ? "none" : t.symptoms.joined(separator: ", ")
 
+            // Use startingXxxGrams rounded to nearest 5 — MUST match the UI macro tracker
+            let goalP = Int(round(Double(goals?.diet.startingProteinGrams ?? 0) / 5.0)) * 5
+            let goalC = Int(round(Double(goals?.diet.startingCarbsGrams ?? 0) / 5.0)) * 5
+            let goalF = Int(round(Double(goals?.diet.startingFatsGrams ?? 0) / 5.0)) * 5
+            let goalCal = Int(round(Double(goals?.diet.dailyCalories ?? 0) / 10.0)) * 10
+
+            let proteinGap = max(0, goalP - totalP)
+            let carbsGap   = max(0, goalC - Int(t.foodLogs.reduce(0.0) { $0 + $1.carbs }))
+            let fatsGap    = max(0, goalF - Int(t.foodLogs.reduce(0.0) { $0 + $1.fats }))
+            let calorieGap = max(0, goalCal - totalCal)
+
             todayBlock = """
-            Today: protein \(totalP)g/\(goals?.diet.proteinGrams ?? 0)g, \(totalCal)kcal logged. Last meal: \(lastMeal).
+            Today Logs:
+            - Protein: \(totalP)g (Goal: \(goalP)g, Gap: \(proteinGap)g)
+            - Carbs: \(Int(t.foodLogs.reduce(0.0) { $0 + $1.carbs }))g (Goal: \(goalC)g, Gap: \(carbsGap)g)
+            - Fats: \(Int(t.foodLogs.reduce(0.0) { $0 + $1.fats }))g (Goal: \(goalF)g, Gap: \(fatsGap)g)
+            - Calories: \(totalCal)kcal (Goal: \(goalCal)kcal, Gap: \(calorieGap)kcal)
+            Meals logged today: \(allMealNames.isEmpty ? "none" : allMealNames).
             Sleep: \(sleepStr). Steps: \(t.steps). Workout: \(workoutStr).
             Symptoms today: \(symptomsStr)
             """

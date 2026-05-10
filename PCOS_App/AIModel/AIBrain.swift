@@ -199,7 +199,7 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
             Generate exactly 3 personalized Indian meal suggestions based on the user's PCOS context.
 
             CONTEXT DATA:
-            - Meals eaten today
+            - Meals eaten today with macro gaps
             - Protein/Macro targets vs actuals
             - PCOS phenotype and cycle phase
             - Current symptoms
@@ -207,14 +207,58 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
             RULES:
             - Provide exactly 3 Indian food suggestions.
             - Do NOT repeat any food already logged today.
-            - Focus on the biggest nutritional gap (protein, fibre, anti-inflammatory).
-            - Use "Dish Name (Hindi Name)" format.
+            - Use short dish names (max 25 characters). E.g. 'Moong Dal Chilla', 'Palak Paneer', 'Ragi Roti'.
             - primaryMacro: Must be a metric based on the nutritional gap (e.g. "22g protein", "8g fibre").
-            - impactTag: Exactly 1 relevant PCOS tag (string, not array).
-            - DO NOT repeat the nutritional gap or primaryMacro in the impactTag.
-            - Assign colorHint: "pink" for first, "green" for second, "amber" for third.
+            - description: A 5-8 word description of the dish.
+            - calories: Estimated calorie count per serving (e.g. "420 kcal").
 
-            OBSERVATION LINE: One short sentence referencing today's logged numbers.
+            FOOD SELECTION PRIORITY:
+            - Check the Gap values in context. Focus on the nutrient with the LARGEST remaining gap.
+            - If Protein gap > 0: Include at least 1 protein-rich food. The other 2 should address different gaps (fibre, carbs, fats) for nutritional variety.
+            - If Protein gap = 0: Do NOT suggest protein-focused foods. Focus on carbs/fibre/fats gaps instead.
+            - Suggest diverse DISHES — 3 different meals covering different nutritional needs.
+
+            IMPACT TAG RULES:
+            - Each suggestion MUST have EXACTLY ONE impactTag.
+            - Tag must be nutritionally ACCURATE for that specific dish.
+            - Do NOT assign "Healthy Fats" to dairy/paneer dishes — those are "High Protein".
+            - When a dish fits multiple tags equally well, prefer the one NOT already used by another card.
+            - Aim for at least 2 different tags across the 3 cards.
+            - Allowed tags: High Protein, Low GI, High Fibre, Healthy Fats, Whole Food
+            
+            TAG DEFINITIONS:
+            - High Protein → primarily protein-rich (dal, paneer, eggs, chicken, legumes)
+            - Low GI → slow glucose-release (ragi, oats, whole grains)
+            - High Fibre → fibre-dense (vegetables, salads, legumes)
+            - Healthy Fats → ONLY for nut/seed/oil-based dishes (trail mix, chia pudding, coconut chutney). NEVER for paneer, dal, eggs, chicken, or dairy.
+            - Whole Food → minimally processed balanced meals
+
+            CORRECT TAG EXAMPLES (follow these):
+            - Palak Paneer → "High Protein"
+            - Paneer Tikka → "High Protein"
+            - Dal Tadka → "High Protein"
+            - Egg Curry → "High Protein"
+            - Chana Masala → "High Fibre"
+            - Chickpea Curry → "High Fibre"
+            - Moong Dal Chilla → "High Protein"
+            - Ragi Roti → "Low GI"
+            - Ragi Porridge → "Low GI"
+            - Oats Upma → "Low GI"
+            - Vegetable Stir Fry → "Whole Food"
+            - Khichdi → "Whole Food"
+            - Trail Mix → "Healthy Fats"
+            - Chia Pudding → "Healthy Fats"
+            - Flaxseed Chutney → "Healthy Fats"
+
+            VALIDATION:
+            - Before returning output, verify:
+                1. No meal repeats from logged meals
+                2. Every impactTag matches the examples above
+                3. "Healthy Fats" is NEVER used for paneer, dal, egg, chicken, or dairy dishes
+                4. At least 2 different tags across the 3 cards
+
+            OBSERVATION LINE: Output any short phrase. It will be overridden by the app.
+            SUB OBSERVATION LINE: Output any short phrase. It will be overridden by the app.
             """
         )
         let response = try await session.respond(

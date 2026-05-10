@@ -19,6 +19,9 @@ struct MealRecommendationOutput {
     """)
     var observationLine: String
 
+    @Guide(description: "One short sentence, max 12 words, encouraging the user. E.g. 'Add a high-protein meal to stay on track.'")
+    var subObservationLine: String
+
     @Guide(description: """
     Exactly 3 Indian food suggestions. 
     None of these should repeat any food already logged today in the context.
@@ -29,20 +32,22 @@ struct MealRecommendationOutput {
 
 @Generable
 struct FoodCard {
-    @Guide(description: """
-    Specific Indian dish name with Hindi name in brackets.
-    E.g. 'Moong Dal Chilla', 'Dahi with Alsi (flaxseed)', 'Ragi Roti'.
-    Never suggest a food already logged today.
-    """)
+    @Guide(description: "Short Indian dish name, max 25 characters. E.g. 'Moong Dal Chilla', 'Palak Paneer', 'Ragi Roti'. Never suggest a food already logged today.")
     var name: String
 
     @Guide(description: "Metric based on the nutritional gap (e.g. '22g protein', '8g fibre').")
     var primaryMacro: String
 
+    @Guide(description: "One short sentence describing the meal. E.g. 'Comforting lentil stew with spices'.")
+    var description: String
+
+    @Guide(description: "Estimated calorie count. E.g. '420 kcal'.")
+    var calories: String
+
     @Guide(description: "Exactly 1 short, relevant PCOS tag (e.g. 'Low GI').")
     var impactTag: String
 
-    @Guide(description: "One word only: pink | green | amber. Rotate across the 3 cards.")
+    @Guide(description: "One word only: red | green | yellow.")
     var colorHint: String
 }
 

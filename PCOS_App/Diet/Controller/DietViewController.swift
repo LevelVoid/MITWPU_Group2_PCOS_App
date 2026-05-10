@@ -190,6 +190,58 @@ class DietViewController: UIViewController {
         return FoodLogDataStore.todaysMeal.count
     }
  
+    /// Compute observation lines in Swift — guarantees correct waterfall priority
+    private func computeObservationLines() -> (observation: String, subObservation: String) {
+        // Use same goal computation as the macro tracker UI
+        guard let user = ProfileService.shared.buildUserProfile() else {
+            return ("Track your meals to get personalized suggestions.", "Start logging to see your macro gaps.")
+        }
+        let goals = GoalEngine.generateGoals(for: user)
+        let goalP = Int(round(Double(goals.diet.startingProteinGrams) / 5.0)) * 5
+        let goalC = Int(round(Double(goals.diet.startingCarbsGrams) / 5.0)) * 5
+        let goalF = Int(round(Double(goals.diet.startingFatsGrams) / 5.0)) * 5
+        
+        let meals = FoodLogDataStore.todaysMeal
+        let totalP = Int(meals.reduce(0.0) { $0 + $1.proteinContent })
+        let totalC = Int(meals.reduce(0.0) { $0 + $1.carbsContent })
+        let totalF = Int(meals.reduce(0.0) { $0 + $1.fatsContent })
+        
+        let proteinGap = max(0, goalP - totalP)
+        let carbsGap   = max(0, goalC - totalC)
+        let fatsGap    = max(0, goalF - totalF)
+        
+        // Waterfall: Protein → Carbs → Fats
+        if proteinGap > 0 {
+            return ("You're \(proteinGap)g short on protein today.",
+                    "Add a high-protein meal to stay on track.")
+        } else if carbsGap > 0 {
+            return ("You're \(carbsGap)g short on carbs today.",
+                    "Slow-release meals help maintain steady energy.")
+        } else if fatsGap > 0 {
+            return ("You're \(fatsGap)g short on fats today.",
+                    "Healthy fats help support hormones and satiety.")
+        } else {
+            return ("You've hit all your macro goals today!",
+                    "Great job keep up the balanced eating.")
+        }
+    }
+ 
+    /// Returns true when all macro goals are met
+    private func allGoalsMet() -> Bool {
+        guard let user = ProfileService.shared.buildUserProfile() else { return false }
+        let goals = GoalEngine.generateGoals(for: user)
+        let goalP = Int(round(Double(goals.diet.startingProteinGrams) / 5.0)) * 5
+        let goalC = Int(round(Double(goals.diet.startingCarbsGrams) / 5.0)) * 5
+        let goalF = Int(round(Double(goals.diet.startingFatsGrams) / 5.0)) * 5
+        
+        let meals = FoodLogDataStore.todaysMeal
+        let totalP = Int(meals.reduce(0.0) { $0 + $1.proteinContent })
+        let totalC = Int(meals.reduce(0.0) { $0 + $1.carbsContent })
+        let totalF = Int(meals.reduce(0.0) { $0 + $1.fatsContent })
+        
+        return totalP >= goalP && totalC >= goalC && totalF >= goalF
+    }
+ 
     // MARK: - Delete
  
     private func deleteMeal(at foodIndex: Int) {
@@ -209,6 +261,8 @@ class DietViewController: UIViewController {
             self.todaysFoods.remove(at: foodIndex)
             self.collectionView.reloadData()
             self.lastFoodLogCount = -1
+            // Re-generate suggestions with updated macro gaps
+            Task { await self.refreshMealRecommendationsIfNeeded() }
         })
         present(alert, animated: true)
     }
@@ -254,8 +308,14 @@ extension DietViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.layer.cornerRadius = 20
             cell.layer.masksToBounds = true
             cell.backgroundColor = .systemBackground
-            if let output = mealOutput {
-                cell.configure(with: output)
+            if allGoalsMet() {
+                let (obs, subObs) = computeObservationLines()
+                cell.showGoalsMetState(observation: obs, subObservation: subObs)
+            } else if let output = mealOutput {
+                let (obs, subObs) = computeObservationLines()
+                cell.configure(with: output,
+                               observationOverride: obs,
+                               subObservationOverride: subObs)
             } else if let errorMsg = mealError {
                 cell.showErrorState(message: errorMsg)
             } else {
@@ -301,7 +361,9 @@ extension DietViewController: UICollectionViewDataSource, UICollectionViewDelega
         switch indexPath.section {
         case 0: return CGSize(width: width, height: 195)
         case 1:
-            if let output = mealOutput {
+            if allGoalsMet() {
+                return CGSize(width: width, height: 84)
+            } else if let output = mealOutput {
                 sizingSuggestionCell.bounds.size.width = width
                 sizingSuggestionCell.contentView.bounds.size.width = width
                 sizingSuggestionCell.configure(with: output)
@@ -317,7 +379,7 @@ extension DietViewController: UICollectionViewDataSource, UICollectionViewDelega
                 )
                 return CGSize(width: width, height: size.height)
             } else {
-                return CGSize(width: width, height: 110) // Loading or Error state
+                return CGSize(width: width, height: 84) // Loading or Error state
             }
         case 2:
             if todaysFoods.isEmpty {

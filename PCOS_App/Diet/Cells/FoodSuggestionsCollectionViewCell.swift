@@ -2,26 +2,44 @@ import UIKit
 
 class FoodSuggestionsCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var thirdView: UIView!
-    @IBOutlet weak var firstView: UIView!
-    @IBOutlet weak var secondView: UIView!
     @IBOutlet weak var mainContent: UIView!
+    @IBOutlet weak var headerIcon: UIImageView!
     @IBOutlet weak var DescriptionFocus: UILabel!
+    @IBOutlet weak var subDescriptionFocus: UILabel!
+    @IBOutlet weak var separatorLine: UIView!
     
+    // Meal 1
+    @IBOutlet weak var firstView: UIView!
+    @IBOutlet weak var mealIconContainer1: UIView!
+    @IBOutlet weak var mealIcon1: UIImageView!
     @IBOutlet weak var MealName1: UILabel!
+    @IBOutlet weak var mealDescription1: UILabel!
     @IBOutlet weak var mealGram1: UILabel!
+    @IBOutlet weak var mealCalories1: UILabel!
+    @IBOutlet weak var tagContainer1: UIView!
     @IBOutlet weak var ImpactTag_1: UILabel!
     
-    
+    // Meal 2
+    @IBOutlet weak var secondView: UIView!
+    @IBOutlet weak var mealIconContainer2: UIView!
+    @IBOutlet weak var mealIcon2: UIImageView!
     @IBOutlet weak var MealName2: UILabel!
+    @IBOutlet weak var mealDescription2: UILabel!
     @IBOutlet weak var mealGram2: UILabel!
+    @IBOutlet weak var mealCalories2: UILabel!
+    @IBOutlet weak var tagContainer2: UIView!
     @IBOutlet weak var ImpactTag_2: UILabel!
     
-    
+    // Meal 3
+    @IBOutlet weak var thirdView: UIView!
+    @IBOutlet weak var mealIconContainer3: UIView!
+    @IBOutlet weak var mealIcon3: UIImageView!
     @IBOutlet weak var MealName3: UILabel!
+    @IBOutlet weak var mealDescription3: UILabel!
     @IBOutlet weak var mealGram3: UILabel!
+    @IBOutlet weak var mealCalories3: UILabel!
+    @IBOutlet weak var tagContainer3: UIView!
     @IBOutlet weak var ImpactTag_3: UILabel!
-    
     
     static let identifier = "FoodSuggestionsCollectionViewCell"
     static func nib() -> UINib {
@@ -30,87 +48,129 @@ class FoodSuggestionsCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        // Enable multi-line for labels to support dynamic height
-        DescriptionFocus.numberOfLines = 0
-        MealName1.numberOfLines = 0
-        MealName2.numberOfLines = 0
-        MealName3.numberOfLines = 0
-        
-        // Also ensure impact tags can wrap if they are long
-        ImpactTag_1.numberOfLines = 0
-        ImpactTag_2.numberOfLines = 0
-        ImpactTag_3.numberOfLines = 0
-        
-        // Fix missing bottom constraints programmatically so StackView can compute intrinsic height
-        firstView.bottomAnchor.constraint(greaterThanOrEqualTo: mealGram1.bottomAnchor, constant: 16).isActive = true
-        secondView.bottomAnchor.constraint(greaterThanOrEqualTo: mealGram2.bottomAnchor, constant: 16).isActive = true
-        thirdView.bottomAnchor.constraint(greaterThanOrEqualTo: mealGram3.bottomAnchor, constant: 16).isActive = true
-        
-        // Set minimum height for each food slot to accommodate image/content gracefully
-        firstView.heightAnchor.constraint(greaterThanOrEqualToConstant: 80).isActive = true
-        secondView.heightAnchor.constraint(greaterThanOrEqualToConstant: 80).isActive = true
-        thirdView.heightAnchor.constraint(greaterThanOrEqualToConstant: 80).isActive = true
-        
-        // Ensure mainContent is constrained to contentView for UICollectionViewCell auto-sizing
-        mainContent.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            mainContent.topAnchor.constraint(equalTo: contentView.topAnchor),
-            mainContent.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            mainContent.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mainContent.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
+        setupUI()
     }
 
-    // MARK: - States
+    private func setupUI() {
+        mainContent.layer.cornerRadius = 20
+        mainContent.clipsToBounds = true
+        
+        // Header Icon Circle
+        headerIcon.layer.cornerRadius = headerIcon.bounds.height / 2
+        headerIcon.backgroundColor = .systemGray6
+        
+        [mealIconContainer1, mealIconContainer2, mealIconContainer3].forEach {
+            $0?.layer.cornerRadius = ($0?.bounds.height ?? 40) / 2
+            $0?.clipsToBounds = true
+        }
+        
+        [tagContainer1, tagContainer2, tagContainer3].forEach {
+            $0?.layer.cornerRadius = 12
+            $0?.clipsToBounds = true
+        }
+        
+        [firstView, secondView, thirdView].forEach {
+            $0?.layer.cornerRadius = 12
+            $0?.layer.borderWidth = 1
+            $0?.layer.borderColor = UIColor.systemGray6.cgColor
+            $0?.backgroundColor = .clear
+        }
+        
+        // Keep protein/sep/cal labels hugged to the left — prevent stretching
+        [mealGram1, mealGram2, mealGram3, mealCalories1, mealCalories2, mealCalories3].forEach {
+            $0?.setContentHuggingPriority(.required, for: .horizontal)
+            $0?.setContentCompressionResistancePriority(.required, for: .horizontal)
+        }
+    }
+
     func showLoadingState() {
-        DescriptionFocus.text = "Fetching personalized recommendations..."
-        //DescriptionFocus.textColor = .tertiaryLabel
-        [firstView, secondView, thirdView].forEach { $0?.isHidden = true }
+        DescriptionFocus.text = "Fetching recommendations..."
+        subDescriptionFocus.text = "Crafting a personalized meal suggestion for you."
+        [firstView, secondView, thirdView, separatorLine].forEach { $0?.isHidden = true }
     }
 
     func showErrorState(message: String) {
-        DescriptionFocus.text = message
-        [firstView, secondView, thirdView].forEach { $0?.isHidden = true }
+        DescriptionFocus.text = "Something went wrong"
+        subDescriptionFocus.text = message
+        [firstView, secondView, thirdView, separatorLine].forEach { $0?.isHidden = true }
     }
 
-    // MARK: - Configure with AI Output
-    func configure(with output: MealRecommendationOutput) {
-        firstView.layer.cornerRadius = 10
-        secondView.layer.cornerRadius = 10
-        thirdView.layer.cornerRadius = 10
+    func showGoalsMetState(observation: String, subObservation: String) {
+        DescriptionFocus.text = observation
+        subDescriptionFocus.text = subObservation
+        [firstView, secondView, thirdView, separatorLine].forEach { $0?.isHidden = true }
+    }
+
+    func configure(with output: MealRecommendationOutput,
+                    observationOverride: String? = nil,
+                    subObservationOverride: String? = nil) {
+        [firstView, secondView, thirdView, separatorLine].forEach { $0?.isHidden = false }
         
-        DescriptionFocus.text = output.observationLine
+        // Use Swift-computed observation if provided, otherwise fall back to AI's
+        DescriptionFocus.text = observationOverride ?? output.observationLine
+        subDescriptionFocus.text = subObservationOverride ?? output.subObservationLine
+        
         let foods = output.foods
         
-        // Slot 1
-        if foods.count > 0 {
-            firstView.isHidden = false
-            MealName1.text = foods[0].name
-            mealGram1.text = foods[0].primaryMacro
-            ImpactTag_1.text = foods[0].impactTag
-        } else {
-            firstView.isHidden = true
+        if foods.count > 0 { configureMeal(0, view: firstView, food: foods[0]) } else { firstView.isHidden = true }
+        if foods.count > 1 { configureMeal(1, view: secondView, food: foods[1]) } else { secondView.isHidden = true }
+        if foods.count > 2 { configureMeal(2, view: thirdView, food: foods[2]) } else { thirdView.isHidden = true }
+    }
+    
+    private func configureMeal(_ index: Int, view: UIView, food: FoodCard) {
+        let nameLabel: UILabel?
+        let descLabel: UILabel?
+        let gramLabel: UILabel?
+        let calLabel: UILabel?
+        let tagLabel: UILabel?
+        let tagView: UIView?
+        let iconView: UIImageView?
+        let iconContainer: UIView?
+        
+        switch index {
+        case 0:
+            nameLabel = MealName1; descLabel = mealDescription1; gramLabel = mealGram1; calLabel = mealCalories1; tagLabel = ImpactTag_1; tagView = tagContainer1; iconView = mealIcon1; iconContainer = mealIconContainer1
+        case 1:
+            nameLabel = MealName2; descLabel = mealDescription2; gramLabel = mealGram2; calLabel = mealCalories2; tagLabel = ImpactTag_2; tagView = tagContainer2; iconView = mealIcon2; iconContainer = mealIconContainer2
+        case 2:
+            nameLabel = MealName3; descLabel = mealDescription3; gramLabel = mealGram3; calLabel = mealCalories3; tagLabel = ImpactTag_3; tagView = tagContainer3; iconView = mealIcon3; iconContainer = mealIconContainer3
+        default: return
         }
-
-        // Slot 2
-        if foods.count > 1 {
-            secondView.isHidden = false
-            MealName2.text = foods[1].name
-            mealGram2.text = foods[1].primaryMacro
-            ImpactTag_2.text = foods[1].impactTag
-        } else {
-            secondView.isHidden = true
+        
+        nameLabel?.text = food.name
+        descLabel?.text = food.description
+        gramLabel?.text = "\(food.primaryMacro)  |  \(food.calories)"
+        tagLabel?.text = food.impactTag
+        
+        // Hide the separate calorie label and separator view — they're now combined into gramLabel
+        calLabel?.isHidden = true
+        if let infoStack = gramLabel?.superview as? UIStackView {
+            for subview in infoStack.arrangedSubviews where !(subview is UILabel) {
+                subview.isHidden = true  // hides the vSep separator view
+            }
         }
-
-        // Slot 3
-        if foods.count > 2 {
-            thirdView.isHidden = false
-            MealName3.text = foods[2].name
-            mealGram3.text = foods[2].primaryMacro
-            ImpactTag_3.text = foods[2].impactTag
-        } else {
-            thirdView.isHidden = true
+        
+        // Color coding — derived from impactTag, not AI's colorHint
+        let color: UIColor
+        let iconName: String
+        let normalizedTag = food.impactTag.lowercased()
+        
+        switch normalizedTag {
+        case let tag where tag.contains("protein"):
+            color = UIColor(hex: "ea635d")
+            iconName = "nuts_red"
+        case let tag where tag.contains("healthy fats"):
+            color = UIColor(red: 0.81, green: 0.47, blue: 0.18, alpha: 1)
+            iconName = "fruits_yellow"
+        default:
+            // Low GI, High Fibre, Whole Food, etc.
+            color = UIColor(red: 0.17, green: 0.55, blue: 0.25, alpha: 1)
+            iconName = "salad_green"
         }
+        
+        tagView?.backgroundColor = color.withAlphaComponent(0.1)
+        tagLabel?.textColor = color
+        iconContainer?.backgroundColor = color.withAlphaComponent(0.05)
+        iconView?.image = UIImage(named: iconName)
     }
 }
