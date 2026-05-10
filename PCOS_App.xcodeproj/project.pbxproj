@@ -9,12 +9,53 @@
 /* Begin PBXBuildFile section */
 		19AAC9322ED5C04F00B83D7B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 19AAC9312ED5C04700B83D7B /* README.md */; };
 		19AAC9342ED5C1BC00B83D7B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 19AAC9332ED5C1B000B83D7B /* .gitignore */; };
+		1F832979208BE074C0306F1F /* ActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38848CDF9FF987B704A7D9F8 /* ActivityKit.framework */; };
+		41624167DD70FF899CC27DDD /* WorkoutWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7ACD8A682EF94CC66992A097 /* WorkoutWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5021B362188549F625C7E48D /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B358C68D582CEFE7CAB58347 /* WidgetKit.framework */; };
+		667F03BF1A33C0E140AE0738 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD5519D776BFCCFFCD4C2CFC /* SwiftUI.framework */; };
+		7A5ADB5050ACCF5E16A7F6A2 /* WorkoutLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB70645F661AEE395E439D6B /* WorkoutLiveActivityAttributes.swift */; };
+		87C4E15BFB5D664565B677F6 /* WorkoutLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E287544AC930323A21D9F9 /* WorkoutLiveActivity.swift */; };
+		B86E1B2235C2EA27EFB5340E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90D46D2813F4855C18D32140 /* Foundation.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		81411CF1931D829889CA87A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 190B1DE82ED1B5FF0014994E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ADE48CB7C32EAFE81E8659BF;
+			remoteInfo = WorkoutWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0FBAE7F9F23FF1ECEEAC381B /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				41624167DD70FF899CC27DDD /* WorkoutWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		190B1DF02ED1B5FF0014994E /* PCOS_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PCOS_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19AAC9312ED5C04700B83D7B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		19AAC9332ED5C1B000B83D7B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		3230E231209626D8683E5DCE /* WorkoutWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WorkoutWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		38848CDF9FF987B704A7D9F8 /* ActivityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ActivityKit.framework; sourceTree = "<group>"; };
+		38E287544AC930323A21D9F9 /* WorkoutLiveActivity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WorkoutLiveActivity.swift; sourceTree = "<group>"; };
+		3B5E26525A919EBF494175C0 /* WorkoutWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WorkoutWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7ACD8A682EF94CC66992A097 /* WorkoutWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WorkoutWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		90D46D2813F4855C18D32140 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		9ED1A7F0AF122063CD88BD7E /* WorkoutWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WorkoutWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD5519D776BFCCFFCD4C2CFC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftUI.framework; sourceTree = "<group>"; };
+		B358C68D582CEFE7CAB58347 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WidgetKit.framework; sourceTree = "<group>"; };
+		CB70645F661AEE395E439D6B /* WorkoutLiveActivityAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WorkoutLiveActivityAttributes.swift; path = ../PCOS_App/Workout/DataStore/WorkoutLiveActivityAttributes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -39,6 +80,17 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0A0189FBE4ABF173EA9152D3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B86E1B2235C2EA27EFB5340E /* Foundation.framework in Frameworks */,
+				5021B362188549F625C7E48D /* WidgetKit.framework in Frameworks */,
+				667F03BF1A33C0E140AE0738 /* SwiftUI.framework in Frameworks */,
+				1F832979208BE074C0306F1F /* ActivityKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		190B1DED2ED1B5FF0014994E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -57,6 +109,7 @@
 				19AAC9312ED5C04700B83D7B /* README.md */,
 				19AAC9332ED5C1B000B83D7B /* .gitignore */,
 				194230C82EEBFF3500BD748F /* Frameworks */,
+				C525960E53003DBD3E4E6066 /* WorkoutWidgetExtension */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +117,10 @@
 			isa = PBXGroup;
 			children = (
 				190B1DF02ED1B5FF0014994E /* PCOS_App.app */,
+				7ACD8A682EF94CC66992A097 /* WorkoutWidgetExtension.appex */,
+				3B5E26525A919EBF494175C0 /* WorkoutWidgetExtension.appex */,
+				9ED1A7F0AF122063CD88BD7E /* WorkoutWidgetExtension.appex */,
+				3230E231209626D8683E5DCE /* WorkoutWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -71,8 +128,30 @@
 		194230C82EEBFF3500BD748F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3CEC1128B598FE06C14AEABF /* iOS */,
+				B358C68D582CEFE7CAB58347 /* WidgetKit.framework */,
+				AD5519D776BFCCFFCD4C2CFC /* SwiftUI.framework */,
+				38848CDF9FF987B704A7D9F8 /* ActivityKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3CEC1128B598FE06C14AEABF /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				90D46D2813F4855C18D32140 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		C525960E53003DBD3E4E6066 /* WorkoutWidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				38E287544AC930323A21D9F9 /* WorkoutLiveActivity.swift */,
+				CB70645F661AEE395E439D6B /* WorkoutLiveActivityAttributes.swift */,
+			);
+			name = WorkoutWidgetExtension;
+			path = WorkoutWidgetExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,20 +164,37 @@
 				190B1DEC2ED1B5FF0014994E /* Sources */,
 				190B1DED2ED1B5FF0014994E /* Frameworks */,
 				190B1DEE2ED1B5FF0014994E /* Resources */,
+				0FBAE7F9F23FF1ECEEAC381B /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3CF6012B32DAEF281412C485 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				190B1DF22ED1B5FF0014994E /* PCOS_App */,
 			);
 			name = PCOS_App;
-			packageProductDependencies = (
-			);
 			productName = PCOS_App;
 			productReference = 190B1DF02ED1B5FF0014994E /* PCOS_App.app */;
 			productType = "com.apple.product-type.application";
+		};
+		ADE48CB7C32EAFE81E8659BF /* WorkoutWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 305632ABAF394E644720C4AE /* Build configuration list for PBXNativeTarget "WorkoutWidgetExtension" */;
+			buildPhases = (
+				B1898C55852E5CA2003EDA2C /* Sources */,
+				0A0189FBE4ABF173EA9152D3 /* Frameworks */,
+				648997B7F370F9B25606DCCF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WorkoutWidgetExtension;
+			productName = WorkoutWidgetExtension;
+			productReference = 3230E231209626D8683E5DCE /* WorkoutWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -130,6 +226,7 @@
 			projectRoot = "";
 			targets = (
 				190B1DEF2ED1B5FF0014994E /* PCOS_App */,
+				ADE48CB7C32EAFE81E8659BF /* WorkoutWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -144,6 +241,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		648997B7F370F9B25606DCCF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -154,7 +258,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B1898C55852E5CA2003EDA2C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87C4E15BFB5D664565B677F6 /* WorkoutLiveActivity.swift in Sources */,
+				7A5ADB5050ACCF5E16A7F6A2 /* WorkoutLiveActivityAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3CF6012B32DAEF281412C485 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = WorkoutWidgetExtension;
+			target = ADE48CB7C32EAFE81E8659BF /* WorkoutWidgetExtension */;
+			targetProxy = 81411CF1931D829889CA87A2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		190B1E042ED1B6000014994E /* Debug */ = {
@@ -348,6 +470,45 @@
 			};
 			name = Release;
 		};
+		8DCA0887F650B3849D294AD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 474MDX8R3T;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WorkoutWidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = sakshi.beloshe1111.WorkoutWidgetExtension;
+				PRODUCT_NAME = WorkoutWidgetExtension;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B8622BC157014627C96D7B94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 474MDX8R3T;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WorkoutWidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = sakshi.beloshe1111.WorkoutWidgetExtension;
+				PRODUCT_NAME = WorkoutWidgetExtension;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -365,6 +526,15 @@
 			buildConfigurations = (
 				190B1E042ED1B6000014994E /* Debug */,
 				190B1E052ED1B6000014994E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		305632ABAF394E644720C4AE /* Build configuration list for PBXNativeTarget "WorkoutWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DCA0887F650B3849D294AD5 /* Release */,
+				B8622BC157014627C96D7B94 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

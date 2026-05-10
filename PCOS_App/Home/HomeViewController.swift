@@ -370,7 +370,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
 
         func createQuickActionsSection() -> NSCollectionLayoutSection {
             let itemSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1), heightDimension: .absolute(230))
+                widthDimension: .fractionalWidth(1), heightDimension: .absolute(420))
             let group = NSCollectionLayoutGroup.vertical(
                 layoutSize: itemSize,
                 subitems: [NSCollectionLayoutItem(layoutSize: itemSize)])

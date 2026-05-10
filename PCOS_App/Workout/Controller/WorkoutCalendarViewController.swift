@@ -100,7 +100,7 @@ class WorkoutCalendarViewController: UIViewController {
     private func loadWorkoutDates() {
         workoutDates.removeAll()
 
-        let today = Date()
+//        let today = Date()
         // Fetch all workouts once and map them to their start-of-day dates
         let allWorkouts = CompletedWorkoutsDataStore.shared.loadAll()
         for workout in allWorkouts {

@@ -69,36 +69,36 @@ class WorkoutPushViewController: UIViewController {
         }
 
         private func addIdealWorkoutBarChart() {
-            let segments: [WorkoutOverviewBarChart.SegmentData] = [
-                WorkoutOverviewBarChart.SegmentData(
-                    name: "Strength Training",
-                    value: 3,
-                    color: UIColor(hex: "FF9500")
-                ),
-                WorkoutOverviewBarChart.SegmentData(
-                    name: "Cardio",
-                    value: 3,
-                    color: UIColor(hex: "D1D1D6")
-                )
-            ]
+//            let segments: [WorkoutOverviewBarChart.SegmentData] = [
+//                WorkoutOverviewBarChart.SegmentData(
+//                    name: "Strength Training",
+//                    value: 3,
+//                    color: UIColor(hex: "FF9500")
+//                ),
+//                WorkoutOverviewBarChart.SegmentData(
+//                    name: "Cardio",
+//                    value: 3,
+//                    color: UIColor(hex: "D1D1D6")
+//                )
+//            ]
             
             // Configure the outlet directly
             //idealWorkoutBarChart.configure(with: segments)
         }
         
         private func addcurrentWorkoutBarChart() {
-            let segmentsCurrent: [WorkoutOverviewBarChart.SegmentData] = [
-                WorkoutOverviewBarChart.SegmentData(
-                    name: "Strength Training",
-                    value: 2,
-                    color: UIColor(hex: "FF9500")
-                ),
-                WorkoutOverviewBarChart.SegmentData(
-                    name: "Cardio",
-                    value: 5,
-                    color: UIColor(hex: "D1D1D6")
-                )
-            ]
+//            let segmentsCurrent: [WorkoutOverviewBarChart.SegmentData] = [
+//                WorkoutOverviewBarChart.SegmentData(
+//                    name: "Strength Training",
+//                    value: 2,
+//                    color: UIColor(hex: "FF9500")
+//                ),
+//                WorkoutOverviewBarChart.SegmentData(
+//                    name: "Cardio",
+//                    value: 5,
+//                    color: UIColor(hex: "D1D1D6")
+//                )
+//            ]
             
             // Configure the outlet directly
             //currentWorkoutBarChart.configure(with: segmentsCurrent)

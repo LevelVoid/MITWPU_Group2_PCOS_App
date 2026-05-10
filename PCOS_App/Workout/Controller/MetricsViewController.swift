@@ -114,8 +114,9 @@ class MetricsViewController: UIViewController {
 
             case .month:
                 for weekOffset in (0..<4).reversed() {
-                    guard let weekStart = calendar.date(byAdding: .weekOfYear, value: -weekOffset, to: now),
-                          let weekEnd   = calendar.date(byAdding: .day, value: 7, to: weekStart) else { continue }
+                    guard let weekStart = calendar.date(byAdding: .weekOfYear, value: -weekOffset, to: now)
+//                          let weekEnd   = calendar.date(byAdding: .day, value: 7, to: weekStart)
+                    else { continue }
                     var weekTotal = 0.0
                     for d in 0..<7 {
                         if let day = calendar.date(byAdding: .day, value: d, to: weekStart) {
@@ -192,8 +193,9 @@ class MetricsViewController: UIViewController {
 
             case .month:
                 for weekOffset in (0..<4).reversed() {
-                    guard let weekStart = calendar.date(byAdding: .weekOfYear, value: -weekOffset, to: now),
-                          let weekEnd   = calendar.date(byAdding: .day, value: 7, to: weekStart) else { continue }
+                    guard let weekStart = calendar.date(byAdding: .weekOfYear, value: -weekOffset, to: now)
+//                          let weekEnd   = calendar.date(byAdding: .day, value: 7, to: weekStart)
+                    else { continue }
                     var weekTotal = 0.0
                     for d in 0..<7 {
                         if let day = calendar.date(byAdding: .day, value: d, to: weekStart) {

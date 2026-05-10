@@ -266,7 +266,7 @@ class HeightRulerPickerView: UIView, UIScrollViewDelegate {
         guard value >= minValue && value <= maxValue else { return }
         currentValue = value
         
-        let padding = bounds.width / 2
+      //  let padding = bounds.width / 2
         let offset = CGFloat(value - minValue) * spacing
         
         scrollView.setContentOffset(CGPoint(x: offset, y: 0), animated: false)

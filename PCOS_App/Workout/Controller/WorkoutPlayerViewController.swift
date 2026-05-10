@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import HealthKit
+import ActivityKit
 
 class WorkoutPlayerViewController: UIViewController {
 
@@ -30,6 +32,8 @@ class WorkoutPlayerViewController: UIViewController {
     private var isPaused = false
  
     var timer: Timer?
+    var workoutSession: HKWorkoutSession?
+    var currentActivity: Activity<WorkoutLiveActivityAttributes>?
     var elapsedSeconds = 0
     var workoutExercise: WorkoutExercise!
     var currentSetIndex: Int = 0
@@ -137,7 +141,7 @@ class WorkoutPlayerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         guard let activeWorkout = activeWorkout else {
             assertionFailure("activeWorkout not injected")
             return
@@ -171,8 +175,9 @@ class WorkoutPlayerViewController: UIViewController {
 
         
         
-        
         //setupBottomSheet()
+        
+        startBackgroundWorkoutSession()
     }
     private func progressForExercise(_ exercise: WorkoutExercise) -> CGFloat {
 
@@ -332,6 +337,7 @@ class WorkoutPlayerViewController: UIViewController {
            // Stop timer when leaving this view
            timer?.invalidate()
            timer = nil
+           endBackgroundWorkoutSession()
        }
 
 //    private func setupPlayTap() {
@@ -510,6 +516,8 @@ class WorkoutPlayerViewController: UIViewController {
             handleTimerFinished()
             return
         }
+
+        updateLiveActivity()
 
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
@@ -822,6 +830,7 @@ class WorkoutPlayerViewController: UIViewController {
 
     
     private func finishWorkout() {
+            endBackgroundWorkoutSession()
             activeWorkout.finish()
             
             let completed = CompletedWorkout(
@@ -839,6 +848,7 @@ class WorkoutPlayerViewController: UIViewController {
         
     private func finishWorkoutAndShowSummary() {
             timer?.invalidate()
+            endBackgroundWorkoutSession()
             
             let workoutStart = activeWorkout.startTime
             let elapsed = Int(Date().timeIntervalSince(workoutStart))
@@ -889,9 +899,11 @@ class WorkoutPlayerViewController: UIViewController {
                 sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
                 timer?.invalidate()
                 timer = nil
+                workoutSession?.pause()
             } else {
                 // PLAY / RESUME
                 sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+                workoutSession?.resume()
                 startTimer()
                 
             }
@@ -921,5 +933,71 @@ class WorkoutPlayerViewController: UIViewController {
         return exercise.sets.allSatisfy { $0.completionState == .completed }
     }
 
-   
+    private func startBackgroundWorkoutSession() {
+        // 1. Start HealthKit Session
+        let configuration = HKWorkoutConfiguration()
+        configuration.activityType = .traditionalStrengthTraining
+        configuration.locationType = .unknown
+
+        do {
+            workoutSession = try HKWorkoutSession(healthStore: HKHealthStore(), configuration: configuration)
+            workoutSession?.startActivity(with: Date())
+        } catch {
+            print("Failed to start HealthKit workout session: \(error.localizedDescription)")
+        }
+
+        // 2. Start ActivityKit Live Activity
+        if ActivityAuthorizationInfo().areActivitiesEnabled {
+            let attributes = WorkoutLiveActivityAttributes(routineName: activeWorkout.routine.name)
+            let now = Date()
+            let endTime = now.addingTimeInterval(TimeInterval(max(0, elapsedSeconds)))
+            let state = WorkoutLiveActivityAttributes.ContentState(startDate: now, endDate: endTime, workoutName: workoutExercise.exercise.name)
+            
+            do {
+                if #available(iOS 16.2, *) {
+                    currentActivity = try Activity.request(attributes: attributes, content: ActivityContent(state: state, staleDate: nil))
+                } else {
+                    currentActivity = try Activity.request(attributes: attributes, contentState: state, pushType: nil)
+                }
+            } catch {
+                print("Failed to start Live Activity: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func updateLiveActivity() {
+        guard let currentActivity = currentActivity else { return }
+        Task {
+            let now = Date()
+            let endTime = now.addingTimeInterval(TimeInterval(max(0, elapsedSeconds)))
+            let state = WorkoutLiveActivityAttributes.ContentState(startDate: now, endDate: endTime, workoutName: workoutExercise.exercise.name)
+            
+            if #available(iOS 16.2, *) {
+                let content = ActivityContent(state: state, staleDate: nil)
+                await currentActivity.update(content)
+            } else {
+                await currentActivity.update(using: state)
+            }
+        }
+    }
+
+    private func endBackgroundWorkoutSession() {
+        // 1. End HealthKit Session
+        guard let session = workoutSession else { return }
+        session.end()
+        workoutSession = nil
+
+        // 2. End ActivityKit Live Activity
+        Task {
+            let now = Date()
+            let finalState = WorkoutLiveActivityAttributes.ContentState(startDate: now, endDate: now, workoutName: "Completed")
+            if #available(iOS 16.2, *) {
+                let content = ActivityContent(state: finalState, staleDate: nil)
+                await currentActivity?.end(content, dismissalPolicy: .immediate)
+            } else {
+                await currentActivity?.end(using: finalState, dismissalPolicy: .immediate)
+            }
+            currentActivity = nil
+        }
+    }
 }

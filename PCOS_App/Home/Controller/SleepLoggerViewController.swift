@@ -437,7 +437,7 @@ class SleepLoggerViewController: UIViewController {
     }
     
     @objc private func timeChanged() {
-        var sleepTime = startsPicker.date
+        let sleepTime = startsPicker.date
         var wakeTime = endsPicker.date
         
         // Auto-adjust wake day logic 
