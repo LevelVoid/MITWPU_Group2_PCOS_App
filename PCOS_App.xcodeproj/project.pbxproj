@@ -370,17 +370,19 @@
 				CODE_SIGN_ENTITLEMENTS = PCOS_App/PCOS_App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 474MDX8R3T;
+				DEVELOPMENT_TEAM = J4B79XL3D5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCOS_App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Adira;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please give camera access to scan barcode.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "PCOS App reads your steps, calories, heart rate, and sleep data to help you track your health journey.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PCOS App may write workout summaries to Apple Health for a complete picture of your activity.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -406,17 +408,19 @@
 				CODE_SIGN_ENTITLEMENTS = PCOS_App/PCOS_App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 474MDX8R3T;
+				DEVELOPMENT_TEAM = J4B79XL3D5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCOS_App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Adira;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please give camera access to scan barcode.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "PCOS App reads your steps, calories, heart rate, and sleep data to help you track your health journey.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PCOS App may write workout summaries to Apple Health for a complete picture of your activity.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
