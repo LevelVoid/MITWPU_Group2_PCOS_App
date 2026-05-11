@@ -15,7 +15,6 @@ final class GuidedTourManager {
 
     private weak var presenter: UIViewController?
     private var queue: [() -> Void] = []
-    private var observationTask: Task<Void, Never>?
 
     /// Build the tour queue, then call `start()`.
     func setup(presenter: UIViewController) {
@@ -38,21 +37,10 @@ final class GuidedTourManager {
     }
 
     func start() {
-        // Reset tip datastore so previously-dismissed tips are fresh again.
-        // This only runs on first launch (guarded by hasCompletedTour).
-        try? Tips.resetDatastore()
-        try? Tips.configure([
-            .datastoreLocation(.applicationDefault),
-            .displayFrequency(.immediate)
-        ])
-        // Give TipKit a moment to settle after the reset before showing tips
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            self?.advance()
-        }
+        advance()
     }
 
     func cancel() {
-        observationTask?.cancel()
         queue.removeAll()
         if let p = presenter, p.presentedViewController is TipUIPopoverViewController {
             p.dismiss(animated: false)
@@ -66,7 +54,7 @@ final class GuidedTourManager {
             advance(); return
         }
 
-        // Wait for any previous popover to fully dismiss before presenting
+        // Wait for any previous popover to fully dismiss
         if presenter.presentedViewController != nil {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
                 self?.show(tip, sourceItem: sourceItem)
@@ -82,20 +70,24 @@ final class GuidedTourManager {
         popoverVC.view.tintColor = pink
         presenter.present(popoverVC, animated: true)
 
-        // Wait for the user to explicitly dismiss the tip (X button or tap outside).
-        // shouldDisplayUpdates emits `false` only when the user interacts.
-        observationTask = Task { @MainActor [weak self, weak presenter] in
-            for await shouldDisplay in tip.shouldDisplayUpdates {
-                if !shouldDisplay {
-                    // User dismissed — close the popover if it's still up
-                    if let presenter,
-                       presenter.presentedViewController is TipUIPopoverViewController {
-                        presenter.dismiss(animated: true)
-                    }
-                    // Wait for dismiss animation to finish
-                    try? await Task.sleep(for: .milliseconds(500))
-                    self?.advance()
-                    break
+        // Poll until the user dismisses the popover (X button or tap outside).
+        // This is more reliable than TipKit's shouldDisplayUpdates async stream.
+        pollForDismissal()
+    }
+
+    /// Check every 0.5s if the popover is still on screen.
+    /// Once dismissed, advance to the next tip.
+    private func pollForDismissal() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self, let presenter = self.presenter else { return }
+
+            if presenter.presentedViewController is TipUIPopoverViewController {
+                // Still showing — keep polling
+                self.pollForDismissal()
+            } else {
+                // User dismissed the tip — show the next one after a brief pause
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.advance()
                 }
             }
         }

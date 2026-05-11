@@ -89,6 +89,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        FoodLogDataStore.seedSampleDataIfNeeded()
         ChatPersistenceManager.shared.deleteOldMessages()
         if #available(iOS 17.0, *) {
+            // Reset tips if the guided tour hasn't been completed yet,
+            // so all tips are fresh and displayable for the tour sequence.
+            if !UserDefaults.standard.bool(forKey: GuidedTourManager.tourCompletedKey) {
+                try? Tips.resetDatastore()
+            }
             try? Tips.configure([
                 .datastoreLocation(.applicationDefault),
                 .displayFrequency(.immediate)
