@@ -9,6 +9,8 @@ DerivedData/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
+Secrets.xcconfig
+mlx_model/
 
 # Logs
 *.log
