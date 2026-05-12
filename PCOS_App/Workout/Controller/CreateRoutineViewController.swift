@@ -229,16 +229,19 @@ class CreateRoutineViewController: UIViewController {
             // 4. Save to manager 
             UserRoutineDataStore.shared.save(routine)
             
-            // 5. Show success message
-            let alert = UIAlertController(
-                title: "Routine Saved!",
-                message: "\"\(name)\" has been saved with \(routineExercises.count) exercises.\nEven planning your routine is an act of self-care 🌸",
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
-                // Advance walkthrough
-                if WalkthroughManager.shared.isActive && WalkthroughManager.shared.currentStep == .workoutEditName {
+            // 5. Show success message or walkthrough congrats
+            if WalkthroughManager.shared.isActive && WalkthroughManager.shared.currentStep == .workoutEditName {
+                guard let window = UIApplication.shared.connectedScenes
+                    .compactMap({ $0 as? UIWindowScene })
+                    .flatMap({ $0.windows })
+                    .first(where: { $0.isKeyWindow }) else { return }
                     
+                WalkthroughCongratsView.present(
+                    in: window,
+                    title: "Step 3 Complete! 🌟",
+                    body: "Great job creating your custom routine. Now, let's quickly set your activity preference.",
+                    continueTitle: "Set Activity Type"
+                ) { [weak self] in
                     let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
                     if let movementTypeVC = storyboard.instantiateViewController(withIdentifier: "MovementTypeViewController") as? MovementTypeViewController {
                         movementTypeVC.modalPresentationStyle = .overFullScreen
@@ -246,12 +249,18 @@ class CreateRoutineViewController: UIViewController {
                             WalkthroughManager.shared.advanceToStep(.workoutActivityLevel)
                         }
                     }
-                } else {
-                    // 6. Navigate back normally if not in walkthrough
-                    self?.navigationController?.popViewController(animated: true)
                 }
-            })
-            present(alert, animated: true)
+            } else {
+                let alert = UIAlertController(
+                    title: "Routine Saved!",
+                    message: "\"\(name)\" has been saved with \(routineExercises.count) exercises.\nEven planning your routine is an act of self-care 🌸",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+                    self?.navigationController?.popViewController(animated: true)
+                })
+                present(alert, animated: true)
+            }
     }
     
     

@@ -18,6 +18,7 @@ final class WalkthroughOverlayView: UIView {
 
     // MARK: Callbacks
     var onTargetTapped: (() -> Void)?
+    var onDismissTapped: (() -> Void)?
 
     // MARK: Sub-views
     private let tipCard     = UIView()
@@ -42,10 +43,12 @@ final class WalkthroughOverlayView: UIView {
         message: String,
         iconEmoji: String = "👆",
         tipTitle: String? = nil,
-        onTargetTapped: (() -> Void)? = nil
+        onTargetTapped: (() -> Void)? = nil,
+        onDismissTapped: (() -> Void)? = nil
     ) -> WalkthroughOverlayView {
         let ov = WalkthroughOverlayView(frame: parent.bounds)
         ov.onTargetTapped = onTargetTapped
+        ov.onDismissTapped = onDismissTapped
         ov.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         parent.addSubview(ov)
         ov.setupContents(targetFrame: targetFrame,
@@ -145,21 +148,41 @@ final class WalkthroughOverlayView: UIView {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         tipCard.addSubview(closeButton)
 
-        // ── Size the card, position it above or below the cutout ──────────────
-        let cardWidth: CGFloat = min(bounds.width - 40, 320)
+        // ── Size the card dynamically based on content ────────────────────────
+        let maxAllowedWidth = min(bounds.width - 40, 320)
+        
+        let titleFont = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        let bodyFont = UIFont.systemFont(ofSize: 13, weight: .regular)
+        
+        let titleW = resolvedTitle.size(withAttributes: [.font: titleFont]).width
+        let minCardWidthForTitle = titleW + 106 // icon(14+40+10) + title + close(8+24+10)
+        
+        let maxBodyW = maxAllowedWidth - 78 // icon(14+40+10) + body + pad(14)
+        let bodyRect = message.boundingRect(
+            with: CGSize(width: maxBodyW, height: .infinity),
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: [.font: bodyFont],
+            context: nil)
+            
+        let optimalBodyWidth = ceil(bodyRect.width) + 78 + 4 // small buffer
+        
+        var cardWidth = max(minCardWidthForTitle, optimalBodyWidth)
+        cardWidth = min(maxAllowedWidth, cardWidth)
+        
+        let finalBodyW = cardWidth - 78
+        let finalTextH = message.boundingRect(
+            with: CGSize(width: finalBodyW, height: .infinity),
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: [.font: bodyFont],
+            context: nil).height
+            
+        let cardH = max(80, 24 + 40 + 8 + ceil(finalTextH) + 20)
+        
         let spaceBelow = bounds.height - cutoutFrame.maxY
         let spaceAbove = cutoutFrame.minY
 
         let cardX = max(16, min(bounds.width - cardWidth - 16,
                                 cutoutFrame.midX - cardWidth / 2))
-
-        // Estimate card height: icon(40) + titleLine(20) + bodyLines + padding
-        let textH = message.boundingRect(
-            with: CGSize(width: cardWidth - 40 - 12 - 20 - 24, height: .infinity),
-            options: .usesLineFragmentOrigin,
-            attributes: [.font: UIFont.systemFont(ofSize: 13)],
-            context: nil).height
-        let cardH = max(80, 24 + 40 + 8 + textH + 20)   // top + iconRow + body + bottom
 
         let cardY: CGFloat
         if spaceBelow >= cardH + 28 {
@@ -303,7 +326,10 @@ final class WalkthroughOverlayView: UIView {
 
     @objc private func cutoutTapped() { onTargetTapped?() }
 
-    @objc private func closeButtonTapped() { dismiss() }
+    @objc private func closeButtonTapped() {
+        dismiss()
+        onDismissTapped?()
+    }
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if tapIndicator.frame.contains(point) { return tapIndicator }

@@ -436,7 +436,9 @@ extension DietViewController: AddMealDelegate {
             self.isShowingWalkthroughCongrats = true
             self.walkthroughOverlay?.dismiss()
             self.walkthroughOverlay = nil
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            // Pop back to DietVC first so it is the top presenter, then show congrats
+            self.navigationController?.popToViewController(self, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [weak self] in
                 self?.showMealWalkthroughCongrats()
             }
         }
@@ -469,7 +471,9 @@ extension DietViewController: AddDescribedMealDelegate {
             self.isShowingWalkthroughCongrats = true
             self.walkthroughOverlay?.dismiss()
             self.walkthroughOverlay = nil
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            // Use a longer delay to ensure pop/dismiss animation fully completes
+            // before DietVC tries to present the congrats card
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
                 self?.showMealWalkthroughCongrats()
             }
         }
@@ -539,7 +543,18 @@ extension DietViewController: WalkthroughManagerDelegate {
     }
 
     private func showMealWalkthroughCongrats() {
-        guard let window = view.window else { return }
+        // Use key window as fallback — view.window may be briefly nil during
+        // the navigation animation that pops back to DietViewController.
+        let window: UIWindow?
+        if let w = view.window {
+            window = w
+        } else {
+            window = UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first(where: { $0.isKeyWindow })
+        }
+        guard let window else { return }
         isShowingWalkthroughCongrats = true
         WalkthroughCongratsView.present(
             in: window,

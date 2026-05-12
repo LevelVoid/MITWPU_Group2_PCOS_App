@@ -107,6 +107,24 @@ class ProfileService {
             pcosPhenotype: profile.pcosPhenotype
         )
     }
+
+    /// Updates only the activity level on the existing CDUser record.
+    /// Safe to call at any point — creates a CDUser shell if none exists yet.
+    func updateActivityLevel(_ activityLevel: String) {
+        guard let user = getProfile() else {
+            // No profile yet — UserDefaults is the fallback (already set by caller)
+            return
+        }
+        user.activityLevel = activityLevel
+        saveContext()
+    }
+    
+    /// Updates only the diet pattern on the existing CDUser record.
+    func updateDietPattern(_ dietPattern: String) {
+        guard let user = getProfile() else { return }
+        user.dietPattern = dietPattern
+        saveContext()
+    }
     
     // MARK: - Delete
     

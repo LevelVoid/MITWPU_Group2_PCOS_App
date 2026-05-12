@@ -101,6 +101,7 @@ class DietTypeViewController: UIViewController {
     @IBAction func nextButtonTapped(_ sender: UIButton) {
         guard let dietType = selectedDietType else { return }
         UserDefaults.standard.set(dietType, forKey: "userDietType")
+        ProfileService.shared.updateDietPattern(dietType)
         
         if WalkthroughManager.shared.isActive {
             dismiss(animated: true) {
@@ -127,6 +128,7 @@ class DietTypeViewController: UIViewController {
         guard let dietType = selectedDietType else { return false }
         // Save BEFORE the segue fires — IBAction timing is unreliable with button-wired segues
         UserDefaults.standard.set(dietType, forKey: "userDietType")
+        ProfileService.shared.updateDietPattern(dietType)
         print("Saved diet type: \(dietType)")
         return true
     }

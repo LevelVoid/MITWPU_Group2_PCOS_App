@@ -438,17 +438,18 @@ extension WorkoutViewController: WalkthroughManagerDelegate {
     
     func handleWalkthroughOnAppear() {
         guard WalkthroughManager.shared.isActive,
-              !isShowingWalkthroughCongrats,
-              walkthroughOverlay == nil else { return }
+              !isShowingWalkthroughCongrats else { return }
         
         WalkthroughManager.shared.addDelegate(self)
         let step = WalkthroughManager.shared.currentStep
         
         if step == .workoutIntro {
+            guard walkthroughOverlay == nil else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 self?.showCreateRoutineWalkthroughOverlay()
             }
         } else if step == .workoutPremade {
+            // Always attempt — overlay is freshly nil after CreateRoutineVC was popped
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 self?.showPremadeRoutineWalkthroughOverlay()
             }
@@ -462,7 +463,11 @@ extension WorkoutViewController: WalkthroughManagerDelegate {
                 self?.showCreateRoutineWalkthroughOverlay()
             }
         } else if step == .workoutPremade {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            // WorkoutVC may already be visible here (CreateRoutineVC just popped).
+            // Directly show the premade tip — don't wait for viewWillAppear.
+            walkthroughOverlay?.dismiss(animated: false)
+            walkthroughOverlay = nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [weak self] in
                 self?.showPremadeRoutineWalkthroughOverlay()
             }
         } else if step == .chatbotPrompt {
@@ -560,6 +565,13 @@ extension WorkoutViewController: WalkthroughManagerDelegate {
                     self.walkthroughOverlay?.dismiss()
                     self.walkthroughOverlay = nil
                     
+                    // Navigate to the recommended routine details
+                    self.collectionView(self.collectionView, didSelectItemAt: targetIndexPath)
+                },
+                onDismissTapped: { [weak self] in
+                    guard let self = self else { return }
+                    self.walkthroughOverlay = nil
+                    
                     // Show prompt to go to home tab
                     guard let keyWindow = UIApplication.shared.connectedScenes
                         .compactMap({ $0 as? UIWindowScene })
@@ -573,6 +585,7 @@ extension WorkoutViewController: WalkthroughManagerDelegate {
                         continueTitle: "Go to Home"
                     ) {
                         WalkthroughManager.shared.advanceToStep(.chatbotPrompt)
+                        self.tabBarController?.selectedIndex = 0 // Navigate to Home tab
                     }
                 }
             )

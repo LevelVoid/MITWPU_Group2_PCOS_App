@@ -19,6 +19,8 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         /// Set to true the moment the user saves symptoms during the walkthrough,
         /// so that viewWillAppear doesn't re-trigger the symptom overlay.
         private var walkthroughSymptomLogged: Bool = false
+        private var pulseLayer: CALayer?
+
 
         // ── Daily Goals AI ────────────────────────────────────────────────────
         private var goalsOutput: DailyGoalsOutput?
@@ -107,6 +109,12 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             handleWalkthroughOnAppear()
+        }
+
+        override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            // Stop the chatbot pulse when navigating away (e.g. to ChatbotVC)
+            stopChatbotPulse()
         }
 
         // MARK: - Daily Goals AI
@@ -868,6 +876,10 @@ extension HomeViewController: WalkthroughManagerDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) { [weak self] in
                 self?.showSymptomWalkthroughOverlay()
             }
+        case .chatbotPrompt:
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) { [weak self] in
+                self?.showChatbotWalkthroughOverlay()
+            }
         default: break
         }
     }
@@ -1018,32 +1030,71 @@ extension HomeViewController: WalkthroughManagerDelegate {
               WalkthroughManager.shared.currentStep == .chatbotPrompt,
               let window = view.window else { return }
 
+        // Start glowing pulse on the chatbot button to draw attention
+        startChatbotPulse()
+
         let btnFrame = chatbotButton.convert(chatbotButton.bounds, to: window)
 
         walkthroughOverlay?.dismiss(animated: false)
         walkthroughOverlay = WalkthroughOverlayView.install(
             in: window,
             targetFrame: btnFrame,
-            message: "Have a question? Tap here to ask our AI assistant for personalized PCOS advice.",
+            message: "Ask Adira anything about PCOS — diet, symptoms, cycle, you name it! Tap to chat now.",
             iconEmoji: "💬",
-            tipTitle: "Meet Your AI Companion",
+            tipTitle: "Meet Adira, Your AI Coach",
             onTargetTapped: { [weak self] in
                 guard let self else { return }
+                self.stopChatbotPulse()
                 self.walkthroughOverlay?.dismiss()
                 self.walkthroughOverlay = nil
+                // Navigate to ChatbotVC — congrats will be shown from there
                 self.ChatbotButtonTapped(self.chatbotButton)
-                
-                // Show final congrats over the chatbot screen
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-                    self?.showFinalCompletionCongrats()
-                }
             }
         )
     }
 
-    // MARK: Step 8 – Final completion congrats
+    // MARK: Chatbot button pulse animation
 
-    private func showFinalCompletionCongrats() {
+    private func startChatbotPulse() {
+        stopChatbotPulse() // Clear any existing pulse
+
+        let pulse = CALayer()
+        pulse.frame = chatbotButton.bounds.insetBy(dx: -8, dy: -8)
+        pulse.position = CGPoint(
+            x: chatbotButton.bounds.midX,
+            y: chatbotButton.bounds.midY
+        )
+        pulse.cornerRadius = (chatbotButton.bounds.width + 16) / 2
+        pulse.backgroundColor = UIColor(hex: "FE7A96").withAlphaComponent(0.5).cgColor
+        chatbotButton.layer.insertSublayer(pulse, below: chatbotButton.imageView?.layer)
+        pulseLayer = pulse
+
+        // Scale + fade pulse loop
+        let scaleAnim = CABasicAnimation(keyPath: "transform.scale")
+        scaleAnim.fromValue = 1.0
+        scaleAnim.toValue   = 1.55
+
+        let fadeAnim = CABasicAnimation(keyPath: "opacity")
+        fadeAnim.fromValue = 0.7
+        fadeAnim.toValue   = 0.0
+
+        let group = CAAnimationGroup()
+        group.animations  = [scaleAnim, fadeAnim]
+        group.duration    = 1.2
+        group.repeatCount = .infinity
+        group.timingFunction = CAMediaTimingFunction(name: .easeOut)
+        pulse.add(group, forKey: "chatbotPulse")
+    }
+
+    private func stopChatbotPulse() {
+        pulseLayer?.removeFromSuperlayer()
+        pulseLayer = nil
+    }
+
+    // MARK: Step 8 – Final completion congrats (called from ChatbotViewController)
+
+    /// Called by ChatbotViewController when it appears during the walkthrough.
+    func showFinalCompletionCongrats() {
         guard let keyWindow = UIApplication.shared.connectedScenes
             .compactMap({ $0 as? UIWindowScene })
             .flatMap({ $0.windows })

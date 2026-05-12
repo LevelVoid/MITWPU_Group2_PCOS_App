@@ -95,25 +95,21 @@ class MovementTypeViewController: UIViewController {
             nextButton.alpha = 1.0
         }
 
-    @IBAction func nextButtonTapped(_ sender: UIButton) { 
+    @IBAction func nextButtonTapped(_ sender: UIButton) {
         if WalkthroughManager.shared.isActive {
             guard let movementType = selectedMovementType else { return }
-            UserDefaults.standard.set(movementType, forKey: "userWorkoutType")
-            
+
+            // 1. Save the movement type first
+            saveMovementType(movementType)
+
+            // 2. Dismiss the modal first — THEN advance the step.
+            //    Advancing BEFORE dismiss causes CreateRoutineVC to call popViewController
+            //    while this modal is still on top of it, which iOS silently blocks.
             dismiss(animated: true) {
-                guard let window = UIApplication.shared.connectedScenes
-                    .compactMap({ $0 as? UIWindowScene })
-                    .flatMap({ $0.windows })
-                    .first(where: { $0.isKeyWindow }) else { return }
-                    
-                WalkthroughCongratsView.present(
-                    in: window,
-                    title: "Routines Ready! 🎯",
-                    body: "We've curated the best routines for a \(movementType.lowercased()) level.\nLet's check them out!",
-                    continueTitle: "Explore Routines"
-                ) {
-                    WalkthroughManager.shared.advanceToStep(.workoutPremade)
-                }
+                // Now that the modal is fully gone, CreateRoutineVC is the top VC again.
+                // Advancing here lets CreateRoutineVC.walkthroughDidReachStep(.workoutPremade)
+                // safely call popViewController → WorkoutVC.viewWillAppear fires → shows tip.
+                WalkthroughManager.shared.advanceToStep(.workoutPremade)
             }
         }
     }
@@ -123,10 +119,15 @@ class MovementTypeViewController: UIViewController {
             return false // Prevent segue during walkthrough, handled manually in nextButtonTapped
         }
         guard let movementType = selectedMovementType else { return false }
-        // Save BEFORE the segue fires — IBAction timing is unreliable with button-wired segues
-        UserDefaults.standard.set(movementType, forKey: "userWorkoutType")
+        saveMovementType(movementType)
         print("Saved movement type: \(movementType)")
         return true
+    }
+
+    private func saveMovementType(_ movementType: String) {
+        UserDefaults.standard.set(movementType, forKey: "userWorkoutType")
+        // Also persist to Core Data so ProfileVC / GoalEngine reflect the change
+        ProfileService.shared.updateActivityLevel(movementType)
     }
     
 }
