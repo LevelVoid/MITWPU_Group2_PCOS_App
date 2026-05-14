@@ -1,4 +1,5 @@
 import UIKit
+import TipKit
 
 class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollectionViewCellDelegate, LogPeriodCalendarDelegate,SleepCardCollectionViewCellDelegate {
     
@@ -15,7 +16,8 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         private var hkSteps: Int = 0
         private var hkCalories: Double = 0
         private var walkthroughOverlay: WalkthroughOverlayView?
-        private var isShowingWalkthroughCongrats: Bool = false
+    private weak var tipPopover: UIViewController?
+    private var isShowingWalkthroughCongrats: Bool = false
         /// Set to true the moment the user saves symptoms during the walkthrough,
         /// so that viewWillAppear doesn't re-trigger the symptom overlay.
         private var walkthroughSymptomLogged: Bool = false
@@ -945,16 +947,29 @@ extension HomeViewController: WalkthroughManagerDelegate {
             self.walkthroughOverlay = WalkthroughOverlayView.install(
                 in: window,
                 targetFrame: btnFrame,
-                message: "Tap this button to log your first period and kick off your PCOS journey!",
-                iconEmoji: "🩸",
-                tipTitle: "Log Your First Period",
                 onTargetTapped: { [weak self, weak cell] in
                     guard let self, let cell else { return }
+                    self.tipPopover?.dismiss(animated: true)
                     self.walkthroughOverlay?.dismiss()
                     self.walkthroughOverlay = nil
                     self.homeHeaderCellDidTapLogPeriod(cell)
                 }
             )
+            
+            if #available(iOS 17.0, *) {
+                let tip = LogPeriodTip()
+                let popoverVC = TipUIPopoverViewController(tip, sourceItem: btn)
+                popoverVC.isModalInPresentation = true
+                popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
+                if let overlay = self.walkthroughOverlay {
+                    popoverVC.popoverPresentationController?.passthroughViews = [overlay]
+                    overlay.observeTip(tip) { [weak self] in
+                        self?.walkthroughOverlay = nil
+                    }
+                }
+                self.tipPopover = popoverVC
+                self.present(popoverVC, animated: true)
+            }
         }
     }
 
@@ -984,16 +999,29 @@ extension HomeViewController: WalkthroughManagerDelegate {
             self.walkthroughOverlay = WalkthroughOverlayView.install(
                 in: window,
                 targetFrame: cellFrame,
-                message: "How are you feeling today? Tap here to log your symptoms.",
-                iconEmoji: "✨",
-                tipTitle: "Log Your Symptoms",
                 onTargetTapped: { [weak self] in
                     guard let self else { return }
+                    self.tipPopover?.dismiss(animated: true)
                     self.walkthroughOverlay?.dismiss()
                     self.walkthroughOverlay = nil
                     self.performSegue(withIdentifier: "showSymptomLogger", sender: self)
                 }
             )
+            
+            if #available(iOS 17.0, *) {
+                let tip = LogSymptomTip()
+                let popoverVC = TipUIPopoverViewController(tip, sourceItem: cell)
+                popoverVC.isModalInPresentation = true
+                popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
+                if let overlay = self.walkthroughOverlay {
+                    popoverVC.popoverPresentationController?.passthroughViews = [overlay]
+                    overlay.observeTip(tip) { [weak self] in
+                        self?.walkthroughOverlay = nil
+                    }
+                }
+                self.tipPopover = popoverVC
+                self.present(popoverVC, animated: true)
+            }
         }
     }
 
@@ -1015,7 +1043,7 @@ extension HomeViewController: WalkthroughManagerDelegate {
         // isShowingWalkthroughCongrats is already true (set in onSymptomsSelected)
         WalkthroughCongratsView.present(
             in: window,
-            title: "Amazing! 🌸",
+            title: "Amazing!",
             body: "You've logged your period and how you feel.\nNext, let's set up your nutrition!",
             continueTitle: "Go to Diet"
         ) { [weak self] in
@@ -1039,11 +1067,9 @@ extension HomeViewController: WalkthroughManagerDelegate {
         walkthroughOverlay = WalkthroughOverlayView.install(
             in: window,
             targetFrame: btnFrame,
-            message: "Ask Adira anything about PCOS — diet, symptoms, cycle, you name it! Tap to chat now.",
-            iconEmoji: "💬",
-            tipTitle: "Meet Adira, Your AI Coach",
             onTargetTapped: { [weak self] in
                 guard let self else { return }
+                self.tipPopover?.dismiss(animated: true)
                 self.stopChatbotPulse()
                 self.walkthroughOverlay?.dismiss()
                 self.walkthroughOverlay = nil
@@ -1051,6 +1077,21 @@ extension HomeViewController: WalkthroughManagerDelegate {
                 self.ChatbotButtonTapped(self.chatbotButton)
             }
         )
+        
+        if #available(iOS 17.0, *) {
+            let tip = ChatbotTip()
+            let popoverVC = TipUIPopoverViewController(tip, sourceItem: chatbotButton)
+            popoverVC.isModalInPresentation = true
+            popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
+            if let overlay = walkthroughOverlay {
+                popoverVC.popoverPresentationController?.passthroughViews = [overlay]
+                overlay.observeTip(tip) { [weak self] in
+                    self?.walkthroughOverlay = nil
+                }
+            }
+            self.tipPopover = popoverVC
+            self.present(popoverVC, animated: true)
+        }
     }
 
     // MARK: Chatbot button pulse animation

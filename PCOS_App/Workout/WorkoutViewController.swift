@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import TipKit
 
 class WorkoutViewController: UIViewController {
 
@@ -20,11 +21,16 @@ class WorkoutViewController: UIViewController {
     private var selectedPredefinedRoutine: Routine?
     private var selectedRoutine: Routine?
     
+    private let routineDataStore = UserRoutineDataStore.shared
+    private var routines: [Routine] = []
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     // Walkthrough State
     private var walkthroughOverlay: WalkthroughOverlayView?
     private var isShowingWalkthroughCongrats: Bool = false
+    private weak var tipPopover: UIViewController?
+    private var hasShownWalkthroughThisSession = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -512,11 +518,9 @@ extension WorkoutViewController: WalkthroughManagerDelegate {
             self.walkthroughOverlay = WalkthroughOverlayView.install(
                 in: window,
                 targetFrame: cellFrame,
-                message: "Create your own custom workout routine by tapping here.",
-                iconEmoji: "🏋️‍♀️",
-                tipTitle: "Custom Routines",
                 onTargetTapped: { [weak self] in
                     guard let self = self else { return }
+                    self.tipPopover?.dismiss(animated: true)
                     self.walkthroughOverlay?.dismiss()
                     self.walkthroughOverlay = nil
                     
@@ -524,6 +528,21 @@ extension WorkoutViewController: WalkthroughManagerDelegate {
                     self.performSegue(withIdentifier: "showCreateRoutine", sender: nil)
                 }
             )
+            
+            if #available(iOS 17.0, *) {
+                let tip = CustomRoutineTip()
+                let popoverVC = TipUIPopoverViewController(tip, sourceItem: cell)
+                popoverVC.isModalInPresentation = true // prevent tap outside from dismissing
+                popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
+                if let overlay = self.walkthroughOverlay {
+                    popoverVC.popoverPresentationController?.passthroughViews = [overlay]
+                    overlay.observeTip(tip) { [weak self] in
+                        self?.walkthroughOverlay = nil
+                    }
+                }
+                self.tipPopover = popoverVC
+                self.present(popoverVC, animated: true)
+            }
         }
     }
     
@@ -550,45 +569,38 @@ extension WorkoutViewController: WalkthroughManagerDelegate {
             
             let cellFrame = cell.convert(cell.bounds, to: window)
             
-            let workoutType = UserDefaults.standard.string(forKey: "userWorkoutType") ?? "activity"
-            let message = "We've curated these routines specifically for your \(workoutType.lowercased()) level and current menstrual phase."
-            
             self.walkthroughOverlay?.dismiss(animated: false)
             self.walkthroughOverlay = WalkthroughOverlayView.install(
                 in: window,
                 targetFrame: cellFrame,
-                message: message,
-                iconEmoji: "🎯",
-                tipTitle: "Recommended For You",
                 onTargetTapped: { [weak self] in
                     guard let self = self else { return }
+                    self.tipPopover?.dismiss(animated: true)
                     self.walkthroughOverlay?.dismiss()
                     self.walkthroughOverlay = nil
                     
+                    // Advance walkthrough so it doesn't prompt again!
+                    WalkthroughManager.shared.advanceToStep(.chatbotPrompt)
+                    
                     // Navigate to the recommended routine details
                     self.collectionView(self.collectionView, didSelectItemAt: targetIndexPath)
-                },
-                onDismissTapped: { [weak self] in
-                    guard let self = self else { return }
-                    self.walkthroughOverlay = nil
-                    
-                    // Show prompt to go to home tab
-                    guard let keyWindow = UIApplication.shared.connectedScenes
-                        .compactMap({ $0 as? UIWindowScene })
-                        .flatMap({ $0.windows })
-                        .first(where: { $0.isKeyWindow }) else { return }
-
-                    WalkthroughCongratsView.present(
-                        in: keyWindow,
-                        title: "Workout Ready! 💪",
-                        body: "You've got your routines sorted.\nFinally, let's meet your AI companion on the Home tab.",
-                        continueTitle: "Go to Home"
-                    ) {
-                        WalkthroughManager.shared.advanceToStep(.chatbotPrompt)
-                        self.tabBarController?.selectedIndex = 0 // Navigate to Home tab
-                    }
                 }
             )
+            
+            if #available(iOS 17.0, *) {
+                let tip = RecommendedRoutineTip()
+                let popoverVC = TipUIPopoverViewController(tip, sourceItem: cell)
+                popoverVC.isModalInPresentation = true
+                popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
+                if let overlay = self.walkthroughOverlay {
+                    popoverVC.popoverPresentationController?.passthroughViews = [overlay]
+                    overlay.observeTip(tip) { [weak self] in
+                        self?.walkthroughOverlay = nil
+                    }
+                }
+                self.tipPopover = popoverVC
+                self.present(popoverVC, animated: true)
+            }
         }
     }
 }

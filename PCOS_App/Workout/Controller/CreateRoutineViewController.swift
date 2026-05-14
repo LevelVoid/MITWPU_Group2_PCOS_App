@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TipKit
 
 class CreateRoutineViewController: UIViewController {
     // Same VC for before and after adding exercise - Apple's Guidelines (Human Interface Guidelines) "Within a screen, adapt content to reflect state changes."
@@ -29,6 +30,7 @@ class CreateRoutineViewController: UIViewController {
     
     // Walkthrough State
     private var walkthroughOverlay: WalkthroughOverlayView?
+    private weak var tipPopover: UIViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -238,7 +240,7 @@ class CreateRoutineViewController: UIViewController {
                     
                 WalkthroughCongratsView.present(
                     in: window,
-                    title: "Step 3 Complete! 🌟",
+                    title: "Step 3 Complete!",
                     body: "Great job creating your custom routine. Now, let's quickly set your activity preference.",
                     continueTitle: "Set Activity Type"
                 ) { [weak self] in
@@ -477,16 +479,29 @@ extension CreateRoutineViewController: WalkthroughManagerDelegate {
         walkthroughOverlay = WalkthroughOverlayView.install(
             in: window,
             targetFrame: btnFrame,
-            message: "Tap this button to browse and add exercises to your custom routine.",
-            iconEmoji: "➕",
-            tipTitle: "Add Exercises",
             onTargetTapped: { [weak self] in
                 guard let self = self else { return }
+                self.tipPopover?.dismiss(animated: true)
                 self.walkthroughOverlay?.dismiss()
                 self.walkthroughOverlay = nil
                 self.performSegue(withIdentifier: "showAddExercise", sender: nil)
             }
         )
+        
+        if #available(iOS 17.0, *) {
+            let tip = AddExerciseTip()
+            let popoverVC = TipUIPopoverViewController(tip, sourceItem: addExerciseButton)
+            popoverVC.isModalInPresentation = true
+            popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
+            if let overlay = walkthroughOverlay {
+                popoverVC.popoverPresentationController?.passthroughViews = [overlay]
+                overlay.observeTip(tip) { [weak self] in
+                    self?.walkthroughOverlay = nil
+                }
+            }
+            self.tipPopover = popoverVC
+            self.present(popoverVC, animated: true)
+        }
     }
     
     private func showEditNameOverlay() {
@@ -497,14 +512,27 @@ extension CreateRoutineViewController: WalkthroughManagerDelegate {
         walkthroughOverlay = WalkthroughOverlayView.install(
             in: window,
             targetFrame: targetFrame,
-            message: "You can customize the reps and sets of each exercise below. Then, give your routine a name and hit Save!",
-            iconEmoji: "📝",
-            tipTitle: "Edit & Save",
             onTargetTapped: { [weak self] in
+                self?.tipPopover?.dismiss(animated: true)
                 self?.walkthroughOverlay?.dismiss()
                 self?.walkthroughOverlay = nil
                 self?.routineNameTextField.becomeFirstResponder()
             }
         )
+        
+        if #available(iOS 17.0, *) {
+            let tip = EditNameTip()
+            let popoverVC = TipUIPopoverViewController(tip, sourceItem: routineNameTextField)
+            popoverVC.isModalInPresentation = true
+            popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
+            if let overlay = walkthroughOverlay {
+                popoverVC.popoverPresentationController?.passthroughViews = [overlay]
+                overlay.observeTip(tip) { [weak self] in
+                    self?.walkthroughOverlay = nil
+                }
+            }
+            self.tipPopover = popoverVC
+            self.present(popoverVC, animated: true)
+        }
     }
 }

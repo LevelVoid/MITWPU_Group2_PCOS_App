@@ -64,6 +64,15 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
         setupTable()
         setupPlayTap()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWorkoutEndedEarly), name: Notification.Name("WorkoutEndedEarly"), object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc private func handleWorkoutEndedEarly() {
+        self.navigationController?.popToRootViewController(animated: true)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

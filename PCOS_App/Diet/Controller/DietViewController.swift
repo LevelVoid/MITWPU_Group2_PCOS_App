@@ -1,4 +1,5 @@
 import UIKit
+import TipKit
 import CoreData
 
 class DietViewController: UIViewController {
@@ -14,6 +15,7 @@ class DietViewController: UIViewController {
     private var mealError: String?
     private var lastFoodLogCount: Int = -1
     private var walkthroughOverlay: WalkthroughOverlayView?
+    private weak var tipPopover: UIViewController?
     private var isShowingWalkthroughCongrats: Bool = false
     private var walkthroughMealLogged: Bool = false
  
@@ -530,16 +532,29 @@ extension DietViewController: WalkthroughManagerDelegate {
         walkthroughOverlay = WalkthroughOverlayView.install(
             in: window,
             targetFrame: btnFrame,
-            message: "Tap here to log your first meal and start tracking your nutrition.",
-            iconEmoji: "🥗",
-            tipTitle: "Log Your First Meal",
             onTargetTapped: { [weak self] in
                 guard let self = self else { return }
+                self.tipPopover?.dismiss(animated: true)
                 self.walkthroughOverlay?.dismiss()
                 self.walkthroughOverlay = nil
                 self.addButtonTapped(self.AddMealButton)
             }
         )
+        
+        if #available(iOS 17.0, *) {
+            let tip = LogMealTip()
+            let popoverVC = TipUIPopoverViewController(tip, sourceItem: AddMealButton)
+            popoverVC.isModalInPresentation = true
+            popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
+            if let overlay = walkthroughOverlay {
+                popoverVC.popoverPresentationController?.passthroughViews = [overlay]
+                overlay.observeTip(tip) { [weak self] in
+                    self?.walkthroughOverlay = nil
+                }
+            }
+            self.tipPopover = popoverVC
+            self.present(popoverVC, animated: true)
+        }
     }
 
     private func showMealWalkthroughCongrats() {
@@ -558,7 +573,7 @@ extension DietViewController: WalkthroughManagerDelegate {
         isShowingWalkthroughCongrats = true
         WalkthroughCongratsView.present(
             in: window,
-            title: "Step 2 Complete! 🌟",
+            title: "Step 2 Complete!",
             body: "Great job logging your meal. Now, let's quickly set your diet preference.",
             continueTitle: "Set Diet Type"
         ) { [weak self] in
