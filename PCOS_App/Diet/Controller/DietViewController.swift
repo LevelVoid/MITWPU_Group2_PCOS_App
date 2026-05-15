@@ -44,6 +44,13 @@ class DietViewController: UIViewController {
         handleWalkthroughOnAppear()
     }
  
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        walkthroughOverlay?.dismiss(animated: false)
+        walkthroughOverlay = nil
+        tipPopover?.dismiss(animated: false)
+    }
+    
     // MARK: - Setup
  
     private func setupNavigation() {
@@ -543,13 +550,17 @@ extension DietViewController: WalkthroughManagerDelegate {
         
         if #available(iOS 17.0, *) {
             let tip = LogMealTip()
+            if case .invalidated = tip.status {
+                WalkthroughManager.shared.advanceToStep(.dietType)
+                return
+            }
             let popoverVC = TipUIPopoverViewController(tip, sourceItem: AddMealButton)
-            popoverVC.isModalInPresentation = true
             popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
             if let overlay = walkthroughOverlay {
                 popoverVC.popoverPresentationController?.passthroughViews = [overlay]
-                overlay.observeTip(tip) { [weak self] in
+                overlay.observeTip(tip, popover: popoverVC) { [weak self] in
                     self?.walkthroughOverlay = nil
+                    WalkthroughManager.shared.handleWalkthroughAborted()
                 }
             }
             self.tipPopover = popoverVC

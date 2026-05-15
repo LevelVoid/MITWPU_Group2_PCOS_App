@@ -422,6 +422,12 @@ extension CreateRoutineViewController: UITableViewDelegate {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        walkthroughOverlay?.dismiss(animated: false)
+        walkthroughOverlay = nil
+        tipPopover?.dismiss(animated: false)
+    }
     
 }
 
@@ -490,13 +496,18 @@ extension CreateRoutineViewController: WalkthroughManagerDelegate {
         
         if #available(iOS 17.0, *) {
             let tip = AddExerciseTip()
+            if case .invalidated = tip.status {
+                WalkthroughManager.shared.advanceToStep(.workoutEditName)
+                self.showEditNameOverlay()
+                return
+            }
             let popoverVC = TipUIPopoverViewController(tip, sourceItem: addExerciseButton)
-            popoverVC.isModalInPresentation = true
             popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
             if let overlay = walkthroughOverlay {
                 popoverVC.popoverPresentationController?.passthroughViews = [overlay]
-                overlay.observeTip(tip) { [weak self] in
+                overlay.observeTip(tip, popover: popoverVC) { [weak self] in
                     self?.walkthroughOverlay = nil
+                    WalkthroughManager.shared.handleWalkthroughAborted()
                 }
             }
             self.tipPopover = popoverVC
@@ -522,13 +533,17 @@ extension CreateRoutineViewController: WalkthroughManagerDelegate {
         
         if #available(iOS 17.0, *) {
             let tip = EditNameTip()
+            if case .invalidated = tip.status {
+                WalkthroughManager.shared.advanceToStep(.workoutActivityLevel)
+                return
+            }
             let popoverVC = TipUIPopoverViewController(tip, sourceItem: routineNameTextField)
-            popoverVC.isModalInPresentation = true
             popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
             if let overlay = walkthroughOverlay {
                 popoverVC.popoverPresentationController?.passthroughViews = [overlay]
-                overlay.observeTip(tip) { [weak self] in
+                overlay.observeTip(tip, popover: popoverVC) { [weak self] in
                     self?.walkthroughOverlay = nil
+                    WalkthroughManager.shared.handleWalkthroughAborted()
                 }
             }
             self.tipPopover = popoverVC

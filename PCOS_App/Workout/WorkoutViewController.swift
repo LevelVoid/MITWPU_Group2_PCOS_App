@@ -414,11 +414,18 @@ extension WorkoutViewController {
             guard let self = self else { return }
             DailyActivityDataStore.shared.mergeHealthKitData(
                 steps: hkSteps,
-                healthKitDailyCalories: Int(hkCalories)
+                    healthKitDailyCalories: Int(hkCalories)
             )
             self.loadCardsFromDailyContext()
             self.collectionView.reloadData()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        walkthroughOverlay?.dismiss(animated: false)
+        walkthroughOverlay = nil
+        tipPopover?.dismiss(animated: false)
     }
     
     // MARK: - Single Source of Truth Reader
@@ -531,13 +538,17 @@ extension WorkoutViewController: WalkthroughManagerDelegate {
             
             if #available(iOS 17.0, *) {
                 let tip = CustomRoutineTip()
+                if case .invalidated = tip.status {
+                    WalkthroughManager.shared.advanceToStep(.workoutAddExercise)
+                    return
+                }
                 let popoverVC = TipUIPopoverViewController(tip, sourceItem: cell)
-                popoverVC.isModalInPresentation = true // prevent tap outside from dismissing
                 popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
                 if let overlay = self.walkthroughOverlay {
                     popoverVC.popoverPresentationController?.passthroughViews = [overlay]
-                    overlay.observeTip(tip) { [weak self] in
+                    overlay.observeTip(tip, popover: popoverVC) { [weak self] in
                         self?.walkthroughOverlay = nil
+                        WalkthroughManager.shared.handleWalkthroughAborted()
                     }
                 }
                 self.tipPopover = popoverVC
@@ -589,13 +600,17 @@ extension WorkoutViewController: WalkthroughManagerDelegate {
             
             if #available(iOS 17.0, *) {
                 let tip = RecommendedRoutineTip()
+                if case .invalidated = tip.status {
+                    WalkthroughManager.shared.advanceToStep(.chatbotPrompt)
+                    return
+                }
                 let popoverVC = TipUIPopoverViewController(tip, sourceItem: cell)
-                popoverVC.isModalInPresentation = true
                 popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
                 if let overlay = self.walkthroughOverlay {
                     popoverVC.popoverPresentationController?.passthroughViews = [overlay]
-                    overlay.observeTip(tip) { [weak self] in
+                    overlay.observeTip(tip, popover: popoverVC) { [weak self] in
                         self?.walkthroughOverlay = nil
+                        WalkthroughManager.shared.handleWalkthroughAborted()
                     }
                 }
                 self.tipPopover = popoverVC

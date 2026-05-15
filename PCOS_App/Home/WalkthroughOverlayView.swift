@@ -142,13 +142,19 @@ final class WalkthroughOverlayView: UIView {
     }
     
     @available(iOS 17.0, *)
-    func observeTip(_ tip: any Tip, onInvalidated: (() -> Void)? = nil) {
+    func observeTip(_ tip: any Tip, popover: UIViewController? = nil, onInvalidated: (() -> Void)? = nil) {
         Task {
             for await status in tip.statusUpdates {
                 if case .invalidated = status {
                     await MainActor.run {
+                        if let popover = popover {
+                            popover.dismiss(animated: true) {
+                                onInvalidated?()
+                            }
+                        } else {
+                            onInvalidated?()
+                        }
                         self.dismiss()
-                        onInvalidated?()
                     }
                 }
             }

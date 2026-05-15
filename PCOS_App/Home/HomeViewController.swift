@@ -113,12 +113,6 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             handleWalkthroughOnAppear()
         }
 
-        override func viewWillDisappear(_ animated: Bool) {
-            super.viewWillDisappear(animated)
-            // Stop the chatbot pulse when navigating away (e.g. to ChatbotVC)
-            stopChatbotPulse()
-        }
-
         // MARK: - Daily Goals AI
 
         private func loadDailyGoals() {
@@ -141,6 +135,14 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
                     }
                 }
             }
+        }
+        
+        override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            walkthroughOverlay?.dismiss(animated: false)
+            walkthroughOverlay = nil
+            tipPopover?.dismiss(animated: false)
+            stopChatbotPulse()
         }
 
         // MARK: - HealthKit
@@ -172,7 +174,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             }
         }
 
-        // MARK: - Sleep Logger
+        // MARK: - Setup Logger
 
         private func showSleepLoggerIfNeeded() {
             let todayString = todayDateString()
@@ -958,13 +960,17 @@ extension HomeViewController: WalkthroughManagerDelegate {
             
             if #available(iOS 17.0, *) {
                 let tip = LogPeriodTip()
+                if case .invalidated = tip.status {
+                    WalkthroughManager.shared.handleWalkthroughAborted()
+                    return
+                }
                 let popoverVC = TipUIPopoverViewController(tip, sourceItem: btn)
-                popoverVC.isModalInPresentation = true
                 popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
                 if let overlay = self.walkthroughOverlay {
                     popoverVC.popoverPresentationController?.passthroughViews = [overlay]
-                    overlay.observeTip(tip) { [weak self] in
+                    overlay.observeTip(tip, popover: popoverVC) { [weak self] in
                         self?.walkthroughOverlay = nil
+                        WalkthroughManager.shared.handleWalkthroughAborted()
                     }
                 }
                 self.tipPopover = popoverVC
@@ -1010,13 +1016,17 @@ extension HomeViewController: WalkthroughManagerDelegate {
             
             if #available(iOS 17.0, *) {
                 let tip = LogSymptomTip()
+                if case .invalidated = tip.status {
+                    WalkthroughManager.shared.handleWalkthroughAborted()
+                    return
+                }
                 let popoverVC = TipUIPopoverViewController(tip, sourceItem: cell)
-                popoverVC.isModalInPresentation = true
                 popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
                 if let overlay = self.walkthroughOverlay {
                     popoverVC.popoverPresentationController?.passthroughViews = [overlay]
-                    overlay.observeTip(tip) { [weak self] in
+                    overlay.observeTip(tip, popover: popoverVC) { [weak self] in
                         self?.walkthroughOverlay = nil
+                        WalkthroughManager.shared.handleWalkthroughAborted()
                     }
                 }
                 self.tipPopover = popoverVC
@@ -1080,13 +1090,17 @@ extension HomeViewController: WalkthroughManagerDelegate {
         
         if #available(iOS 17.0, *) {
             let tip = ChatbotTip()
+            if case .invalidated = tip.status {
+                WalkthroughManager.shared.handleWalkthroughAborted()
+                return
+            }
             let popoverVC = TipUIPopoverViewController(tip, sourceItem: chatbotButton)
-            popoverVC.isModalInPresentation = true
             popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
             if let overlay = walkthroughOverlay {
                 popoverVC.popoverPresentationController?.passthroughViews = [overlay]
-                overlay.observeTip(tip) { [weak self] in
+                overlay.observeTip(tip, popover: popoverVC) { [weak self] in
                     self?.walkthroughOverlay = nil
+                    WalkthroughManager.shared.handleWalkthroughAborted()
                 }
             }
             self.tipPopover = popoverVC

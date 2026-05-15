@@ -104,19 +104,28 @@ class DietTypeViewController: UIViewController {
         ProfileService.shared.updateDietPattern(dietType)
         
         if WalkthroughManager.shared.isActive {
-            dismiss(animated: true) {
-                guard let window = UIApplication.shared.connectedScenes
-                    .compactMap({ $0 as? UIWindowScene })
-                    .flatMap({ $0.windows })
-                    .first(where: { $0.isKeyWindow }) else { return }
-                    
-                WalkthroughCongratsView.present(
-                    in: window,
-                    title: "Great Choice! 🥗",
-                    body: "Your diet type is set.\nNext, let's explore your workout options!",
-                    continueTitle: "Go to Workout"
-                ) {
-                    WalkthroughManager.shared.advanceToStep(.workoutIntro)
+            if WalkthroughManager.shared.isAbortedMode {
+                dismiss(animated: true) {
+                    WalkthroughManager.shared.continueAbortedFlow()
+                }
+            } else {
+                dismiss(animated: true) {
+                    guard let window = UIApplication.shared.connectedScenes
+                        .compactMap({ $0 as? UIWindowScene })
+                        .flatMap({ $0.windows })
+                        .first(where: { $0.isKeyWindow }) else { return }
+                        
+                    WalkthroughCongratsView.present(
+                        in: window,
+                        title: "Great Choice! 🥗",
+                        body: "Your diet type is set.\nNext, let's explore your workout options!",
+                        continueTitle: "Go to Workout"
+                    ) {
+                        if let tabBarController = window.rootViewController as? UITabBarController {
+                            tabBarController.selectedIndex = 2
+                        }
+                        WalkthroughManager.shared.advanceToStep(.workoutIntro)
+                    }
                 }
             }
         }

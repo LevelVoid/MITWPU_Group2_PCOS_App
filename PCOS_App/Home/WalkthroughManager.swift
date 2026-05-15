@@ -42,6 +42,7 @@ final class WalkthroughManager {
 
     private(set) var currentStep: WalkthroughStep = .logPeriod
     private(set) var isActive: Bool = false
+    private(set) var isAbortedMode: Bool = false
 
     /// Weak delegates – Home and Diet both register themselves
     private var delegates: [WeakDelegate] = []
@@ -91,10 +92,81 @@ final class WalkthroughManager {
 
     func completeWalkthrough() {
         isActive = false
+        isAbortedMode = false
         currentStep = .completed
         UserDefaults.standard.set(true, forKey: "hasCompletedWalkthrough")
         delegates.forEach { $0.value?.walkthroughDidComplete() }
         delegates.removeAll()
+    }
+    
+    // MARK: - Aborted Flow
+    
+    func handleWalkthroughAborted() {
+        guard isActive else { return }
+        isAbortedMode = true
+        continueAbortedFlow()
+    }
+    
+    func continueAbortedFlow() {
+        let hasDietType = UserDefaults.standard.string(forKey: "userDietType") != nil
+        let hasActivityType = UserDefaults.standard.string(forKey: "userWorkoutType") != nil
+        
+        if !hasDietType {
+            forcePresentDietType()
+        } else if !hasActivityType {
+            forcePresentActivityType()
+        } else {
+            completeWalkthrough()
+            showAllSetCongrats()
+        }
+    }
+    
+    private func forcePresentDietType() {
+        guard let window = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .flatMap({ $0.windows })
+            .first(where: { $0.isKeyWindow }) else { return }
+            
+        let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
+        if let vc = storyboard.instantiateViewController(withIdentifier: "DietTypeViewController") as? UIViewController {
+            vc.modalPresentationStyle = .pageSheet
+            var topVC = window.rootViewController
+            while let presented = topVC?.presentedViewController {
+                topVC = presented
+            }
+            topVC?.present(vc, animated: true)
+        }
+    }
+
+    private func forcePresentActivityType() {
+        guard let window = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .flatMap({ $0.windows })
+            .first(where: { $0.isKeyWindow }) else { return }
+            
+        let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
+        if let vc = storyboard.instantiateViewController(withIdentifier: "MovementTypeViewController") as? UIViewController {
+            vc.modalPresentationStyle = .pageSheet
+            var topVC = window.rootViewController
+            while let presented = topVC?.presentedViewController {
+                topVC = presented
+            }
+            topVC?.present(vc, animated: true)
+        }
+    }
+
+    private func showAllSetCongrats() {
+        guard let window = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .flatMap({ $0.windows })
+            .first(where: { $0.isKeyWindow }) else { return }
+            
+        WalkthroughCongratsView.present(
+            in: window,
+            title: "You're All Set! 🎉",
+            body: "Your profile is fully configured. Enjoy using PCOS App!",
+            continueTitle: "Get Started"
+        ) {}
     }
 
     // MARK: Private

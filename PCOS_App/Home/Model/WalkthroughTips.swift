@@ -60,4 +60,32 @@ struct EditNameTip: Tip {
     var image: Image? { Image(systemName: "pencil") }
 }
 
+// MARK: - Add Meal Options Tips
 
+@available(iOS 17.0, *)
+struct AddMealScanBarcodeTip: Tip {
+    var title: Text { Text("Scan Barcode") }
+    var message: Text? { Text("Instantly log packaged foods by scanning their barcode.") }
+    var image: Image? { Image(systemName: "barcode.viewfinder") }
+}
+
+@available(iOS 17.0, *)
+struct AddMealScanImageTip: Tip {
+    var title: Text { Text("Scan Image") }
+    var message: Text? { Text("Take a photo of your plate and let AI instantly analyze the meal.") }
+    var image: Image? { Image(systemName: "camera") }
+}
+
+@available(iOS 17.0, *)
+struct AddMealDescribeTip: Tip {
+    var title: Text { Text("Describe Meal") }
+    var message: Text? { Text("Type or dictate what you ate and our AI will calculate the macros.") }
+    var image: Image? { Image(systemName: "text.bubble") }
+}
+
+@available(iOS 17.0, *)
+struct AddMealSearchTip: Tip {
+    var title: Text { Text("Search Meals") }
+    var message: Text? { Text("Search our database for foods, or quickly pick from your recent meals.") }
+    var image: Image? { Image(systemName: "magnifyingglass") }
+}

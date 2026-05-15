@@ -103,13 +103,12 @@ class MovementTypeViewController: UIViewController {
             saveMovementType(movementType)
 
             // 2. Dismiss the modal first — THEN advance the step.
-            //    Advancing BEFORE dismiss causes CreateRoutineVC to call popViewController
-            //    while this modal is still on top of it, which iOS silently blocks.
             dismiss(animated: true) {
-                // Now that the modal is fully gone, CreateRoutineVC is the top VC again.
-                // Advancing here lets CreateRoutineVC.walkthroughDidReachStep(.workoutPremade)
-                // safely call popViewController → WorkoutVC.viewWillAppear fires → shows tip.
-                WalkthroughManager.shared.advanceToStep(.workoutPremade)
+                if WalkthroughManager.shared.isAbortedMode {
+                    WalkthroughManager.shared.continueAbortedFlow()
+                } else {
+                    WalkthroughManager.shared.advanceToStep(.workoutPremade)
+                }
             }
         }
     }
