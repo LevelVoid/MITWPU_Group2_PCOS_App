@@ -2,8 +2,8 @@
 //  AddMealViewController.swift
 //  PCOS_App
 //
-
 import UIKit
+import TipKit
 
 protocol AddMealDelegate: AnyObject {
     func didAddMeal(_ food: Food)
@@ -64,12 +64,12 @@ class AddMealViewController: UIViewController {
            setupTableView()
            loadInitialData()
        }
-       
-       override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-           loadInitialData()
-       }
-       
+              override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            loadInitialData()
+        }
+        
+
        // MARK: - Setup Methods
        
        private func setupOptionsStackView() {
@@ -189,7 +189,7 @@ class AddMealViewController: UIViewController {
                
                label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
                label.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 8),
-               label.widthAnchor.constraint(equalToConstant: 10),
+               
                label.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: -8)
            ])
            

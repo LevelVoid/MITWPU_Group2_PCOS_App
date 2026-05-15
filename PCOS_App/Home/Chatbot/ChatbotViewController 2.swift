@@ -109,6 +109,15 @@ final class ChatbotViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         becomeFirstResponder()
+
+        // Walkthrough: if user arrives here during the chatbot step, show final congrats
+        if WalkthroughManager.shared.isActive,
+           WalkthroughManager.shared.currentStep == .chatbotPrompt {
+            WalkthroughManager.shared.addDelegate(self)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
+                self?.showWalkthroughCompletionCongrats()
+            }
+        }
     }
 
     // MARK: - Setup
@@ -316,5 +325,30 @@ extension ChatbotViewController: ChatInputBarDelegate {
     func inputBar(_ bar: ChatInputBar, didSend text: String) {
         addUserMessage(text)
         sendToAI(text)
+    }
+}
+
+// MARK: - WalkthroughManagerDelegate
+extension ChatbotViewController: WalkthroughManagerDelegate {
+
+    func walkthroughDidReachStep(_ step: WalkthroughStep) { }
+
+    func walkthroughDidComplete() { }
+
+    // Called from viewDidAppear when the walkthrough is at .chatbotPrompt
+    private func showWalkthroughCompletionCongrats() {
+        guard let keyWindow = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .flatMap({ $0.windows })
+            .first(where: { $0.isKeyWindow }) else { return }
+
+        WalkthroughCongratsView.present(
+            in: keyWindow,
+            title: "You're All Set!",
+            body: "Welcome to your PCOS journey with Adira!\nAsk me anything — I'm here to help every step of the way.",
+            continueTitle: "Start Exploring"
+        ) {
+            WalkthroughManager.shared.completeWalkthrough()
+        }
     }
 }

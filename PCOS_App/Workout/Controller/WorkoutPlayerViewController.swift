@@ -499,7 +499,10 @@ class WorkoutPlayerViewController: UIViewController {
                 // Save partial progress WITHOUT marking remaining sets as skipped
                 // so they remain .notStarted and are cleanly resumable
                 self.saveProgressState()
-                self.dismiss(animated: true)
+                
+                self.dismiss(animated: true) {
+                    NotificationCenter.default.post(name: Notification.Name("WorkoutEndedEarly"), object: nil)
+                }
             })
             
             present(alert, animated: true)

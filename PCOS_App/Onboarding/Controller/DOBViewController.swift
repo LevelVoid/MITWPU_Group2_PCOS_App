@@ -55,6 +55,6 @@ class DOBViewController: UIViewController {
         let age = Calendar.current.dateComponents([.year], from: selectedDate, to: Date()).year ?? 0
         print("Age: \(age)")
 
-       performSegue(withIdentifier: "showPeriodLog", sender: nil)
+       performSegue(withIdentifier: "showHeight", sender: nil)
     }
 }
