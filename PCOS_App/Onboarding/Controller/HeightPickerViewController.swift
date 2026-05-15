@@ -87,7 +87,7 @@ class HeightPickerViewController: UIViewController {
             UserDefaults.standard.set(isMetric, forKey: "heightIsMetric")
             
             // Navigate to next onboarding screen
-            //performSegue(withIdentifier: "toNextScreen", sender: nil)
+            performSegue(withIdentifier: "showWeight", sender: nil)
             print("Height saved: \(currentValue) \(isMetric ? "cm" : "inches")")
         }
         

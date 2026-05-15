@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import TipKit
 
 class WorkoutViewController: UIViewController {
 
@@ -20,7 +21,16 @@ class WorkoutViewController: UIViewController {
     private var selectedPredefinedRoutine: Routine?
     private var selectedRoutine: Routine?
     
+    private let routineDataStore = UserRoutineDataStore.shared
+    private var routines: [Routine] = []
+    
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    // Walkthrough State
+    private var walkthroughOverlay: WalkthroughOverlayView?
+    private var isShowingWalkthroughCongrats: Bool = false
+    private weak var tipPopover: UIViewController?
+    private var hasShownWalkthroughThisSession = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -370,6 +380,9 @@ extension WorkoutViewController {
 
         // Step 3: Fetch live HealthKit data, merge into CDDailyContext, then re-read
         fetchHealthKitData()
+        
+        // Walkthrough check
+        handleWalkthroughOnAppear()
     }
     
     // Sync all completed workouts for today into CDDailyContext
@@ -401,11 +414,18 @@ extension WorkoutViewController {
             guard let self = self else { return }
             DailyActivityDataStore.shared.mergeHealthKitData(
                 steps: hkSteps,
-                healthKitDailyCalories: Int(hkCalories)
+                    healthKitDailyCalories: Int(hkCalories)
             )
             self.loadCardsFromDailyContext()
             self.collectionView.reloadData()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        walkthroughOverlay?.dismiss(animated: false)
+        walkthroughOverlay = nil
+        tipPopover?.dismiss(animated: false)
     }
     
     // MARK: - Single Source of Truth Reader
@@ -422,5 +442,180 @@ extension WorkoutViewController {
         
         // cards[2] = Steps
         cards[2].done = Double(todayActivity?.steps ?? 0)
+    }
+}
+
+// MARK: - Walkthrough
+
+extension WorkoutViewController: WalkthroughManagerDelegate {
+    
+    func handleWalkthroughOnAppear() {
+        guard WalkthroughManager.shared.isActive,
+              !isShowingWalkthroughCongrats else { return }
+        
+        WalkthroughManager.shared.addDelegate(self)
+        let step = WalkthroughManager.shared.currentStep
+        
+        if step == .workoutIntro {
+            guard walkthroughOverlay == nil else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.showCreateRoutineWalkthroughOverlay()
+            }
+        } else if step == .workoutPremade {
+            // Always attempt — overlay is freshly nil after CreateRoutineVC was popped
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.showPremadeRoutineWalkthroughOverlay()
+            }
+        }
+    }
+    
+    func walkthroughDidReachStep(_ step: WalkthroughStep) {
+        guard isViewLoaded, view.window != nil else { return }
+        if step == .workoutIntro {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.showCreateRoutineWalkthroughOverlay()
+            }
+        } else if step == .workoutPremade {
+            // WorkoutVC may already be visible here (CreateRoutineVC just popped).
+            // Directly show the premade tip — don't wait for viewWillAppear.
+            walkthroughOverlay?.dismiss(animated: false)
+            walkthroughOverlay = nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [weak self] in
+                self?.showPremadeRoutineWalkthroughOverlay()
+            }
+        } else if step == .chatbotPrompt {
+            walkthroughOverlay?.dismiss()
+            walkthroughOverlay = nil
+        }
+    }
+    
+    func walkthroughDidComplete() {
+        walkthroughOverlay?.dismiss()
+        walkthroughOverlay = nil
+    }
+    
+    private func showCreateRoutineWalkthroughOverlay() {
+        guard WalkthroughManager.shared.isActive,
+              WalkthroughManager.shared.currentStep == .workoutIntro,
+              let window = view.window else { return }
+              
+        // We want to point to the "+" button which is the first cell in section 1 when empty
+        // Or the "+" cell if there are routines.
+        // It's always at indexPath [1, routines.count] or [1, 0] if empty.
+        let routinesCount = UserRoutineDataStore.shared.loadAll().count
+        let targetIndexPath = IndexPath(item: routinesCount, section: 1)
+        
+        // Ensure cell is visible
+        collectionView.scrollToItem(at: targetIndexPath, at: .centeredHorizontally, animated: false)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            guard let self = self else { return }
+            guard let cell = self.collectionView.cellForItem(at: targetIndexPath),
+                  let window = self.view.window else {
+                // Retry if cell isn't rendered yet
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                    self?.showCreateRoutineWalkthroughOverlay()
+                }
+                return
+            }
+            
+            let cellFrame = cell.convert(cell.bounds, to: window)
+            
+            self.walkthroughOverlay?.dismiss(animated: false)
+            self.walkthroughOverlay = WalkthroughOverlayView.install(
+                in: window,
+                targetFrame: cellFrame,
+                onTargetTapped: { [weak self] in
+                    guard let self = self else { return }
+                    self.tipPopover?.dismiss(animated: true)
+                    self.walkthroughOverlay?.dismiss()
+                    self.walkthroughOverlay = nil
+                    
+                    WalkthroughManager.shared.advanceToStep(.workoutAddExercise)
+                    self.performSegue(withIdentifier: "showCreateRoutine", sender: nil)
+                }
+            )
+            
+            if #available(iOS 17.0, *) {
+                let tip = CustomRoutineTip()
+                if case .invalidated = tip.status {
+                    WalkthroughManager.shared.advanceToStep(.workoutAddExercise)
+                    return
+                }
+                let popoverVC = TipUIPopoverViewController(tip, sourceItem: cell)
+                popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
+                if let overlay = self.walkthroughOverlay {
+                    popoverVC.popoverPresentationController?.passthroughViews = [overlay]
+                    overlay.observeTip(tip, popover: popoverVC) { [weak self] in
+                        self?.walkthroughOverlay = nil
+                        WalkthroughManager.shared.handleWalkthroughAborted()
+                    }
+                }
+                self.tipPopover = popoverVC
+                self.present(popoverVC, animated: true)
+            }
+        }
+    }
+    
+    private func showPremadeRoutineWalkthroughOverlay() {
+        guard WalkthroughManager.shared.isActive,
+              WalkthroughManager.shared.currentStep == .workoutPremade,
+              let window = view.window else { return }
+              
+        // Point to the first recommended routine in section 2
+        let targetIndexPath = IndexPath(item: 0, section: 2)
+        
+        collectionView.scrollToItem(at: targetIndexPath, at: .top, animated: false)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            guard let self = self else { return }
+            guard let cell = self.collectionView.cellForItem(at: targetIndexPath),
+                  let window = self.view.window else {
+                // Retry if cell isn't rendered yet
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                    self?.showPremadeRoutineWalkthroughOverlay()
+                }
+                return
+            }
+            
+            let cellFrame = cell.convert(cell.bounds, to: window)
+            
+            self.walkthroughOverlay?.dismiss(animated: false)
+            self.walkthroughOverlay = WalkthroughOverlayView.install(
+                in: window,
+                targetFrame: cellFrame,
+                onTargetTapped: { [weak self] in
+                    guard let self = self else { return }
+                    self.tipPopover?.dismiss(animated: true)
+                    self.walkthroughOverlay?.dismiss()
+                    self.walkthroughOverlay = nil
+                    
+                    // Advance walkthrough so it doesn't prompt again!
+                    WalkthroughManager.shared.advanceToStep(.chatbotPrompt)
+                    
+                    // Navigate to the recommended routine details
+                    self.collectionView(self.collectionView, didSelectItemAt: targetIndexPath)
+                }
+            )
+            
+            if #available(iOS 17.0, *) {
+                let tip = RecommendedRoutineTip()
+                if case .invalidated = tip.status {
+                    WalkthroughManager.shared.advanceToStep(.chatbotPrompt)
+                    return
+                }
+                let popoverVC = TipUIPopoverViewController(tip, sourceItem: cell)
+                popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
+                if let overlay = self.walkthroughOverlay {
+                    popoverVC.popoverPresentationController?.passthroughViews = [overlay]
+                    overlay.observeTip(tip, popover: popoverVC) { [weak self] in
+                        self?.walkthroughOverlay = nil
+                        WalkthroughManager.shared.handleWalkthroughAborted()
+                    }
+                }
+                self.tipPopover = popoverVC
+                self.present(popoverVC, animated: true)
+            }
+        }
     }
 }

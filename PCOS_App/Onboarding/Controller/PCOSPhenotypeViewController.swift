@@ -149,6 +149,8 @@ class PCOSPhenotypeViewController: UIViewController {
         
         // Mark onboarding as complete
         UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding")
+        // Ensure walkthrough will run for this new user
+        UserDefaults.standard.set(false, forKey: "hasCompletedWalkthrough")
         
         print("Complete profile saved! Height: \(heightInCm)cm, Weight: \(weightInKg)kg, Phenotype: \(pcosPhenotype)")
         

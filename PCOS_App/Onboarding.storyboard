@@ -91,17 +91,17 @@ Learn, track and heal at your own pace</string>
             <objects>
                 <viewController storyboardIdentifier="HeightPickerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PWZ-Lm-aOM" customClass="HeightPickerViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jz9-kI-gRI">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your height?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QR1-Dq-oim">
-                                <rect key="frame" x="53.333333333333343" y="192" width="286.33333333333326" height="36"/>
+                                <rect key="frame" x="53.333333333333343" y="79" width="286.33333333333326" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="3Es-ZO-hBr">
-                                <rect key="frame" x="137.66666666666666" y="278" width="118" height="32"/>
+                                <rect key="frame" x="137.66666666666666" y="165" width="118" height="32"/>
                                 <segments>
                                     <segment title="inches"/>
                                     <segment title="cm"/>
@@ -111,7 +111,7 @@ Learn, track and heal at your own pace</string>
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usK-dX-GHZ">
-                                <rect key="frame" x="16" y="349" width="361" height="300"/>
+                                <rect key="frame" x="16" y="236" width="361" height="300"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPh-3t-Ym5">
                                         <rect key="frame" x="159.66666666666666" y="50" width="42" height="21"/>
@@ -136,7 +136,7 @@ Learn, track and heal at your own pace</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UjG-UJ-BcH">
-                                <rect key="frame" x="16" y="694" width="361" height="60"/>
+                                <rect key="frame" x="16" y="703" width="361" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="mjC-dx-WsP"/>
                                 </constraints>
@@ -147,7 +147,6 @@ Learn, track and heal at your own pace</string>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="nextTapped:" destination="PWZ-Lm-aOM" eventType="touchUpInside" id="pj8-Lg-Z7G"/>
-                                    <segue destination="U1m-KY-8ZI" kind="show" id="UPf-iC-bpO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -176,6 +175,7 @@ Learn, track and heal at your own pace</string>
                         <outlet property="unitLabel" destination="LWg-rO-GmD" id="11g-w8-bnA"/>
                         <outlet property="unitSegmentedControl" destination="3Es-ZO-hBr" id="Z21-2h-ReN"/>
                         <outlet property="valueLabel" destination="GPh-3t-Ym5" id="oNO-Gs-sfq"/>
+                        <segue destination="U1m-KY-8ZI" kind="show" identifier="showWeight" id="UPf-iC-bpO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jaC-a9-etg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -187,17 +187,17 @@ Learn, track and heal at your own pace</string>
             <objects>
                 <viewController storyboardIdentifier="WeightPickerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="U1m-KY-8ZI" customClass="WeightPickerViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uew-QE-DYh">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your weight?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGx-8C-O5R">
-                                <rect key="frame" x="50.333333333333343" y="192" width="292.33333333333326" height="36"/>
+                                <rect key="frame" x="50.333333333333343" y="79" width="292.33333333333326" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="aZF-Ks-6dc">
-                                <rect key="frame" x="159.66666666666666" y="278" width="74" height="32"/>
+                                <rect key="frame" x="159.66666666666666" y="165" width="74" height="32"/>
                                 <segments>
                                     <segment title="lbs"/>
                                     <segment title="kg"/>
@@ -207,7 +207,7 @@ Learn, track and heal at your own pace</string>
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Glr-Vv-COE">
-                                <rect key="frame" x="16" y="349" width="361" height="300"/>
+                                <rect key="frame" x="16" y="236" width="361" height="300"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgQ-lb-Xoq">
                                         <rect key="frame" x="159.66666666666666" y="50" width="42" height="21"/>
@@ -232,7 +232,7 @@ Learn, track and heal at your own pace</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2I-qR-DwZ">
-                                <rect key="frame" x="16" y="694" width="361" height="60"/>
+                                <rect key="frame" x="16" y="693" width="361" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Ib0-dN-1kZ"/>
                                 </constraints>
@@ -243,7 +243,6 @@ Learn, track and heal at your own pace</string>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="nextTapped:" destination="U1m-KY-8ZI" eventType="touchUpInside" id="Mrh-IP-oog"/>
-                                    <segue destination="RV3-iq-qrf" kind="show" id="sdR-qT-4Hc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -272,6 +271,7 @@ Learn, track and heal at your own pace</string>
                         <outlet property="unitLabel" destination="751-hd-jhv" id="Dgx-i2-2Vx"/>
                         <outlet property="unitSegmentedControl" destination="aZF-Ks-6dc" id="hcN-yN-91e"/>
                         <outlet property="valueLabel" destination="jgQ-lb-Xoq" id="iN1-ny-BBm"/>
+                        <segue destination="UlD-fM-zdL" kind="show" identifier="showPhenotype" id="sdR-qT-4Hc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gCd-6b-nUp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -287,13 +287,13 @@ Learn, track and heal at your own pace</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which of these best describes your usual eating pattern?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s1f-0o-UW8">
-                                <rect key="frame" x="30" y="172" width="333" height="93.333333333333314"/>
+                                <rect key="frame" x="30" y="168" width="333" height="93.333333333333314"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="UBn-4p-CrK">
-                                <rect key="frame" x="16" y="295.33333333333331" width="361" height="175"/>
+                                <rect key="frame" x="16" y="291.33333333333331" width="361" height="175"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MrW-Mx-K1Q">
                                         <rect key="frame" x="0.0" y="0.0" width="170" height="175"/>
@@ -377,7 +377,7 @@ Learn, track and heal at your own pace</string>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="HAO-cy-Oxk">
-                                <rect key="frame" x="16" y="486.33333333333326" width="361" height="175"/>
+                                <rect key="frame" x="16" y="482.33333333333326" width="361" height="175"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJv-hG-fDH">
                                         <rect key="frame" x="0.0" y="0.0" width="170" height="175"/>
@@ -449,7 +449,7 @@ Learn, track and heal at your own pace</string>
                         <constraints>
                             <constraint firstItem="s1f-0o-UW8" firstAttribute="centerX" secondItem="gtJ-xD-iuj" secondAttribute="centerX" id="AhF-F1-L5x"/>
                             <constraint firstItem="owi-X5-8Oh" firstAttribute="trailing" secondItem="HAO-cy-Oxk" secondAttribute="trailing" constant="16" id="BHC-F5-tDm"/>
-                            <constraint firstItem="s1f-0o-UW8" firstAttribute="top" secondItem="owi-X5-8Oh" secondAttribute="top" id="CSq-p4-ch6"/>
+                            <constraint firstItem="s1f-0o-UW8" firstAttribute="top" secondItem="owi-X5-8Oh" secondAttribute="top" constant="50" id="CSq-p4-ch6"/>
                             <constraint firstItem="5IM-e1-odo" firstAttribute="leading" secondItem="owi-X5-8Oh" secondAttribute="leading" constant="16" id="I5w-gH-P96"/>
                             <constraint firstItem="s1f-0o-UW8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="owi-X5-8Oh" secondAttribute="leading" constant="30" id="SxM-ke-lhj"/>
                             <constraint firstItem="owi-X5-8Oh" firstAttribute="bottom" secondItem="5IM-e1-odo" secondAttribute="bottom" constant="30" id="UW7-1G-ZvI"/>
@@ -480,17 +480,17 @@ Learn, track and heal at your own pace</string>
             <objects>
                 <viewController storyboardIdentifier="MovementTypeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pLg-6D-3uG" customClass="MovementTypeViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2LX-cF-NEI">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How active are you on most weeks?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Knf-dG-qqo">
-                                <rect key="frame" x="40.666666666666657" y="172" width="311.66666666666674" height="71.666666666666686"/>
+                                <rect key="frame" x="40.666666666666657" y="109" width="311.66666666666674" height="71.666666666666686"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="gyS-61-EPh">
-                                <rect key="frame" x="16" y="273.66666666666669" width="361" height="175"/>
+                                <rect key="frame" x="16" y="210.66666666666663" width="361" height="175"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6dE-qH-866">
                                         <rect key="frame" x="0.0" y="0.0" width="167" height="175"/>
@@ -504,13 +504,13 @@ Learn, track and heal at your own pace</string>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(little structured movement)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9S-Ab-Uyg">
-                                                <rect key="frame" x="16" y="127.66666666666661" width="135" height="31.333333333333357"/>
+                                                <rect key="frame" x="16" y="127.66666666666664" width="135" height="31.3333333333333"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Mostly sedentary " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m6a-3S-vPj">
-                                                <rect key="frame" x="16" y="85" width="135" height="45.666666666666657"/>
+                                                <rect key="frame" x="16" y="85.000000000000028" width="135" height="45.666666666666657"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -550,7 +550,7 @@ Learn, track and heal at your own pace</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Light Movements" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJy-3A-EPD">
-                                                <rect key="frame" x="20" y="85" width="138" height="45.666666666666657"/>
+                                                <rect key="frame" x="20" y="85.000000000000028" width="138" height="45.666666666666657"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -577,7 +577,7 @@ Learn, track and heal at your own pace</string>
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nqm-Gn-grp">
-                                <rect key="frame" x="16" y="694" width="361" height="60"/>
+                                <rect key="frame" x="16" y="703" width="361" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Jat-3m-oVD"/>
                                 </constraints>
@@ -587,11 +587,12 @@ Learn, track and heal at your own pace</string>
                                     <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="nextButtonTapped:" destination="pLg-6D-3uG" eventType="touchUpInside" id="mvT-Wk-9aB"/>
                                     <segue destination="UlD-fM-zdL" kind="show" id="dDE-fA-SoP"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="rj5-FE-6wQ">
-                                <rect key="frame" x="16" y="464.66666666666674" width="361" height="175"/>
+                                <rect key="frame" x="16" y="401.66666666666669" width="361" height="175.00000000000006"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMg-ZU-cMk">
                                         <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="175"/>
@@ -605,7 +606,7 @@ Learn, track and heal at your own pace</string>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Very active most days" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rDG-4k-fby">
-                                                <rect key="frame" x="16" y="84.999999999999943" width="140.66666666666666" height="61"/>
+                                                <rect key="frame" x="16" y="85" width="140.66666666666666" height="61"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -644,7 +645,7 @@ Learn, track and heal at your own pace</string>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Regular movement" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYp-Je-UeH">
-                                                <rect key="frame" x="16" y="84.999999999999943" width="140.33333333333334" height="61"/>
+                                                <rect key="frame" x="16" y="85" width="140.33333333333334" height="61"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -688,7 +689,7 @@ Learn, track and heal at your own pace</string>
                             <constraint firstItem="Knf-dG-qqo" firstAttribute="centerX" secondItem="2LX-cF-NEI" secondAttribute="centerX" id="gSz-Lx-5d2"/>
                             <constraint firstItem="LhZ-oL-YIt" firstAttribute="trailing" secondItem="Nqm-Gn-grp" secondAttribute="trailing" constant="16" id="i1M-ty-1e9"/>
                             <constraint firstItem="gyS-61-EPh" firstAttribute="leading" secondItem="LhZ-oL-YIt" secondAttribute="leading" constant="16" id="nUw-ju-grG"/>
-                            <constraint firstItem="Knf-dG-qqo" firstAttribute="top" secondItem="LhZ-oL-YIt" secondAttribute="top" id="nWK-IR-XdI"/>
+                            <constraint firstItem="Knf-dG-qqo" firstAttribute="top" secondItem="LhZ-oL-YIt" secondAttribute="top" constant="50" id="nWK-IR-XdI"/>
                             <constraint firstItem="LhZ-oL-YIt" firstAttribute="bottom" secondItem="Nqm-Gn-grp" secondAttribute="bottom" constant="30" id="pzW-b5-aLb"/>
                             <constraint firstItem="Nqm-Gn-grp" firstAttribute="leading" secondItem="LhZ-oL-YIt" secondAttribute="leading" constant="16" id="rhl-zt-Dh1"/>
                             <constraint firstItem="gyS-61-EPh" firstAttribute="top" secondItem="Knf-dG-qqo" secondAttribute="bottom" constant="30" id="vAS-ah-ePG"/>
@@ -712,17 +713,64 @@ Learn, track and heal at your own pace</string>
             <objects>
                 <viewController storyboardIdentifier="PCOSPhenotypeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UlD-fM-zdL" customClass="PCOSPhenotypeViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mcy-qA-JLd">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What phenotype of PCOS do you have?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="psn-Ui-uBg">
-                                <rect key="frame" x="58.333333333333343" y="172" width="276.66666666666663" height="71.666666666666686"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kYQ-kg-6Ia">
+                                <rect key="frame" x="16" y="584.33333333333337" width="361" height="92.666666666666629"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I don't know" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8jl-go-dhc">
+                                        <rect key="frame" x="112.00000000000001" y="16" width="137.33333333333337" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We will calculate it for you based on the data you entered" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4I5-9L-wdR">
+                                        <rect key="frame" x="16" y="45" width="329" height="31.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.9882352941176471" green="0.93333333333333335" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="4I5-9L-wdR" secondAttribute="trailing" constant="16" id="6UA-is-qUX"/>
+                                    <constraint firstItem="4I5-9L-wdR" firstAttribute="top" secondItem="kYQ-kg-6Ia" secondAttribute="top" constant="45" id="LrR-GQ-ShA"/>
+                                    <constraint firstItem="8jl-go-dhc" firstAttribute="top" secondItem="kYQ-kg-6Ia" secondAttribute="top" constant="16" id="TNi-ir-772"/>
+                                    <constraint firstItem="4I5-9L-wdR" firstAttribute="centerX" secondItem="kYQ-kg-6Ia" secondAttribute="centerX" id="TfG-fQ-LNP"/>
+                                    <constraint firstItem="4I5-9L-wdR" firstAttribute="leading" secondItem="kYQ-kg-6Ia" secondAttribute="leading" constant="16" id="ghZ-3d-Qeh"/>
+                                    <constraint firstItem="8jl-go-dhc" firstAttribute="centerX" secondItem="kYQ-kg-6Ia" secondAttribute="centerX" id="ho8-qA-DYK"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDf-nh-KMf">
+                                <rect key="frame" x="16" y="693" width="361" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="88T-Su-EzL"/>
+                                </constraints>
+                                <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Continue">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="continueButtonTapped:" destination="UlD-fM-zdL" eventType="touchUpInside" id="K9P-yM-c2H"/>
+                                    <action selector="nextTapped:" destination="U1m-KY-8ZI" eventType="touchUpInside" id="TBB-HM-YF0"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="What phenotype of PCOS do you have?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="psn-Ui-uBg">
+                                <rect key="frame" x="58" y="10" width="276.66666666666663" height="71.666666666666686"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Not sure which type you have? That's completely okay — you can skip this for now and continue." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGD-ry-ACQ">
+                                <rect key="frame" x="30" y="138.66666666666666" width="333" height="33.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4xs-g3-hbF">
-                                <rect key="frame" x="16" y="315.33333333333331" width="361" height="175"/>
+                                <rect key="frame" x="16" y="202.33333333333337" width="361" height="175"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Syy-jW-hMb">
                                         <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="175"/>
@@ -734,13 +782,13 @@ Learn, track and heal at your own pace</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Full blown" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wy-3E-m7q">
-                                                <rect key="frame" x="16" y="62.000000000000007" width="140.66666666666666" height="14.333333333333336"/>
+                                                <rect key="frame" x="16" y="61.999999999999979" width="140.66666666666666" height="14.333333333333336"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High androgens, ovulation issues and polycystic ovaries" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-eG-XvF">
-                                                <rect key="frame" x="16" y="88.333333333333371" width="140.66666666666666" height="46.666666666666657"/>
+                                                <rect key="frame" x="16" y="88.333333333333343" width="140.66666666666666" height="46.666666666666657"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -764,13 +812,13 @@ Learn, track and heal at your own pace</string>
                                         <rect key="frame" x="188.66666666666663" y="0.0" width="172.33333333333337" height="175"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Non-PCO" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6db-6X-VcQ">
-                                                <rect key="frame" x="16" y="62.000000000000007" width="140.33333333333334" height="14.333333333333336"/>
+                                                <rect key="frame" x="16" y="61.999999999999979" width="140.33333333333334" height="14.333333333333336"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High androgens and ovulation issues, but no cysts" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2b5-Fy-Utb">
-                                                <rect key="frame" x="20" y="88.333333333333371" width="132.33333333333334" height="46.666666666666657"/>
+                                                <rect key="frame" x="20" y="88.333333333333343" width="132.33333333333334" height="46.666666666666657"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -802,25 +850,25 @@ Learn, track and heal at your own pace</string>
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4UM-tY-Di8">
-                                <rect key="frame" x="16" y="506.33333333333326" width="361" height="175"/>
+                                <rect key="frame" x="16" y="393.33333333333331" width="361" height="174.99999999999994"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pFg-BJ-Bb0">
                                         <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="175"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="TYPE C" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ht-9p-Fr6">
-                                                <rect key="frame" x="16" y="28.000000000000057" width="140.66666666666666" height="30"/>
+                                                <rect key="frame" x="16" y="28" width="140.66666666666666" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Ovulatory" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwp-cA-B9e">
-                                                <rect key="frame" x="16" y="62.000000000000064" width="140.66666666666666" height="14.333333333333336"/>
+                                                <rect key="frame" x="16" y="62.000000000000007" width="140.66666666666666" height="14.333333333333336"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High androgens and cysts but normal ovulation" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mlb-gm-wrS">
-                                                <rect key="frame" x="20" y="88.333333333333314" width="132.66666666666666" height="46.666666666666657"/>
+                                                <rect key="frame" x="20" y="88.333333333333371" width="132.66666666666666" height="46.666666666666657"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -844,19 +892,19 @@ Learn, track and heal at your own pace</string>
                                         <rect key="frame" x="188.66666666666663" y="0.0" width="172.33333333333337" height="175"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="TYPE D" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxC-jF-KdP">
-                                                <rect key="frame" x="16" y="28.000000000000057" width="140.33333333333334" height="30"/>
+                                                <rect key="frame" x="16" y="28" width="140.33333333333334" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Non-hyperandrogenic" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5z-0V-Uru">
-                                                <rect key="frame" x="16" y="62.000000000000064" width="140.33333333333334" height="14.333333333333336"/>
+                                                <rect key="frame" x="16" y="62.000000000000007" width="140.33333333333334" height="14.333333333333336"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ovulation issues and cysts, but normal androgen levels" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sC3-ob-OCP">
-                                                <rect key="frame" x="16" y="88.333333333333314" width="140.33333333333334" height="46.666666666666657"/>
+                                                <rect key="frame" x="16" y="88.333333333333371" width="140.33333333333334" height="46.666666666666657"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -881,27 +929,6 @@ Learn, track and heal at your own pace</string>
                                     <constraint firstAttribute="height" constant="175" id="EkA-tT-2Ly"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDf-nh-KMf">
-                                <rect key="frame" x="16" y="694" width="361" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="88T-Su-EzL"/>
-                                </constraints>
-                                <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Continue">
-                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="continueButtonTapped:" destination="UlD-fM-zdL" eventType="touchUpInside" id="K9P-yM-c2H"/>
-                                    <action selector="nextTapped:" destination="U1m-KY-8ZI" eventType="touchUpInside" id="TBB-HM-YF0"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not sure which type you have? That's completely okay — you can skip this for now and continue." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGD-ry-ACQ">
-                                <rect key="frame" x="30" y="251.66666666666666" width="333" height="33.666666666666657"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" systemColor="secondaryLabelColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6AC-hl-F52"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -910,6 +937,8 @@ Learn, track and heal at your own pace</string>
                             <constraint firstItem="6AC-hl-F52" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="psn-Ui-uBg" secondAttribute="trailing" constant="30" id="64A-be-OnL"/>
                             <constraint firstItem="4xs-g3-hbF" firstAttribute="leading" secondItem="6AC-hl-F52" secondAttribute="leading" constant="16" id="65d-Pt-idf"/>
                             <constraint firstItem="6AC-hl-F52" firstAttribute="trailing" secondItem="SDf-nh-KMf" secondAttribute="trailing" constant="16" id="D3p-KF-3wy"/>
+                            <constraint firstItem="6AC-hl-F52" firstAttribute="trailing" secondItem="kYQ-kg-6Ia" secondAttribute="trailing" constant="16" id="H6y-WU-xsN"/>
+                            <constraint firstItem="kYQ-kg-6Ia" firstAttribute="leading" secondItem="6AC-hl-F52" secondAttribute="leading" constant="16" id="Ivl-a5-gKe"/>
                             <constraint firstItem="WGD-ry-ACQ" firstAttribute="top" secondItem="psn-Ui-uBg" secondAttribute="bottom" constant="8" id="PX5-hb-dpN"/>
                             <constraint firstItem="6AC-hl-F52" firstAttribute="trailing" secondItem="4xs-g3-hbF" secondAttribute="trailing" constant="16" id="Rv1-vQ-20A"/>
                             <constraint firstItem="SDf-nh-KMf" firstAttribute="leading" secondItem="6AC-hl-F52" secondAttribute="leading" constant="16" id="ZIk-Ss-Ea6"/>
@@ -921,12 +950,15 @@ Learn, track and heal at your own pace</string>
                             <constraint firstItem="6AC-hl-F52" firstAttribute="trailing" secondItem="WGD-ry-ACQ" secondAttribute="trailing" constant="30" id="tDl-tN-geK"/>
                             <constraint firstItem="WGD-ry-ACQ" firstAttribute="leading" secondItem="6AC-hl-F52" secondAttribute="leading" constant="30" id="tFK-Az-r9p"/>
                             <constraint firstItem="4xs-g3-hbF" firstAttribute="top" secondItem="WGD-ry-ACQ" secondAttribute="bottom" constant="30" id="tr9-cV-hg9"/>
+                            <constraint firstItem="kYQ-kg-6Ia" firstAttribute="top" secondItem="4UM-tY-Di8" secondAttribute="bottom" constant="16" id="tuL-L2-N9Q"/>
                             <constraint firstItem="psn-Ui-uBg" firstAttribute="centerX" secondItem="mcy-qA-JLd" secondAttribute="centerX" id="uIx-K1-eNL"/>
+                            <constraint firstItem="SDf-nh-KMf" firstAttribute="top" secondItem="kYQ-kg-6Ia" secondAttribute="bottom" constant="16" id="wBL-JV-RUY"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="4We-pd-oLk"/>
                     <connections>
                         <outlet property="continueButton" destination="SDf-nh-KMf" id="rEM-9D-dWO"/>
+                        <outlet property="dontKnowCard" destination="kYQ-kg-6Ia" id="CSZ-w1-ZBG"/>
                         <outlet property="typeACard" destination="Syy-jW-hMb" id="RNz-R7-wQL"/>
                         <outlet property="typeBCard" destination="92n-tA-SQh" id="SuS-Tg-M5n"/>
                         <outlet property="typeCCard" destination="pFg-BJ-Bb0" id="lMz-F2-AWU"/>
@@ -1073,7 +1105,7 @@ Learn, track and heal at your own pace</string>
                     <connections>
                         <outlet property="datePicker" destination="trc-YZ-v8O" id="hsh-jQ-Fxu"/>
                         <outlet property="nextButton" destination="qbm-Cx-nSM" id="BJn-Jm-kf5"/>
-                        <segue destination="ehl-ri-mA1" kind="show" identifier="showPeriodLog" id="Jew-WI-dXc"/>
+                        <segue destination="PWZ-Lm-aOM" kind="show" identifier="showHeight" id="Jew-WI-dXc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lsx-0M-lUW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1081,6 +1113,10 @@ Learn, track and heal at your own pace</string>
             <point key="canvasLocation" x="3512" y="1077"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="dDE-fA-SoP"/>
+        <segue reference="9He-p7-hp3"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="clock.arrow.trianglehead.clockwise.rotate.90.path.dotted" catalog="system" width="128" height="119"/>
         <image name="figure.run" catalog="system" width="115" height="128"/>
@@ -1095,13 +1131,13 @@ Learn, track and heal at your own pace</string>
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

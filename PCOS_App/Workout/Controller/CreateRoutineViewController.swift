@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TipKit
 
 class CreateRoutineViewController: UIViewController {
     // Same VC for before and after adding exercise - Apple's Guidelines (Human Interface Guidelines) "Within a screen, adapt content to reflect state changes."
@@ -27,6 +28,10 @@ class CreateRoutineViewController: UIViewController {
     
     private var routineExercises: [RoutineExercise] = []
     
+    // Walkthrough State
+    private var walkthroughOverlay: WalkthroughOverlayView?
+    private weak var tipPopover: UIViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Create New Routine"
@@ -47,9 +52,10 @@ class CreateRoutineViewController: UIViewController {
         
     }
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            updateUI()
-        }
+        super.viewWillAppear(animated)
+        updateUI()
+        handleWalkthroughOnAppear()
+    }
         
 
     
@@ -225,17 +231,38 @@ class CreateRoutineViewController: UIViewController {
             // 4. Save to manager 
             UserRoutineDataStore.shared.save(routine)
             
-            // 5. Show success message
-            let alert = UIAlertController(
-                title: "Routine Saved!",
-                message: "\"\(name)\" has been saved with \(routineExercises.count) exercises.\nEven planning your routine is an act of self-care 🌸",
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                // 6. Navigate back
-                self.navigationController?.popViewController(animated: true)
-            })
-            present(alert, animated: true)
+            // 5. Show success message or walkthrough congrats
+            if WalkthroughManager.shared.isActive && WalkthroughManager.shared.currentStep == .workoutEditName {
+                guard let window = UIApplication.shared.connectedScenes
+                    .compactMap({ $0 as? UIWindowScene })
+                    .flatMap({ $0.windows })
+                    .first(where: { $0.isKeyWindow }) else { return }
+                    
+                WalkthroughCongratsView.present(
+                    in: window,
+                    title: "Step 3 Complete!",
+                    body: "Great job creating your custom routine. Now, let's quickly set your activity preference.",
+                    continueTitle: "Set Activity Type"
+                ) { [weak self] in
+                    let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
+                    if let movementTypeVC = storyboard.instantiateViewController(withIdentifier: "MovementTypeViewController") as? MovementTypeViewController {
+                        movementTypeVC.modalPresentationStyle = .overFullScreen
+                        self?.present(movementTypeVC, animated: true) {
+                            WalkthroughManager.shared.advanceToStep(.workoutActivityLevel)
+                        }
+                    }
+                }
+            } else {
+                let alert = UIAlertController(
+                    title: "Routine Saved!",
+                    message: "\"\(name)\" has been saved with \(routineExercises.count) exercises.\nEven planning your routine is an act of self-care 🌸",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+                    self?.navigationController?.popViewController(animated: true)
+                })
+                present(alert, animated: true)
+            }
     }
     
     
@@ -311,6 +338,10 @@ class CreateRoutineViewController: UIViewController {
         print("📊 Total exercises in routine: \(routineExercises.count)")
         
         updateUI()
+        
+        if WalkthroughManager.shared.isActive && WalkthroughManager.shared.currentStep == .workoutAddExercise {
+            WalkthroughManager.shared.advanceToStep(.workoutEditName)
+        }
     }
     
     
@@ -391,6 +422,132 @@ extension CreateRoutineViewController: UITableViewDelegate {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        walkthroughOverlay?.dismiss(animated: false)
+        walkthroughOverlay = nil
+        tipPopover?.dismiss(animated: false)
+    }
     
 }
 
+// MARK: - Walkthrough
+extension CreateRoutineViewController: WalkthroughManagerDelegate {
+    
+    func handleWalkthroughOnAppear() {
+        guard WalkthroughManager.shared.isActive, walkthroughOverlay == nil else { return }
+        WalkthroughManager.shared.addDelegate(self)
+        
+        let step = WalkthroughManager.shared.currentStep
+        if step == .workoutAddExercise {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.showAddExerciseOverlay()
+            }
+        } else if step == .workoutEditName {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.showEditNameOverlay()
+            }
+        }
+    }
+    
+    func walkthroughDidReachStep(_ step: WalkthroughStep) {
+        guard isViewLoaded, view.window != nil else { return }
+        if step == .workoutAddExercise {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.showAddExerciseOverlay()
+            }
+        } else if step == .workoutEditName {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.showEditNameOverlay()
+            }
+        } else {
+            walkthroughOverlay?.dismiss()
+            walkthroughOverlay = nil
+            
+            // If the walkthrough just completed the activity level and advanced to .workoutPremade,
+            // we should navigate back to the Workout tab.
+            if step == .workoutPremade {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
+    func walkthroughDidComplete() {
+        walkthroughOverlay?.dismiss()
+        walkthroughOverlay = nil
+    }
+    
+    private func showAddExerciseOverlay() {
+        guard let window = view.window else { return }
+        let btnFrame = addExerciseButton.convert(addExerciseButton.bounds, to: window)
+        
+        walkthroughOverlay?.dismiss(animated: false)
+        walkthroughOverlay = WalkthroughOverlayView.install(
+            in: window,
+            targetFrame: btnFrame,
+            onTargetTapped: { [weak self] in
+                guard let self = self else { return }
+                self.tipPopover?.dismiss(animated: true)
+                self.walkthroughOverlay?.dismiss()
+                self.walkthroughOverlay = nil
+                self.performSegue(withIdentifier: "showAddExercise", sender: nil)
+            }
+        )
+        
+        if #available(iOS 17.0, *) {
+            let tip = AddExerciseTip()
+            if case .invalidated = tip.status {
+                WalkthroughManager.shared.advanceToStep(.workoutEditName)
+                self.showEditNameOverlay()
+                return
+            }
+            let popoverVC = TipUIPopoverViewController(tip, sourceItem: addExerciseButton)
+            popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
+            if let overlay = walkthroughOverlay {
+                popoverVC.popoverPresentationController?.passthroughViews = [overlay]
+                overlay.observeTip(tip, popover: popoverVC) { [weak self] in
+                    self?.walkthroughOverlay = nil
+                    WalkthroughManager.shared.handleWalkthroughAborted()
+                }
+            }
+            self.tipPopover = popoverVC
+            self.present(popoverVC, animated: true)
+        }
+    }
+    
+    private func showEditNameOverlay() {
+        guard let window = view.window else { return }
+        let targetFrame = routineNameTextField.convert(routineNameTextField.bounds, to: window)
+        
+        walkthroughOverlay?.dismiss(animated: false)
+        walkthroughOverlay = WalkthroughOverlayView.install(
+            in: window,
+            targetFrame: targetFrame,
+            onTargetTapped: { [weak self] in
+                self?.tipPopover?.dismiss(animated: true)
+                self?.walkthroughOverlay?.dismiss()
+                self?.walkthroughOverlay = nil
+                self?.routineNameTextField.becomeFirstResponder()
+            }
+        )
+        
+        if #available(iOS 17.0, *) {
+            let tip = EditNameTip()
+            if case .invalidated = tip.status {
+                WalkthroughManager.shared.advanceToStep(.workoutActivityLevel)
+                return
+            }
+            let popoverVC = TipUIPopoverViewController(tip, sourceItem: routineNameTextField)
+            popoverVC.view.tintColor = UIColor(hex: "#FE7A96")
+            if let overlay = walkthroughOverlay {
+                popoverVC.popoverPresentationController?.passthroughViews = [overlay]
+                overlay.observeTip(tip, popover: popoverVC) { [weak self] in
+                    self?.walkthroughOverlay = nil
+                    WalkthroughManager.shared.handleWalkthroughAborted()
+                }
+            }
+            self.tipPopover = popoverVC
+            self.present(popoverVC, animated: true)
+        }
+    }
+}

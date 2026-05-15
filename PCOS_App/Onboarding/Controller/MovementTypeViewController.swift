@@ -95,14 +95,38 @@ class MovementTypeViewController: UIViewController {
             nextButton.alpha = 1.0
         }
 
-    @IBAction func nextButtonTapped(_ sender: UIButton) { }
+    @IBAction func nextButtonTapped(_ sender: UIButton) {
+        if WalkthroughManager.shared.isActive {
+            guard let movementType = selectedMovementType else { return }
+
+            // 1. Save the movement type first
+            saveMovementType(movementType)
+
+            // 2. Dismiss the modal first — THEN advance the step.
+            dismiss(animated: true) {
+                if WalkthroughManager.shared.isAbortedMode {
+                    WalkthroughManager.shared.continueAbortedFlow()
+                } else {
+                    WalkthroughManager.shared.advanceToStep(.workoutPremade)
+                }
+            }
+        }
+    }
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if WalkthroughManager.shared.isActive {
+            return false // Prevent segue during walkthrough, handled manually in nextButtonTapped
+        }
         guard let movementType = selectedMovementType else { return false }
-        // Save BEFORE the segue fires — IBAction timing is unreliable with button-wired segues
-        UserDefaults.standard.set(movementType, forKey: "userWorkoutType")
+        saveMovementType(movementType)
         print("Saved movement type: \(movementType)")
         return true
+    }
+
+    private func saveMovementType(_ movementType: String) {
+        UserDefaults.standard.set(movementType, forKey: "userWorkoutType")
+        // Also persist to Core Data so ProfileVC / GoalEngine reflect the change
+        ProfileService.shared.updateActivityLevel(movementType)
     }
     
 }

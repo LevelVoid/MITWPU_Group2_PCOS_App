@@ -1,71 +1,59 @@
-### Xcode ###
-build/
-DerivedData/
-*.ipa
-*.xcuserstate
-*.xcworkspace/xcuserdata/
-*.xcodeproj/project.xcworkspace/xcuserdata/
-*.xcodeproj/xcuserdata/
-*.moved-aside
-*.xccheckout
-*.xcscmblueprint
-Secrets.xcconfig
-mlx_model/
 
 # Logs
-*.log
-
+# Package.resolved (optional – keep only if you want reproducible builds)
+# Podfile.lock (apps → COMMIT, libraries → optional)
+# Temp files
+# Thumbnails
 # User-specific settings
+### Archive ###
+### CocoaPods ###
+### Environment ###
+### Fastlane ###
+### MacOS ###
+### Simulator ###
+### Swift ###
+### Swift Package Manager ###
+### Xcode ###
+### iOS Specific ###
+*.dSYM
+*.dSYM.zip
+*.ipa
+*.lock
+*.log
 *.mode1v3
 *.mode2v3
+*.moved-aside
 *.perspectivev3
-
-### Swift ###
 *.swiftsourceinfo
-
-### iOS Specific ###
-Pods/
-Carthage/Build/
-Carthage/Checkouts/
+*.swp
+*.tmp
+*.xcarchive
+*.xccheckout
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcscmblueprint
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+.AppleDouble
+.DS_Store
+.LSOverride
+._*
 .build/
-*.dSYM.zip
-*.dSYM
-
-### Swift Package Manager ###
+.env
 .swiftpm
 /.build/
-# Package.resolved (optional – keep only if you want reproducible builds)
-
-### CocoaPods ###
+Carthage/Build/
+Carthage/Checkouts/
+DerivedData/
+Library/Developer/CoreSimulator
 Pods/
-# Podfile.lock (apps → COMMIT, libraries → optional)
-
-### Fastlane ###
-fastlane/report.xml
+Secrets.xcconfig
+Secrets.xcconfig
+build/
+build_log.txt
+build_log.txt
 fastlane/Preview.html
+fastlane/report.xml
 fastlane/screenshots
 fastlane/test_output
-
-### MacOS ###
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Thumbnails
-._*
-
-# Temp files
-*.swp
-*.lock
-*.tmp
-
-### Simulator ###
-Library/Developer/CoreSimulator
-
-### Archive ###
-*.xcarchive
-
-### Environment ###
-.env
-
-build_log.txt
+mlx_model/
