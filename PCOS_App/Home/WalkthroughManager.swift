@@ -128,14 +128,13 @@ final class WalkthroughManager {
             .first(where: { $0.isKeyWindow }) else { return }
             
         let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "DietTypeViewController") as? UIViewController {
-            vc.modalPresentationStyle = .pageSheet
-            var topVC = window.rootViewController
-            while let presented = topVC?.presentedViewController {
-                topVC = presented
-            }
-            topVC?.present(vc, animated: true)
+        let vc = storyboard.instantiateViewController(withIdentifier: "DietTypeViewController")
+        vc.modalPresentationStyle = .pageSheet
+        var topVC = window.rootViewController
+        while let presented = topVC?.presentedViewController {
+            topVC = presented
         }
+        topVC?.present(vc, animated: true)
     }
 
     private func forcePresentActivityType() {
@@ -145,14 +144,13 @@ final class WalkthroughManager {
             .first(where: { $0.isKeyWindow }) else { return }
             
         let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "MovementTypeViewController") as? UIViewController {
-            vc.modalPresentationStyle = .pageSheet
-            var topVC = window.rootViewController
-            while let presented = topVC?.presentedViewController {
-                topVC = presented
-            }
-            topVC?.present(vc, animated: true)
+        let vc = storyboard.instantiateViewController(withIdentifier: "MovementTypeViewController")
+        vc.modalPresentationStyle = .pageSheet
+        var topVC = window.rootViewController
+        while let presented = topVC?.presentedViewController {
+            topVC = presented
         }
+        topVC?.present(vc, animated: true)
     }
 
     private func showAllSetCongrats() {

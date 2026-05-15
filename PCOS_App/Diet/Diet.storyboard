@@ -27,7 +27,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="WIV-ha-D5U">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dummyCell" id="WIV-ha-D5U">
                                         <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="cE6-5Q-hEw">
@@ -509,7 +509,7 @@
         <!--Navigation Controller-->
         <scene sceneID="a0d-o2-Jbg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wWM-y4-6gr" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavwWM" automaticallyAdjustsScrollViewInsets="NO" id="wWM-y4-6gr" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gco-x2-V4l">
                         <rect key="frame" x="0.0" y="16" width="393" height="54"/>
@@ -527,7 +527,7 @@
         <!--Navigation Controller-->
         <scene sceneID="x8q-KZ-n65">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xc8-86-UaD" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Navxc8" automaticallyAdjustsScrollViewInsets="NO" id="xc8-86-UaD" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="pef-c6-xvF">
                         <rect key="frame" x="0.0" y="118" width="393" height="54"/>
@@ -545,7 +545,7 @@
         <!--Navigation Controller-->
         <scene sceneID="uLC-3e-3dw">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="itP-kI-dhE" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavitP" automaticallyAdjustsScrollViewInsets="NO" id="itP-kI-dhE" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aik-x6-Bkq">
                         <rect key="frame" x="0.0" y="118" width="393" height="54"/>
@@ -645,7 +645,7 @@
         <!--Navigation Controller-->
         <scene sceneID="7IW-0D-s6c">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1Pr-Gt-1RK" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Nav1Pr" automaticallyAdjustsScrollViewInsets="NO" id="1Pr-Gt-1RK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Trd-S4-p4B">
                         <rect key="frame" x="0.0" y="118" width="393" height="54"/>

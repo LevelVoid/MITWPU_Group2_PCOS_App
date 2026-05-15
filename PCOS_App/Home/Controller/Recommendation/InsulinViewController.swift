@@ -103,7 +103,7 @@ extension InsulinViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let selectedFood = highSugarFoods[indexPath.row]
+        let _ = highSugarFoods[indexPath.row]
     }
 }
 

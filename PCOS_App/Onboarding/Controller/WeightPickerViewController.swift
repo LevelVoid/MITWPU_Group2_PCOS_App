@@ -275,7 +275,7 @@ class CircularArcWeightPickerView: UIView, UIScrollViewDelegate {
         guard value >= minValue && value <= maxValue else { return }
         currentValue = value
         
-        let padding = bounds.width / 2
+        let _ = bounds.width / 2
         let offset = CGFloat(value - minValue) * spacing
         
         scrollView.setContentOffset(CGPoint(x: offset, y: 0), animated: false)

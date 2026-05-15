@@ -305,8 +305,8 @@ extension CycleDataStore {
             // Delete all CDCycleData
             let deleteRequest: NSFetchRequest<NSFetchRequestResult> = CDCycleData.fetchRequest()
             let batchDelete = NSBatchDeleteRequest(fetchRequest: deleteRequest)
-            try? context.execute(batchDelete)
-            try? context.save()
+            _ = try? context.execute(batchDelete)
+            _ = try? context.save()
             return
         }
 

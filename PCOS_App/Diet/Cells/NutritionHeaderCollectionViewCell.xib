@@ -29,7 +29,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="0000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JW0-ql-3Kx">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="0000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JW0-ql-3Kx">
                                         <rect key="frame" x="29.999999999999993" y="50" width="88.333333333333314" height="40.666666666666657"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="34"/>
                                         <nil key="textColor"/>
@@ -56,7 +56,7 @@
                                             <constraint firstAttribute="trailing" secondItem="VhK-s8-QXs" secondAttribute="trailing" constant="30" id="uzG-kL-GuA"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/1752kcal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7J-ln-oct">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/1752kcal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7J-ln-oct">
                                         <rect key="frame" x="120.33333333333334" y="57.000000000000007" width="94.333333333333343" height="26.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -497,7 +497,7 @@ extension WorkoutViewController: WalkthroughManagerDelegate {
     private func showCreateRoutineWalkthroughOverlay() {
         guard WalkthroughManager.shared.isActive,
               WalkthroughManager.shared.currentStep == .workoutIntro,
-              let window = view.window else { return }
+              view.window != nil else { return }
               
         // We want to point to the "+" button which is the first cell in section 1 when empty
         // Or the "+" cell if there are routines.
@@ -560,7 +560,7 @@ extension WorkoutViewController: WalkthroughManagerDelegate {
     private func showPremadeRoutineWalkthroughOverlay() {
         guard WalkthroughManager.shared.isActive,
               WalkthroughManager.shared.currentStep == .workoutPremade,
-              let window = view.window else { return }
+              view.window != nil else { return }
               
         // Point to the first recommended routine in section 2
         let targetIndexPath = IndexPath(item: 0, section: 2)

@@ -304,35 +304,35 @@ private func dietGoals(for user: UserProfile) -> DietGoals {
  
     let carbPct: Double
     let proteinPct: Double
-    let fatPct: Double
+
  
     switch (user.phenotype, user.bmiCategory) {
  
     // High IR + high BMI → most aggressive carb reduction
     case (.typeA, .obese), (.typeA, .overweight),
          (.typeB, .obese), (.typeB, .overweight):
-        carbPct = 0.25; proteinPct = 0.30; fatPct = 0.45
+        carbPct = 0.25; proteinPct = 0.30
  
     // High IR + healthy weight → moderate carb reduction
     case (.typeA, .normal), (.typeA, .underweight),
          (.typeB, .normal), (.typeB, .underweight):
-        carbPct = 0.35; proteinPct = 0.28; fatPct = 0.37
+        carbPct = 0.35; proteinPct = 0.28
  
     // Moderate IR + high BMI
     case (.typeC, .obese), (.typeC, .overweight):
-        carbPct = 0.32; proteinPct = 0.27; fatPct = 0.41
+        carbPct = 0.32; proteinPct = 0.27
  
     // Moderate IR + healthy weight
     case (.typeC, .normal), (.typeC, .underweight):
-        carbPct = 0.42; proteinPct = 0.23; fatPct = 0.35
+        carbPct = 0.42; proteinPct = 0.23
  
     // Low IR risk + high BMI
     case (.typeD, .obese), (.typeD, .overweight):
-        carbPct = 0.35; proteinPct = 0.25; fatPct = 0.40
+        carbPct = 0.35; proteinPct = 0.25
  
     // Low IR risk + healthy weight / unknown
     default:
-        carbPct = 0.42; proteinPct = 0.23; fatPct = 0.35
+        carbPct = 0.42; proteinPct = 0.23
     }
  
     // ── Step 3: Diet-pattern nudge ────────────────────────────────────────────

@@ -109,7 +109,7 @@ struct CycleLogicTests {
     /// Brand-new user with no cycles → should get .unknown, NOT .luteal
     static func testCurrentPhaseInfo_NoCycles() {
         print("\n── Test: currentPhaseInfo with 0 cycles ──")
-        let savedCycles = store.cycles  // save current state
+        _ = store.cycles  // save current state
 
         // Temporarily clear cycles to test empty state
         // (We can't easily set cycles on a singleton, so we just check what the current state is)

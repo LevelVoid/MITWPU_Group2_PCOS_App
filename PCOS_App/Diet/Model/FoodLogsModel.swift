@@ -53,13 +53,13 @@ struct Food: Codable, Identifiable {
 }
 
 
-struct OFFResponse: Codable {
+struct OFFResponse: Codable, Sendable {
     let status: Int
     let code: String
     let product: OFFProduct?
 }
 
-struct OFFProduct: Codable {
+struct OFFProduct: Codable, Sendable {
     let product_name: String?
     let image_url: String?
     let image_front_url: String?
@@ -69,7 +69,7 @@ struct OFFProduct: Codable {
     
 }
 
-struct OFFNutriments: Codable {
+struct OFFNutriments: Codable, Sendable {
     let energyKcal100g: Double?
     let proteins100g: Double?
     let carbohydrates100g: Double?
@@ -85,7 +85,7 @@ struct OFFNutriments: Codable {
     }
 }
 
-struct OFFIngredient: Codable {
+struct OFFIngredient: Codable, Sendable {
     let text: String?
 }
 

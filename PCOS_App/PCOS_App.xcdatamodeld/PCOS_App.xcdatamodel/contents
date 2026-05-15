@@ -11,7 +11,7 @@
         <attribute name="caloriesBurned" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="durationSeconds" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="exercisesData" attributeType="Transformable" customClassName="NSData"/>
+        <attribute name="exercisesData" attributeType="Transformable" customClassName="NSData" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="routineName" attributeType="String"/>
         <attribute name="startTime" attributeType="Date" usesScalarValueType="NO"/>

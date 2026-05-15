@@ -377,7 +377,7 @@ class SymptomPatternsCollectionViewCell:
 
                 let rowGroup = NSCollectionLayoutGroup.horizontal(
                     layoutSize: rowGroupSize,
-                    subitem: item,
+                    repeatingSubitem: item,
                     count: columns
                 )
                 rowGroup.interItemSpacing = .fixed(4)
@@ -389,7 +389,7 @@ class SymptomPatternsCollectionViewCell:
                 )
                 let gridGroup = NSCollectionLayoutGroup.vertical(
                     layoutSize: gridGroupSize,
-                    subitem: rowGroup,
+                    repeatingSubitem: rowGroup,
                     count: rows
                 )
 

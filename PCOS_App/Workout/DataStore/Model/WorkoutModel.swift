@@ -6,7 +6,7 @@
 //
 import UIKit//for gif
 import Foundation
-enum Equipment: String, Codable, CaseIterable {
+enum Equipment: String, Codable, CaseIterable, Sendable {
     case allEquipment,none,barbell,dumbbell,kettlebell,machine,resistanceBand,plate
     
     var displayName: String {
@@ -34,7 +34,7 @@ enum Equipment: String, Codable, CaseIterable {
             }
         }
 }
-enum MuscleGroup: String, Codable, CaseIterable {
+enum MuscleGroup: String, Codable, CaseIterable, Sendable {
     case allMuscles,core, chest, back, legs, shoulders, arms, glutes, cardio, mobility, fullBody
     
     var displayName: String {
@@ -73,7 +73,7 @@ enum MuscleGroup: String, Codable, CaseIterable {
             return self == .cardio
         }
 }
-struct Exercise: Identifiable, Codable {
+struct Exercise: Identifiable, Codable, Sendable {
     var id: UUID
     let name: String
     let muscleGroup: MuscleGroup          // this IS your primary muscle

@@ -28,7 +28,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="FgZ-V9-fIX">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dummyCollection" id="FgZ-V9-fIX">
                                         <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2UE-uR-dLQ">
@@ -735,12 +735,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Jme-GP-MZn">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="Atq-6s-mtX">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Atq-6s-mtX">
                             <connections>
                                 <action selector="crossTapped:" destination="GdX-L9-6Xr" id="lvY-Ju-rBn"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="Yt1-gb-xuW">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Yt1-gb-xuW">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="endWorkoutTapped:" destination="GdX-L9-6Xr" id="3VF-HN-YsZ"/>
                             </connections>
@@ -1258,7 +1259,7 @@
         <!--Navigation Controller-->
         <scene sceneID="ju7-xM-WsE">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="udQ-TP-8pg" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavudQ" automaticallyAdjustsScrollViewInsets="NO" id="udQ-TP-8pg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZPb-95-JP6">
                         <rect key="frame" x="0.0" y="16" width="393" height="54"/>
@@ -1280,7 +1281,7 @@
         <!--Navigation Controller-->
         <scene sceneID="BVX-KQ-y4P">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8J2-Rq-1eq" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Nav8J2" automaticallyAdjustsScrollViewInsets="NO" id="8J2-Rq-1eq" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hhS-NP-gck">
                         <rect key="frame" x="0.0" y="16" width="393" height="54"/>
@@ -1298,7 +1299,7 @@
         <!--Navigation Controller-->
         <scene sceneID="oBR-Fi-fHj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4T5-sc-pl3" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Nav4T5" automaticallyAdjustsScrollViewInsets="NO" id="4T5-sc-pl3" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1FC-8J-fv4">
                         <rect key="frame" x="0.0" y="16" width="393" height="54"/>
@@ -1491,7 +1492,7 @@
                         <outlet property="playImageView" destination="cyX-HV-4nW" id="Fkx-j8-hOh"/>
                         <outlet property="timeTagContainer" destination="Jw6-Eh-ujF" id="rDY-Ke-96G"/>
                         <segue destination="4T5-sc-pl3" kind="presentation" identifier="InfoModal" id="Juh-00-hdX"/>
-                        <segue destination="3gp-3g-8ct" kind="presentation" modalPresentationStyle="fullScreen" id="Hfx-qa-KHJ"/>
+                        <segue destination="3gp-3g-8ct" kind="presentation" identifier="dummySegue" modalPresentationStyle="fullScreen" id="Hfx-qa-KHJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K6H-fX-88e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1577,7 +1578,7 @@
         <!--Navigation Controller-->
         <scene sceneID="cNY-zq-Gh1">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DQh-py-x06" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavDQh" automaticallyAdjustsScrollViewInsets="NO" id="DQh-py-x06" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZyN-Sd-69N">
                         <rect key="frame" x="0.0" y="59" width="393" height="54"/>
@@ -1625,22 +1626,22 @@
                                         <rect key="frame" x="0.0" y="120.33333333333331" width="393" height="545.66666666666674"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="D5M-d4-TRP">
-                                                <rect key="frame" x="0.0" y="50" width="393" height="51.333332061767578"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="dummyTable" id="D5M-d4-TRP">
+                                                <rect key="frame" x="0.0" y="50" width="393" height="52.333332061767578"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D5M-d4-TRP" id="RZp-np-n88">
-                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="51.333332061767578"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="52.333332061767578"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9JB-59-mVj">
-                                                            <rect key="frame" x="15" y="0.66666666666666785" width="50" height="50"/>
+                                                            <rect key="frame" x="15" y="1.3333333333333321" width="50" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="Ouj-YP-LK7"/>
                                                                 <constraint firstAttribute="width" constant="50" id="qoA-HO-k5U"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ixQ-nb-O8C">
-                                                            <rect key="frame" x="89" y="14.999999999999998" width="284" height="21.333333333333329"/>
+                                                            <rect key="frame" x="89" y="14.999999999999998" width="284" height="22.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1799,7 +1800,7 @@
         <!--Navigation Controller-->
         <scene sceneID="nSJ-Xl-Ils">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="H8F-4v-f90" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavH8F" automaticallyAdjustsScrollViewInsets="NO" id="H8F-4v-f90" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4qQ-bi-a3G">
                         <rect key="frame" x="0.0" y="118" width="393" height="54"/>
@@ -1837,25 +1838,25 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPurpleColor">
-            <color red="0.79607843140000001" green="0.18823529410000001" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.79607843137254897" green="0.18823529411764706" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

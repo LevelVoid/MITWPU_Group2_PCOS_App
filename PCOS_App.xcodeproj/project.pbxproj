@@ -329,11 +329,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E90BC2605B35672CA5B7F19 /* OnboardingManager.swift in Sources */,
-				5164A4770D59073F35B5D91F /* OnboardingPage.swift in Sources */,
-				9AB3B06BA8931B1A4C9FA7CC /* OnboardingPageViewController.swift in Sources */,
-				DC9FC68AD96876962060775C /* OnboardingContainerViewController.swift in Sources */,
-				C4AD298F71E9B07365205FB5 /* UIView+ParentVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
