@@ -9,19 +9,13 @@
 /* Begin PBXBuildFile section */
 		19AAC9322ED5C04F00B83D7B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 19AAC9312ED5C04700B83D7B /* README.md */; };
 		19AAC9342ED5C1BC00B83D7B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 19AAC9332ED5C1B000B83D7B /* .gitignore */; };
-		1CA7707A2FB304D000309433 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1CA770792FB304D000309433 /* Secrets.xcconfig */; };
 		1F832979208BE074C0306F1F /* ActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38848CDF9FF987B704A7D9F8 /* ActivityKit.framework */; };
-		41624167DD70FF899CC27DDD /* WorkoutWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7ACD8A682EF94CC66992A097 /* WorkoutWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		41624167DD70FF899CC27DDD /* WorkoutWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7ACD8A682EF94CC66992A097 /* WorkoutWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5021B362188549F625C7E48D /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B358C68D582CEFE7CAB58347 /* WidgetKit.framework */; };
-		5164A4770D59073F35B5D91F /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94860791055362B16CD5908D /* OnboardingPage.swift */; };
-		5E90BC2605B35672CA5B7F19 /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF623DA6D7E14B82E4758318 /* OnboardingManager.swift */; };
 		667F03BF1A33C0E140AE0738 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD5519D776BFCCFFCD4C2CFC /* SwiftUI.framework */; };
 		7A5ADB5050ACCF5E16A7F6A2 /* WorkoutLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB70645F661AEE395E439D6B /* WorkoutLiveActivityAttributes.swift */; };
 		87C4E15BFB5D664565B677F6 /* WorkoutLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E287544AC930323A21D9F9 /* WorkoutLiveActivity.swift */; };
-		9AB3B06BA8931B1A4C9FA7CC /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D001F89A54AF8B3E48EC2B06 /* OnboardingPageViewController.swift */; };
 		B86E1B2235C2EA27EFB5340E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90D46D2813F4855C18D32140 /* Foundation.framework */; };
-		C4AD298F71E9B07365205FB5 /* UIView+ParentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9516770871223C7A2F77848F /* UIView+ParentVC.swift */; };
-		DC9FC68AD96876962060775C /* OnboardingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4AE6EC60A055764B143664 /* OnboardingContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,15 +29,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0FBAE7F9F23FF1ECEEAC381B /* Embed App Extensions */ = {
+		0FBAE7F9F23FF1ECEEAC381B /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				41624167DD70FF899CC27DDD /* WorkoutWidgetExtension.appex in Embed App Extensions */,
+				41624167DD70FF899CC27DDD /* WorkoutWidgetExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -237,7 +231,7 @@
 				190B1DEC2ED1B5FF0014994E /* Sources */,
 				190B1DED2ED1B5FF0014994E /* Frameworks */,
 				190B1DEE2ED1B5FF0014994E /* Resources */,
-				0FBAE7F9F23FF1ECEEAC381B /* Embed App Extensions */,
+				0FBAE7F9F23FF1ECEEAC381B /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -277,7 +271,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2610;
-				LastUpgradeCheck = 2610;
+				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					190B1DEF2ED1B5FF0014994E = {
 						CreatedOnToolsVersion = 26.1.1;
@@ -310,7 +304,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				19AAC9322ED5C04F00B83D7B /* README.md in Resources */,
-				1CA7707A2FB304D000309433 /* Secrets.xcconfig in Resources */,
 				19AAC9342ED5C1BC00B83D7B /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,7 +355,6 @@
 				CODE_SIGN_ENTITLEMENTS = PCOS_App/PCOS_App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = J4B79XL3D5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCOS_App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Adira;
@@ -401,7 +393,6 @@
 				CODE_SIGN_ENTITLEMENTS = PCOS_App/PCOS_App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = J4B79XL3D5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCOS_App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Adira;
@@ -466,6 +457,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = J4B79XL3D5;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -489,6 +481,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -529,6 +522,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = J4B79XL3D5;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -545,6 +539,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -556,7 +551,6 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = J4B79XL3D5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WorkoutWidgetExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
@@ -576,7 +570,6 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = J4B79XL3D5;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WorkoutWidgetExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
