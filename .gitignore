@@ -47,7 +47,7 @@ Carthage/Checkouts/
 DerivedData/
 Library/Developer/CoreSimulator
 Pods/
-Secrets.xcconfig
+*Secrets.xcconfig
 Secrets.xcconfig
 build/
 build_log.txt
