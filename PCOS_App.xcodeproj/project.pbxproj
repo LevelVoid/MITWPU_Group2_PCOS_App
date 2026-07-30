@@ -16,7 +16,6 @@
 		7A5ADB5050ACCF5E16A7F6A2 /* WorkoutLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB70645F661AEE395E439D6B /* WorkoutLiveActivityAttributes.swift */; };
 		87C4E15BFB5D664565B677F6 /* WorkoutLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E287544AC930323A21D9F9 /* WorkoutLiveActivity.swift */; };
 		B86E1B2235C2EA27EFB5340E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90D46D2813F4855C18D32140 /* Foundation.framework */; };
-		F0B754192FD2A4E800CF7E6A /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F0B754182FD2A4E800CF7E6A /* Secrets.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +69,6 @@
 		CB70645F661AEE395E439D6B /* WorkoutLiveActivityAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WorkoutLiveActivityAttributes.swift; path = ../PCOS_App/Workout/DataStore/WorkoutLiveActivityAttributes.swift; sourceTree = "<group>"; };
 		CF623DA6D7E14B82E4758318 /* OnboardingManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OnboardingManager.swift; path = PCOS_App/Onboarding/Managers/OnboardingManager.swift; sourceTree = "<group>"; };
 		D001F89A54AF8B3E48EC2B06 /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OnboardingPageViewController.swift; path = PCOS_App/Onboarding/Controllers/OnboardingPageViewController.swift; sourceTree = "<group>"; };
-		F0B754182FD2A4E800CF7E6A /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -131,7 +129,6 @@
 		190B1DE72ED1B5FF0014994E = {
 			isa = PBXGroup;
 			children = (
-				F0B754182FD2A4E800CF7E6A /* Secrets.xcconfig */,
 				190B1DF22ED1B5FF0014994E /* PCOS_App */,
 				1CA0C1002FCDFA2300B3F448 /* PCOS_AppUITests */,
 				190B1DF12ED1B5FF0014994E /* Products */,
@@ -355,7 +352,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				19AAC9322ED5C04F00B83D7B /* README.md in Resources */,
-				F0B754192FD2A4E800CF7E6A /* Secrets.xcconfig in Resources */,
 				19AAC9342ED5C1BC00B83D7B /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
